@@ -1,7 +1,10 @@
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose.compiler)
-    `maven-publish`
+    alias(libs.plugins.vanniktech.maven.publish)
 }
 
 android {
@@ -12,12 +15,6 @@ android {
         minSdk = 21
         consumerProguardFiles("consumer-rules.pro")
     }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-        }
-    }
 }
 
 dependencies {
@@ -27,16 +24,46 @@ dependencies {
     implementation(libs.compose.ui.graphics)
 }
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            afterEvaluate {
-                from(components["release"])
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+
+    coordinates(
+        groupId = providers.gradleProperty("composeIconsGroup").get(),
+        artifactId = "icons-lucide",
+        version = providers.gradleProperty("composeIconsVersion").get(),
+    )
+
+    configure(
+        AndroidSingleVariantLibrary(
+            variant = "release",
+            sourcesJar = true,
+            publishJavadocJar = true,
+        )
+    )
+
+    pom {
+        name.set("icons-lucide")
+        description.set("Lucide Icons (Outline) for Jetpack Compose - generated via usvg pipeline")
+        url.set("https://github.com/jinghu-moon/compose-icons")
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+                distribution.set("repo")
             }
-            groupId = providers.gradleProperty("composeIconsGroup").get()
-            artifactId = "icons-lucide"
-            version = providers.gradleProperty("composeIconsVersion").get()
+        }
+        developers {
+            developer {
+                id.set("jinghu-moon")
+                name.set("Jinghu Moon")
+                url.set("https://github.com/jinghu-moon")
+            }
+        }
+        scm {
+            url.set("https://github.com/jinghu-moon/compose-icons")
+            connection.set("scm:git:git://github.com/jinghu-moon/compose-icons.git")
+            developerConnection.set("scm:git:ssh://git@github.com/jinghu-moon/compose-icons.git")
         }
     }
 }
-

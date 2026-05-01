@@ -1,0 +1,2 @@
+-keep class composeicons.tabler.** { *; }
+-keep class composeicons.lucide.** { *; }

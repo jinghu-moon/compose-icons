@@ -578,10 +578,14 @@ CI 缓存命中后增量构建 < 5s（仅重新生成上游变更的图标）。
 
 | 场景 | material-icons-extended | DevSrSouza | composablehorizons | **本项目** |
 |------|------------------------|------------|---------------------|----------|
-| 0 引用（baseline） | 0 KB | 0 KB | 0 KB | 0 KB |
-| 引用 10 个 outline | 待测 | 待测 | 待测 | 目标 < 30 KB |
-| 引用 100 个 outline | 待测 | 待测 | 待测 | 目标 < 250 KB |
-| 全量 6092 引用（极端） | ~5 MB | ~3 MB | ~2 MB | 目标 < 2 MB |
+| 0 引用（baseline） | 0 KB | 0 KB | 0 KB | 0 KB (基准 856 KB) |
+| 引用 10 个 outline | 待测 | 待测 | 待测 | +112 KB |
+| 引用 100 个 outline | 待测 | 待测 | 待测 | +144 KB |
+| 全量 7795 引用（极端） | ~5 MB | ~3 MB | ~2 MB | +2.31 MB |
+
+> ⚠️ **"全量 7795 引用" 行的实测口径**：`sample` 模块的 `all` variant 的 `DemoIcons` 实际是 `emptyList()`，全量保留通过 `proguard-rules-all.pro` 中的 `-keep class composeicons.tabler.**` / `-keep class composeicons.lucide.**` 让 R8 不裁剪任何图标类得到。这测的是 **R8 上界**——即"如果一个使用方意外引用了全部 7795 个图标，最坏 dex 增长多少"。真实场景下用户主动在代码里写 7795 个 `Icon(...)` 调用，编译器还会做 const inlining，实际体积**略低于** 2.31 MB。
+>
+> 选择 R8 上界口径而非"真实写 7795 行 `Icon(...)` 调用"是务实考量：后者要生成一个 ~10 MB 的 `DemoIconsAll.kt`，编译时间会爆炸。上界数值已经能回答"全量场景的最坏代价"，对使用方决策足够。
 
 ## 7. 与同类项目的对比定位
 

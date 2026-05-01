@@ -61,14 +61,16 @@ fun MyScreen() {
 
 ## 📊 APK 体积模型
 
-| 引用图标数 | 增量 dex 大小（R8 release） | 与 material-icons-extended 对比 |
-|----------|---------------------------|------------------------------|
-| 0（baseline） | 0 KB | 0 KB |
-| 10 | 待 Phase 9 实测填充 | 同等 |
-| 100 | 待 Phase 9 实测填充 | 同等 |
-| 全量（极端） | 待 Phase 9 实测填充 | 显著更小（无中间格式） |
+| 引用图标数 | 增量 Dex 大小 (相对于 0) | 区间内单图标平均边际 |
+|----------|---------------------------|----------------|
+| 0（baseline） | 0 KB (基准 856 KB) | - |
+| 10 | +112 KB (含类库基础结构初始化) | ~11 KB（首次引入摊销）|
+| 100 | +144 KB | ~360 字节（10 → 100 区间）|
+| 全量 (~7795 个) | +2.31 MB | ~285 字节（100 → 全量区间）|
 
 > 数据由 `sample/` 模块的 4 个 build variant（zero / ten / hundred / all）实测填充。详见 [架构白皮书 §6.4](./docs/architecture.md#64-与同类项目的体积对照)。
+>
+> ⚠️ **关于 "全量" 行的口径**：`all` variant 通过 `proguard-rules-all.pro` 中的 `-keep class composeicons.tabler.**` 强制 R8 保留所有图标类，得到的 +2.31 MB 是 **R8 不裁剪时的上界**。真实使用场景下，开发者主动在代码里引用 7795 个 `val`，编译器会做 const inlining + 部分 lambda 内联，实际体积**略低于此值**。该指标用于回答 "如果你不小心把全部图标都拉进来，最坏多大"。
 
 **核心承诺**：使用方 APK 中**只**包含被实际引用的图标。如果你只用了 `TablerIcons.Outline.Home`，release APK 中只有 `Home` 这一个图标的 path 数据，剩下 6091 个 outline + 1053 个 filled icons **全部被 R8 移除**。
 

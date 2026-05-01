@@ -6,16 +6,38 @@ activityCompose = "1.12.0"
 junit = "4.13.2"
 kotlinTest = "2.3.10"
 
+# Screenshot testing (Roborazzi replaces Paparazzi for AGP 9 compatibility)
+roborazzi = "1.60.0"
+robolectric = "4.13"
+androidxTest = "1.6.1"
+androidxTestExt = "1.2.1"
+
+# Maven Central publishing (vanniktech plugin handles new Central Portal API)
+vanniktechMavenPublish = "0.30.0"
+
+
 [libraries]
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 junit4 = { module = "junit:junit", version.ref = "junit" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlinTest" }
+
+# Roborazzi screenshot testing
+roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = "roborazzi" }
+roborazzi-compose = { module = "io.github.takahirom.roborazzi:roborazzi-compose", version.ref = "roborazzi" }
+roborazzi-junit = { module = "io.github.takahirom.roborazzi:roborazzi-junit-rule", version.ref = "roborazzi" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+androidx-test-core = { module = "androidx.test:core-ktx", version.ref = "androidxTest" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTest" }
+androidx-test-ext-junit = { module = "androidx.test.ext:junit-ktx", version.ref = "androidxTestExt" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -23,3 +45,9 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+# Screenshot testing
+roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
+
+# Maven Central publishing (auto-handles Central Portal vs s01 OSSRH)
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktechMavenPublish" }

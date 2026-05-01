@@ -169,7 +169,7 @@
 
 - [x] `8.6` 实现 `UsvgPipeline`：进程调用 + ExecutorService 线程池并发（worker pool 等同 CPU 核数）
 - [x] `8.7` 调用参数固化为 `usvg - -c --indent none --coordinates-precision 6`
-- [ ] `8.8` 异常处理：usvg exit code 非 0 → 该图标判失败，记录 stderr 到报告（已 catch 异常并写入 FailedIcon.reason，但 stderr 详细文本是否完整入报告待补强）
+- [x] `8.8` 异常处理：usvg exit code 非 0 → 该图标判失败，记录 stderr 到报告（已在 UsvgPipeline 异常信息中包含 stderr 并由 GeneratorEngine 记录）
 - [-] `8.9` 性能目标：全量 6092 + 1703 = 7795 张拍平 < 60s（实测 Lucide 1703 张 ≈ 45s；全量未测；瓶颈是 ProcessBuilder 子进程启动开销 ~25ms × N，与"代码极简、无重型依赖"是合理折中。详见 [architecture.md §6.1](./architecture.md#61-构建期)）
 
 验收标准：
@@ -243,7 +243,7 @@
 ### 10.8 三层解耦验证
 
 - [x] `8.31` 在 generator-core 中 grep 任何 "tabler" / "lucide" 字面量 → 0 命中（手工 grep 已验证）
-- [ ] `8.32` 写一份 `architecture-compliance-test.kt`，断言核心类不引用具体图标源类（自动化版本，作为 Phase 8 收尾建议补完）
+- [x] `8.32` 写一份 `architecture-compliance-test.kt`，断言核心类不引用具体图标源类（自动化版本，作为 Phase 8 收尾建议补完）
 - [x] `8.33` IconSource 接口完整契约文档化（已落地在 [architecture.md §4.1](./architecture.md#41-接口签名)）
 
 ## 11. Phase 9 - 真实 Sample 与 Paparazzi 采样基线
@@ -252,17 +252,17 @@
 
 ### 11.1 Sample 重构
 
-- [ ] `9.1` 删除 `sample/MainActivity.kt` 占位文本
-- [ ] `9.2` 实现 demo 屏：grid 列出 ~10 个代表图标（含 outline + filled + Lucide）
-- [ ] `9.3` 实现 tint 切换示例（验证主题响应不需要 @Composable val）
+- [x] `9.1` 删除 `sample/MainActivity.kt` 占位文本
+- [x] `9.2` 实现 demo 屏：grid 列出 ~10 个代表图标（含 outline + filled + Lucide）
+- [x] `9.3` 实现 tint 切换示例（验证主题响应不需要 @Composable val）
 - [ ] `9.4` 编写 README 引用代码片段
 
 ### 11.2 Benchmark 配置
 
-- [ ] `9.5` 配置 4 个 build variant：`zero` / `ten` / `hundred` / `all`，分别引用 0/10/100/全量 图标
-- [ ] `9.6` 启用 R8 release build
+- [x] `9.5` 配置 4 个 build variant：`zero` / `ten` / `hundred` / `all`，分别引用 0/10/100/全量 图标
+- [x] `9.6` 启用 R8 release build
 - [ ] `9.7` 接入 baseline profile（启动性能基准）
-- [ ] `9.8` Gradle 任务 `:sample:reportApkSize` 输出各 variant 的 dex / arsc / 总大小
+- [x] `9.8` Gradle 任务 `:sample:reportApkSize` 输出各 variant 的 dex / arsc / 总大小
 
 验收标准：
 
@@ -272,10 +272,10 @@
 
 ### 11.3 Paparazzi 采样基线
 
-- [ ] `9.9` 在 sample 中接入 Paparazzi
+- [x] `9.9` 在 sample 中接入 Roborazzi (替代 Paparazzi 以适配 AGP 9)
 - [ ] `9.10` 编写采样选择器：每 source × style 选 50 个代表（复杂曲线 / 多 path / evenodd / 数字前缀 / alias 变更）
 - [ ] `9.11` 生成首批基线 PNG（150 张），存入 `sample/src/test/snapshots/`
-- [ ] `9.12` CI 集成：每次 PR 跑 Paparazzi verify，失败时上传 diff
+- [ ] `9.12` CI 集成：每次 PR 跑 Roborazzi verify，失败时上传 diff
 - [ ] `9.13` 文档：截图基线维护流程（如何 record 新基线）
 
 验收标准：
@@ -298,15 +298,15 @@
 - [x] `10.1` `docs/architecture.md` 架构白皮书
 - [x] `10.2` `docs/01_design_specification.md` 重写
 - [x] `10.3` `docs/02_implementation_tasks.md` 更新（本文）
-- [-] `10.4` `README.md` 编写：定位 / 安装 / 最小示例 / 体积模型 / 与同类库对比表（已有初版，需在 Phase 9 数据出来后回填体积矩阵）
-- [ ] `10.5` 上游许可证声明（`LICENSE-tabler` / `LICENSE-lucide` / 项目 LICENSE）
-- [ ] `10.6` `CHANGELOG.md` 初始化
+- [x] `10.4` `README.md` 编写：定位 / 安装 / 最小示例 / 体积模型 / 与同类库对比表（体积矩阵已回填）
+- [x] `10.5` 上游许可证声明（`LICENSE-tabler` / `LICENSE-lucide` / 项目 LICENSE）
+- [x] `10.6` `CHANGELOG.md` 初始化
 
 ### 12.2 发布渠道
 
 - [ ] `10.7` 申请 Maven Central namespace `io.github.jinghu-moon`（如未有）
 - [ ] `10.8` 配置 `signing` plugin + GPG 密钥
-- [ ] `10.9` 跑 `publishToMavenLocal` 本地验证
+- [x] `10.9` 跑 `publishToMavenLocal` 本地验证
 - [ ] `10.10` 跑 `publishToSonatype` + `closeAndReleaseStagingRepository`
 - [ ] `10.11` 验证使用方 `implementation("io.github.jinghu-moon.composeicons:icons-tabler:0.1.0")` 能正确拉取
 - [ ] `10.12` 配置 JitPack（备用渠道）
@@ -316,10 +316,10 @@
 - [ ] `10.13` 生成报告无未知失败
 - [ ] `10.14` 单元 + 集成测试通过
 - [ ] `10.15` Paparazzi 截图基线无 diff
-- [ ] `10.16` Sample 4 variant R8 release build 通过
-- [ ] `10.17` 体积矩阵填入 README
-- [ ] `10.18` 上游版本与许可证声明完整
-- [ ] `10.19` `publishToMavenLocal` 成功
+- [x] `10.16` Sample 4 variant R8 release build 通过
+- [x] `10.17` 体积矩阵填入 README
+- [x] `10.18` 上游版本与许可证声明完整
+- [x] `10.19` `publishToMavenLocal` 成功
 - [ ] `10.20` 拉一个 git tag `v0.1.0` 触发发布
 
 ## 13. v2 路线图（不在 v1 范围）

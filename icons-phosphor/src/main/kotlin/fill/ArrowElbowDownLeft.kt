@@ -1,0 +1,56 @@
+package composeicons.phosphor.fill
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorFillIcon
+
+val PhosphorIcons.Fill.ArrowElbowDownLeft: ImageVector
+    get() {
+        if (_arrowElbowDownLeft != null) return _arrowElbowDownLeft!!
+        _arrowElbowDownLeft = phosphorFillIcon(
+            name = "ArrowElbowDownLeft",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(200.0f, 32.0f),
+                    PathNode.LineTo(200.0f, 176.0f),
+                    PathNode.CurveTo(200.0f, 180.41827f, 196.41827f, 184.0f, 192.0f, 184.0f),
+                    PathNode.LineTo(104.0f, 184.0f),
+                    PathNode.LineTo(104.0f, 224.0f),
+                    PathNode.CurveTo(104.00255f, 227.23764f, 102.05338f, 230.15764f, 99.062325f, 231.39697f),
+                    PathNode.CurveTo(96.07126f, 232.63632f, 92.62809f, 231.95064f, 90.34f, 229.66f),
+                    PathNode.LineTo(42.34f, 181.66f),
+                    PathNode.CurveTo(40.837784f, 180.15945f, 39.993706f, 178.12328f, 39.993706f, 176.0f),
+                    PathNode.CurveTo(39.993706f, 173.87672f, 40.837784f, 171.84055f, 42.34f, 170.34f),
+                    PathNode.LineTo(90.34f, 122.34f),
+                    PathNode.CurveTo(92.62809f, 120.04936f, 96.07126f, 119.36368f, 99.062325f, 120.60302f),
+                    PathNode.CurveTo(102.05338f, 121.84236f, 104.00255f, 124.762344f, 104.0f, 128.0f),
+                    PathNode.LineTo(104.0f, 168.0f),
+                    PathNode.LineTo(184.0f, 168.0f),
+                    PathNode.LineTo(184.0f, 32.0f),
+                    PathNode.CurveTo(184.0f, 27.581722f, 187.58173f, 24.0f, 192.0f, 24.0f),
+                    PathNode.CurveTo(196.41827f, 24.0f, 200.0f, 27.581722f, 200.0f, 32.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _arrowElbowDownLeft!!
+    }
+
+private var _arrowElbowDownLeft: ImageVector? = null

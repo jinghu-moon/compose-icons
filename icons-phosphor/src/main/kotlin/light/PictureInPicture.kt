@@ -1,0 +1,66 @@
+package composeicons.phosphor.light
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorLightIcon
+
+val PhosphorIcons.Light.PictureInPicture: ImageVector
+    get() {
+        if (_pictureInPicture != null) return _pictureInPicture!!
+        _pictureInPicture = phosphorLightIcon(
+            name = "PictureInPicture",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(216.0f, 50.0f),
+                    PathNode.LineTo(40.0f, 50.0f),
+                    PathNode.CurveTo(32.268013f, 50.0f, 26.0f, 56.268013f, 26.0f, 64.0f),
+                    PathNode.LineTo(26.0f, 192.0f),
+                    PathNode.CurveTo(26.0f, 199.73198f, 32.268013f, 206.0f, 40.0f, 206.0f),
+                    PathNode.LineTo(216.0f, 206.0f),
+                    PathNode.CurveTo(223.73198f, 206.0f, 230.0f, 199.73198f, 230.0f, 192.0f),
+                    PathNode.LineTo(230.0f, 64.0f),
+                    PathNode.CurveTo(230.0f, 56.268013f, 223.73198f, 50.0f, 216.0f, 50.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(38.0f, 192.0f),
+                    PathNode.LineTo(38.0f, 64.0f),
+                    PathNode.CurveTo(38.0f, 62.89543f, 38.89543f, 62.0f, 40.0f, 62.0f),
+                    PathNode.LineTo(216.0f, 62.0f),
+                    PathNode.CurveTo(217.10457f, 62.0f, 218.0f, 62.89543f, 218.0f, 64.0f),
+                    PathNode.LineTo(218.0f, 122.0f),
+                    PathNode.LineTo(136.0f, 122.0f),
+                    PathNode.CurveTo(132.6863f, 122.0f, 130.0f, 124.686295f, 130.0f, 128.0f),
+                    PathNode.LineTo(130.0f, 194.0f),
+                    PathNode.LineTo(40.0f, 194.0f),
+                    PathNode.CurveTo(38.89543f, 194.0f, 38.0f, 193.10457f, 38.0f, 192.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(216.0f, 194.0f),
+                    PathNode.LineTo(142.0f, 194.0f),
+                    PathNode.LineTo(142.0f, 134.0f),
+                    PathNode.LineTo(218.0f, 134.0f),
+                    PathNode.LineTo(218.0f, 192.0f),
+                    PathNode.CurveTo(218.0f, 193.10457f, 217.10457f, 194.0f, 216.0f, 194.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 12.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _pictureInPicture!!
+    }
+
+private var _pictureInPicture: ImageVector? = null

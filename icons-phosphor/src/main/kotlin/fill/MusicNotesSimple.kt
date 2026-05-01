@@ -1,0 +1,56 @@
+package composeicons.phosphor.fill
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorFillIcon
+
+val PhosphorIcons.Fill.MusicNotesSimple: ImageVector
+    get() {
+        if (_musicNotesSimple != null) return _musicNotesSimple!!
+        _musicNotesSimple = phosphorFillIcon(
+            name = "MusicNotesSimple",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(212.92f, 17.69f),
+                    PathNode.CurveTo(210.97821f, 16.17697f, 208.44797f, 15.642151f, 206.06f, 16.24f),
+                    PathNode.LineTo(78.06f, 48.24f),
+                    PathNode.CurveTo(74.49896f, 49.13012f, 72.00056f, 52.3294f, 72.0f, 56.0f),
+                    PathNode.LineTo(72.0f, 166.08f),
+                    PathNode.CurveTo(58.26873f, 156.90541f, 40.05616f, 158.24998f, 27.82107f, 169.34157f),
+                    PathNode.CurveTo(15.585978f, 180.43315f, 12.466534f, 198.4269f, 20.254114f, 212.98967f),
+                    PathNode.CurveTo(28.041695f, 227.55244f, 44.73887f, 234.94907f, 60.75709f, 230.93193f),
+                    PathNode.CurveTo(76.775314f, 226.9148f, 88.00608f, 212.51427f, 88.0f, 196.0f),
+                    PathNode.LineTo(88.0f, 62.25f),
+                    PathNode.LineTo(200.0f, 34.25f),
+                    PathNode.LineTo(200.0f, 134.08f),
+                    PathNode.CurveTo(186.26874f, 124.90541f, 168.05617f, 126.24998f, 155.82108f, 137.34157f),
+                    PathNode.CurveTo(143.58598f, 148.43315f, 140.46654f, 166.4269f, 148.2541f, 180.98967f),
+                    PathNode.CurveTo(156.04169f, 195.55244f, 172.73886f, 202.94907f, 188.7571f, 198.93193f),
+                    PathNode.CurveTo(204.77531f, 194.9148f, 216.0061f, 180.51427f, 216.0f, 164.0f),
+                    PathNode.LineTo(216.0f, 24.0f),
+                    PathNode.CurveTo(216.00055f, 21.534422f, 214.86418f, 19.20633f, 212.92f, 17.69f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _musicNotesSimple!!
+    }
+
+private var _musicNotesSimple: ImageVector? = null

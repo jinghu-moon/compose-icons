@@ -1,0 +1,70 @@
+package composeicons.phosphor.bold
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorBoldIcon
+
+val PhosphorIcons.Bold.ArrowSquareUp: ImageVector
+    get() {
+        if (_arrowSquareUp != null) return _arrowSquareUp!!
+        _arrowSquareUp = phosphorBoldIcon(
+            name = "ArrowSquareUp",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(208.0f, 28.0f),
+                    PathNode.LineTo(48.0f, 28.0f),
+                    PathNode.CurveTo(36.954304f, 28.0f, 28.0f, 36.954304f, 28.0f, 48.0f),
+                    PathNode.LineTo(28.0f, 208.0f),
+                    PathNode.CurveTo(28.0f, 219.0457f, 36.954304f, 228.0f, 48.0f, 228.0f),
+                    PathNode.LineTo(208.0f, 228.0f),
+                    PathNode.CurveTo(219.0457f, 228.0f, 228.0f, 219.0457f, 228.0f, 208.0f),
+                    PathNode.LineTo(228.0f, 48.0f),
+                    PathNode.CurveTo(228.0f, 36.954304f, 219.0457f, 28.0f, 208.0f, 28.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(204.0f, 204.0f),
+                    PathNode.LineTo(52.0f, 204.0f),
+                    PathNode.LineTo(52.0f, 52.0f),
+                    PathNode.LineTo(204.0f, 52.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(87.51f, 128.49f),
+                    PathNode.CurveTo(85.25055f, 126.23838f, 83.98054f, 123.17982f, 83.98054f, 119.99f),
+                    PathNode.CurveTo(83.98054f, 116.80018f, 85.25055f, 113.74162f, 87.51f, 111.49f),
+                    PathNode.LineTo(119.51f, 79.49f),
+                    PathNode.CurveTo(121.76162f, 77.230545f, 124.82018f, 75.96054f, 128.01f, 75.96054f),
+                    PathNode.CurveTo(131.19981f, 75.96054f, 134.25838f, 77.230545f, 136.51f, 79.49f),
+                    PathNode.LineTo(168.51f, 111.49f),
+                    PathNode.CurveTo(173.20442f, 116.18442f, 173.20442f, 123.79558f, 168.51f, 128.49f),
+                    PathNode.CurveTo(163.81558f, 133.18442f, 156.20442f, 133.18442f, 151.51f, 128.49f),
+                    PathNode.LineTo(140.0f, 117.0f),
+                    PathNode.LineTo(140.0f, 168.0f),
+                    PathNode.CurveTo(140.0f, 174.62741f, 134.62741f, 180.0f, 128.0f, 180.0f),
+                    PathNode.CurveTo(121.37258f, 180.0f, 116.0f, 174.62741f, 116.0f, 168.0f),
+                    PathNode.LineTo(116.0f, 117.0f),
+                    PathNode.LineTo(104.49f, 128.52f),
+                    PathNode.CurveTo(102.2352f, 130.76935f, 99.178696f, 132.03008f, 95.99378f, 132.02444f),
+                    PathNode.CurveTo(92.80887f, 132.01881f, 89.75683f, 130.7473f, 87.51f, 128.49f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 24.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _arrowSquareUp!!
+    }
+
+private var _arrowSquareUp: ImageVector? = null

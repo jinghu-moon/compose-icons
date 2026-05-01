@@ -1,0 +1,53 @@
+package composeicons.phosphor.fill
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorFillIcon
+
+val PhosphorIcons.Fill.SidebarSimple: ImageVector
+    get() {
+        if (_sidebarSimple != null) return _sidebarSimple!!
+        _sidebarSimple = phosphorFillIcon(
+            name = "SidebarSimple",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(216.0f, 40.0f),
+                    PathNode.LineTo(40.0f, 40.0f),
+                    PathNode.CurveTo(31.163445f, 40.0f, 24.0f, 47.163445f, 24.0f, 56.0f),
+                    PathNode.LineTo(24.0f, 200.0f),
+                    PathNode.CurveTo(24.0f, 208.83656f, 31.163445f, 216.0f, 40.0f, 216.0f),
+                    PathNode.LineTo(216.0f, 216.0f),
+                    PathNode.CurveTo(224.83656f, 216.0f, 232.0f, 208.83656f, 232.0f, 200.0f),
+                    PathNode.LineTo(232.0f, 56.0f),
+                    PathNode.CurveTo(232.0f, 47.163445f, 224.83656f, 40.0f, 216.0f, 40.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(216.0f, 200.0f),
+                    PathNode.LineTo(88.0f, 200.0f),
+                    PathNode.LineTo(88.0f, 56.0f),
+                    PathNode.LineTo(216.0f, 56.0f),
+                    PathNode.LineTo(216.0f, 200.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _sidebarSimple!!
+    }
+
+private var _sidebarSimple: ImageVector? = null

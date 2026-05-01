@@ -1,0 +1,101 @@
+package composeicons.phosphor.thin
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorThinIcon
+
+val PhosphorIcons.Thin.CalendarX: ImageVector
+    get() {
+        if (_calendarX != null) return _calendarX!!
+        _calendarX = phosphorThinIcon(
+            name = "CalendarX",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(208.0f, 36.0f),
+                    PathNode.LineTo(180.0f, 36.0f),
+                    PathNode.LineTo(180.0f, 24.0f),
+                    PathNode.CurveTo(180.0f, 21.790861f, 178.20914f, 20.0f, 176.0f, 20.0f),
+                    PathNode.CurveTo(173.79086f, 20.0f, 172.0f, 21.790861f, 172.0f, 24.0f),
+                    PathNode.LineTo(172.0f, 36.0f),
+                    PathNode.LineTo(84.0f, 36.0f),
+                    PathNode.LineTo(84.0f, 24.0f),
+                    PathNode.CurveTo(84.0f, 21.790861f, 82.20914f, 20.0f, 80.0f, 20.0f),
+                    PathNode.CurveTo(77.79086f, 20.0f, 76.0f, 21.790861f, 76.0f, 24.0f),
+                    PathNode.LineTo(76.0f, 36.0f),
+                    PathNode.LineTo(48.0f, 36.0f),
+                    PathNode.CurveTo(41.37258f, 36.0f, 36.0f, 41.37258f, 36.0f, 48.0f),
+                    PathNode.LineTo(36.0f, 208.0f),
+                    PathNode.CurveTo(36.0f, 214.62741f, 41.37258f, 220.0f, 48.0f, 220.0f),
+                    PathNode.LineTo(208.0f, 220.0f),
+                    PathNode.CurveTo(214.62741f, 220.0f, 220.0f, 214.62741f, 220.0f, 208.0f),
+                    PathNode.LineTo(220.0f, 48.0f),
+                    PathNode.CurveTo(220.0f, 41.37258f, 214.62741f, 36.0f, 208.0f, 36.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(48.0f, 44.0f),
+                    PathNode.LineTo(76.0f, 44.0f),
+                    PathNode.LineTo(76.0f, 56.0f),
+                    PathNode.CurveTo(76.0f, 58.20914f, 77.79086f, 60.0f, 80.0f, 60.0f),
+                    PathNode.CurveTo(82.20914f, 60.0f, 84.0f, 58.20914f, 84.0f, 56.0f),
+                    PathNode.LineTo(84.0f, 44.0f),
+                    PathNode.LineTo(172.0f, 44.0f),
+                    PathNode.LineTo(172.0f, 56.0f),
+                    PathNode.CurveTo(172.0f, 58.20914f, 173.79086f, 60.0f, 176.0f, 60.0f),
+                    PathNode.CurveTo(178.20914f, 60.0f, 180.0f, 58.20914f, 180.0f, 56.0f),
+                    PathNode.LineTo(180.0f, 44.0f),
+                    PathNode.LineTo(208.0f, 44.0f),
+                    PathNode.CurveTo(210.20914f, 44.0f, 212.0f, 45.79086f, 212.0f, 48.0f),
+                    PathNode.LineTo(212.0f, 84.0f),
+                    PathNode.LineTo(44.0f, 84.0f),
+                    PathNode.LineTo(44.0f, 48.0f),
+                    PathNode.CurveTo(44.0f, 45.79086f, 45.79086f, 44.0f, 48.0f, 44.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(208.0f, 212.0f),
+                    PathNode.LineTo(48.0f, 212.0f),
+                    PathNode.CurveTo(45.79086f, 212.0f, 44.0f, 210.20914f, 44.0f, 208.0f),
+                    PathNode.LineTo(44.0f, 92.0f),
+                    PathNode.LineTo(212.0f, 92.0f),
+                    PathNode.LineTo(212.0f, 208.0f),
+                    PathNode.CurveTo(212.0f, 210.20914f, 210.20914f, 212.0f, 208.0f, 212.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(154.83f, 130.83f),
+                    PathNode.LineTo(133.66f, 152.0f),
+                    PathNode.LineTo(154.83f, 173.17f),
+                    PathNode.CurveTo(156.39296f, 174.73297f, 156.39296f, 177.26703f, 154.83f, 178.83f),
+                    PathNode.CurveTo(153.26703f, 180.39296f, 150.73297f, 180.39296f, 149.17f, 178.83f),
+                    PathNode.LineTo(128.0f, 157.66f),
+                    PathNode.LineTo(106.83f, 178.83f),
+                    PathNode.CurveTo(105.26704f, 180.39296f, 102.73296f, 180.39296f, 101.17f, 178.83f),
+                    PathNode.CurveTo(99.60703f, 177.26703f, 99.60703f, 174.73297f, 101.17f, 173.17f),
+                    PathNode.LineTo(122.34f, 152.0f),
+                    PathNode.LineTo(101.17f, 130.83f),
+                    PathNode.CurveTo(99.60703f, 129.26703f, 99.60703f, 126.73296f, 101.17f, 125.17f),
+                    PathNode.CurveTo(102.73296f, 123.60703f, 105.26704f, 123.60703f, 106.83f, 125.17f),
+                    PathNode.LineTo(128.0f, 146.34f),
+                    PathNode.LineTo(149.17f, 125.17f),
+                    PathNode.CurveTo(150.73297f, 123.60703f, 153.26703f, 123.60703f, 154.83f, 125.17f),
+                    PathNode.CurveTo(156.39296f, 126.73296f, 156.39296f, 129.26703f, 154.83f, 130.83f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 8.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _calendarX!!
+    }
+
+private var _calendarX: ImageVector? = null

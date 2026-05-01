@@ -1,0 +1,60 @@
+package composeicons.phosphor.bold
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorBoldIcon
+
+val PhosphorIcons.Bold.Folder: ImageVector
+    get() {
+        if (_folder != null) return _folder!!
+        _folder = phosphorBoldIcon(
+            name = "Folder",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(216.0f, 68.0f),
+                    PathNode.LineTo(133.39f, 68.0f),
+                    PathNode.LineTo(107.39f, 38.71f),
+                    PathNode.CurveTo(103.58217f, 34.427715f, 98.120384f, 31.98448f, 92.39f, 32.0f),
+                    PathNode.LineTo(40.0f, 32.0f),
+                    PathNode.CurveTo(28.954306f, 32.0f, 20.0f, 40.954304f, 20.0f, 52.0f),
+                    PathNode.LineTo(20.0f, 200.62f),
+                    PathNode.CurveTo(20.01652f, 211.31642f, 28.68357f, 219.98347f, 39.38f, 220.0f),
+                    PathNode.LineTo(216.89f, 220.0f),
+                    PathNode.CurveTo(227.43959f, 219.98898f, 235.98898f, 211.43959f, 236.0f, 200.89f),
+                    PathNode.LineTo(236.0f, 88.0f),
+                    PathNode.CurveTo(236.0f, 76.95431f, 227.0457f, 68.0f, 216.0f, 68.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(44.0f, 56.0f),
+                    PathNode.LineTo(90.61f, 56.0f),
+                    PathNode.LineTo(101.28f, 68.0f),
+                    PathNode.LineTo(44.0f, 68.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(212.0f, 196.0f),
+                    PathNode.LineTo(44.0f, 196.0f),
+                    PathNode.LineTo(44.0f, 92.0f),
+                    PathNode.LineTo(212.0f, 92.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 24.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _folder!!
+    }
+
+private var _folder: ImageVector? = null

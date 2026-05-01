@@ -1,0 +1,67 @@
+package composeicons.phosphor.regular
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorRegularIcon
+
+val PhosphorIcons.Regular.Sphere: ImageVector
+    get() {
+        if (_sphere != null) return _sphere!!
+        _sphere = phosphorRegularIcon(
+            name = "Sphere",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(128.0f, 24.0f),
+                    PathNode.CurveTo(70.562386f, 24.0f, 24.0f, 70.562386f, 24.0f, 128.0f),
+                    PathNode.CurveTo(24.0f, 185.4376f, 70.562386f, 232.0f, 128.0f, 232.0f),
+                    PathNode.CurveTo(185.4376f, 232.0f, 232.0f, 185.4376f, 232.0f, 128.0f),
+                    PathNode.CurveTo(231.93938f, 70.58752f, 185.41248f, 24.060629f, 128.0f, 24.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(216.0f, 128.0f),
+                    PathNode.CurveTo(216.0f, 134.0f, 199.0f, 144.23f, 167.23f, 149.17f),
+                    PathNode.CurveTo(167.74f, 142.17f, 168.0f, 135.09f, 168.0f, 128.0f),
+                    PathNode.CurveTo(168.0f, 95.76f, 162.65f, 63.28f, 152.26f, 43.4f),
+                    PathNode.CurveTo(189.96593f, 54.273174f, 215.94751f, 88.75767f, 216.0f, 128.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(128.0f, 40.0f),
+                    PathNode.CurveTo(136.15f, 40.0f, 152.0f, 71.06f, 152.0f, 128.0f),
+                    PathNode.CurveTo(152.0f, 136.24f, 151.66f, 143.92f, 151.07f, 151.07f),
+                    PathNode.CurveTo(143.92f, 151.66f, 136.24f, 152.0f, 128.0f, 152.0f),
+                    PathNode.CurveTo(71.06f, 152.0f, 40.0f, 136.15f, 40.0f, 128.0f),
+                    PathNode.CurveTo(40.055107f, 79.42178f, 79.42178f, 40.055107f, 128.0f, 40.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(43.4f, 152.26f),
+                    PathNode.CurveTo(63.28f, 162.65f, 95.76f, 168.0f, 128.0f, 168.0f),
+                    PathNode.CurveTo(135.09f, 168.0f, 142.19f, 167.74f, 149.17f, 167.23f),
+                    PathNode.CurveTo(144.23f, 199.0f, 134.0f, 216.0f, 128.0f, 216.0f),
+                    PathNode.CurveTo(88.75767f, 215.94751f, 54.273174f, 189.96593f, 43.4f, 152.26f),
+                    PathNode.Close,
+                    PathNode.MoveTo(152.26f, 212.6f),
+                    PathNode.CurveTo(158.55f, 200.6f, 162.99f, 183.93f, 165.52f, 165.52f),
+                    PathNode.CurveTo(183.93f, 162.99f, 200.52f, 158.52f, 212.6f, 152.26f),
+                    PathNode.CurveTo(204.16884f, 181.39226f, 181.39226f, 204.16884f, 152.26f, 212.6f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 16.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _sphere!!
+    }
+
+private var _sphere: ImageVector? = null

@@ -49,6 +49,7 @@ android {
 dependencies {
     implementation(project(":icons-tabler"))
     implementation(project(":icons-lucide"))
+    implementation(project(":icons-phosphor"))
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)

@@ -1,0 +1,77 @@
+package composeicons.phosphor.light
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorLightIcon
+
+val PhosphorIcons.Light.CloudX: ImageVector
+    get() {
+        if (_cloudX != null) return _cloudX!!
+        _cloudX = phosphorLightIcon(
+            name = "CloudX",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(160.0f, 42.0f),
+                    PathNode.CurveTo(126.89743f, 42.029118f, 96.74202f, 61.031265f, 82.43f, 90.88f),
+                    PathNode.CurveTo(59.3639f, 86.95178f, 36.05095f, 96.3437f, 22.149662f, 115.1647f),
+                    PathNode.CurveTo(8.248373f, 133.9857f, 6.126796f, 159.02968f, 16.663895f, 179.92096f),
+                    PathNode.CurveTo(27.200993f, 200.81224f, 48.6018f, 213.99203f, 72.0f, 214.0f),
+                    PathNode.LineTo(160.0f, 214.0f),
+                    PathNode.CurveTo(207.49649f, 214.0f, 246.0f, 175.49649f, 246.0f, 128.0f),
+                    PathNode.CurveTo(246.0f, 80.50351f, 207.49649f, 42.0f, 160.0f, 42.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(160.0f, 202.0f),
+                    PathNode.LineTo(72.0f, 202.0f),
+                    PathNode.CurveTo(44.38576f, 202.0f, 22.0f, 179.61424f, 22.0f, 152.0f),
+                    PathNode.CurveTo(22.0f, 124.385765f, 44.38576f, 102.0f, 72.0f, 102.0f),
+                    PathNode.CurveTo(73.975136f, 102.00138f, 75.9485f, 102.11825f, 77.91f, 102.35f),
+                    PathNode.CurveTo(75.311066f, 110.651695f, 73.99259f, 119.301f, 74.0f, 128.0f),
+                    PathNode.CurveTo(74.0f, 131.3137f, 76.686295f, 134.0f, 80.0f, 134.0f),
+                    PathNode.CurveTo(83.313705f, 134.0f, 86.0f, 131.3137f, 86.0f, 128.0f),
+                    PathNode.CurveTo(86.0f, 87.13093f, 119.13093f, 54.0f, 160.0f, 54.0f),
+                    PathNode.CurveTo(200.86908f, 54.0f, 234.0f, 87.13093f, 234.0f, 128.0f),
+                    PathNode.CurveTo(234.0f, 168.86908f, 200.86908f, 202.0f, 160.0f, 202.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(188.24f, 116.24f),
+                    PathNode.LineTo(168.48f, 136.0f),
+                    PathNode.LineTo(188.24f, 155.76f),
+                    PathNode.CurveTo(189.84523f, 157.25575f, 190.506f, 159.50844f, 189.96309f, 161.63431f),
+                    PathNode.CurveTo(189.42018f, 163.76018f, 187.76018f, 165.42018f, 185.63431f, 165.96309f),
+                    PathNode.CurveTo(183.50844f, 166.506f, 181.25575f, 165.84523f, 179.76f, 164.24f),
+                    PathNode.LineTo(160.0f, 144.48f),
+                    PathNode.LineTo(140.24f, 164.24f),
+                    PathNode.CurveTo(137.87592f, 166.44287f, 134.19193f, 166.37787f, 131.90703f, 164.09297f),
+                    PathNode.CurveTo(129.62213f, 161.80807f, 129.55713f, 158.12408f, 131.76f, 155.76f),
+                    PathNode.LineTo(151.52f, 136.0f),
+                    PathNode.LineTo(131.76f, 116.24f),
+                    PathNode.CurveTo(129.55713f, 113.87592f, 129.62213f, 110.191925f, 131.90703f, 107.90703f),
+                    PathNode.CurveTo(134.19193f, 105.62213f, 137.87592f, 105.55713f, 140.24f, 107.76f),
+                    PathNode.LineTo(160.0f, 127.52f),
+                    PathNode.LineTo(179.76f, 107.76f),
+                    PathNode.CurveTo(182.12408f, 105.55713f, 185.80807f, 105.62213f, 188.09297f, 107.90703f),
+                    PathNode.CurveTo(190.37787f, 110.191925f, 190.44287f, 113.87592f, 188.24f, 116.24f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 12.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _cloudX!!
+    }
+
+private var _cloudX: ImageVector? = null

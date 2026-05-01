@@ -1,0 +1,29 @@
+.gradle/
+build/
+*/build/
+bin/
+*/bin/
+local.properties
+svg-cache/
+tools/*
+!tools/build.gradle.kts
+!tools/src/
+*.iml
+.idea/
+out/
+
+# Upstream icon sources & reference materials (multi-hundred MB)
+refer/
+
+# Node modules (web-preview)
+**/node_modules/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Tool caches (Kotlin compiler / Serena MCP / spec-workflow MCP)
+.kotlin/
+.serena/
+.spec-workflow/
+

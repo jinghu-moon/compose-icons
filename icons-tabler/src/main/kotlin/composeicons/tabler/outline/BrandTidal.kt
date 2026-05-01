@@ -1,0 +1,54 @@
+package composeicons.tabler.outline
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.tabler.TablerIcons
+import composeicons.tabler.tablerOutlineIcon
+
+val TablerIcons.Outline.BrandTidal: ImageVector
+    get() {
+        if (_brandTidal != null) return _brandTidal!!
+        _brandTidal = tablerOutlineIcon(
+            name = "BrandTidal",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(5.333f, 6.0f),
+                    PathNode.LineTo(8.667f, 9.25f),
+                    PathNode.LineTo(12.0f, 6.0f),
+                    PathNode.LineTo(15.333f, 9.25f),
+                    PathNode.LineTo(18.667f, 6.0f),
+                    PathNode.LineTo(22.0f, 9.25f),
+                    PathNode.LineTo(18.667f, 12.5f),
+                    PathNode.LineTo(15.333f, 9.25f),
+                    PathNode.LineTo(12.0f, 12.5f),
+                    PathNode.LineTo(15.333f, 15.75f),
+                    PathNode.LineTo(12.0f, 19.0f),
+                    PathNode.LineTo(8.667f, 15.75f),
+                    PathNode.LineTo(12.0f, 12.5f),
+                    PathNode.LineTo(8.667f, 9.25f),
+                    PathNode.LineTo(5.333f, 12.5f),
+                    PathNode.LineTo(2.0f, 9.25f),
+                    PathNode.LineTo(5.333f, 6.0f)
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color.Black),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _brandTidal!!
+    }
+
+private var _brandTidal: ImageVector? = null

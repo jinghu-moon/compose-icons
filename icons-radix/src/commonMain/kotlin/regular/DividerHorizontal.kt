@@ -15,19 +15,19 @@ val RadixIcons.Regular.DividerHorizontal: ImageVector
         _dividerHorizontal = radixIcon(
             name = "DividerHorizontal",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 15.0f, height = 15.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 15f, height = 15f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 12.500 7.000 C 12.776 7.000 13.000 7.224 13.000 7.500 C 13.000 7.776 12.776 8.000 12.500 8.000 L 2.500 8.000 C 2.224 8.000 2.000 7.776 2.000 7.500 C 2.000 7.224 2.224 7.000 2.500 7.000 L 12.500 7.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 12.500 7.000 C 12.776 7.000 13.000 7.224 13.000 7.500 C 13.000 7.776 12.776 8.000 12.500 8.000 L 2.500 8.000 C 2.224 8.000 2.000 7.776 2.000 7.500 C 2.000 7.224 2.224 7.000 2.500 7.000 L 12.500 7.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _dividerHorizontal!!
     }

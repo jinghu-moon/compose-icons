@@ -15,34 +15,34 @@ val PhosphorIcons.Duotone.Tag: ImageVector
         _tag = phosphorDuotoneIcon(
             name = "Tag",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    group(
-        groupAlpha = 0.20000000298023224f,
-    ) {
-        addPath(
-            pathData = parseSvgPathData("M 237.660 153.000 L 153.000 237.660 C 149.876 240.782 144.814 240.782 141.690 237.660 L 42.340 138.340 C 40.843 136.841 40.001 134.809 40.000 132.690 L 40.000 40.000 L 132.690 40.000 C 134.809 40.001 136.841 40.843 138.340 42.340 L 237.660 141.660 C 239.168 143.161 240.016 145.202 240.016 147.330 C 240.016 149.458 239.168 151.499 237.660 153.000 Z"),
-            pathFillType = PathFillType.NonZero,
-            fill = SolidColor(Color(0xFF000000)),
-            fillAlpha = 1.0f,
-            stroke = null,
-            strokeAlpha = 1.0f,
-            strokeLineWidth = 0.0f,
-            strokeLineCap = StrokeCap.Butt,
-            strokeLineJoin = StrokeJoin.Miter,
-        )
-    }
-    addPath(
-        pathData = parseSvgPathData("M 243.310 136.000 L 144.000 36.690 C 141.010 33.676 136.936 31.986 132.690 32.000 L 40.000 32.000 C 35.582 32.000 32.000 35.582 32.000 40.000 L 32.000 132.690 C 31.986 136.936 33.676 141.010 36.690 144.000 L 136.000 243.310 C 139.001 246.311 143.071 247.998 147.315 247.998 C 151.559 247.998 155.629 246.311 158.630 243.310 L 243.310 158.630 C 246.311 155.629 247.998 151.559 247.998 147.315 C 247.998 143.071 246.311 139.001 243.310 136.000 ZM 147.310 232.000 L 48.000 132.690 L 48.000 48.000 L 132.690 48.000 L 232.000 147.310 ZM 96.000 84.000 C 96.000 90.627 90.627 96.000 84.000 96.000 C 77.373 96.000 72.000 90.627 72.000 84.000 C 72.000 77.373 77.373 72.000 84.000 72.000 C 90.627 72.000 96.000 77.373 96.000 84.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            group(
+                groupAlpha = 0.2f,
+            ) {
+                addPath(
+                    pathData = parseSvgPathData("M 237.660 153.000 L 153.000 237.660 C 149.876 240.782 144.814 240.782 141.690 237.660 L 42.340 138.340 C 40.843 136.841 40.001 134.809 40.000 132.690 L 40.000 40.000 L 132.690 40.000 C 134.809 40.001 136.841 40.843 138.340 42.340 L 237.660 141.660 C 239.168 143.161 240.016 145.202 240.016 147.330 C 240.016 149.458 239.168 151.499 237.660 153.000 Z"),
+                    pathFillType = PathFillType.NonZero,
+                    fill = SolidColor(Color(0xFF000000)),
+                    fillAlpha = 1f,
+                    stroke = null,
+                    strokeAlpha = 1f,
+                    strokeLineWidth = 0f,
+                    strokeLineCap = StrokeCap.Butt,
+                    strokeLineJoin = StrokeJoin.Miter,
+                )
+            }
+            addPath(
+                pathData = parseSvgPathData("M 243.310 136.000 L 144.000 36.690 C 141.010 33.676 136.936 31.986 132.690 32.000 L 40.000 32.000 C 35.582 32.000 32.000 35.582 32.000 40.000 L 32.000 132.690 C 31.986 136.936 33.676 141.010 36.690 144.000 L 136.000 243.310 C 139.001 246.311 143.071 247.998 147.315 247.998 C 151.559 247.998 155.629 246.311 158.630 243.310 L 243.310 158.630 C 246.311 155.629 247.998 151.559 247.998 147.315 C 247.998 143.071 246.311 139.001 243.310 136.000 ZM 147.310 232.000 L 48.000 132.690 L 48.000 48.000 L 132.690 48.000 L 232.000 147.310 ZM 96.000 84.000 C 96.000 90.627 90.627 96.000 84.000 96.000 C 77.373 96.000 72.000 90.627 72.000 84.000 C 72.000 77.373 77.373 72.000 84.000 72.000 C 90.627 72.000 96.000 77.373 96.000 84.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _tag!!
     }

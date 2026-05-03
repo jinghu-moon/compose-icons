@@ -15,19 +15,19 @@ val RemixIcons.Line.CornerLeftUpLine: ImageVector
         _cornerLeftUpLine = remixIcon(
             name = "CornerLeftUpLine",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 10.000 19.000 L 19.000 19.000 L 19.000 17.000 L 12.000 17.000 L 12.000 6.828 L 15.950 10.778 L 17.364 9.364 L 11.000 3.000 L 4.636 9.364 L 6.050 10.778 L 10.000 6.828 L 10.000 19.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 10.000 19.000 L 19.000 19.000 L 19.000 17.000 L 12.000 17.000 L 12.000 6.828 L 15.950 10.778 L 17.364 9.364 L 11.000 3.000 L 4.636 9.364 L 6.050 10.778 L 10.000 6.828 L 10.000 19.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _cornerLeftUpLine!!
     }

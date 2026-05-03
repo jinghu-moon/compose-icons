@@ -15,30 +15,30 @@ val TablerIcons.Outline.MessageCircleHeart: ImageVector
         _messageCircleHeart = tablerOutlineIcon(
             name = "MessageCircleHeart",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 10.590 19.880 C 9.587 19.738 8.612 19.442 7.700 19.000 L 3.000 20.000 L 4.300 16.100 C 1.976 12.663 2.874 8.228 6.400 5.726 C 9.926 3.225 14.990 3.430 18.245 6.206 C 19.810 7.541 20.724 9.271 20.955 11.067"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 18.000 22.000 L 21.350 18.716 C 21.765 18.313 22.000 17.760 22.001 17.182 C 22.002 16.603 21.769 16.049 21.355 15.645 C 20.486 14.795 19.098 14.793 18.226 15.639 L 18.002 15.859 L 17.779 15.639 C 16.910 14.790 15.523 14.787 14.651 15.633 C 14.236 16.036 14.001 16.589 14.000 17.167 C 13.999 17.746 14.231 18.300 14.645 18.704 L 18.000 22.000"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 10.590 19.880 C 9.587 19.738 8.612 19.442 7.700 19.000 L 3.000 20.000 L 4.300 16.100 C 1.976 12.663 2.874 8.228 6.400 5.726 C 9.926 3.225 14.990 3.430 18.245 6.206 C 19.810 7.541 20.724 9.271 20.955 11.067"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 18.000 22.000 L 21.350 18.716 C 21.765 18.313 22.000 17.760 22.001 17.182 C 22.002 16.603 21.769 16.049 21.355 15.645 C 20.486 14.795 19.098 14.793 18.226 15.639 L 18.002 15.859 L 17.779 15.639 C 16.910 14.790 15.523 14.787 14.651 15.633 C 14.236 16.036 14.001 16.589 14.000 17.167 C 13.999 17.746 14.231 18.300 14.645 18.704 L 18.000 22.000"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
         }
         return _messageCircleHeart!!
     }

@@ -15,19 +15,19 @@ val RadixIcons.Regular.ChevronDown: ImageVector
         _chevronDown = radixIcon(
             name = "ChevronDown",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 15.0f, height = 15.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 15f, height = 15f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 11.158 6.135 C 11.359 5.946 11.676 5.957 11.865 6.158 C 12.054 6.360 12.043 6.677 11.842 6.865 L 7.842 10.616 C 7.649 10.795 7.350 10.795 7.158 10.616 L 3.158 6.865 L 3.092 6.788 C 2.957 6.599 2.970 6.335 3.135 6.158 C 3.300 5.982 3.563 5.952 3.762 6.073 L 3.842 6.135 L 7.500 9.564 L 11.158 6.135 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 11.158 6.135 C 11.359 5.946 11.676 5.957 11.865 6.158 C 12.054 6.360 12.043 6.677 11.842 6.865 L 7.842 10.616 C 7.649 10.795 7.350 10.795 7.158 10.616 L 3.158 6.865 L 3.092 6.788 C 2.957 6.599 2.970 6.335 3.135 6.158 C 3.300 5.982 3.563 5.952 3.762 6.073 L 3.842 6.135 L 7.500 9.564 L 11.158 6.135 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _chevronDown!!
     }

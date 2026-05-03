@@ -15,19 +15,19 @@ val PhosphorIcons.Regular.FolderSimple: ImageVector
         _folderSimple = phosphorRegularIcon(
             name = "FolderSimple",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 216.000 72.000 L 130.670 72.000 L 102.930 51.200 C 100.156 49.131 96.791 48.009 93.330 48.000 L 40.000 48.000 C 31.163 48.000 24.000 55.163 24.000 64.000 L 24.000 200.000 C 24.000 208.837 31.163 216.000 40.000 216.000 L 216.890 216.000 C 225.230 215.989 231.989 209.230 232.000 200.890 L 232.000 88.000 C 232.000 79.163 224.837 72.000 216.000 72.000 ZM 216.000 200.000 L 40.000 200.000 L 40.000 64.000 L 93.330 64.000 L 123.200 86.400 C 124.585 87.439 126.269 88.000 128.000 88.000 L 216.000 88.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 216.000 72.000 L 130.670 72.000 L 102.930 51.200 C 100.156 49.131 96.791 48.009 93.330 48.000 L 40.000 48.000 C 31.163 48.000 24.000 55.163 24.000 64.000 L 24.000 200.000 C 24.000 208.837 31.163 216.000 40.000 216.000 L 216.890 216.000 C 225.230 215.989 231.989 209.230 232.000 200.890 L 232.000 88.000 C 232.000 79.163 224.837 72.000 216.000 72.000 ZM 216.000 200.000 L 40.000 200.000 L 40.000 64.000 L 93.330 64.000 L 123.200 86.400 C 124.585 87.439 126.269 88.000 128.000 88.000 L 216.000 88.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _folderSimple!!
     }

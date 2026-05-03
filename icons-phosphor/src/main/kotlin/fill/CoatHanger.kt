@@ -15,19 +15,19 @@ val PhosphorIcons.Fill.CoatHanger: ImageVector
         _coatHanger = phosphorFillIcon(
             name = "CoatHanger",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 241.570 171.200 L 141.330 96.000 L 164.790 78.400 C 166.808 76.891 167.998 74.520 168.000 72.000 C 168.000 49.909 150.091 32.000 128.000 32.000 C 105.909 32.000 88.000 49.909 88.000 72.000 C 88.000 76.418 91.582 80.000 96.000 80.000 C 100.418 80.000 104.000 76.418 104.000 72.000 C 104.034 59.505 113.648 49.127 126.104 48.139 C 138.559 47.152 149.689 55.887 151.690 68.220 L 14.430 171.200 C 8.925 175.329 6.676 182.515 8.846 189.045 C 11.016 195.576 17.119 199.987 24.000 200.000 L 232.000 200.000 C 238.887 200.000 245.001 195.593 247.179 189.060 C 249.357 182.526 247.110 175.332 241.600 171.200 ZM 32.730 184.000 C 53.600 170.590 89.490 152.000 128.000 152.000 C 166.510 152.000 202.400 170.590 223.270 184.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 241.570 171.200 L 141.330 96.000 L 164.790 78.400 C 166.808 76.891 167.998 74.520 168.000 72.000 C 168.000 49.909 150.091 32.000 128.000 32.000 C 105.909 32.000 88.000 49.909 88.000 72.000 C 88.000 76.418 91.582 80.000 96.000 80.000 C 100.418 80.000 104.000 76.418 104.000 72.000 C 104.034 59.505 113.648 49.127 126.104 48.139 C 138.559 47.152 149.689 55.887 151.690 68.220 L 14.430 171.200 C 8.925 175.329 6.676 182.515 8.846 189.045 C 11.016 195.576 17.119 199.987 24.000 200.000 L 232.000 200.000 C 238.887 200.000 245.001 195.593 247.179 189.060 C 249.357 182.526 247.110 175.332 241.600 171.200 ZM 32.730 184.000 C 53.600 170.590 89.490 152.000 128.000 152.000 C 166.510 152.000 202.400 170.590 223.270 184.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _coatHanger!!
     }

@@ -15,19 +15,19 @@ val PhosphorIcons.Light.EnvelopeSimple: ImageVector
         _envelopeSimple = phosphorLightIcon(
             name = "EnvelopeSimple",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 224.000 50.000 L 32.000 50.000 C 28.686 50.000 26.000 52.686 26.000 56.000 L 26.000 192.000 C 26.000 199.732 32.268 206.000 40.000 206.000 L 216.000 206.000 C 223.732 206.000 230.000 199.732 230.000 192.000 L 230.000 56.000 C 230.000 52.686 227.314 50.000 224.000 50.000 ZM 208.580 62.000 L 128.000 135.860 L 47.420 62.000 ZM 216.000 194.000 L 40.000 194.000 C 38.895 194.000 38.000 193.105 38.000 192.000 L 38.000 69.640 L 124.000 148.420 C 126.293 150.517 129.807 150.517 132.100 148.420 L 218.000 69.640 L 218.000 192.000 C 218.000 193.105 217.105 194.000 216.000 194.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 224.000 50.000 L 32.000 50.000 C 28.686 50.000 26.000 52.686 26.000 56.000 L 26.000 192.000 C 26.000 199.732 32.268 206.000 40.000 206.000 L 216.000 206.000 C 223.732 206.000 230.000 199.732 230.000 192.000 L 230.000 56.000 C 230.000 52.686 227.314 50.000 224.000 50.000 ZM 208.580 62.000 L 128.000 135.860 L 47.420 62.000 ZM 216.000 194.000 L 40.000 194.000 C 38.895 194.000 38.000 193.105 38.000 192.000 L 38.000 69.640 L 124.000 148.420 C 126.293 150.517 129.807 150.517 132.100 148.420 L 218.000 69.640 L 218.000 192.000 C 218.000 193.105 217.105 194.000 216.000 194.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _envelopeSimple!!
     }

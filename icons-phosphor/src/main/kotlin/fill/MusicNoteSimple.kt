@@ -15,19 +15,19 @@ val PhosphorIcons.Fill.MusicNoteSimple: ImageVector
         _musicNoteSimple = phosphorFillIcon(
             name = "MusicNoteSimple",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 210.300 56.340 L 130.300 32.340 C 127.878 31.613 125.255 32.074 123.226 33.583 C 121.197 35.092 120.001 37.471 120.000 40.000 L 120.000 148.260 C 103.116 133.159 77.973 131.916 59.682 145.280 C 41.392 158.644 34.934 182.975 44.190 203.650 C 53.445 224.325 75.895 235.715 98.046 230.974 C 120.196 226.233 136.018 206.652 136.000 184.000 L 136.000 50.750 L 205.700 71.660 C 208.460 72.559 211.490 71.893 213.618 69.919 C 215.746 67.945 216.638 64.974 215.949 62.155 C 215.260 59.335 213.098 57.110 210.300 56.340 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 210.300 56.340 L 130.300 32.340 C 127.878 31.613 125.255 32.074 123.226 33.583 C 121.197 35.092 120.001 37.471 120.000 40.000 L 120.000 148.260 C 103.116 133.159 77.973 131.916 59.682 145.280 C 41.392 158.644 34.934 182.975 44.190 203.650 C 53.445 224.325 75.895 235.715 98.046 230.974 C 120.196 226.233 136.018 206.652 136.000 184.000 L 136.000 50.750 L 205.700 71.660 C 208.460 72.559 211.490 71.893 213.618 69.919 C 215.746 67.945 216.638 64.974 215.949 62.155 C 215.260 59.335 213.098 57.110 210.300 56.340 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _musicNoteSimple!!
     }

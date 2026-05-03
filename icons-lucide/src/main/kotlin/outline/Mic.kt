@@ -15,41 +15,41 @@ val LucideIcons.Outline.Mic: ImageVector
         _mic = lucideOutlineIcon(
             name = "Mic",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 12.000 19.000 L 12.000 22.000"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 19.000 10.000 L 19.000 12.000 C 19.000 15.866 15.866 19.000 12.000 19.000 C 8.134 19.000 5.000 15.866 5.000 12.000 L 5.000 10.000"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 12.000 2.000 L 12.000 2.000 C 13.657 2.000 15.000 3.343 15.000 5.000 L 15.000 12.000 C 15.000 13.657 13.657 15.000 12.000 15.000 L 12.000 15.000 C 10.343 15.000 9.000 13.657 9.000 12.000 L 9.000 5.000 C 9.000 3.343 10.343 2.000 12.000 2.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 12.000 19.000 L 12.000 22.000"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 19.000 10.000 L 19.000 12.000 C 19.000 15.866 15.866 19.000 12.000 19.000 C 8.134 19.000 5.000 15.866 5.000 12.000 L 5.000 10.000"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 12.000 2.000 L 12.000 2.000 C 13.657 2.000 15.000 3.343 15.000 5.000 L 15.000 12.000 C 15.000 13.657 13.657 15.000 12.000 15.000 L 12.000 15.000 C 10.343 15.000 9.000 13.657 9.000 12.000 L 9.000 5.000 C 9.000 3.343 10.343 2.000 12.000 2.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
         }
         return _mic!!
     }

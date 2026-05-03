@@ -15,19 +15,19 @@ val PhosphorIcons.Fill.PushPinSimple: ImageVector
         _pushPinSimple = phosphorFillIcon(
             name = "PushPinSimple",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 224.000 176.000 C 224.000 180.418 220.418 184.000 216.000 184.000 L 136.000 184.000 L 136.000 240.000 C 136.000 244.418 132.418 248.000 128.000 248.000 C 123.582 248.000 120.000 244.418 120.000 240.000 L 120.000 184.000 L 40.000 184.000 C 35.582 184.000 32.000 180.418 32.000 176.000 C 32.000 171.582 35.582 168.000 40.000 168.000 L 49.290 168.000 L 70.460 48.000 L 64.000 48.000 C 59.582 48.000 56.000 44.418 56.000 40.000 C 56.000 35.582 59.582 32.000 64.000 32.000 L 192.000 32.000 C 196.418 32.000 200.000 35.582 200.000 40.000 C 200.000 44.418 196.418 48.000 192.000 48.000 L 185.540 48.000 L 206.710 168.000 L 216.000 168.000 C 220.418 168.000 224.000 171.582 224.000 176.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 224.000 176.000 C 224.000 180.418 220.418 184.000 216.000 184.000 L 136.000 184.000 L 136.000 240.000 C 136.000 244.418 132.418 248.000 128.000 248.000 C 123.582 248.000 120.000 244.418 120.000 240.000 L 120.000 184.000 L 40.000 184.000 C 35.582 184.000 32.000 180.418 32.000 176.000 C 32.000 171.582 35.582 168.000 40.000 168.000 L 49.290 168.000 L 70.460 48.000 L 64.000 48.000 C 59.582 48.000 56.000 44.418 56.000 40.000 C 56.000 35.582 59.582 32.000 64.000 32.000 L 192.000 32.000 C 196.418 32.000 200.000 35.582 200.000 40.000 C 200.000 44.418 196.418 48.000 192.000 48.000 L 185.540 48.000 L 206.710 168.000 L 216.000 168.000 C 220.418 168.000 224.000 171.582 224.000 176.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _pushPinSimple!!
     }

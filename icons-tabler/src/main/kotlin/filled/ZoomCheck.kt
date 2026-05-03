@@ -15,19 +15,19 @@ val TablerIcons.Filled.ZoomCheck: ImageVector
         _zoomCheck = tablerFilledIcon(
             name = "ZoomCheck",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 14.000 3.072 C 15.925 4.184 17.301 6.047 17.798 8.214 C 18.294 10.381 17.866 12.657 16.617 14.496 L 21.561 19.439 C 22.133 20.003 22.160 20.916 21.622 21.512 C 21.084 22.108 20.172 22.175 19.553 21.664 L 19.439 21.561 L 14.496 16.617 C 12.088 18.253 8.980 18.451 6.383 17.135 C 3.787 15.818 2.110 13.195 2.006 10.285 L 2.000 10.000 L 2.005 9.715 C 2.105 6.910 3.668 4.362 6.124 3.002 C 8.580 1.642 11.569 1.668 14.000 3.072 ZM 13.707 7.292 C 13.316 6.902 12.684 6.902 12.293 7.292 L 9.000 10.586 L 7.707 9.293 L 7.613 9.210 C 7.196 8.887 6.600 8.944 6.251 9.340 C 5.903 9.735 5.921 10.334 6.293 10.707 L 8.293 12.707 L 8.387 12.790 C 8.785 13.099 9.351 13.063 9.707 12.707 L 13.707 8.707 L 13.790 8.613 C 14.099 8.215 14.063 7.649 13.707 7.293 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 14.000 3.072 C 15.925 4.184 17.301 6.047 17.798 8.214 C 18.294 10.381 17.866 12.657 16.617 14.496 L 21.561 19.439 C 22.133 20.003 22.160 20.916 21.622 21.512 C 21.084 22.108 20.172 22.175 19.553 21.664 L 19.439 21.561 L 14.496 16.617 C 12.088 18.253 8.980 18.451 6.383 17.135 C 3.787 15.818 2.110 13.195 2.006 10.285 L 2.000 10.000 L 2.005 9.715 C 2.105 6.910 3.668 4.362 6.124 3.002 C 8.580 1.642 11.569 1.668 14.000 3.072 ZM 13.707 7.292 C 13.316 6.902 12.684 6.902 12.293 7.292 L 9.000 10.586 L 7.707 9.293 L 7.613 9.210 C 7.196 8.887 6.600 8.944 6.251 9.340 C 5.903 9.735 5.921 10.334 6.293 10.707 L 8.293 12.707 L 8.387 12.790 C 8.785 13.099 9.351 13.063 9.707 12.707 L 13.707 8.707 L 13.790 8.613 C 14.099 8.215 14.063 7.649 13.707 7.293 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _zoomCheck!!
     }

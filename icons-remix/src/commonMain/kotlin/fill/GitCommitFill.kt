@@ -15,19 +15,19 @@ val RemixIcons.Fill.GitCommitFill: ImageVector
         _gitCommitFill = remixIcon(
             name = "GitCommitFill",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 15.874 13.000 C 15.430 14.725 13.864 16.000 12.000 16.000 C 10.136 16.000 8.570 14.725 8.126 13.000 L 3.000 13.000 L 3.000 11.000 L 8.126 11.000 C 8.570 9.275 10.136 8.000 12.000 8.000 C 13.864 8.000 15.430 9.275 15.874 11.000 L 21.000 11.000 L 21.000 13.000 L 15.874 13.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 15.874 13.000 C 15.430 14.725 13.864 16.000 12.000 16.000 C 10.136 16.000 8.570 14.725 8.126 13.000 L 3.000 13.000 L 3.000 11.000 L 8.126 11.000 C 8.570 9.275 10.136 8.000 12.000 8.000 C 13.864 8.000 15.430 9.275 15.874 11.000 L 21.000 11.000 L 21.000 13.000 L 15.874 13.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _gitCommitFill!!
     }

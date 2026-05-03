@@ -15,34 +15,34 @@ val PhosphorIcons.Duotone.ChatTeardrop: ImageVector
         _chatTeardrop = phosphorDuotoneIcon(
             name = "ChatTeardrop",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    group(
-        groupAlpha = 0.20000000298023224f,
-    ) {
-        addPath(
-            pathData = parseSvgPathData("M 224.000 124.000 L 224.000 124.000 C 224.000 174.810 182.810 216.000 132.000 216.000 L 48.000 216.000 C 43.582 216.000 40.000 212.418 40.000 208.000 L 40.000 124.000 C 40.000 73.190 81.190 32.000 132.000 32.000 L 132.000 32.000 C 182.810 32.000 224.000 73.190 224.000 124.000 Z"),
-            pathFillType = PathFillType.NonZero,
-            fill = SolidColor(Color(0xFF000000)),
-            fillAlpha = 1.0f,
-            stroke = null,
-            strokeAlpha = 1.0f,
-            strokeLineWidth = 0.0f,
-            strokeLineCap = StrokeCap.Butt,
-            strokeLineJoin = StrokeJoin.Miter,
-        )
-    }
-    addPath(
-        pathData = parseSvgPathData("M 132.000 24.000 C 76.797 24.061 32.061 68.797 32.000 124.000 L 32.000 208.000 C 32.000 216.837 39.163 224.000 48.000 224.000 L 132.000 224.000 C 187.228 224.000 232.000 179.228 232.000 124.000 C 232.000 68.772 187.228 24.000 132.000 24.000 ZM 132.000 208.000 L 48.000 208.000 L 48.000 124.000 C 48.000 77.608 85.608 40.000 132.000 40.000 C 178.392 40.000 216.000 77.608 216.000 124.000 C 216.000 170.392 178.392 208.000 132.000 208.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            group(
+                groupAlpha = 0.2f,
+            ) {
+                addPath(
+                    pathData = parseSvgPathData("M 224.000 124.000 L 224.000 124.000 C 224.000 174.810 182.810 216.000 132.000 216.000 L 48.000 216.000 C 43.582 216.000 40.000 212.418 40.000 208.000 L 40.000 124.000 C 40.000 73.190 81.190 32.000 132.000 32.000 L 132.000 32.000 C 182.810 32.000 224.000 73.190 224.000 124.000 Z"),
+                    pathFillType = PathFillType.NonZero,
+                    fill = SolidColor(Color(0xFF000000)),
+                    fillAlpha = 1f,
+                    stroke = null,
+                    strokeAlpha = 1f,
+                    strokeLineWidth = 0f,
+                    strokeLineCap = StrokeCap.Butt,
+                    strokeLineJoin = StrokeJoin.Miter,
+                )
+            }
+            addPath(
+                pathData = parseSvgPathData("M 132.000 24.000 C 76.797 24.061 32.061 68.797 32.000 124.000 L 32.000 208.000 C 32.000 216.837 39.163 224.000 48.000 224.000 L 132.000 224.000 C 187.228 224.000 232.000 179.228 232.000 124.000 C 232.000 68.772 187.228 24.000 132.000 24.000 ZM 132.000 208.000 L 48.000 208.000 L 48.000 124.000 C 48.000 77.608 85.608 40.000 132.000 40.000 C 178.392 40.000 216.000 77.608 216.000 124.000 C 216.000 170.392 178.392 208.000 132.000 208.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _chatTeardrop!!
     }

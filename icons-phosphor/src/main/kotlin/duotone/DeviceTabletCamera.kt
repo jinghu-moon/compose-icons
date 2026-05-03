@@ -15,34 +15,34 @@ val PhosphorIcons.Duotone.DeviceTabletCamera: ImageVector
         _deviceTabletCamera = phosphorDuotoneIcon(
             name = "DeviceTabletCamera",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    group(
-        groupAlpha = 0.20000000298023224f,
-    ) {
-        addPath(
-            pathData = parseSvgPathData("M 208.000 48.000 L 208.000 208.000 C 208.000 216.837 200.837 224.000 192.000 224.000 L 64.000 224.000 C 55.163 224.000 48.000 216.837 48.000 208.000 L 48.000 48.000 C 48.000 39.163 55.163 32.000 64.000 32.000 L 192.000 32.000 C 200.837 32.000 208.000 39.163 208.000 48.000 Z"),
-            pathFillType = PathFillType.NonZero,
-            fill = SolidColor(Color(0xFF000000)),
-            fillAlpha = 1.0f,
-            stroke = null,
-            strokeAlpha = 1.0f,
-            strokeLineWidth = 0.0f,
-            strokeLineCap = StrokeCap.Butt,
-            strokeLineJoin = StrokeJoin.Miter,
-        )
-    }
-    addPath(
-        pathData = parseSvgPathData("M 192.000 24.000 L 64.000 24.000 C 50.745 24.000 40.000 34.745 40.000 48.000 L 40.000 208.000 C 40.000 221.255 50.745 232.000 64.000 232.000 L 192.000 232.000 C 205.255 232.000 216.000 221.255 216.000 208.000 L 216.000 48.000 C 216.000 34.745 205.255 24.000 192.000 24.000 ZM 200.000 208.000 C 200.000 212.418 196.418 216.000 192.000 216.000 L 64.000 216.000 C 59.582 216.000 56.000 212.418 56.000 208.000 L 56.000 48.000 C 56.000 43.582 59.582 40.000 64.000 40.000 L 192.000 40.000 C 196.418 40.000 200.000 43.582 200.000 48.000 ZM 140.000 68.000 C 140.000 74.627 134.627 80.000 128.000 80.000 C 121.373 80.000 116.000 74.627 116.000 68.000 C 116.000 61.373 121.373 56.000 128.000 56.000 C 134.627 56.000 140.000 61.373 140.000 68.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            group(
+                groupAlpha = 0.2f,
+            ) {
+                addPath(
+                    pathData = parseSvgPathData("M 208.000 48.000 L 208.000 208.000 C 208.000 216.837 200.837 224.000 192.000 224.000 L 64.000 224.000 C 55.163 224.000 48.000 216.837 48.000 208.000 L 48.000 48.000 C 48.000 39.163 55.163 32.000 64.000 32.000 L 192.000 32.000 C 200.837 32.000 208.000 39.163 208.000 48.000 Z"),
+                    pathFillType = PathFillType.NonZero,
+                    fill = SolidColor(Color(0xFF000000)),
+                    fillAlpha = 1f,
+                    stroke = null,
+                    strokeAlpha = 1f,
+                    strokeLineWidth = 0f,
+                    strokeLineCap = StrokeCap.Butt,
+                    strokeLineJoin = StrokeJoin.Miter,
+                )
+            }
+            addPath(
+                pathData = parseSvgPathData("M 192.000 24.000 L 64.000 24.000 C 50.745 24.000 40.000 34.745 40.000 48.000 L 40.000 208.000 C 40.000 221.255 50.745 232.000 64.000 232.000 L 192.000 232.000 C 205.255 232.000 216.000 221.255 216.000 208.000 L 216.000 48.000 C 216.000 34.745 205.255 24.000 192.000 24.000 ZM 200.000 208.000 C 200.000 212.418 196.418 216.000 192.000 216.000 L 64.000 216.000 C 59.582 216.000 56.000 212.418 56.000 208.000 L 56.000 48.000 C 56.000 43.582 59.582 40.000 64.000 40.000 L 192.000 40.000 C 196.418 40.000 200.000 43.582 200.000 48.000 ZM 140.000 68.000 C 140.000 74.627 134.627 80.000 128.000 80.000 C 121.373 80.000 116.000 74.627 116.000 68.000 C 116.000 61.373 121.373 56.000 128.000 56.000 C 134.627 56.000 140.000 61.373 140.000 68.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _deviceTabletCamera!!
     }

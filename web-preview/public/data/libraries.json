@@ -1,0 +1,22 @@
+[
+    {
+        "id": "lucide",
+        "file": "lucide.json"
+    },
+    {
+        "id": "phosphor",
+        "file": "phosphor.json"
+    },
+    {
+        "id": "radixicons",
+        "file": "radixicons.json"
+    },
+    {
+        "id": "remixicons",
+        "file": "remixicons.json"
+    },
+    {
+        "id": "tabler",
+        "file": "tabler.json"
+    }
+]

@@ -15,19 +15,19 @@ val RemixIcons.Fill.Heart2Fill: ImageVector
         _heart2Fill = remixIcon(
             name = "Heart2Fill",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 20.243 4.757 C 22.505 7.025 22.583 10.637 20.479 12.993 L 12.000 21.485 L 3.521 12.993 C 1.417 10.637 1.496 7.019 3.757 4.757 C 5.515 2.999 8.093 2.560 10.260 3.440 L 6.343 7.358 L 7.757 8.773 L 12.000 4.530 L 11.987 4.516 C 11.992 4.520 11.996 4.524 12.001 4.529 C 14.350 2.420 17.980 2.490 20.243 4.757 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 20.243 4.757 C 22.505 7.025 22.583 10.637 20.479 12.993 L 12.000 21.485 L 3.521 12.993 C 1.417 10.637 1.496 7.019 3.757 4.757 C 5.515 2.999 8.093 2.560 10.260 3.440 L 6.343 7.358 L 7.757 8.773 L 12.000 4.530 L 11.987 4.516 C 11.992 4.520 11.996 4.524 12.001 4.529 C 14.350 2.420 17.980 2.490 20.243 4.757 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _heart2Fill!!
     }

@@ -15,19 +15,19 @@ val RemixIcons.Line.AlignItemBottomLine: ImageVector
         _alignItemBottomLine = remixIcon(
             name = "AlignItemBottomLine",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 9.000 5.000 L 9.000 15.000 L 6.000 15.000 L 6.000 5.000 L 9.000 5.000 ZM 5.000 3.000 C 4.448 3.000 4.000 3.448 4.000 4.000 L 4.000 16.000 C 4.000 16.552 4.448 17.000 5.000 17.000 L 10.000 17.000 C 10.552 17.000 11.000 16.552 11.000 16.000 L 11.000 4.000 C 11.000 3.448 10.552 3.000 10.000 3.000 L 5.000 3.000 ZM 15.000 9.000 L 15.000 15.000 L 18.000 15.000 L 18.000 9.000 L 15.000 9.000 ZM 13.000 8.000 C 13.000 7.448 13.448 7.000 14.000 7.000 L 19.000 7.000 C 19.552 7.000 20.000 7.448 20.000 8.000 L 20.000 16.000 C 20.000 16.552 19.552 17.000 19.000 17.000 L 14.000 17.000 C 13.448 17.000 13.000 16.552 13.000 16.000 L 13.000 8.000 ZM 21.000 19.000 L 3.000 19.000 L 3.000 21.000 L 21.000 21.000 L 21.000 19.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 9.000 5.000 L 9.000 15.000 L 6.000 15.000 L 6.000 5.000 L 9.000 5.000 ZM 5.000 3.000 C 4.448 3.000 4.000 3.448 4.000 4.000 L 4.000 16.000 C 4.000 16.552 4.448 17.000 5.000 17.000 L 10.000 17.000 C 10.552 17.000 11.000 16.552 11.000 16.000 L 11.000 4.000 C 11.000 3.448 10.552 3.000 10.000 3.000 L 5.000 3.000 ZM 15.000 9.000 L 15.000 15.000 L 18.000 15.000 L 18.000 9.000 L 15.000 9.000 ZM 13.000 8.000 C 13.000 7.448 13.448 7.000 14.000 7.000 L 19.000 7.000 C 19.552 7.000 20.000 7.448 20.000 8.000 L 20.000 16.000 C 20.000 16.552 19.552 17.000 19.000 17.000 L 14.000 17.000 C 13.448 17.000 13.000 16.552 13.000 16.000 L 13.000 8.000 ZM 21.000 19.000 L 3.000 19.000 L 3.000 21.000 L 21.000 21.000 L 21.000 19.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _alignItemBottomLine!!
     }

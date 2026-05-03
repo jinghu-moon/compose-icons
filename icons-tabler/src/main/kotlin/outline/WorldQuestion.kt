@@ -15,85 +15,85 @@ val TablerIcons.Outline.WorldQuestion: ImageVector
         _worldQuestion = tablerOutlineIcon(
             name = "WorldQuestion",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 20.975 11.330 C 20.685 7.453 17.938 4.200 14.164 3.265 C 10.390 2.330 6.442 3.924 4.376 7.218 C 2.310 10.512 2.592 14.760 5.077 17.751 C 7.561 20.742 11.685 21.800 15.302 20.373"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 3.600 9.000 L 20.400 9.000"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 3.600 15.000 L 13.500 15.000"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 11.500 3.000 C 8.063 8.508 8.063 15.492 11.500 21.000"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 12.500 3.000 C 14.279 5.849 15.173 9.161 15.070 12.518M 14.014 17.921 C 13.614 18.996 13.107 20.027 12.500 21.000"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 19.000 22.000 L 19.000 22.010"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 19.000 19.000 C 19.923 18.997 20.724 18.364 20.941 17.468 C 21.157 16.571 20.733 15.642 19.914 15.218 C 19.095 14.798 18.095 14.999 17.500 15.701"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 20.975 11.330 C 20.685 7.453 17.938 4.200 14.164 3.265 C 10.390 2.330 6.442 3.924 4.376 7.218 C 2.310 10.512 2.592 14.760 5.077 17.751 C 7.561 20.742 11.685 21.800 15.302 20.373"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 3.600 9.000 L 20.400 9.000"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 3.600 15.000 L 13.500 15.000"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 11.500 3.000 C 8.063 8.508 8.063 15.492 11.500 21.000"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 12.500 3.000 C 14.279 5.849 15.173 9.161 15.070 12.518M 14.014 17.921 C 13.614 18.996 13.107 20.027 12.500 21.000"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 19.000 22.000 L 19.000 22.010"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 19.000 19.000 C 19.923 18.997 20.724 18.364 20.941 17.468 C 21.157 16.571 20.733 15.642 19.914 15.218 C 19.095 14.798 18.095 14.999 17.500 15.701"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
         }
         return _worldQuestion!!
     }

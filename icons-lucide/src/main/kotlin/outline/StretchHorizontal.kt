@@ -15,30 +15,30 @@ val LucideIcons.Outline.StretchHorizontal: ImageVector
         _stretchHorizontal = lucideOutlineIcon(
             name = "StretchHorizontal",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 4.000 4.000 L 20.000 4.000 C 21.105 4.000 22.000 4.895 22.000 6.000 L 22.000 8.000 C 22.000 9.105 21.105 10.000 20.000 10.000 L 4.000 10.000 C 2.895 10.000 2.000 9.105 2.000 8.000 L 2.000 6.000 C 2.000 4.895 2.895 4.000 4.000 4.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
-    addPath(
-        pathData = parseSvgPathData("M 4.000 14.000 L 20.000 14.000 C 21.105 14.000 22.000 14.895 22.000 16.000 L 22.000 18.000 C 22.000 19.105 21.105 20.000 20.000 20.000 L 4.000 20.000 C 2.895 20.000 2.000 19.105 2.000 18.000 L 2.000 16.000 C 2.000 14.895 2.895 14.000 4.000 14.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 4.000 4.000 L 20.000 4.000 C 21.105 4.000 22.000 4.895 22.000 6.000 L 22.000 8.000 C 22.000 9.105 21.105 10.000 20.000 10.000 L 4.000 10.000 C 2.895 10.000 2.000 9.105 2.000 8.000 L 2.000 6.000 C 2.000 4.895 2.895 4.000 4.000 4.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+            addPath(
+                pathData = parseSvgPathData("M 4.000 14.000 L 20.000 14.000 C 21.105 14.000 22.000 14.895 22.000 16.000 L 22.000 18.000 C 22.000 19.105 21.105 20.000 20.000 20.000 L 4.000 20.000 C 2.895 20.000 2.000 19.105 2.000 18.000 L 2.000 16.000 C 2.000 14.895 2.895 14.000 4.000 14.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
         }
         return _stretchHorizontal!!
     }

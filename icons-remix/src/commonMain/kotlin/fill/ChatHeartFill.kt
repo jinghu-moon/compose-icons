@@ -15,19 +15,19 @@ val RemixIcons.Fill.ChatHeartFill: ImageVector
         _chatHeartFill = remixIcon(
             name = "ChatHeartFill",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 6.455 19.000 L 2.000 22.500 L 2.000 4.000 C 2.000 3.448 2.448 3.000 3.000 3.000 L 21.000 3.000 C 21.552 3.000 22.000 3.448 22.000 4.000 L 22.000 18.000 C 22.000 18.552 21.552 19.000 21.000 19.000 L 6.455 19.000 ZM 12.018 14.700 L 15.377 11.341 C 16.255 10.462 16.255 9.038 15.377 8.159 C 14.498 7.280 13.073 7.280 12.194 8.159 L 12.018 8.336 L 11.841 8.159 C 10.962 7.280 9.538 7.280 8.659 8.159 C 7.780 9.038 7.780 10.462 8.659 11.341 L 12.018 14.700 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 6.455 19.000 L 2.000 22.500 L 2.000 4.000 C 2.000 3.448 2.448 3.000 3.000 3.000 L 21.000 3.000 C 21.552 3.000 22.000 3.448 22.000 4.000 L 22.000 18.000 C 22.000 18.552 21.552 19.000 21.000 19.000 L 6.455 19.000 ZM 12.018 14.700 L 15.377 11.341 C 16.255 10.462 16.255 9.038 15.377 8.159 C 14.498 7.280 13.073 7.280 12.194 8.159 L 12.018 8.336 L 11.841 8.159 C 10.962 7.280 9.538 7.280 8.659 8.159 C 7.780 9.038 7.780 10.462 8.659 11.341 L 12.018 14.700 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _chatHeartFill!!
     }

@@ -15,19 +15,19 @@ val PhosphorIcons.Fill.CardsThree: ImageVector
         _cardsThree = phosphorFillIcon(
             name = "CardsThree",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 224.000 104.000 L 224.000 200.000 C 224.000 208.837 216.837 216.000 208.000 216.000 L 48.000 216.000 C 39.163 216.000 32.000 208.837 32.000 200.000 L 32.000 104.000 C 32.000 95.163 39.163 88.000 48.000 88.000 L 208.000 88.000 C 216.837 88.000 224.000 95.163 224.000 104.000 ZM 56.000 72.000 L 200.000 72.000 C 204.418 72.000 208.000 68.418 208.000 64.000 C 208.000 59.582 204.418 56.000 200.000 56.000 L 56.000 56.000 C 51.582 56.000 48.000 59.582 48.000 64.000 C 48.000 68.418 51.582 72.000 56.000 72.000 ZM 72.000 40.000 L 184.000 40.000 C 188.418 40.000 192.000 36.418 192.000 32.000 C 192.000 27.582 188.418 24.000 184.000 24.000 L 72.000 24.000 C 67.582 24.000 64.000 27.582 64.000 32.000 C 64.000 36.418 67.582 40.000 72.000 40.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 224.000 104.000 L 224.000 200.000 C 224.000 208.837 216.837 216.000 208.000 216.000 L 48.000 216.000 C 39.163 216.000 32.000 208.837 32.000 200.000 L 32.000 104.000 C 32.000 95.163 39.163 88.000 48.000 88.000 L 208.000 88.000 C 216.837 88.000 224.000 95.163 224.000 104.000 ZM 56.000 72.000 L 200.000 72.000 C 204.418 72.000 208.000 68.418 208.000 64.000 C 208.000 59.582 204.418 56.000 200.000 56.000 L 56.000 56.000 C 51.582 56.000 48.000 59.582 48.000 64.000 C 48.000 68.418 51.582 72.000 56.000 72.000 ZM 72.000 40.000 L 184.000 40.000 C 188.418 40.000 192.000 36.418 192.000 32.000 C 192.000 27.582 188.418 24.000 184.000 24.000 L 72.000 24.000 C 67.582 24.000 64.000 27.582 64.000 32.000 C 64.000 36.418 67.582 40.000 72.000 40.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _cardsThree!!
     }

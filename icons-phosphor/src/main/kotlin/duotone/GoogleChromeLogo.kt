@@ -15,34 +15,34 @@ val PhosphorIcons.Duotone.GoogleChromeLogo: ImageVector
         _googleChromeLogo = phosphorDuotoneIcon(
             name = "GoogleChromeLogo",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    group(
-        groupAlpha = 0.20000000298023224f,
-    ) {
-        addPath(
-            pathData = parseSvgPathData("M 168.000 128.000 C 168.000 150.091 150.091 168.000 128.000 168.000 C 105.909 168.000 88.000 150.091 88.000 128.000 C 88.000 105.909 105.909 88.000 128.000 88.000 C 150.091 88.000 168.000 105.909 168.000 128.000 Z"),
-            pathFillType = PathFillType.NonZero,
-            fill = SolidColor(Color(0xFF000000)),
-            fillAlpha = 1.0f,
-            stroke = null,
-            strokeAlpha = 1.0f,
-            strokeLineWidth = 0.0f,
-            strokeLineCap = StrokeCap.Butt,
-            strokeLineJoin = StrokeJoin.Miter,
-        )
-    }
-    addPath(
-        pathData = parseSvgPathData("M 128.000 24.000 C 70.562 24.000 24.000 70.562 24.000 128.000 C 24.000 185.438 70.562 232.000 128.000 232.000 C 185.438 232.000 232.000 185.438 232.000 128.000 C 231.939 70.588 185.412 24.061 128.000 24.000 ZM 128.000 40.000 C 157.756 40.012 185.490 55.061 201.720 80.000 L 128.000 80.000 C 107.277 80.023 88.900 93.322 82.400 113.000 L 59.320 73.000 C 76.007 52.132 101.281 39.988 128.000 40.000 ZM 160.000 128.000 C 160.000 145.673 145.673 160.000 128.000 160.000 C 110.327 160.000 96.000 145.673 96.000 128.000 C 96.000 110.327 110.327 96.000 128.000 96.000 C 145.673 96.000 160.000 110.327 160.000 128.000 ZM 114.720 215.000 C 86.806 210.735 62.634 193.334 49.732 168.216 C 36.831 143.098 36.766 113.314 49.560 88.140 L 86.430 152.000 C 86.490 152.100 86.560 152.190 86.620 152.280 C 97.040 170.059 117.646 179.202 137.820 175.000 ZM 132.720 215.870 L 169.570 152.000 C 169.650 151.860 169.710 151.720 169.790 151.580 C 179.936 133.688 177.521 111.315 163.790 96.000 L 210.000 96.000 C 220.268 122.309 217.285 151.947 201.981 175.682 C 186.677 199.418 160.911 214.366 132.710 215.870 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            group(
+                groupAlpha = 0.2f,
+            ) {
+                addPath(
+                    pathData = parseSvgPathData("M 168.000 128.000 C 168.000 150.091 150.091 168.000 128.000 168.000 C 105.909 168.000 88.000 150.091 88.000 128.000 C 88.000 105.909 105.909 88.000 128.000 88.000 C 150.091 88.000 168.000 105.909 168.000 128.000 Z"),
+                    pathFillType = PathFillType.NonZero,
+                    fill = SolidColor(Color(0xFF000000)),
+                    fillAlpha = 1f,
+                    stroke = null,
+                    strokeAlpha = 1f,
+                    strokeLineWidth = 0f,
+                    strokeLineCap = StrokeCap.Butt,
+                    strokeLineJoin = StrokeJoin.Miter,
+                )
+            }
+            addPath(
+                pathData = parseSvgPathData("M 128.000 24.000 C 70.562 24.000 24.000 70.562 24.000 128.000 C 24.000 185.438 70.562 232.000 128.000 232.000 C 185.438 232.000 232.000 185.438 232.000 128.000 C 231.939 70.588 185.412 24.061 128.000 24.000 ZM 128.000 40.000 C 157.756 40.012 185.490 55.061 201.720 80.000 L 128.000 80.000 C 107.277 80.023 88.900 93.322 82.400 113.000 L 59.320 73.000 C 76.007 52.132 101.281 39.988 128.000 40.000 ZM 160.000 128.000 C 160.000 145.673 145.673 160.000 128.000 160.000 C 110.327 160.000 96.000 145.673 96.000 128.000 C 96.000 110.327 110.327 96.000 128.000 96.000 C 145.673 96.000 160.000 110.327 160.000 128.000 ZM 114.720 215.000 C 86.806 210.735 62.634 193.334 49.732 168.216 C 36.831 143.098 36.766 113.314 49.560 88.140 L 86.430 152.000 C 86.490 152.100 86.560 152.190 86.620 152.280 C 97.040 170.059 117.646 179.202 137.820 175.000 ZM 132.720 215.870 L 169.570 152.000 C 169.650 151.860 169.710 151.720 169.790 151.580 C 179.936 133.688 177.521 111.315 163.790 96.000 L 210.000 96.000 C 220.268 122.309 217.285 151.947 201.981 175.682 C 186.677 199.418 160.911 214.366 132.710 215.870 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _googleChromeLogo!!
     }

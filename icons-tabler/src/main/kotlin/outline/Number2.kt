@@ -15,19 +15,19 @@ val TablerIcons.Outline.Number2: ImageVector
         _number2 = tablerOutlineIcon(
             name = "Number2",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 8.000 8.000 C 8.000 5.791 9.791 4.000 12.000 4.000 C 14.209 4.000 16.000 5.791 16.000 8.000 C 16.000 9.098 15.436 10.025 14.841 10.815 L 8.000 20.000 L 16.000 20.000"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 8.000 8.000 C 8.000 5.791 9.791 4.000 12.000 4.000 C 14.209 4.000 16.000 5.791 16.000 8.000 C 16.000 9.098 15.436 10.025 14.841 10.815 L 8.000 20.000 L 16.000 20.000"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
         }
         return _number2!!
     }

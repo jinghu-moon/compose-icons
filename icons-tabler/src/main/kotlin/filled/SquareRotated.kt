@@ -15,19 +15,19 @@ val TablerIcons.Filled.SquareRotated: ImageVector
         _squareRotated = tablerFilledIcon(
             name = "SquareRotated",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 9.793 2.893 L 2.893 9.793 C 1.721 10.964 1.721 13.036 2.893 14.207 L 9.793 21.107 C 10.964 22.279 13.036 22.279 14.207 21.107 L 21.107 14.207 C 22.279 13.036 22.279 10.964 21.107 9.793 L 14.207 2.893 C 13.036 1.721 10.964 1.721 9.793 2.893 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 9.793 2.893 L 2.893 9.793 C 1.721 10.964 1.721 13.036 2.893 14.207 L 9.793 21.107 C 10.964 22.279 13.036 22.279 14.207 21.107 L 21.107 14.207 C 22.279 13.036 22.279 10.964 21.107 9.793 L 14.207 2.893 C 13.036 1.721 10.964 1.721 9.793 2.893 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _squareRotated!!
     }

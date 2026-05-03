@@ -15,34 +15,34 @@ val PhosphorIcons.Duotone.HourglassSimpleLow: ImageVector
         _hourglassSimpleLow = phosphorDuotoneIcon(
             name = "HourglassSimpleLow",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    group(
-        groupAlpha = 0.20000000298023224f,
-    ) {
-        addPath(
-            pathData = parseSvgPathData("M 200.000 216.000 L 56.000 216.000 C 52.762 216.003 49.842 214.053 48.603 211.062 C 47.364 208.071 48.049 204.628 50.340 202.340 L 77.870 176.000 L 178.130 176.000 L 205.640 202.340 C 207.928 204.626 208.615 208.064 207.381 211.053 C 206.147 214.042 203.234 215.994 200.000 216.000 Z"),
-            pathFillType = PathFillType.NonZero,
-            fill = SolidColor(Color(0xFF000000)),
-            fillAlpha = 1.0f,
-            stroke = null,
-            strokeAlpha = 1.0f,
-            strokeLineWidth = 0.0f,
-            strokeLineCap = StrokeCap.Butt,
-            strokeLineJoin = StrokeJoin.Miter,
-        )
-    }
-    addPath(
-        pathData = parseSvgPathData("M 211.180 196.560 L 139.570 128.000 L 211.180 59.440 C 211.221 59.394 211.264 59.351 211.310 59.310 C 215.883 54.734 217.250 47.855 214.775 41.878 C 212.300 35.901 206.469 32.003 200.000 32.000 L 56.000 32.000 C 49.531 32.003 43.700 35.901 41.225 41.878 C 38.750 47.855 40.117 54.734 44.690 59.310 C 44.736 59.351 44.779 59.394 44.820 59.440 L 116.430 128.000 L 44.820 196.560 C 44.779 196.606 44.736 196.649 44.690 196.690 C 40.117 201.266 38.750 208.145 41.225 214.122 C 43.700 220.099 49.531 223.997 56.000 224.000 L 200.000 224.000 C 206.471 224.001 212.305 220.104 214.783 214.127 C 217.261 208.149 215.894 201.267 211.320 196.690 C 211.271 196.650 211.224 196.606 211.180 196.560 ZM 56.000 48.000 L 56.000 48.000 L 56.000 48.000 ZM 158.210 168.000 L 97.790 168.000 L 128.000 139.080 ZM 200.000 48.000 L 128.000 116.920 L 56.000 48.000 ZM 56.000 208.000 L 81.060 184.000 L 174.900 184.000 L 200.000 208.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            group(
+                groupAlpha = 0.2f,
+            ) {
+                addPath(
+                    pathData = parseSvgPathData("M 200.000 216.000 L 56.000 216.000 C 52.762 216.003 49.842 214.053 48.603 211.062 C 47.364 208.071 48.049 204.628 50.340 202.340 L 77.870 176.000 L 178.130 176.000 L 205.640 202.340 C 207.928 204.626 208.615 208.064 207.381 211.053 C 206.147 214.042 203.234 215.994 200.000 216.000 Z"),
+                    pathFillType = PathFillType.NonZero,
+                    fill = SolidColor(Color(0xFF000000)),
+                    fillAlpha = 1f,
+                    stroke = null,
+                    strokeAlpha = 1f,
+                    strokeLineWidth = 0f,
+                    strokeLineCap = StrokeCap.Butt,
+                    strokeLineJoin = StrokeJoin.Miter,
+                )
+            }
+            addPath(
+                pathData = parseSvgPathData("M 211.180 196.560 L 139.570 128.000 L 211.180 59.440 C 211.221 59.394 211.264 59.351 211.310 59.310 C 215.883 54.734 217.250 47.855 214.775 41.878 C 212.300 35.901 206.469 32.003 200.000 32.000 L 56.000 32.000 C 49.531 32.003 43.700 35.901 41.225 41.878 C 38.750 47.855 40.117 54.734 44.690 59.310 C 44.736 59.351 44.779 59.394 44.820 59.440 L 116.430 128.000 L 44.820 196.560 C 44.779 196.606 44.736 196.649 44.690 196.690 C 40.117 201.266 38.750 208.145 41.225 214.122 C 43.700 220.099 49.531 223.997 56.000 224.000 L 200.000 224.000 C 206.471 224.001 212.305 220.104 214.783 214.127 C 217.261 208.149 215.894 201.267 211.320 196.690 C 211.271 196.650 211.224 196.606 211.180 196.560 ZM 56.000 48.000 L 56.000 48.000 L 56.000 48.000 ZM 158.210 168.000 L 97.790 168.000 L 128.000 139.080 ZM 200.000 48.000 L 128.000 116.920 L 56.000 48.000 ZM 56.000 208.000 L 81.060 184.000 L 174.900 184.000 L 200.000 208.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _hourglassSimpleLow!!
     }

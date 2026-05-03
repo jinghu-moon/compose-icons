@@ -15,19 +15,19 @@ val PhosphorIcons.Fill.ArrowSquareDown: ImageVector
         _arrowSquareDown = phosphorFillIcon(
             name = "ArrowSquareDown",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 208.000 32.000 L 48.000 32.000 C 39.163 32.000 32.000 39.163 32.000 48.000 L 32.000 208.000 C 32.000 216.837 39.163 224.000 48.000 224.000 L 208.000 224.000 C 216.837 224.000 224.000 216.837 224.000 208.000 L 224.000 48.000 C 224.000 39.163 216.837 32.000 208.000 32.000 ZM 165.660 141.660 L 133.660 173.660 C 132.159 175.162 130.123 176.006 128.000 176.006 C 125.877 176.006 123.841 175.162 122.340 173.660 L 90.340 141.660 C 87.214 138.534 87.214 133.466 90.340 130.340 C 93.466 127.214 98.534 127.214 101.660 130.340 L 120.000 148.690 L 120.000 88.000 C 120.000 83.582 123.582 80.000 128.000 80.000 C 132.418 80.000 136.000 83.582 136.000 88.000 L 136.000 148.690 L 154.340 130.340 C 157.466 127.214 162.534 127.214 165.660 130.340 C 168.786 133.466 168.786 138.534 165.660 141.660 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 208.000 32.000 L 48.000 32.000 C 39.163 32.000 32.000 39.163 32.000 48.000 L 32.000 208.000 C 32.000 216.837 39.163 224.000 48.000 224.000 L 208.000 224.000 C 216.837 224.000 224.000 216.837 224.000 208.000 L 224.000 48.000 C 224.000 39.163 216.837 32.000 208.000 32.000 ZM 165.660 141.660 L 133.660 173.660 C 132.159 175.162 130.123 176.006 128.000 176.006 C 125.877 176.006 123.841 175.162 122.340 173.660 L 90.340 141.660 C 87.214 138.534 87.214 133.466 90.340 130.340 C 93.466 127.214 98.534 127.214 101.660 130.340 L 120.000 148.690 L 120.000 88.000 C 120.000 83.582 123.582 80.000 128.000 80.000 C 132.418 80.000 136.000 83.582 136.000 88.000 L 136.000 148.690 L 154.340 130.340 C 157.466 127.214 162.534 127.214 165.660 130.340 C 168.786 133.466 168.786 138.534 165.660 141.660 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _arrowSquareDown!!
     }

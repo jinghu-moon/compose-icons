@@ -15,19 +15,19 @@ val LucideIcons.Outline.LoaderCircle: ImageVector
         _loaderCircle = lucideOutlineIcon(
             name = "LoaderCircle",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 21.000 12.000 C 21.000 15.899 18.489 19.354 14.781 20.559 C 11.073 21.764 7.010 20.444 4.719 17.290 C 2.427 14.135 2.427 9.864 4.719 6.709 C 7.011 3.555 11.073 2.235 14.781 3.440"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 21.000 12.000 C 21.000 15.899 18.489 19.354 14.781 20.559 C 11.073 21.764 7.010 20.444 4.719 17.290 C 2.427 14.135 2.427 9.864 4.719 6.709 C 7.011 3.555 11.073 2.235 14.781 3.440"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
         }
         return _loaderCircle!!
     }

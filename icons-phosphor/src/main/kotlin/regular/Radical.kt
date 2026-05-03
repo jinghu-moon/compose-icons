@@ -15,19 +15,19 @@ val PhosphorIcons.Regular.Radical: ImageVector
         _radical = phosphorRegularIcon(
             name = "Radical",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 248.000 80.000 L 248.000 104.000 C 248.000 108.418 244.418 112.000 240.000 112.000 C 235.582 112.000 232.000 108.418 232.000 104.000 L 232.000 88.000 L 133.550 88.000 L 87.490 210.810 C 86.326 213.946 83.335 216.026 79.990 216.026 C 76.645 216.026 73.654 213.946 72.490 210.810 L 24.490 82.810 C 22.938 78.668 25.038 74.052 29.180 72.500 C 33.322 70.948 37.938 73.048 39.490 77.190 L 80.000 185.220 L 120.510 77.220 C 121.671 74.086 124.658 72.005 128.000 72.000 L 240.000 72.000 C 244.418 72.000 248.000 75.582 248.000 80.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 248.000 80.000 L 248.000 104.000 C 248.000 108.418 244.418 112.000 240.000 112.000 C 235.582 112.000 232.000 108.418 232.000 104.000 L 232.000 88.000 L 133.550 88.000 L 87.490 210.810 C 86.326 213.946 83.335 216.026 79.990 216.026 C 76.645 216.026 73.654 213.946 72.490 210.810 L 24.490 82.810 C 22.938 78.668 25.038 74.052 29.180 72.500 C 33.322 70.948 37.938 73.048 39.490 77.190 L 80.000 185.220 L 120.510 77.220 C 121.671 74.086 124.658 72.005 128.000 72.000 L 240.000 72.000 C 244.418 72.000 248.000 75.582 248.000 80.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _radical!!
     }

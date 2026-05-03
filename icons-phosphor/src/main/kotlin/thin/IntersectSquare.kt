@@ -15,19 +15,19 @@ val PhosphorIcons.Thin.IntersectSquare: ImageVector
         _intersectSquare = phosphorThinIcon(
             name = "IntersectSquare",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 216.000 92.000 L 164.000 92.000 L 164.000 40.000 C 164.000 37.791 162.209 36.000 160.000 36.000 L 40.000 36.000 C 37.791 36.000 36.000 37.791 36.000 40.000 L 36.000 160.000 C 36.000 162.209 37.791 164.000 40.000 164.000 L 92.000 164.000 L 92.000 216.000 C 92.000 218.209 93.791 220.000 96.000 220.000 L 216.000 220.000 C 218.209 220.000 220.000 218.209 220.000 216.000 L 220.000 96.000 C 220.000 93.791 218.209 92.000 216.000 92.000 ZM 44.000 156.000 L 44.000 44.000 L 156.000 44.000 L 156.000 92.000 L 96.000 92.000 C 93.791 92.000 92.000 93.791 92.000 96.000 L 92.000 156.000 ZM 100.000 105.660 L 150.340 156.000 L 100.000 156.000 ZM 156.000 150.340 L 105.660 100.000 L 156.000 100.000 ZM 212.000 212.000 L 100.000 212.000 L 100.000 164.000 L 160.000 164.000 C 162.209 164.000 164.000 162.209 164.000 160.000 L 164.000 100.000 L 212.000 100.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 216.000 92.000 L 164.000 92.000 L 164.000 40.000 C 164.000 37.791 162.209 36.000 160.000 36.000 L 40.000 36.000 C 37.791 36.000 36.000 37.791 36.000 40.000 L 36.000 160.000 C 36.000 162.209 37.791 164.000 40.000 164.000 L 92.000 164.000 L 92.000 216.000 C 92.000 218.209 93.791 220.000 96.000 220.000 L 216.000 220.000 C 218.209 220.000 220.000 218.209 220.000 216.000 L 220.000 96.000 C 220.000 93.791 218.209 92.000 216.000 92.000 ZM 44.000 156.000 L 44.000 44.000 L 156.000 44.000 L 156.000 92.000 L 96.000 92.000 C 93.791 92.000 92.000 93.791 92.000 96.000 L 92.000 156.000 ZM 100.000 105.660 L 150.340 156.000 L 100.000 156.000 ZM 156.000 150.340 L 105.660 100.000 L 156.000 100.000 ZM 212.000 212.000 L 100.000 212.000 L 100.000 164.000 L 160.000 164.000 C 162.209 164.000 164.000 162.209 164.000 160.000 L 164.000 100.000 L 212.000 100.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _intersectSquare!!
     }

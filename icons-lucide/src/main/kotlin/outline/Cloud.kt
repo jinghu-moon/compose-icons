@@ -15,19 +15,19 @@ val LucideIcons.Outline.Cloud: ImageVector
         _cloud = lucideOutlineIcon(
             name = "Cloud",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 17.500 19.000 L 9.000 19.000 C 5.396 18.999 2.381 16.261 2.034 12.674 C 1.687 9.086 4.121 5.822 7.659 5.130 C 11.196 4.438 14.680 6.546 15.710 10.000 L 17.500 10.000 C 19.985 10.000 22.000 12.015 22.000 14.500 C 22.000 16.985 19.985 19.000 17.500 19.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 17.500 19.000 L 9.000 19.000 C 5.396 18.999 2.381 16.261 2.034 12.674 C 1.687 9.086 4.121 5.822 7.659 5.130 C 11.196 4.438 14.680 6.546 15.710 10.000 L 17.500 10.000 C 19.985 10.000 22.000 12.015 22.000 14.500 C 22.000 16.985 19.985 19.000 17.500 19.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
         }
         return _cloud!!
     }

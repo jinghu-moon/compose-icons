@@ -15,19 +15,19 @@ val PhosphorIcons.Fill.DeviceMobileSpeaker: ImageVector
         _deviceMobileSpeaker = phosphorFillIcon(
             name = "DeviceMobileSpeaker",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 176.000 16.000 L 80.000 16.000 C 66.745 16.000 56.000 26.745 56.000 40.000 L 56.000 216.000 C 56.000 229.255 66.745 240.000 80.000 240.000 L 176.000 240.000 C 189.255 240.000 200.000 229.255 200.000 216.000 L 200.000 40.000 C 200.000 26.745 189.255 16.000 176.000 16.000 ZM 160.000 64.000 L 96.000 64.000 C 91.582 64.000 88.000 60.418 88.000 56.000 C 88.000 51.582 91.582 48.000 96.000 48.000 L 160.000 48.000 C 164.418 48.000 168.000 51.582 168.000 56.000 C 168.000 60.418 164.418 64.000 160.000 64.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 176.000 16.000 L 80.000 16.000 C 66.745 16.000 56.000 26.745 56.000 40.000 L 56.000 216.000 C 56.000 229.255 66.745 240.000 80.000 240.000 L 176.000 240.000 C 189.255 240.000 200.000 229.255 200.000 216.000 L 200.000 40.000 C 200.000 26.745 189.255 16.000 176.000 16.000 ZM 160.000 64.000 L 96.000 64.000 C 91.582 64.000 88.000 60.418 88.000 56.000 C 88.000 51.582 91.582 48.000 96.000 48.000 L 160.000 48.000 C 164.418 48.000 168.000 51.582 168.000 56.000 C 168.000 60.418 164.418 64.000 160.000 64.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _deviceMobileSpeaker!!
     }

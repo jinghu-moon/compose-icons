@@ -15,19 +15,19 @@ val PhosphorIcons.Bold.TextH: ImageVector
         _textH = phosphorBoldIcon(
             name = "TextH",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 212.000 56.000 L 212.000 200.000 C 212.000 206.627 206.627 212.000 200.000 212.000 C 193.373 212.000 188.000 206.627 188.000 200.000 L 188.000 140.000 L 68.000 140.000 L 68.000 200.000 C 68.000 206.627 62.627 212.000 56.000 212.000 C 49.373 212.000 44.000 206.627 44.000 200.000 L 44.000 56.000 C 44.000 49.373 49.373 44.000 56.000 44.000 C 62.627 44.000 68.000 49.373 68.000 56.000 L 68.000 116.000 L 188.000 116.000 L 188.000 56.000 C 188.000 49.373 193.373 44.000 200.000 44.000 C 206.627 44.000 212.000 49.373 212.000 56.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 212.000 56.000 L 212.000 200.000 C 212.000 206.627 206.627 212.000 200.000 212.000 C 193.373 212.000 188.000 206.627 188.000 200.000 L 188.000 140.000 L 68.000 140.000 L 68.000 200.000 C 68.000 206.627 62.627 212.000 56.000 212.000 C 49.373 212.000 44.000 206.627 44.000 200.000 L 44.000 56.000 C 44.000 49.373 49.373 44.000 56.000 44.000 C 62.627 44.000 68.000 49.373 68.000 56.000 L 68.000 116.000 L 188.000 116.000 L 188.000 56.000 C 188.000 49.373 193.373 44.000 200.000 44.000 C 206.627 44.000 212.000 49.373 212.000 56.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _textH!!
     }

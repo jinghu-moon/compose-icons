@@ -15,34 +15,34 @@ val PhosphorIcons.Duotone.NumberFour: ImageVector
         _numberFour = phosphorDuotoneIcon(
             name = "NumberFour",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    group(
-        groupAlpha = 0.20000000298023224f,
-    ) {
-        addPath(
-            pathData = parseSvgPathData("M 216.000 40.000 L 216.000 216.000 C 216.000 224.837 208.837 232.000 200.000 232.000 L 56.000 232.000 C 47.163 232.000 40.000 224.837 40.000 216.000 L 40.000 40.000 C 40.000 31.163 47.163 24.000 56.000 24.000 L 200.000 24.000 C 208.837 24.000 216.000 31.163 216.000 40.000 Z"),
-            pathFillType = PathFillType.NonZero,
-            fill = SolidColor(Color(0xFF000000)),
-            fillAlpha = 1.0f,
-            stroke = null,
-            strokeAlpha = 1.0f,
-            strokeLineWidth = 0.0f,
-            strokeLineCap = StrokeCap.Butt,
-            strokeLineJoin = StrokeJoin.Miter,
-        )
-    }
-    addPath(
-        pathData = parseSvgPathData("M 184.000 160.000 L 168.000 160.000 L 168.000 48.000 C 168.003 44.600 165.857 41.570 162.649 40.445 C 159.441 39.319 155.872 40.344 153.750 43.000 L 57.750 163.000 C 55.827 165.402 55.452 168.693 56.785 171.466 C 58.118 174.239 60.923 176.002 64.000 176.000 L 152.000 176.000 L 152.000 208.000 C 152.000 212.418 155.582 216.000 160.000 216.000 C 164.418 216.000 168.000 212.418 168.000 208.000 L 168.000 176.000 L 184.000 176.000 C 188.418 176.000 192.000 172.418 192.000 168.000 C 192.000 163.582 188.418 160.000 184.000 160.000 ZM 152.000 160.000 L 80.640 160.000 L 152.000 70.810 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            group(
+                groupAlpha = 0.2f,
+            ) {
+                addPath(
+                    pathData = parseSvgPathData("M 216.000 40.000 L 216.000 216.000 C 216.000 224.837 208.837 232.000 200.000 232.000 L 56.000 232.000 C 47.163 232.000 40.000 224.837 40.000 216.000 L 40.000 40.000 C 40.000 31.163 47.163 24.000 56.000 24.000 L 200.000 24.000 C 208.837 24.000 216.000 31.163 216.000 40.000 Z"),
+                    pathFillType = PathFillType.NonZero,
+                    fill = SolidColor(Color(0xFF000000)),
+                    fillAlpha = 1f,
+                    stroke = null,
+                    strokeAlpha = 1f,
+                    strokeLineWidth = 0f,
+                    strokeLineCap = StrokeCap.Butt,
+                    strokeLineJoin = StrokeJoin.Miter,
+                )
+            }
+            addPath(
+                pathData = parseSvgPathData("M 184.000 160.000 L 168.000 160.000 L 168.000 48.000 C 168.003 44.600 165.857 41.570 162.649 40.445 C 159.441 39.319 155.872 40.344 153.750 43.000 L 57.750 163.000 C 55.827 165.402 55.452 168.693 56.785 171.466 C 58.118 174.239 60.923 176.002 64.000 176.000 L 152.000 176.000 L 152.000 208.000 C 152.000 212.418 155.582 216.000 160.000 216.000 C 164.418 216.000 168.000 212.418 168.000 208.000 L 168.000 176.000 L 184.000 176.000 C 188.418 176.000 192.000 172.418 192.000 168.000 C 192.000 163.582 188.418 160.000 184.000 160.000 ZM 152.000 160.000 L 80.640 160.000 L 152.000 70.810 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _numberFour!!
     }

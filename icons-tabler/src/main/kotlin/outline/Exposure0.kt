@@ -15,19 +15,19 @@ val TablerIcons.Outline.Exposure0: ImageVector
         _exposure0 = tablerOutlineIcon(
             name = "Exposure0",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 12.000 19.000 C 14.209 19.000 16.000 17.209 16.000 15.000 L 16.000 9.000 C 16.000 6.791 14.209 5.000 12.000 5.000 C 9.791 5.000 8.000 6.791 8.000 9.000 L 8.000 15.000 C 8.000 17.209 9.791 19.000 12.000 19.000"),
-        pathFillType = PathFillType.NonZero,
-        fill = null,
-        fillAlpha = 1.0f,
-        stroke = SolidColor(Color(0xFF000000)),
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 2.0f,
-        strokeLineCap = StrokeCap.Round,
-        strokeLineJoin = StrokeJoin.Round,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 12.000 19.000 C 14.209 19.000 16.000 17.209 16.000 15.000 L 16.000 9.000 C 16.000 6.791 14.209 5.000 12.000 5.000 C 9.791 5.000 8.000 6.791 8.000 9.000 L 8.000 15.000 C 8.000 17.209 9.791 19.000 12.000 19.000"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
         }
         return _exposure0!!
     }

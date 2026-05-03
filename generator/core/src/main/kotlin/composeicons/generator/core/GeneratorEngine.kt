@@ -1,20 +1,13 @@
 package composeicons.generator.core
 
-import composeicons.generator.core.json.SvgDocument
 import java.io.File
 import java.util.concurrent.ConcurrentLinkedQueue
-import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
 
 class GeneratorEngine(
     private val projectRoot: File,
     private val pipeline: UsvgPipeline = UsvgPipeline(projectRoot.resolve("tools/svg2compose.exe")),
 ) {
-    private val kotlinFileGenerator = KotlinFileGenerator()
-
-    /** Each batch processes at most this many SVGs in one CLI call. */
-    private val batchSize = 200
-
     fun generate(config: GeneratorConfig, source: IconSource): GeneratorReport {
         val discovered = source.discoverIcons(config.sourceRootDir)
 
@@ -47,18 +40,16 @@ class GeneratorEngine(
 
         // Phase 1: Collect entries that need processing (skip cached)
         data class PendingEntry(
-            val index: Int,
             val entry: SvgIconEntry,
             val kotlinName: String,
             val currentHash: String,
             val targetFile: File,
-            val rawSvg: String,
         )
 
         val pending = mutableListOf<PendingEntry>()
         val cachedFiles = mutableSetOf<File>()
 
-        discovered.forEachIndexed { i, entry ->
+        discovered.forEach { entry ->
             val kotlinName = IconNameMapper.toKotlinName(entry.fileName)
             val targetFile = outputDir.resolve(entry.style.subdirectory).resolve("$kotlinName.kt")
             val currentHash = entry.file.calculateMd5()
@@ -78,79 +69,79 @@ class GeneratorEngine(
                         reason = validationWarnings.joinToString("; "),
                     )
                 } else {
-                    pending += PendingEntry(i, entry, kotlinName, currentHash, targetFile, rawSvg)
+                    pending += PendingEntry(entry, kotlinName, currentHash, targetFile)
                 }
             }
         }
 
-        // Phase 2: Process batches in parallel
+        // Phase 2: Build manifest and call Rust CLI once
         if (pending.isNotEmpty()) {
-            val batches = pending.chunked(batchSize)
-            val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
-
-            val futures = batches.map { batch ->
-                executor.submit {
-                    val batchInput = batch.map { pe ->
-                        "${pe.index}_${pe.entry.fileName}" to pe.rawSvg
-                    }
-
-                    try {
-                        val batchResult = pipeline.processBatch(batchInput)
-
-                        batch.forEach { pe ->
-                            val key = "${pe.index}_${pe.entry.fileName}"
-                            val doc = batchResult[key]
-
-                            if (doc == null) {
-                                failed += FailedIcon(
-                                    fileName = pe.entry.fileName,
-                                    style = pe.entry.style.name,
-                                    reason = "svg2compose returned no result for this file",
-                                )
-                                return@forEach
-                            }
-
-                            kotlinFileGenerator.writeIconFileFromDoc(
-                                doc = doc,
-                                fileName = pe.entry.fileName,
-                                styleName = pe.entry.style.name,
-                                subdirectory = pe.entry.style.subdirectory,
-                                baseOutputDir = outputDir,
-                                basePackage = source.basePackage,
-                                iconContainerName = source.iconContainerName,
-                                helperFunctionName = source.helperFunctionName(pe.entry.style),
-                            )
-
-                            explorerEntries += ExplorerEntry(
-                                name = pe.kotlinName,
-                                style = pe.entry.style.name,
-                                kotlinPath = "${source.basePackage}.${pe.entry.style.subdirectory}.${pe.kotlinName}",
-                                viewBox = ExplorerViewBox(
-                                    doc.viewBox.x.toFloat(),
-                                    doc.viewBox.y.toFloat(),
-                                    doc.viewBox.width.toFloat(),
-                                    doc.viewBox.height.toFloat(),
-                                ),
-                                paths = emptyList(),
-                                hash = pe.currentHash,
-                            )
-                            succeeded.incrementAndGet()
-                            synchronized(generatedFiles) { generatedFiles.add(pe.targetFile) }
-                        }
-                    } catch (error: Exception) {
-                        batch.forEach { pe ->
-                            failed += FailedIcon(
-                                fileName = pe.entry.fileName,
-                                style = pe.entry.style.name,
-                                reason = "Batch processing failed: ${error.message ?: error::class.java.simpleName}",
-                            )
-                        }
-                    }
-                }
+            val manifestEntries = pending.map { pe ->
+                ManifestEntry(
+                    svg = pe.entry.file.absolutePath,
+                    kotlin_name = pe.kotlinName,
+                    style_name = pe.entry.style.name,
+                    subdirectory = pe.entry.style.subdirectory,
+                    helper = source.helperFunctionName(pe.entry.style),
+                )
             }
 
-            futures.forEach { it.get() }
-            executor.shutdown()
+            try {
+                val iconResults = pipeline.generateViaManifest(
+                    entries = manifestEntries,
+                    basePackage = source.basePackage,
+                    iconContainer = source.iconContainerName,
+                    outputDir = outputDir,
+                )
+
+                pending.forEach { pe ->
+                    val key = "${pe.entry.style.subdirectory}/${pe.kotlinName}"
+                    val iconResult = iconResults[key]
+
+                    if (iconResult == null) {
+                        failed += FailedIcon(
+                            fileName = pe.entry.fileName,
+                            style = pe.entry.style.name,
+                            reason = "svg2compose returned no result for this file",
+                        )
+                    } else {
+                        explorerEntries += ExplorerEntry(
+                            name = pe.kotlinName,
+                            style = pe.entry.style.name,
+                            kotlinPath = "${source.basePackage}.${pe.entry.style.subdirectory}.${pe.kotlinName}",
+                            viewBox = ExplorerViewBox(
+                                iconResult.viewBox.min_x.toFloat(),
+                                iconResult.viewBox.min_y.toFloat(),
+                                iconResult.viewBox.width.toFloat(),
+                                iconResult.viewBox.height.toFloat(),
+                            ),
+                            paths = iconResult.paths.map { p ->
+                                ExplorerPathNode(
+                                    fill = p.fill,
+                                    stroke = p.stroke,
+                                    strokeWidth = p.strokeWidth?.toFloat(),
+                                    strokeLineCap = p.strokeLineCap,
+                                    strokeLineJoin = p.strokeLineJoin,
+                                    fillRule = p.fillRule,
+                                    alpha = p.alpha.toFloat(),
+                                    d = p.d,
+                                )
+                            },
+                            hash = pe.currentHash,
+                        )
+                        succeeded.incrementAndGet()
+                        generatedFiles.add(pe.targetFile)
+                    }
+                }
+            } catch (error: Exception) {
+                pending.forEach { pe ->
+                    failed += FailedIcon(
+                        fileName = pe.entry.fileName,
+                        style = pe.entry.style.name,
+                        reason = "Manifest generation failed: ${error.message ?: error::class.java.simpleName}",
+                    )
+                }
+            }
         }
 
         generatedFiles.addAll(cachedFiles)

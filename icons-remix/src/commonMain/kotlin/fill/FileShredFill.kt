@@ -15,19 +15,19 @@ val RemixIcons.Fill.FileShredFill: ImageVector
         _fileShredFill = remixIcon(
             name = "FileShredFill",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 22.000 12.000 L 22.000 14.000 L 2.000 14.000 L 2.000 12.000 L 4.000 12.000 L 4.000 2.995 C 4.000 2.446 4.445 2.000 4.996 2.000 L 15.000 2.000 L 20.000 7.000 L 20.000 12.000 L 22.000 12.000 ZM 3.000 16.000 L 5.000 16.000 L 5.000 22.000 L 3.000 22.000 L 3.000 16.000 ZM 19.000 16.000 L 21.000 16.000 L 21.000 22.000 L 19.000 22.000 L 19.000 16.000 ZM 15.000 16.000 L 17.000 16.000 L 17.000 22.000 L 15.000 22.000 L 15.000 16.000 ZM 11.000 16.000 L 13.000 16.000 L 13.000 22.000 L 11.000 22.000 L 11.000 16.000 ZM 7.000 16.000 L 9.000 16.000 L 9.000 22.000 L 7.000 22.000 L 7.000 16.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 22.000 12.000 L 22.000 14.000 L 2.000 14.000 L 2.000 12.000 L 4.000 12.000 L 4.000 2.995 C 4.000 2.446 4.445 2.000 4.996 2.000 L 15.000 2.000 L 20.000 7.000 L 20.000 12.000 L 22.000 12.000 ZM 3.000 16.000 L 5.000 16.000 L 5.000 22.000 L 3.000 22.000 L 3.000 16.000 ZM 19.000 16.000 L 21.000 16.000 L 21.000 22.000 L 19.000 22.000 L 19.000 16.000 ZM 15.000 16.000 L 17.000 16.000 L 17.000 22.000 L 15.000 22.000 L 15.000 16.000 ZM 11.000 16.000 L 13.000 16.000 L 13.000 22.000 L 11.000 22.000 L 11.000 16.000 ZM 7.000 16.000 L 9.000 16.000 L 9.000 22.000 L 7.000 22.000 L 7.000 16.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _fileShredFill!!
     }

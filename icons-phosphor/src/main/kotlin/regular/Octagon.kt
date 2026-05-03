@@ -15,19 +15,19 @@ val PhosphorIcons.Regular.Octagon: ImageVector
         _octagon = phosphorRegularIcon(
             name = "Octagon",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 227.310 80.240 L 175.760 28.690 C 172.770 25.676 168.696 23.986 164.450 24.000 L 91.550 24.000 C 87.304 23.986 83.230 25.676 80.240 28.690 L 28.690 80.240 C 25.676 83.230 23.986 87.304 24.000 91.550 L 24.000 164.450 C 23.986 168.696 25.676 172.770 28.690 175.760 L 80.240 227.310 C 83.230 230.324 87.304 232.014 91.550 232.000 L 164.450 232.000 C 168.696 232.014 172.770 230.324 175.760 227.310 L 227.310 175.760 C 230.324 172.770 232.014 168.696 232.000 164.450 L 232.000 91.550 C 232.014 87.304 230.324 83.230 227.310 80.240 ZM 216.000 164.450 L 164.450 216.000 L 91.550 216.000 L 40.000 164.450 L 40.000 91.550 L 91.550 40.000 L 164.450 40.000 L 216.000 91.550 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 227.310 80.240 L 175.760 28.690 C 172.770 25.676 168.696 23.986 164.450 24.000 L 91.550 24.000 C 87.304 23.986 83.230 25.676 80.240 28.690 L 28.690 80.240 C 25.676 83.230 23.986 87.304 24.000 91.550 L 24.000 164.450 C 23.986 168.696 25.676 172.770 28.690 175.760 L 80.240 227.310 C 83.230 230.324 87.304 232.014 91.550 232.000 L 164.450 232.000 C 168.696 232.014 172.770 230.324 175.760 227.310 L 227.310 175.760 C 230.324 172.770 232.014 168.696 232.000 164.450 L 232.000 91.550 C 232.014 87.304 230.324 83.230 227.310 80.240 ZM 216.000 164.450 L 164.450 216.000 L 91.550 216.000 L 40.000 164.450 L 40.000 91.550 L 91.550 40.000 L 164.450 40.000 L 216.000 91.550 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _octagon!!
     }

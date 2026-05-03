@@ -5,7 +5,7 @@ use std::io::Read;
 
 #[derive(Parser)]
 #[command(name = "svg2compose")]
-#[command(about = "Convert SVG to Compose-compatible JSON")]
+#[command(about = "Convert SVG to Compose-compatible JSON or Kotlin code")]
 struct Cli {
     /// Input SVG file path (reads from stdin if not provided)
     #[arg(short, long)]
@@ -18,18 +18,42 @@ struct Cli {
     /// Output file path for batch mode (required when --input-dir is used)
     #[arg(short, long)]
     output: Option<String>,
+
+    /// Manifest file: generate .kt files directly from manifest JSON
+    #[arg(long)]
+    manifest: Option<String>,
+
+    /// Output directory for generated .kt files (required when --manifest is used)
+    #[arg(long)]
+    output_dir: Option<String>,
+
+    /// Write manifest result JSON (viewBox per icon) to this path
+    #[arg(long)]
+    result: Option<String>,
+}
+
+/// Extract <svg ... </svg> from raw text, stripping non-SVG content.
+fn clean_svg(raw: &str) -> &str {
+    if let Some(start) = raw.find("<svg") {
+        if let Some(end) = raw[start..].find("</svg>") {
+            return &raw[start..start + end + 6];
+        }
+    }
+    raw
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    if let Some(ref dir) = cli.input_dir {
-        // Batch mode
+    if let Some(ref manifest_path) = cli.manifest {
+        let output_dir = cli.output_dir.as_deref()
+            .ok_or("--output-dir is required when --manifest is used")?;
+        manifest_process(manifest_path, output_dir, cli.result.as_deref())?;
+    } else if let Some(ref dir) = cli.input_dir {
         let output_path = cli.output.as_deref()
             .ok_or("--output is required when --input-dir is used")?;
         batch_process(dir, output_path)?;
     } else {
-        // Single file / stdin mode
         let svg_text = match cli.input {
             Some(path) => std::fs::read_to_string(&path)?,
             None => {
@@ -39,7 +63,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         };
 
-        let tree = usvg::Tree::from_str(&svg_text, &usvg::Options::default())
+        let cleaned = clean_svg(&svg_text);
+        let tree = usvg::Tree::from_str(cleaned, &usvg::Options::default())
             .map_err(|e| format!("Failed to parse SVG: {}", e))?;
 
         let doc = svg2compose::converter::convert_tree(&tree);
@@ -57,7 +82,6 @@ fn batch_process(input_dir: &str, output_path: &str) -> Result<(), Box<dyn std::
         return Err(format!("{} is not a directory", input_dir).into());
     }
 
-    // Collect all .svg files
     let svg_files: Vec<(String, std::path::PathBuf)> = std::fs::read_dir(dir)?
         .filter_map(|entry| {
             let entry = entry.ok()?;
@@ -71,12 +95,12 @@ fn batch_process(input_dir: &str, output_path: &str) -> Result<(), Box<dyn std::
         })
         .collect();
 
-    // Process in parallel with rayon
     let results: BTreeMap<String, svg2compose::protocol::SvgDocument> = svg_files
         .par_iter()
         .filter_map(|(stem, path)| {
-            let svg_text = std::fs::read_to_string(path).ok()?;
-            let tree = usvg::Tree::from_str(&svg_text, &usvg::Options::default()).ok()?;
+            let raw = std::fs::read_to_string(path).ok()?;
+            let cleaned = clean_svg(&raw);
+            let tree = usvg::Tree::from_str(cleaned, &usvg::Options::default()).ok()?;
             let doc = svg2compose::converter::convert_tree(&tree);
             Some((stem.clone(), doc))
         })
@@ -86,4 +110,94 @@ fn batch_process(input_dir: &str, output_path: &str) -> Result<(), Box<dyn std::
     std::fs::write(output_path, json)?;
 
     Ok(())
+}
+
+fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&str>) -> Result<(), Box<dyn std::error::Error>> {
+    use svg2compose::manifest::{IconResult, ManifestResult, ResultViewBox};
+    use svg2compose::protocol::SvgDocument;
+
+    let manifest = svg2compose::manifest::Manifest::load(manifest_path)?;
+    let out_dir = std::path::Path::new(output_dir);
+
+    let results: Vec<(String, String, String, SvgDocument)> = manifest
+        .icons
+        .par_iter()
+        .filter_map(|entry| {
+            let raw = std::fs::read_to_string(&entry.svg).ok()?;
+            let cleaned = clean_svg(&raw);
+            let tree = usvg::Tree::from_str(cleaned, &usvg::Options::default()).ok()?;
+            let doc = svg2compose::converter::convert_tree(&tree);
+            let kt_code = svg2compose::codegen::generate_kotlin_file(
+                &doc,
+                entry,
+                &manifest.base_package,
+                &manifest.icon_container,
+            );
+            let rel_path = format!("{}/{}.kt", entry.subdirectory, entry.kotlin_name);
+            let result_key = format!("{}/{}", entry.subdirectory, entry.kotlin_name);
+            Some((rel_path, result_key, kt_code, doc))
+        })
+        .collect();
+
+    for (rel_path, _, code, _) in &results {
+        let file_path = out_dir.join(rel_path);
+        if let Some(parent) = file_path.parent() {
+            std::fs::create_dir_all(parent).ok();
+        }
+        std::fs::write(&file_path, code)?;
+    }
+
+    // Write result JSON if --result is specified
+    if let Some(result_file) = result_path {
+        let manifest_result: ManifestResult = results
+            .iter()
+            .map(|(_, key, _, doc)| {
+                let icon_result = IconResult {
+                    view_box: ResultViewBox {
+                        min_x: doc.view_box.x,
+                        min_y: doc.view_box.y,
+                        width: doc.view_box.width,
+                        height: doc.view_box.height,
+                    },
+                    paths: collect_paths(&doc.nodes),
+                };
+                (key.clone(), icon_result)
+            })
+            .collect();
+        let json = serde_json::to_string(&manifest_result)?;
+        std::fs::write(result_file, json)?;
+    }
+
+    Ok(())
+}
+
+/// Recursively collect path data from nodes for web-preview rendering.
+fn collect_paths(nodes: &[svg2compose::protocol::Node]) -> Vec<svg2compose::manifest::ResultPathNode> {
+    use svg2compose::manifest::ResultPathNode;
+    use svg2compose::protocol::Node;
+
+    let mut paths = Vec::new();
+    for node in nodes {
+        match node {
+            Node::Path(p) => {
+                let alpha = p.fill.as_ref().map(|f| f.opacity)
+                    .or_else(|| p.stroke.as_ref().map(|s| s.opacity))
+                    .unwrap_or(1.0);
+                paths.push(ResultPathNode {
+                    d: p.d.clone(),
+                    fill: p.fill.as_ref().map(|f| f.color.clone()),
+                    stroke: p.stroke.as_ref().map(|s| s.color.clone()),
+                    stroke_width: p.stroke.as_ref().map(|s| s.width),
+                    stroke_line_cap: p.stroke.as_ref().map(|s| s.linecap.clone()),
+                    stroke_line_join: p.stroke.as_ref().map(|s| s.linejoin.clone()),
+                    fill_rule: p.fill.as_ref().map(|f| f.rule.clone()),
+                    alpha,
+                });
+            }
+            Node::Group(g) => {
+                paths.extend(collect_paths(&g.children));
+            }
+        }
+    }
+    paths
 }

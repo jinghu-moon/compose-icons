@@ -15,19 +15,19 @@ val RemixIcons.Fill.FolderShield2Fill: ImageVector
         _folderShield2Fill = remixIcon(
             name = "FolderShield2Fill",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 22.000 10.000 L 12.000 10.000 L 12.000 17.382 C 12.000 18.791 12.632 20.116 13.705 21.000 L 3.000 21.000 C 2.448 21.000 2.000 20.552 2.000 20.000 L 2.000 4.000 C 2.000 3.448 2.448 3.000 3.000 3.000 L 10.414 3.000 L 12.414 5.000 L 21.000 5.000 C 21.552 5.000 22.000 5.448 22.000 6.000 L 22.000 10.000 ZM 14.000 12.000 L 22.000 12.000 L 22.000 17.382 C 22.000 18.279 21.554 19.116 20.812 19.613 L 18.000 21.498 L 15.188 19.613 C 14.446 19.116 14.000 18.279 14.000 17.382 L 14.000 12.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 22.000 10.000 L 12.000 10.000 L 12.000 17.382 C 12.000 18.791 12.632 20.116 13.705 21.000 L 3.000 21.000 C 2.448 21.000 2.000 20.552 2.000 20.000 L 2.000 4.000 C 2.000 3.448 2.448 3.000 3.000 3.000 L 10.414 3.000 L 12.414 5.000 L 21.000 5.000 C 21.552 5.000 22.000 5.448 22.000 6.000 L 22.000 10.000 ZM 14.000 12.000 L 22.000 12.000 L 22.000 17.382 C 22.000 18.279 21.554 19.116 20.812 19.613 L 18.000 21.498 L 15.188 19.613 C 14.446 19.116 14.000 18.279 14.000 17.382 L 14.000 12.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _folderShield2Fill!!
     }

@@ -15,19 +15,19 @@ val PhosphorIcons.Fill.Cards: ImageVector
         _cards = phosphorFillIcon(
             name = "Cards",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 200.000 88.000 L 200.000 200.000 C 200.000 208.837 192.837 216.000 184.000 216.000 L 40.000 216.000 C 31.163 216.000 24.000 208.837 24.000 200.000 L 24.000 88.000 C 24.000 79.163 31.163 72.000 40.000 72.000 L 184.000 72.000 C 192.837 72.000 200.000 79.163 200.000 88.000 ZM 216.000 40.000 L 64.000 40.000 C 59.582 40.000 56.000 43.582 56.000 48.000 C 56.000 52.418 59.582 56.000 64.000 56.000 L 216.000 56.000 L 216.000 176.000 C 216.000 180.418 219.582 184.000 224.000 184.000 C 228.418 184.000 232.000 180.418 232.000 176.000 L 232.000 56.000 C 232.000 47.163 224.837 40.000 216.000 40.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 200.000 88.000 L 200.000 200.000 C 200.000 208.837 192.837 216.000 184.000 216.000 L 40.000 216.000 C 31.163 216.000 24.000 208.837 24.000 200.000 L 24.000 88.000 C 24.000 79.163 31.163 72.000 40.000 72.000 L 184.000 72.000 C 192.837 72.000 200.000 79.163 200.000 88.000 ZM 216.000 40.000 L 64.000 40.000 C 59.582 40.000 56.000 43.582 56.000 48.000 C 56.000 52.418 59.582 56.000 64.000 56.000 L 216.000 56.000 L 216.000 176.000 C 216.000 180.418 219.582 184.000 224.000 184.000 C 228.418 184.000 232.000 180.418 232.000 176.000 L 232.000 56.000 C 232.000 47.163 224.837 40.000 216.000 40.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _cards!!
     }

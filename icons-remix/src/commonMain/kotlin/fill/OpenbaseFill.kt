@@ -15,19 +15,19 @@ val RemixIcons.Fill.OpenbaseFill: ImageVector
         _openbaseFill = remixIcon(
             name = "OpenbaseFill",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 12.000 2.760 L 21.999 5.996 L 21.100 15.464 L 12.000 22.323 L 2.900 15.460 L 2.011 6.000 L 12.000 2.760 ZM 12.000 3.585 L 3.189 6.435 L 12.000 20.793 L 20.806 6.435 L 12.000 3.585 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 12.000 2.760 L 21.999 5.996 L 21.100 15.464 L 12.000 22.323 L 2.900 15.460 L 2.011 6.000 L 12.000 2.760 ZM 12.000 3.585 L 3.189 6.435 L 12.000 20.793 L 20.806 6.435 L 12.000 3.585 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _openbaseFill!!
     }

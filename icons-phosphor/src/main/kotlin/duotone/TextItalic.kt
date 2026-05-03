@@ -15,34 +15,34 @@ val PhosphorIcons.Duotone.TextItalic: ImageVector
         _textItalic = phosphorDuotoneIcon(
             name = "TextItalic",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    group(
-        groupAlpha = 0.20000000298023224f,
-    ) {
-        addPath(
-            pathData = parseSvgPathData("M 192.000 56.000 L 144.000 200.000 L 64.000 200.000 L 112.000 56.000 Z"),
-            pathFillType = PathFillType.NonZero,
-            fill = SolidColor(Color(0xFF000000)),
-            fillAlpha = 1.0f,
-            stroke = null,
-            strokeAlpha = 1.0f,
-            strokeLineWidth = 0.0f,
-            strokeLineCap = StrokeCap.Butt,
-            strokeLineJoin = StrokeJoin.Miter,
-        )
-    }
-    addPath(
-        pathData = parseSvgPathData("M 200.000 56.000 C 200.000 60.418 196.418 64.000 192.000 64.000 L 157.770 64.000 L 115.100 192.000 L 144.000 192.000 C 148.418 192.000 152.000 195.582 152.000 200.000 C 152.000 204.418 148.418 208.000 144.000 208.000 L 64.000 208.000 C 59.582 208.000 56.000 204.418 56.000 200.000 C 56.000 195.582 59.582 192.000 64.000 192.000 L 98.230 192.000 L 140.900 64.000 L 112.000 64.000 C 107.582 64.000 104.000 60.418 104.000 56.000 C 104.000 51.582 107.582 48.000 112.000 48.000 L 192.000 48.000 C 196.418 48.000 200.000 51.582 200.000 56.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            group(
+                groupAlpha = 0.2f,
+            ) {
+                addPath(
+                    pathData = parseSvgPathData("M 192.000 56.000 L 144.000 200.000 L 64.000 200.000 L 112.000 56.000 Z"),
+                    pathFillType = PathFillType.NonZero,
+                    fill = SolidColor(Color(0xFF000000)),
+                    fillAlpha = 1f,
+                    stroke = null,
+                    strokeAlpha = 1f,
+                    strokeLineWidth = 0f,
+                    strokeLineCap = StrokeCap.Butt,
+                    strokeLineJoin = StrokeJoin.Miter,
+                )
+            }
+            addPath(
+                pathData = parseSvgPathData("M 200.000 56.000 C 200.000 60.418 196.418 64.000 192.000 64.000 L 157.770 64.000 L 115.100 192.000 L 144.000 192.000 C 148.418 192.000 152.000 195.582 152.000 200.000 C 152.000 204.418 148.418 208.000 144.000 208.000 L 64.000 208.000 C 59.582 208.000 56.000 204.418 56.000 200.000 C 56.000 195.582 59.582 192.000 64.000 192.000 L 98.230 192.000 L 140.900 64.000 L 112.000 64.000 C 107.582 64.000 104.000 60.418 104.000 56.000 C 104.000 51.582 107.582 48.000 112.000 48.000 L 192.000 48.000 C 196.418 48.000 200.000 51.582 200.000 56.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _textItalic!!
     }

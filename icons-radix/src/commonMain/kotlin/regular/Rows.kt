@@ -15,19 +15,19 @@ val RadixIcons.Regular.Rows: ImageVector
         _rows = radixIcon(
             name = "Rows",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 15.0f, height = 15.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 15f, height = 15f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 14.000 12.849 L 14.000 14.150 L 1.000 14.150 L 1.000 12.849 L 14.000 12.849 ZM 14.000 8.849 L 14.000 10.150 L 1.000 10.150 L 1.000 8.849 L 14.000 8.849 ZM 14.000 4.849 L 14.000 6.150 L 1.000 6.150 L 1.000 4.849 L 14.000 4.849 ZM 14.000 0.849 L 14.000 2.150 L 1.000 2.150 L 1.000 0.849 L 14.000 0.849 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 14.000 12.849 L 14.000 14.150 L 1.000 14.150 L 1.000 12.849 L 14.000 12.849 ZM 14.000 8.849 L 14.000 10.150 L 1.000 10.150 L 1.000 8.849 L 14.000 8.849 ZM 14.000 4.849 L 14.000 6.150 L 1.000 6.150 L 1.000 4.849 L 14.000 4.849 ZM 14.000 0.849 L 14.000 2.150 L 1.000 2.150 L 1.000 0.849 L 14.000 0.849 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _rows!!
     }

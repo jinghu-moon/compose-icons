@@ -15,19 +15,19 @@ val PhosphorIcons.Fill.Flame: ImageVector
         _flame = phosphorFillIcon(
             name = "Flame",
             size = IconSize(width = 24f.dp, height = 24f.dp),
-            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
         ) {
-    addPath(
-        pathData = parseSvgPathData("M 173.790 51.480 C 161.354 38.375 147.360 26.842 132.120 17.140 C 129.585 15.617 126.415 15.617 123.880 17.140 C 108.640 26.842 94.646 38.375 82.210 51.480 C 54.590 80.480 40.000 112.470 40.000 144.000 C 40.000 192.601 79.399 232.000 128.000 232.000 C 176.601 232.000 216.000 192.601 216.000 144.000 C 216.000 112.470 201.410 80.480 173.790 51.480 ZM 96.000 184.000 C 96.000 156.330 118.530 136.720 128.000 129.700 C 137.480 136.700 160.000 156.330 160.000 184.000 C 160.000 201.673 145.673 216.000 128.000 216.000 C 110.327 216.000 96.000 201.673 96.000 184.000 Z"),
-        pathFillType = PathFillType.NonZero,
-        fill = SolidColor(Color(0xFF000000)),
-        fillAlpha = 1.0f,
-        stroke = null,
-        strokeAlpha = 1.0f,
-        strokeLineWidth = 0.0f,
-        strokeLineCap = StrokeCap.Butt,
-        strokeLineJoin = StrokeJoin.Miter,
-    )
+            addPath(
+                pathData = parseSvgPathData("M 173.790 51.480 C 161.354 38.375 147.360 26.842 132.120 17.140 C 129.585 15.617 126.415 15.617 123.880 17.140 C 108.640 26.842 94.646 38.375 82.210 51.480 C 54.590 80.480 40.000 112.470 40.000 144.000 C 40.000 192.601 79.399 232.000 128.000 232.000 C 176.601 232.000 216.000 192.601 216.000 144.000 C 216.000 112.470 201.410 80.480 173.790 51.480 ZM 96.000 184.000 C 96.000 156.330 118.530 136.720 128.000 129.700 C 137.480 136.700 160.000 156.330 160.000 184.000 C 160.000 201.673 145.673 216.000 128.000 216.000 C 110.327 216.000 96.000 201.673 96.000 184.000 Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
         }
         return _flame!!
     }

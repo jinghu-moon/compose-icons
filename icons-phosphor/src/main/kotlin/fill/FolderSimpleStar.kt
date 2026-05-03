@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,64 +17,17 @@ val PhosphorIcons.Fill.FolderSimpleStar: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(128.0f, 208.0f),
-                    PathNode.CurveTo(128.0f, 212.41827f, 124.41828f, 216.0f, 120.0f, 216.0f),
-                    PathNode.LineTo(40.0f, 216.0f),
-                    PathNode.CurveTo(31.163445f, 216.0f, 24.0f, 208.83656f, 24.0f, 200.0f),
-                    PathNode.LineTo(24.0f, 64.0f),
-                    PathNode.CurveTo(24.0f, 55.163445f, 31.163445f, 48.0f, 40.0f, 48.0f),
-                    PathNode.LineTo(93.33f, 48.0f),
-                    PathNode.CurveTo(96.79053f, 48.008583f, 100.15643f, 49.13055f, 102.93f, 51.2f),
-                    PathNode.LineTo(130.67f, 72.0f),
-                    PathNode.LineTo(216.0f, 72.0f),
-                    PathNode.CurveTo(224.83656f, 72.0f, 232.0f, 79.163445f, 232.0f, 88.0f),
-                    PathNode.LineTo(232.0f, 120.0f),
-                    PathNode.CurveTo(232.0f, 124.41828f, 228.41827f, 128.0f, 224.0f, 128.0f),
-                    PathNode.CurveTo(219.58173f, 128.0f, 216.0f, 124.41828f, 216.0f, 120.0f),
-                    PathNode.LineTo(216.0f, 88.0f),
-                    PathNode.LineTo(128.0f, 88.0f),
-                    PathNode.CurveTo(126.269035f, 88.0f, 124.58477f, 87.438576f, 123.2f, 86.4f),
-                    PathNode.LineTo(93.33f, 64.0f),
-                    PathNode.LineTo(40.0f, 64.0f),
-                    PathNode.LineTo(40.0f, 200.0f),
-                    PathNode.LineTo(120.0f, 200.0f),
-                    PathNode.CurveTo(124.41828f, 200.0f, 128.0f, 203.58173f, 128.0f, 208.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(239.63f, 159.2f),
-                    PathNode.CurveTo(238.6464f, 156.09427f, 235.87776f, 153.89519f, 232.63f, 153.64f),
-                    PathNode.LineTo(202.79f, 151.33f),
-                    PathNode.LineTo(191.36f, 124.83f),
-                    PathNode.CurveTo(190.09758f, 121.89247f, 187.20732f, 119.98872f, 184.01f, 119.98872f),
-                    PathNode.CurveTo(180.81268f, 119.98872f, 177.92244f, 121.89247f, 176.66f, 124.83f),
-                    PathNode.LineTo(165.23f, 151.33f),
-                    PathNode.LineTo(135.39f, 153.64f),
-                    PathNode.CurveTo(132.1415f, 153.89606f, 129.37291f, 156.09685f, 128.3907f, 159.20389f),
-                    PathNode.CurveTo(127.40849f, 162.31093f, 128.40895f, 165.7032f, 130.92f, 167.78f),
-                    PathNode.LineTo(153.43f, 186.37f),
-                    PathNode.LineTo(146.58f, 214.08f),
-                    PathNode.CurveTo(145.81119f, 217.2036f, 146.98807f, 220.48387f, 149.56728f, 222.40628f),
-                    PathNode.CurveTo(152.1465f, 224.32869f, 155.62628f, 224.51926f, 158.4f, 222.89f),
-                    PathNode.LineTo(184.0f, 207.82f),
-                    PathNode.LineTo(209.61f, 222.89f),
-                    PathNode.CurveTo(212.38371f, 224.51926f, 215.86351f, 224.32869f, 218.44272f, 222.40628f),
-                    PathNode.CurveTo(221.02193f, 220.48387f, 222.19882f, 217.2036f, 221.43f, 214.08f),
-                    PathNode.LineTo(214.58f, 186.37f),
-                    PathNode.LineTo(237.09f, 167.78f),
-                    PathNode.CurveTo(239.60652f, 165.70517f, 240.61151f, 162.31038f, 239.63f, 159.2f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 128.000 208.000 C 128.000 212.418 124.418 216.000 120.000 216.000 L 40.000 216.000 C 31.163 216.000 24.000 208.837 24.000 200.000 L 24.000 64.000 C 24.000 55.163 31.163 48.000 40.000 48.000 L 93.330 48.000 C 96.791 48.009 100.156 49.131 102.930 51.200 L 130.670 72.000 L 216.000 72.000 C 224.837 72.000 232.000 79.163 232.000 88.000 L 232.000 120.000 C 232.000 124.418 228.418 128.000 224.000 128.000 C 219.582 128.000 216.000 124.418 216.000 120.000 L 216.000 88.000 L 128.000 88.000 C 126.269 88.000 124.585 87.439 123.200 86.400 L 93.330 64.000 L 40.000 64.000 L 40.000 200.000 L 120.000 200.000 C 124.418 200.000 128.000 203.582 128.000 208.000 ZM 239.630 159.200 C 238.646 156.094 235.878 153.895 232.630 153.640 L 202.790 151.330 L 191.360 124.830 C 190.098 121.892 187.207 119.989 184.010 119.989 C 180.813 119.989 177.922 121.892 176.660 124.830 L 165.230 151.330 L 135.390 153.640 C 132.141 153.896 129.373 156.097 128.391 159.204 C 127.408 162.311 128.409 165.703 130.920 167.780 L 153.430 186.370 L 146.580 214.080 C 145.811 217.204 146.988 220.484 149.567 222.406 C 152.146 224.329 155.626 224.519 158.400 222.890 L 184.000 207.820 L 209.610 222.890 C 212.384 224.519 215.864 224.329 218.443 222.406 C 221.022 220.484 222.199 217.204 221.430 214.080 L 214.580 186.370 L 237.090 167.780 C 239.607 165.705 240.612 162.310 239.630 159.200 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _folderSimpleStar!!
     }

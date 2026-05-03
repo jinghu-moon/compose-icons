@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,28 +17,17 @@ val PhosphorIcons.Fill.Heart: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(240.0f, 102.0f),
-                    PathNode.CurveTo(240.0f, 172.0f, 136.21f, 228.66f, 131.79f, 231.0f),
-                    PathNode.CurveTo(129.42366f, 232.27296f, 126.57634f, 232.27296f, 124.21f, 231.0f),
-                    PathNode.CurveTo(119.79f, 228.66f, 16.0f, 172.0f, 16.0f, 102.0f),
-                    PathNode.CurveTo(16.038576f, 67.77434f, 43.774338f, 40.03858f, 78.0f, 40.0f),
-                    PathNode.CurveTo(98.65f, 40.0f, 116.73f, 48.88f, 128.0f, 63.89f),
-                    PathNode.CurveTo(139.27f, 48.88f, 157.35f, 40.0f, 178.0f, 40.0f),
-                    PathNode.CurveTo(212.22566f, 40.03858f, 239.96143f, 67.77434f, 240.0f, 102.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 240.000 102.000 C 240.000 172.000 136.210 228.660 131.790 231.000 C 129.424 232.273 126.576 232.273 124.210 231.000 C 119.790 228.660 16.000 172.000 16.000 102.000 C 16.039 67.774 43.774 40.039 78.000 40.000 C 98.650 40.000 116.730 48.880 128.000 63.890 C 139.270 48.880 157.350 40.000 178.000 40.000 C 212.226 40.039 239.961 67.774 240.000 102.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _heart!!
     }

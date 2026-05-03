@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,35 +17,17 @@ val PhosphorIcons.Thin.MagnifyingGlass: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(226.83f, 221.17f),
-                    PathNode.LineTo(174.13f, 168.47f),
-                    PathNode.CurveTo(204.84834f, 134.67822f, 202.9862f, 82.54738f, 169.93513f, 51.033463f),
-                    PathNode.CurveTo(136.88405f, 19.519543f, 84.72366f, 20.140371f, 52.432014f, 52.432014f),
-                    PathNode.CurveTo(20.140371f, 84.72366f, 19.519543f, 136.88405f, 51.033463f, 169.93513f),
-                    PathNode.CurveTo(82.54738f, 202.9862f, 134.67822f, 204.84834f, 168.47f, 174.13f),
-                    PathNode.LineTo(221.17f, 226.83f),
-                    PathNode.CurveTo(222.73297f, 228.39296f, 225.26703f, 228.39296f, 226.83f, 226.83f),
-                    PathNode.CurveTo(228.39296f, 225.26703f, 228.39296f, 222.73297f, 226.83f, 221.17f),
-                    PathNode.Close,
-                    PathNode.MoveTo(36.0f, 112.0f),
-                    PathNode.CurveTo(36.0f, 70.02636f, 70.02636f, 36.0f, 112.0f, 36.0f),
-                    PathNode.CurveTo(153.97365f, 36.0f, 188.0f, 70.02636f, 188.0f, 112.0f),
-                    PathNode.CurveTo(188.0f, 153.97365f, 153.97365f, 188.0f, 112.0f, 188.0f),
-                    PathNode.CurveTo(70.04464f, 187.9559f, 36.044098f, 153.95538f, 36.0f, 112.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 226.830 221.170 L 174.130 168.470 C 204.848 134.678 202.986 82.547 169.935 51.033 C 136.884 19.520 84.724 20.140 52.432 52.432 C 20.140 84.724 19.520 136.884 51.033 169.935 C 82.547 202.986 134.678 204.848 168.470 174.130 L 221.170 226.830 C 222.733 228.393 225.267 228.393 226.830 226.830 C 228.393 225.267 228.393 222.733 226.830 221.170 ZM 36.000 112.000 C 36.000 70.026 70.026 36.000 112.000 36.000 C 153.974 36.000 188.000 70.026 188.000 112.000 C 188.000 153.974 153.974 188.000 112.000 188.000 C 70.045 187.956 36.044 153.955 36.000 112.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _magnifyingGlass!!
     }

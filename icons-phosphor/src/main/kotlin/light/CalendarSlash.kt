@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,67 +17,17 @@ val PhosphorIcons.Light.CalendarSlash: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(52.44f, 36.0f),
-                    PathNode.CurveTo(51.30923f, 34.73571f, 49.696167f, 34.009106f, 48.0f, 34.0f),
-                    PathNode.CurveTo(40.268013f, 34.0f, 34.0f, 40.268013f, 34.0f, 48.0f),
-                    PathNode.LineTo(34.0f, 208.0f),
-                    PathNode.CurveTo(34.0f, 215.73198f, 40.268013f, 222.0f, 48.0f, 222.0f),
-                    PathNode.LineTo(208.0f, 222.0f),
-                    PathNode.CurveTo(210.36029f, 221.98738f, 212.4939f, 220.59212f, 213.45172f, 218.43488f),
-                    PathNode.CurveTo(214.40953f, 216.27763f, 214.01358f, 213.75925f, 212.44f, 212.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(46.26f, 47.0f),
-                    PathNode.LineTo(78.07f, 82.0f),
-                    PathNode.LineTo(46.0f, 82.0f),
-                    PathNode.LineTo(46.0f, 48.0f),
-                    PathNode.CurveTo(46.000305f, 47.649994f, 46.089787f, 47.305832f, 46.26f, 47.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(48.0f, 210.0f),
-                    PathNode.CurveTo(46.89543f, 210.0f, 46.0f, 209.10457f, 46.0f, 208.0f),
-                    PathNode.LineTo(46.0f, 94.0f),
-                    PathNode.LineTo(89.0f, 94.0f),
-                    PathNode.LineTo(194.44f, 210.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(222.0f, 48.0f),
-                    PathNode.LineTo(222.0f, 177.23f),
-                    PathNode.CurveTo(222.0f, 180.5437f, 219.3137f, 183.23f, 216.0f, 183.23f),
-                    PathNode.CurveTo(212.6863f, 183.23f, 210.0f, 180.5437f, 210.0f, 177.23f),
-                    PathNode.LineTo(210.0f, 94.0f),
-                    PathNode.LineTo(134.88f, 94.0f),
-                    PathNode.CurveTo(131.56628f, 94.0f, 128.88f, 91.313705f, 128.88f, 88.0f),
-                    PathNode.CurveTo(128.88f, 84.686295f, 131.56628f, 82.0f, 134.88f, 82.0f),
-                    PathNode.LineTo(210.0f, 82.0f),
-                    PathNode.LineTo(210.0f, 48.0f),
-                    PathNode.CurveTo(210.0f, 46.89543f, 209.10457f, 46.0f, 208.0f, 46.0f),
-                    PathNode.LineTo(182.0f, 46.0f),
-                    PathNode.LineTo(182.0f, 56.0f),
-                    PathNode.CurveTo(182.0f, 59.31371f, 179.3137f, 62.0f, 176.0f, 62.0f),
-                    PathNode.CurveTo(172.6863f, 62.0f, 170.0f, 59.31371f, 170.0f, 56.0f),
-                    PathNode.LineTo(170.0f, 46.0f),
-                    PathNode.LineTo(91.25f, 46.0f),
-                    PathNode.CurveTo(87.936295f, 46.0f, 85.25f, 43.31371f, 85.25f, 40.0f),
-                    PathNode.CurveTo(85.25f, 36.68629f, 87.936295f, 34.0f, 91.25f, 34.0f),
-                    PathNode.LineTo(170.0f, 34.0f),
-                    PathNode.LineTo(170.0f, 24.0f),
-                    PathNode.CurveTo(170.0f, 20.68629f, 172.6863f, 18.0f, 176.0f, 18.0f),
-                    PathNode.CurveTo(179.3137f, 18.0f, 182.0f, 20.68629f, 182.0f, 24.0f),
-                    PathNode.LineTo(182.0f, 34.0f),
-                    PathNode.LineTo(208.0f, 34.0f),
-                    PathNode.CurveTo(215.73198f, 34.0f, 222.0f, 40.268013f, 222.0f, 48.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 52.440 36.000 C 51.309 34.736 49.696 34.009 48.000 34.000 C 40.268 34.000 34.000 40.268 34.000 48.000 L 34.000 208.000 C 34.000 215.732 40.268 222.000 48.000 222.000 L 208.000 222.000 C 210.360 221.987 212.494 220.592 213.452 218.435 C 214.410 216.278 214.014 213.759 212.440 212.000 ZM 46.260 47.000 L 78.070 82.000 L 46.000 82.000 L 46.000 48.000 C 46.000 47.650 46.090 47.306 46.260 47.000 ZM 48.000 210.000 C 46.895 210.000 46.000 209.105 46.000 208.000 L 46.000 94.000 L 89.000 94.000 L 194.440 210.000 ZM 222.000 48.000 L 222.000 177.230 C 222.000 180.544 219.314 183.230 216.000 183.230 C 212.686 183.230 210.000 180.544 210.000 177.230 L 210.000 94.000 L 134.880 94.000 C 131.566 94.000 128.880 91.314 128.880 88.000 C 128.880 84.686 131.566 82.000 134.880 82.000 L 210.000 82.000 L 210.000 48.000 C 210.000 46.895 209.105 46.000 208.000 46.000 L 182.000 46.000 L 182.000 56.000 C 182.000 59.314 179.314 62.000 176.000 62.000 C 172.686 62.000 170.000 59.314 170.000 56.000 L 170.000 46.000 L 91.250 46.000 C 87.936 46.000 85.250 43.314 85.250 40.000 C 85.250 36.686 87.936 34.000 91.250 34.000 L 170.000 34.000 L 170.000 24.000 C 170.000 20.686 172.686 18.000 176.000 18.000 C 179.314 18.000 182.000 20.686 182.000 24.000 L 182.000 34.000 L 208.000 34.000 C 215.732 34.000 222.000 40.268 222.000 48.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _calendarSlash!!
     }

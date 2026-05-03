@@ -1,0 +1,87 @@
+package composeicons.phosphor.duotone
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorDuotoneIcon
+
+val PhosphorIcons.Duotone.MouseSimple: ImageVector
+    get() {
+        if (_mouseSimple != null) return _mouseSimple!!
+        _mouseSimple = phosphorDuotoneIcon(
+            name = "MouseSimple",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(200.0f, 80.0f),
+                    PathNode.LineTo(200.0f, 176.0f),
+                    PathNode.CurveTo(200.0f, 206.92795f, 174.92795f, 232.0f, 144.0f, 232.0f),
+                    PathNode.LineTo(112.0f, 232.0f),
+                    PathNode.CurveTo(81.07206f, 232.0f, 56.0f, 206.92795f, 56.0f, 176.0f),
+                    PathNode.LineTo(56.0f, 80.0f),
+                    PathNode.CurveTo(56.0f, 49.072056f, 81.07206f, 24.0f, 112.0f, 24.0f),
+                    PathNode.LineTo(144.0f, 24.0f),
+                    PathNode.CurveTo(174.92795f, 24.0f, 200.0f, 49.072056f, 200.0f, 80.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 0.2f,
+                stroke = null,
+                strokeAlpha = 0.2f,
+                strokeLineWidth = 16.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(144.0f, 16.0f),
+                    PathNode.LineTo(112.0f, 16.0f),
+                    PathNode.CurveTo(76.66977f, 16.03858f, 48.03858f, 44.66977f, 48.0f, 80.0f),
+                    PathNode.LineTo(48.0f, 176.0f),
+                    PathNode.CurveTo(48.03858f, 211.33023f, 76.66977f, 239.96143f, 112.0f, 240.0f),
+                    PathNode.LineTo(144.0f, 240.0f),
+                    PathNode.CurveTo(179.33023f, 239.96143f, 207.96143f, 211.33023f, 208.0f, 176.0f),
+                    PathNode.LineTo(208.0f, 80.0f),
+                    PathNode.CurveTo(207.96143f, 44.66977f, 179.33023f, 16.03858f, 144.0f, 16.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(192.0f, 176.0f),
+                    PathNode.CurveTo(191.97244f, 202.49825f, 170.49825f, 223.97244f, 144.0f, 224.0f),
+                    PathNode.LineTo(112.0f, 224.0f),
+                    PathNode.CurveTo(85.501755f, 223.97244f, 64.02756f, 202.49825f, 64.0f, 176.0f),
+                    PathNode.LineTo(64.0f, 80.0f),
+                    PathNode.CurveTo(64.02756f, 53.501755f, 85.501755f, 32.02756f, 112.0f, 32.0f),
+                    PathNode.LineTo(144.0f, 32.0f),
+                    PathNode.CurveTo(170.49825f, 32.02756f, 191.97244f, 53.501755f, 192.0f, 80.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(136.0f, 64.0f),
+                    PathNode.LineTo(136.0f, 112.0f),
+                    PathNode.CurveTo(136.0f, 116.41828f, 132.41827f, 120.0f, 128.0f, 120.0f),
+                    PathNode.CurveTo(123.58172f, 120.0f, 120.0f, 116.41828f, 120.0f, 112.0f),
+                    PathNode.LineTo(120.0f, 64.0f),
+                    PathNode.CurveTo(120.0f, 59.581722f, 123.58172f, 56.0f, 128.0f, 56.0f),
+                    PathNode.CurveTo(132.41827f, 56.0f, 136.0f, 59.581722f, 136.0f, 64.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 16.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _mouseSimple!!
+    }
+
+private var _mouseSimple: ImageVector? = null

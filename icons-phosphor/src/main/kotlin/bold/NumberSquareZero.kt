@@ -2,10 +2,10 @@ package composeicons.phosphor.bold
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorBoldIcon
 
@@ -17,46 +17,17 @@ val PhosphorIcons.Bold.NumberSquareZero: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(128.0f, 188.0f),
-                    PathNode.CurveTo(156.26f, 188.0f, 176.0f, 163.33f, 176.0f, 128.0f),
-                    PathNode.CurveTo(176.0f, 92.67f, 156.26f, 68.0f, 128.0f, 68.0f),
-                    PathNode.CurveTo(99.74f, 68.0f, 80.0f, 92.67f, 80.0f, 128.0f),
-                    PathNode.CurveTo(80.0f, 163.33f, 99.74f, 188.0f, 128.0f, 188.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 92.0f),
-                    PathNode.CurveTo(151.33f, 92.0f, 152.0f, 124.32f, 152.0f, 128.0f),
-                    PathNode.CurveTo(152.0f, 131.68f, 151.33f, 164.0f, 128.0f, 164.0f),
-                    PathNode.CurveTo(104.67f, 164.0f, 104.0f, 131.68f, 104.0f, 128.0f),
-                    PathNode.CurveTo(104.0f, 124.32f, 104.67f, 92.0f, 128.0f, 92.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(208.0f, 28.0f),
-                    PathNode.LineTo(48.0f, 28.0f),
-                    PathNode.CurveTo(36.954304f, 28.0f, 28.0f, 36.954304f, 28.0f, 48.0f),
-                    PathNode.LineTo(28.0f, 208.0f),
-                    PathNode.CurveTo(28.0f, 219.0457f, 36.954304f, 228.0f, 48.0f, 228.0f),
-                    PathNode.LineTo(208.0f, 228.0f),
-                    PathNode.CurveTo(219.0457f, 228.0f, 228.0f, 219.0457f, 228.0f, 208.0f),
-                    PathNode.LineTo(228.0f, 48.0f),
-                    PathNode.CurveTo(228.0f, 36.954304f, 219.0457f, 28.0f, 208.0f, 28.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(204.0f, 204.0f),
-                    PathNode.LineTo(52.0f, 204.0f),
-                    PathNode.LineTo(52.0f, 52.0f),
-                    PathNode.LineTo(204.0f, 52.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 24.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 128.000 188.000 C 156.260 188.000 176.000 163.330 176.000 128.000 C 176.000 92.670 156.260 68.000 128.000 68.000 C 99.740 68.000 80.000 92.670 80.000 128.000 C 80.000 163.330 99.740 188.000 128.000 188.000 ZM 128.000 92.000 C 151.330 92.000 152.000 124.320 152.000 128.000 C 152.000 131.680 151.330 164.000 128.000 164.000 C 104.670 164.000 104.000 131.680 104.000 128.000 C 104.000 124.320 104.670 92.000 128.000 92.000 ZM 208.000 28.000 L 48.000 28.000 C 36.954 28.000 28.000 36.954 28.000 48.000 L 28.000 208.000 C 28.000 219.046 36.954 228.000 48.000 228.000 L 208.000 228.000 C 219.046 228.000 228.000 219.046 228.000 208.000 L 228.000 48.000 C 228.000 36.954 219.046 28.000 208.000 28.000 ZM 204.000 204.000 L 52.000 204.000 L 52.000 52.000 L 204.000 52.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _numberSquareZero!!
     }

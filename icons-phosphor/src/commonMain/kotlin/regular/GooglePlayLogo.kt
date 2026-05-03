@@ -1,0 +1,65 @@
+package composeicons.phosphor.regular
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorRegularIcon
+
+val PhosphorIcons.Regular.GooglePlayLogo: ImageVector
+    get() {
+        if (_googlePlayLogo != null) return _googlePlayLogo!!
+        _googlePlayLogo = phosphorRegularIcon(
+            name = "GooglePlayLogo",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(239.82f, 114.19f),
+                    PathNode.LineTo(72.0f, 18.16f),
+                    PathNode.CurveTo(67.01918f, 15.255456f, 60.86082f, 15.255456f, 55.88f, 18.16f),
+                    PathNode.CurveTo(50.97251f, 20.973938f, 47.96122f, 26.21313f, 48.0f, 31.87f),
+                    PathNode.LineTo(48.0f, 224.13f),
+                    PathNode.CurveTo(47.983852f, 229.78091f, 51.0096f, 235.00339f, 55.92f, 237.8f),
+                    PathNode.CurveTo(60.90082f, 240.70454f, 67.05918f, 240.70454f, 72.04f, 237.8f),
+                    PathNode.LineTo(239.82f, 141.8f),
+                    PathNode.CurveTo(244.86266f, 139.03485f, 247.99725f, 133.74103f, 247.99725f, 127.99f),
+                    PathNode.CurveTo(247.99725f, 122.23897f, 244.86266f, 116.945145f, 239.82f, 114.18f),
+                    PathNode.Close,
+                    PathNode.MoveTo(64.0f, 212.67f),
+                    PathNode.LineTo(64.0f, 43.33f),
+                    PathNode.LineTo(148.69f, 128.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(160.0f, 139.31f),
+                    PathNode.LineTo(178.92f, 158.23f),
+                    PathNode.LineTo(90.42f, 208.89f),
+                    PathNode.Close,
+                    PathNode.MoveTo(90.4f, 47.1f),
+                    PathNode.LineTo(178.93f, 97.77f),
+                    PathNode.LineTo(160.0f, 116.69f),
+                    PathNode.Close,
+                    PathNode.MoveTo(193.31f, 150.0f),
+                    PathNode.LineTo(171.31f, 128.0f),
+                    PathNode.LineTo(193.31f, 106.0f),
+                    PathNode.LineTo(231.74f, 128.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 16.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _googlePlayLogo!!
+    }
+
+private var _googlePlayLogo: ImageVector? = null

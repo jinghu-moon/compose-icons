@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,36 +17,17 @@ val PhosphorIcons.Fill.ThermometerSimple: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(160.0f, 146.08f),
-                    PathNode.LineTo(160.0f, 40.0f),
-                    PathNode.CurveTo(160.0f, 22.326887f, 145.67311f, 8.0f, 128.0f, 8.0f),
-                    PathNode.CurveTo(110.32689f, 8.0f, 96.0f, 22.326887f, 96.0f, 40.0f),
-                    PathNode.LineTo(96.0f, 146.08f),
-                    PathNode.CurveTo(75.92032f, 160.06169f, 67.24275f, 185.46092f, 74.56984f, 208.80606f),
-                    PathNode.CurveTo(81.89693f, 232.15118f, 103.53203f, 248.0365f, 128.0f, 248.0365f),
-                    PathNode.CurveTo(152.46797f, 248.0365f, 174.10307f, 232.15118f, 181.43016f, 208.80606f),
-                    PathNode.CurveTo(188.75725f, 185.46092f, 180.07968f, 160.06169f, 160.0f, 146.08f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 24.0f),
-                    PathNode.CurveTo(136.83656f, 24.0f, 144.0f, 31.163445f, 144.0f, 40.0f),
-                    PathNode.LineTo(144.0f, 104.0f),
-                    PathNode.LineTo(112.0f, 104.0f),
-                    PathNode.LineTo(112.0f, 40.0f),
-                    PathNode.CurveTo(112.0f, 31.163445f, 119.163445f, 24.0f, 128.0f, 24.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 160.000 146.080 L 160.000 40.000 C 160.000 22.327 145.673 8.000 128.000 8.000 C 110.327 8.000 96.000 22.327 96.000 40.000 L 96.000 146.080 C 75.920 160.062 67.243 185.461 74.570 208.806 C 81.897 232.151 103.532 248.036 128.000 248.036 C 152.468 248.036 174.103 232.151 181.430 208.806 C 188.757 185.461 180.080 160.062 160.000 146.080 ZM 128.000 24.000 C 136.837 24.000 144.000 31.163 144.000 40.000 L 144.000 104.000 L 112.000 104.000 L 112.000 40.000 C 112.000 31.163 119.163 24.000 128.000 24.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _thermometerSimple!!
     }

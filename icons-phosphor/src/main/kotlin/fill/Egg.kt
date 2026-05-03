@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,27 +17,17 @@ val PhosphorIcons.Fill.Egg: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(216.0f, 152.0f),
-                    PathNode.CurveTo(216.0f, 200.60106f, 176.60106f, 240.0f, 128.0f, 240.0f),
-                    PathNode.CurveTo(79.39894f, 240.0f, 40.0f, 200.60106f, 40.0f, 152.0f),
-                    PathNode.CurveTo(40.0f, 121.23f, 50.7f, 87.54f, 69.34f, 59.56f),
-                    PathNode.CurveTo(87.53f, 32.29f, 109.46f, 16.0f, 128.0f, 16.0f),
-                    PathNode.CurveTo(146.54f, 16.0f, 168.47f, 32.29f, 186.66f, 59.56f),
-                    PathNode.CurveTo(205.3f, 87.54f, 216.0f, 121.23f, 216.0f, 152.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 216.000 152.000 C 216.000 200.601 176.601 240.000 128.000 240.000 C 79.399 240.000 40.000 200.601 40.000 152.000 C 40.000 121.230 50.700 87.540 69.340 59.560 C 87.530 32.290 109.460 16.000 128.000 16.000 C 146.540 16.000 168.470 32.290 186.660 59.560 C 205.300 87.540 216.000 121.230 216.000 152.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _egg!!
     }

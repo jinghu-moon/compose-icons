@@ -28,3 +28,27 @@ inline fun iconBuilder(
     viewportWidth = viewBox.width,
     viewportHeight = viewBox.height,
 ).apply(block).build()
+
+fun androidx.compose.ui.graphics.vector.ImageVector.Builder.addPath(
+    pathData: List<androidx.compose.ui.graphics.vector.PathNode>,
+    pathFillType: androidx.compose.ui.graphics.PathFillType = androidx.compose.ui.graphics.PathFillType.NonZero,
+    fill: androidx.compose.ui.graphics.Brush? = null,
+    fillAlpha: Float = 1.0f,
+    stroke: androidx.compose.ui.graphics.Brush? = null,
+    strokeAlpha: Float = 1.0f,
+    strokeLineWidth: Float = 0f,
+    strokeLineCap: androidx.compose.ui.graphics.StrokeCap = androidx.compose.ui.graphics.StrokeCap.Butt,
+    strokeLineJoin: androidx.compose.ui.graphics.StrokeJoin = androidx.compose.ui.graphics.StrokeJoin.Miter,
+    strokeLineMiter: Float = 4f
+) = path(
+    pathData = pathData,
+    pathFillType = pathFillType,
+    fill = fill,
+    fillAlpha = fillAlpha,
+    stroke = stroke,
+    strokeAlpha = strokeAlpha,
+    strokeLineWidth = strokeLineWidth,
+    strokeLineCap = strokeLineCap,
+    strokeLineJoin = strokeLineJoin,
+    strokeLineMiter = strokeLineMiter
+)

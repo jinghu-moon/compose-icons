@@ -1,0 +1,55 @@
+package composeicons.phosphor.fill
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorFillIcon
+
+val PhosphorIcons.Fill.Folder: ImageVector
+    get() {
+        if (_folder != null) return _folder!!
+        _folder = phosphorFillIcon(
+            name = "Folder",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(216.0f, 72.0f),
+                    PathNode.LineTo(131.31f, 72.0f),
+                    PathNode.LineTo(104.0f, 44.69f),
+                    PathNode.CurveTo(101.00848f, 41.677708f, 96.93535f, 39.988674f, 92.69f, 40.0f),
+                    PathNode.LineTo(40.0f, 40.0f),
+                    PathNode.CurveTo(31.163445f, 40.0f, 24.0f, 47.163445f, 24.0f, 56.0f),
+                    PathNode.LineTo(24.0f, 200.62f),
+                    PathNode.CurveTo(24.016523f, 209.11119f, 30.898802f, 215.989f, 39.39f, 216.0f),
+                    PathNode.LineTo(216.89f, 216.0f),
+                    PathNode.CurveTo(225.23045f, 215.98898f, 231.98898f, 209.23045f, 232.0f, 200.89f),
+                    PathNode.LineTo(232.0f, 88.0f),
+                    PathNode.CurveTo(232.0f, 79.163445f, 224.83656f, 72.0f, 216.0f, 72.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(40.0f, 56.0f),
+                    PathNode.LineTo(92.69f, 56.0f),
+                    PathNode.LineTo(108.69f, 72.0f),
+                    PathNode.LineTo(40.0f, 72.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _folder!!
+    }
+
+private var _folder: ImageVector? = null

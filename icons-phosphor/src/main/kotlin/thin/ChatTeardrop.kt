@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,35 +17,17 @@ val PhosphorIcons.Thin.ChatTeardrop: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(132.0f, 28.0f),
-                    PathNode.CurveTo(79.00579f, 28.060617f, 36.06062f, 71.00579f, 36.0f, 124.0f),
-                    PathNode.LineTo(36.0f, 208.0f),
-                    PathNode.CurveTo(36.0f, 214.62741f, 41.37258f, 220.0f, 48.0f, 220.0f),
-                    PathNode.LineTo(132.0f, 220.0f),
-                    PathNode.CurveTo(185.01933f, 220.0f, 228.0f, 177.01933f, 228.0f, 124.0f),
-                    PathNode.CurveTo(228.0f, 70.98067f, 185.01933f, 28.0f, 132.0f, 28.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(132.0f, 212.0f),
-                    PathNode.LineTo(48.0f, 212.0f),
-                    PathNode.CurveTo(45.79086f, 212.0f, 44.0f, 210.20914f, 44.0f, 208.0f),
-                    PathNode.LineTo(44.0f, 124.0f),
-                    PathNode.CurveTo(44.0f, 75.39894f, 83.39894f, 36.0f, 132.0f, 36.0f),
-                    PathNode.CurveTo(180.60106f, 36.0f, 220.0f, 75.39894f, 220.0f, 124.0f),
-                    PathNode.CurveTo(220.0f, 172.60106f, 180.60106f, 212.0f, 132.0f, 212.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 132.000 28.000 C 79.006 28.061 36.061 71.006 36.000 124.000 L 36.000 208.000 C 36.000 214.627 41.373 220.000 48.000 220.000 L 132.000 220.000 C 185.019 220.000 228.000 177.019 228.000 124.000 C 228.000 70.981 185.019 28.000 132.000 28.000 ZM 132.000 212.000 L 48.000 212.000 C 45.791 212.000 44.000 210.209 44.000 208.000 L 44.000 124.000 C 44.000 75.399 83.399 36.000 132.000 36.000 C 180.601 36.000 220.000 75.399 220.000 124.000 C 220.000 172.601 180.601 212.000 132.000 212.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _chatTeardrop!!
     }

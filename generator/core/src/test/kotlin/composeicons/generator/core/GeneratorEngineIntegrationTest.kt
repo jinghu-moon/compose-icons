@@ -1,5 +1,7 @@
 package composeicons.generator.core
 
+import composeicons.generator.core.json.SvgDocument
+import kotlinx.serialization.json.Json
 import java.io.File
 import java.nio.file.Files
 import kotlin.test.Test
@@ -137,5 +139,35 @@ class GeneratorEngineIntegrationTest {
 
         assertTrue(!outputDir.resolve("outline/Stale.kt").exists())
         assertTrue(outputDir.resolve("outline/Home.kt").isFile)
+    }
+
+    @Test
+    fun testAccessibilitySvgProcessesSuccessfully() {
+        val projectRoot = File(System.getProperty("user.dir")).parentFile.parentFile ?: File(System.getProperty("user.dir"))
+        val pipeline = UsvgPipeline(projectRoot.resolve("tools/svg2compose.exe"))
+        val svg = File(projectRoot, "refer/Radix-Icons-main/packages/radix-icons/icons/accessibility.svg").readText()
+        val result = pipeline.process(svg)
+        val doc = Json { ignoreUnknownKeys = true }.decodeFromString<SvgDocument>(result)
+        assertTrue(doc.nodes.isNotEmpty())
+    }
+
+    @Test
+    fun testPanelLeftSvgSkipsMaskedPaths() {
+        val projectRoot = File(System.getProperty("user.dir")).parentFile.parentFile ?: File(System.getProperty("user.dir"))
+        val pipeline = UsvgPipeline(projectRoot.resolve("tools/svg2compose.exe"))
+        val svg = File(projectRoot, "refer/Radix-Icons-main/packages/radix-icons/icons/panel-left.svg").readText()
+        val result = pipeline.process(svg)
+        val doc = Json { ignoreUnknownKeys = true }.decodeFromString<SvgDocument>(result)
+        assertTrue(doc.nodes.isNotEmpty())
+    }
+
+    @Test
+    fun testBorderTopSvgHandlesTransform() {
+        val projectRoot = File(System.getProperty("user.dir")).parentFile.parentFile ?: File(System.getProperty("user.dir"))
+        val pipeline = UsvgPipeline(projectRoot.resolve("tools/svg2compose.exe"))
+        val svg = File(projectRoot, "refer/Radix-Icons-main/packages/radix-icons/icons/border-top.svg").readText()
+        val result = pipeline.process(svg)
+        val doc = Json { ignoreUnknownKeys = true }.decodeFromString<SvgDocument>(result)
+        assertTrue(doc.nodes.isNotEmpty())
     }
 }

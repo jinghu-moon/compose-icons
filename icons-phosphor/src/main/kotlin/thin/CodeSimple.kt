@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,43 +17,17 @@ val PhosphorIcons.Thin.CodeSimple: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(90.66f, 67.0f),
-                    PathNode.LineTo(22.0f, 128.0f),
-                    PathNode.LineTo(90.64f, 189.0f),
-                    PathNode.CurveTo(92.29686f, 190.46907f, 92.44907f, 193.00314f, 90.98f, 194.66f),
-                    PathNode.CurveTo(89.510925f, 196.31685f, 86.97685f, 196.46907f, 85.32f, 195.0f),
-                    PathNode.LineTo(13.32f, 131.0f),
-                    PathNode.CurveTo(12.458999f, 130.24066f, 11.965752f, 129.148f, 11.965752f, 128.0f),
-                    PathNode.CurveTo(11.965752f, 126.852f, 12.458999f, 125.75933f, 13.32f, 125.0f),
-                    PathNode.LineTo(85.32f, 61.0f),
-                    PathNode.CurveTo(86.97685f, 59.53092f, 89.510925f, 59.683147f, 90.98f, 61.34f),
-                    PathNode.CurveTo(92.44907f, 62.996853f, 92.29686f, 65.53092f, 90.64f, 67.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(242.66f, 125.0f),
-                    PathNode.LineTo(170.66f, 61.0f),
-                    PathNode.CurveTo(169.00314f, 59.53092f, 166.46907f, 59.683147f, 165.0f, 61.34f),
-                    PathNode.CurveTo(163.53093f, 62.996853f, 163.68315f, 65.53092f, 165.34f, 67.0f),
-                    PathNode.LineTo(234.0f, 128.0f),
-                    PathNode.LineTo(165.36f, 189.0f),
-                    PathNode.CurveTo(163.70314f, 190.46907f, 163.55092f, 193.00314f, 165.02f, 194.66f),
-                    PathNode.CurveTo(166.48907f, 196.31685f, 169.02315f, 196.46907f, 170.68f, 195.0f),
-                    PathNode.LineTo(242.68f, 131.0f),
-                    PathNode.CurveTo(243.54102f, 130.24066f, 244.03426f, 129.148f, 244.03426f, 128.0f),
-                    PathNode.CurveTo(244.03426f, 126.852f, 243.54102f, 125.75933f, 242.68f, 125.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 90.660 67.000 L 22.000 128.000 L 90.640 189.000 C 92.297 190.469 92.449 193.003 90.980 194.660 C 89.511 196.317 86.977 196.469 85.320 195.000 L 13.320 131.000 C 12.459 130.241 11.966 129.148 11.966 128.000 C 11.966 126.852 12.459 125.759 13.320 125.000 L 85.320 61.000 C 86.977 59.531 89.511 59.683 90.980 61.340 C 92.449 62.997 92.297 65.531 90.640 67.000 ZM 242.660 125.000 L 170.660 61.000 C 169.003 59.531 166.469 59.683 165.000 61.340 C 163.531 62.997 163.683 65.531 165.340 67.000 L 234.000 128.000 L 165.360 189.000 C 163.703 190.469 163.551 193.003 165.020 194.660 C 166.489 196.317 169.023 196.469 170.680 195.000 L 242.680 131.000 C 243.541 130.241 244.034 129.148 244.034 128.000 C 244.034 126.852 243.541 125.759 242.680 125.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _codeSimple!!
     }

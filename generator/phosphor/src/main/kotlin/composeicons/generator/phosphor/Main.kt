@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
     val config = GeneratorConfig(
         sourceRootDir = phosphorReferRoot,
         outputDir = projectRoot.resolve("icons-phosphor/src/main/kotlin"),
-        reportDir = projectRoot.resolve("build/compose-icons/phosphor"),
+        reportDir = projectRoot.resolve("web-preview/public/data"),
     )
     
     println("Starting Phosphor Icons generation...")

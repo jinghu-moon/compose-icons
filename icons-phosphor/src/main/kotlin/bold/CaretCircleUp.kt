@@ -2,10 +2,10 @@ package composeicons.phosphor.bold
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorBoldIcon
 
@@ -17,42 +17,17 @@ val PhosphorIcons.Bold.CaretCircleUp: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(128.0f, 20.0f),
-                    PathNode.CurveTo(68.35325f, 20.0f, 20.0f, 68.35325f, 20.0f, 128.0f),
-                    PathNode.CurveTo(20.0f, 187.64676f, 68.35325f, 236.0f, 128.0f, 236.0f),
-                    PathNode.CurveTo(187.64676f, 236.0f, 236.0f, 187.64676f, 236.0f, 128.0f),
-                    PathNode.CurveTo(235.93387f, 68.38066f, 187.61934f, 20.066133f, 128.0f, 20.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 212.0f),
-                    PathNode.CurveTo(81.60808f, 212.0f, 44.0f, 174.39192f, 44.0f, 128.0f),
-                    PathNode.CurveTo(44.0f, 81.60808f, 81.60808f, 44.0f, 128.0f, 44.0f),
-                    PathNode.CurveTo(174.39192f, 44.0f, 212.0f, 81.60808f, 212.0f, 128.0f),
-                    PathNode.CurveTo(211.9504f, 174.37135f, 174.37135f, 211.9504f, 128.0f, 212.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(176.49f, 135.51f),
-                    PathNode.CurveTo(181.18442f, 140.20442f, 181.18442f, 147.81558f, 176.49f, 152.51f),
-                    PathNode.CurveTo(171.79558f, 157.20442f, 164.18442f, 157.20442f, 159.49f, 152.51f),
-                    PathNode.LineTo(128.0f, 121.0f),
-                    PathNode.LineTo(96.49f, 152.49f),
-                    PathNode.CurveTo(91.79558f, 157.18442f, 84.18442f, 157.18442f, 79.49f, 152.49f),
-                    PathNode.CurveTo(74.79558f, 147.79558f, 74.79558f, 140.18442f, 79.49f, 135.49f),
-                    PathNode.LineTo(119.49f, 95.49f),
-                    PathNode.CurveTo(121.74162f, 93.230545f, 124.80018f, 91.96054f, 127.99f, 91.96054f),
-                    PathNode.CurveTo(131.17982f, 91.96054f, 134.23837f, 93.230545f, 136.49f, 95.49f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 24.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 128.000 20.000 C 68.353 20.000 20.000 68.353 20.000 128.000 C 20.000 187.647 68.353 236.000 128.000 236.000 C 187.647 236.000 236.000 187.647 236.000 128.000 C 235.934 68.381 187.619 20.066 128.000 20.000 ZM 128.000 212.000 C 81.608 212.000 44.000 174.392 44.000 128.000 C 44.000 81.608 81.608 44.000 128.000 44.000 C 174.392 44.000 212.000 81.608 212.000 128.000 C 211.950 174.371 174.371 211.950 128.000 212.000 ZM 176.490 135.510 C 181.184 140.204 181.184 147.816 176.490 152.510 C 171.796 157.204 164.184 157.204 159.490 152.510 L 128.000 121.000 L 96.490 152.490 C 91.796 157.184 84.184 157.184 79.490 152.490 C 74.796 147.796 74.796 140.184 79.490 135.490 L 119.490 95.490 C 121.742 93.231 124.800 91.961 127.990 91.961 C 131.180 91.961 134.238 93.231 136.490 95.490 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _caretCircleUp!!
     }

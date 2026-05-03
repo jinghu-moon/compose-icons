@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,46 +17,17 @@ val PhosphorIcons.Fill.Stool: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(200.0f, 64.0f),
-                    PathNode.LineTo(200.0f, 40.0f),
-                    PathNode.CurveTo(200.0f, 31.163445f, 192.83656f, 24.0f, 184.0f, 24.0f),
-                    PathNode.LineTo(72.0f, 24.0f),
-                    PathNode.CurveTo(63.163445f, 24.0f, 56.0f, 31.163445f, 56.0f, 40.0f),
-                    PathNode.LineTo(56.0f, 64.0f),
-                    PathNode.CurveTo(56.0f, 72.836555f, 63.163445f, 80.0f, 72.0f, 80.0f),
-                    PathNode.LineTo(78.64f, 80.0f),
-                    PathNode.LineTo(56.1f, 222.75f),
-                    PathNode.CurveTo(55.410645f, 227.11282f, 58.387486f, 231.20877f, 62.75f, 231.9f),
-                    PathNode.CurveTo(63.16332f, 231.96674f, 63.58133f, 232.00018f, 64.0f, 232.0f),
-                    PathNode.CurveTo(67.93126f, 231.99425f, 71.27574f, 229.13298f, 71.89f, 225.25f),
-                    PathNode.LineTo(79.68f, 176.0f),
-                    PathNode.LineTo(176.32f, 176.0f),
-                    PathNode.LineTo(184.1f, 225.25f),
-                    PathNode.CurveTo(184.71484f, 229.13672f, 188.06496f, 231.99915f, 192.0f, 232.0f),
-                    PathNode.CurveTo(192.42201f, 232.00072f, 192.84337f, 231.96727f, 193.26f, 231.9f),
-                    PathNode.CurveTo(197.62251f, 231.20877f, 200.59935f, 227.11282f, 199.91f, 222.75f),
-                    PathNode.LineTo(177.36f, 80.0f),
-                    PathNode.LineTo(184.0f, 80.0f),
-                    PathNode.CurveTo(192.83656f, 80.0f, 200.0f, 72.836555f, 200.0f, 64.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(173.79f, 160.0f),
-                    PathNode.LineTo(82.21f, 160.0f),
-                    PathNode.LineTo(94.84f, 80.0f),
-                    PathNode.LineTo(161.16f, 80.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 200.000 64.000 L 200.000 40.000 C 200.000 31.163 192.837 24.000 184.000 24.000 L 72.000 24.000 C 63.163 24.000 56.000 31.163 56.000 40.000 L 56.000 64.000 C 56.000 72.837 63.163 80.000 72.000 80.000 L 78.640 80.000 L 56.100 222.750 C 55.411 227.113 58.387 231.209 62.750 231.900 C 63.163 231.967 63.581 232.000 64.000 232.000 C 67.931 231.994 71.276 229.133 71.890 225.250 L 79.680 176.000 L 176.320 176.000 L 184.100 225.250 C 184.715 229.137 188.065 231.999 192.000 232.000 C 192.422 232.001 192.843 231.967 193.260 231.900 C 197.623 231.209 200.599 227.113 199.910 222.750 L 177.360 80.000 L 184.000 80.000 C 192.837 80.000 200.000 72.837 200.000 64.000 ZM 173.790 160.000 L 82.210 160.000 L 94.840 80.000 L 161.160 80.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _stool!!
     }

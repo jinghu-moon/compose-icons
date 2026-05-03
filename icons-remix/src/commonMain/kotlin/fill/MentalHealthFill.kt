@@ -1,0 +1,35 @@
+package composeicons.remix.fill
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.remix.RemixIcons
+import composeicons.remix.remixIcon
+
+val RemixIcons.Fill.MentalHealthFill: ImageVector
+    get() {
+        if (_mentalHealthFill != null) return _mentalHealthFill!!
+        _mentalHealthFill = remixIcon(
+            name = "MentalHealthFill",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+    addPath(
+        pathData = parseSvgPathData("M 11.000 2.000 C 15.068 2.000 18.426 5.036 18.934 8.965 L 21.184 12.504 C 21.332 12.737 21.302 13.085 20.959 13.232 L 19.000 14.071 L 19.000 17.000 C 19.000 18.105 18.105 19.000 17.000 19.000 L 15.001 19.000 L 15.000 22.000 L 6.000 22.000 L 6.000 18.306 C 6.000 17.125 5.564 16.009 4.755 15.001 C 3.657 13.631 3.000 11.892 3.000 10.000 C 3.000 5.582 6.582 2.000 11.000 2.000 ZM 10.470 7.763 C 9.786 7.079 8.678 7.079 7.995 7.763 C 7.311 8.446 7.311 9.554 7.995 10.237 L 11.000 13.243 L 14.005 10.237 C 14.689 9.554 14.689 8.446 14.005 7.763 C 13.322 7.079 12.214 7.079 11.530 7.763 L 11.000 8.293 L 10.470 7.763 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
+        }
+        return _mentalHealthFill!!
+    }
+
+private var _mentalHealthFill: ImageVector? = null

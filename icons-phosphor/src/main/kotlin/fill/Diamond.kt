@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,31 +17,17 @@ val PhosphorIcons.Fill.Diamond: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(240.0f, 128.0f),
-                    PathNode.CurveTo(240.01195f, 132.23273f, 238.33038f, 136.29439f, 235.33f, 139.28f),
-                    PathNode.LineTo(139.28f, 235.34f),
-                    PathNode.CurveTo(133.0394f, 241.54358f, 122.9606f, 241.54358f, 116.72f, 235.34f),
-                    PathNode.LineTo(116.72f, 235.34f),
-                    PathNode.LineTo(20.72f, 139.28f),
-                    PathNode.CurveTo(14.516422f, 133.0394f, 14.516422f, 122.9606f, 20.72f, 116.72f),
-                    PathNode.LineTo(116.77f, 20.66f),
-                    PathNode.CurveTo(123.0106f, 14.456423f, 133.0894f, 14.456423f, 139.33f, 20.66f),
-                    PathNode.LineTo(235.38f, 116.72f),
-                    PathNode.CurveTo(238.36205f, 119.71383f, 240.0252f, 123.77448f, 240.0f, 128.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 240.000 128.000 C 240.012 132.233 238.330 136.294 235.330 139.280 L 139.280 235.340 C 133.039 241.544 122.961 241.544 116.720 235.340 L 116.720 235.340 L 20.720 139.280 C 14.516 133.039 14.516 122.961 20.720 116.720 L 116.770 20.660 C 123.011 14.456 133.089 14.456 139.330 20.660 L 235.380 116.720 C 238.362 119.714 240.025 123.774 240.000 128.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _diamond!!
     }

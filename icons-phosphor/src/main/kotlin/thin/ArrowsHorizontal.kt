@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,43 +17,17 @@ val PhosphorIcons.Thin.ArrowsHorizontal: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(234.83f, 130.83f),
-                    PathNode.LineTo(202.83f, 162.83f),
-                    PathNode.CurveTo(201.26703f, 164.39296f, 198.73297f, 164.39296f, 197.17f, 162.83f),
-                    PathNode.CurveTo(195.60704f, 161.26703f, 195.60704f, 158.73297f, 197.17f, 157.17f),
-                    PathNode.LineTo(222.34f, 132.0f),
-                    PathNode.LineTo(33.66f, 132.0f),
-                    PathNode.LineTo(58.83f, 157.17f),
-                    PathNode.CurveTo(60.392967f, 158.73297f, 60.392967f, 161.26703f, 58.83f, 162.83f),
-                    PathNode.CurveTo(57.267033f, 164.39296f, 54.732967f, 164.39296f, 53.17f, 162.83f),
-                    PathNode.LineTo(21.17f, 130.83f),
-                    PathNode.CurveTo(20.418892f, 130.07973f, 19.996853f, 129.06163f, 19.996853f, 128.0f),
-                    PathNode.CurveTo(19.996853f, 126.93836f, 20.418892f, 125.92027f, 21.17f, 125.17f),
-                    PathNode.LineTo(53.17f, 93.17f),
-                    PathNode.CurveTo(54.732967f, 91.60703f, 57.267033f, 91.60703f, 58.83f, 93.17f),
-                    PathNode.CurveTo(60.392967f, 94.73296f, 60.392967f, 97.26704f, 58.83f, 98.83f),
-                    PathNode.LineTo(33.66f, 124.0f),
-                    PathNode.LineTo(222.34f, 124.0f),
-                    PathNode.LineTo(197.17f, 98.83f),
-                    PathNode.CurveTo(195.60704f, 97.26704f, 195.60704f, 94.73296f, 197.17f, 93.17f),
-                    PathNode.CurveTo(198.73297f, 91.60703f, 201.26703f, 91.60703f, 202.83f, 93.17f),
-                    PathNode.LineTo(234.83f, 125.17f),
-                    PathNode.CurveTo(235.58112f, 125.92027f, 236.00314f, 126.93836f, 236.00314f, 128.0f),
-                    PathNode.CurveTo(236.00314f, 129.06163f, 235.58112f, 130.07973f, 234.83f, 130.83f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 234.830 130.830 L 202.830 162.830 C 201.267 164.393 198.733 164.393 197.170 162.830 C 195.607 161.267 195.607 158.733 197.170 157.170 L 222.340 132.000 L 33.660 132.000 L 58.830 157.170 C 60.393 158.733 60.393 161.267 58.830 162.830 C 57.267 164.393 54.733 164.393 53.170 162.830 L 21.170 130.830 C 20.419 130.080 19.997 129.062 19.997 128.000 C 19.997 126.938 20.419 125.920 21.170 125.170 L 53.170 93.170 C 54.733 91.607 57.267 91.607 58.830 93.170 C 60.393 94.733 60.393 97.267 58.830 98.830 L 33.660 124.000 L 222.340 124.000 L 197.170 98.830 C 195.607 97.267 195.607 94.733 197.170 93.170 C 198.733 91.607 201.267 91.607 202.830 93.170 L 234.830 125.170 C 235.581 125.920 236.003 126.938 236.003 128.000 C 236.003 129.062 235.581 130.080 234.830 130.830 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _arrowsHorizontal!!
     }

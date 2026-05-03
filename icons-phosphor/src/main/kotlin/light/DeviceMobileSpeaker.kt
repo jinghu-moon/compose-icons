@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,46 +17,17 @@ val PhosphorIcons.Light.DeviceMobileSpeaker: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(176.0f, 18.0f),
-                    PathNode.LineTo(80.0f, 18.0f),
-                    PathNode.CurveTo(67.84974f, 18.0f, 58.0f, 27.849735f, 58.0f, 40.0f),
-                    PathNode.LineTo(58.0f, 216.0f),
-                    PathNode.CurveTo(58.0f, 228.15027f, 67.84974f, 238.0f, 80.0f, 238.0f),
-                    PathNode.LineTo(176.0f, 238.0f),
-                    PathNode.CurveTo(188.15027f, 238.0f, 198.0f, 228.15027f, 198.0f, 216.0f),
-                    PathNode.LineTo(198.0f, 40.0f),
-                    PathNode.CurveTo(198.0f, 27.849735f, 188.15027f, 18.0f, 176.0f, 18.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(186.0f, 216.0f),
-                    PathNode.CurveTo(186.0f, 221.52284f, 181.52284f, 226.0f, 176.0f, 226.0f),
-                    PathNode.LineTo(80.0f, 226.0f),
-                    PathNode.CurveTo(74.47715f, 226.0f, 70.0f, 221.52284f, 70.0f, 216.0f),
-                    PathNode.LineTo(70.0f, 40.0f),
-                    PathNode.CurveTo(70.0f, 34.477154f, 74.47715f, 30.0f, 80.0f, 30.0f),
-                    PathNode.LineTo(176.0f, 30.0f),
-                    PathNode.CurveTo(181.52284f, 30.0f, 186.0f, 34.477154f, 186.0f, 40.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(166.0f, 56.0f),
-                    PathNode.CurveTo(166.0f, 59.31371f, 163.3137f, 62.0f, 160.0f, 62.0f),
-                    PathNode.LineTo(96.0f, 62.0f),
-                    PathNode.CurveTo(92.686295f, 62.0f, 90.0f, 59.31371f, 90.0f, 56.0f),
-                    PathNode.CurveTo(90.0f, 52.68629f, 92.686295f, 50.0f, 96.0f, 50.0f),
-                    PathNode.LineTo(160.0f, 50.0f),
-                    PathNode.CurveTo(163.3137f, 50.0f, 166.0f, 52.68629f, 166.0f, 56.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 176.000 18.000 L 80.000 18.000 C 67.850 18.000 58.000 27.850 58.000 40.000 L 58.000 216.000 C 58.000 228.150 67.850 238.000 80.000 238.000 L 176.000 238.000 C 188.150 238.000 198.000 228.150 198.000 216.000 L 198.000 40.000 C 198.000 27.850 188.150 18.000 176.000 18.000 ZM 186.000 216.000 C 186.000 221.523 181.523 226.000 176.000 226.000 L 80.000 226.000 C 74.477 226.000 70.000 221.523 70.000 216.000 L 70.000 40.000 C 70.000 34.477 74.477 30.000 80.000 30.000 L 176.000 30.000 C 181.523 30.000 186.000 34.477 186.000 40.000 ZM 166.000 56.000 C 166.000 59.314 163.314 62.000 160.000 62.000 L 96.000 62.000 C 92.686 62.000 90.000 59.314 90.000 56.000 C 90.000 52.686 92.686 50.000 96.000 50.000 L 160.000 50.000 C 163.314 50.000 166.000 52.686 166.000 56.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _deviceMobileSpeaker!!
     }

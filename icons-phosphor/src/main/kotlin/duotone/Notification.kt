@@ -2,10 +2,10 @@ package composeicons.phosphor.duotone
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorDuotoneIcon
 
@@ -17,67 +17,32 @@ val PhosphorIcons.Duotone.Notification: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(224.0f, 60.0f),
-                    PathNode.CurveTo(224.0f, 75.463974f, 211.46397f, 88.0f, 196.0f, 88.0f),
-                    PathNode.CurveTo(180.53603f, 88.0f, 168.0f, 75.463974f, 168.0f, 60.0f),
-                    PathNode.CurveTo(168.0f, 44.53603f, 180.53603f, 32.0f, 196.0f, 32.0f),
-                    PathNode.CurveTo(211.46397f, 32.0f, 224.0f, 44.53603f, 224.0f, 60.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(216.0f, 128.0f),
-                    PathNode.LineTo(216.0f, 208.0f),
-                    PathNode.CurveTo(216.0f, 216.83656f, 208.83656f, 224.0f, 200.0f, 224.0f),
-                    PathNode.LineTo(48.0f, 224.0f),
-                    PathNode.CurveTo(39.163445f, 224.0f, 32.0f, 216.83656f, 32.0f, 208.0f),
-                    PathNode.LineTo(32.0f, 56.0f),
-                    PathNode.CurveTo(32.0f, 47.163445f, 39.163445f, 40.0f, 48.0f, 40.0f),
-                    PathNode.LineTo(128.0f, 40.0f),
-                    PathNode.CurveTo(132.41827f, 40.0f, 136.0f, 43.581722f, 136.0f, 48.0f),
-                    PathNode.CurveTo(136.0f, 52.418278f, 132.41827f, 56.0f, 128.0f, 56.0f),
-                    PathNode.LineTo(48.0f, 56.0f),
-                    PathNode.LineTo(48.0f, 208.0f),
-                    PathNode.LineTo(200.0f, 208.0f),
-                    PathNode.LineTo(200.0f, 128.0f),
-                    PathNode.CurveTo(200.0f, 123.58172f, 203.58173f, 120.0f, 208.0f, 120.0f),
-                    PathNode.CurveTo(212.41827f, 120.0f, 216.0f, 123.58172f, 216.0f, 128.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(232.0f, 60.0f),
-                    PathNode.CurveTo(232.0f, 79.88225f, 215.88223f, 96.0f, 196.0f, 96.0f),
-                    PathNode.CurveTo(176.11777f, 96.0f, 160.0f, 79.88225f, 160.0f, 60.0f),
-                    PathNode.CurveTo(160.0f, 40.11775f, 176.11777f, 24.0f, 196.0f, 24.0f),
-                    PathNode.CurveTo(215.88223f, 24.0f, 232.0f, 40.11775f, 232.0f, 60.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(216.0f, 60.0f),
-                    PathNode.CurveTo(216.0f, 48.954304f, 207.0457f, 40.0f, 196.0f, 40.0f),
-                    PathNode.CurveTo(184.9543f, 40.0f, 176.0f, 48.954304f, 176.0f, 60.0f),
-                    PathNode.CurveTo(176.0f, 71.04569f, 184.9543f, 80.0f, 196.0f, 80.0f),
-                    PathNode.CurveTo(207.0457f, 80.0f, 216.0f, 71.04569f, 216.0f, 60.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    group(
+        groupAlpha = 0.20000000298023224f,
+    ) {
+        addPath(
+            pathData = parseSvgPathData("M 224.000 60.000 C 224.000 75.464 211.464 88.000 196.000 88.000 C 180.536 88.000 168.000 75.464 168.000 60.000 C 168.000 44.536 180.536 32.000 196.000 32.000 C 211.464 32.000 224.000 44.536 224.000 60.000 Z"),
+            pathFillType = PathFillType.NonZero,
+            fill = SolidColor(Color(0xFF000000)),
+            fillAlpha = 1.0f,
+            stroke = null,
+            strokeAlpha = 1.0f,
+            strokeLineWidth = 0.0f,
+            strokeLineCap = StrokeCap.Butt,
+            strokeLineJoin = StrokeJoin.Miter,
+        )
+    }
+    addPath(
+        pathData = parseSvgPathData("M 216.000 128.000 L 216.000 208.000 C 216.000 216.837 208.837 224.000 200.000 224.000 L 48.000 224.000 C 39.163 224.000 32.000 216.837 32.000 208.000 L 32.000 56.000 C 32.000 47.163 39.163 40.000 48.000 40.000 L 128.000 40.000 C 132.418 40.000 136.000 43.582 136.000 48.000 C 136.000 52.418 132.418 56.000 128.000 56.000 L 48.000 56.000 L 48.000 208.000 L 200.000 208.000 L 200.000 128.000 C 200.000 123.582 203.582 120.000 208.000 120.000 C 212.418 120.000 216.000 123.582 216.000 128.000 ZM 232.000 60.000 C 232.000 79.882 215.882 96.000 196.000 96.000 C 176.118 96.000 160.000 79.882 160.000 60.000 C 160.000 40.118 176.118 24.000 196.000 24.000 C 215.882 24.000 232.000 40.118 232.000 60.000 ZM 216.000 60.000 C 216.000 48.954 207.046 40.000 196.000 40.000 C 184.954 40.000 176.000 48.954 176.000 60.000 C 176.000 71.046 184.954 80.000 196.000 80.000 C 207.046 80.000 216.000 71.046 216.000 60.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _notification!!
     }

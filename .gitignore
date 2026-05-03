@@ -8,6 +8,8 @@ svg-cache/
 tools/*
 !tools/build.gradle.kts
 !tools/src/
+!tools/svg2compose/
+tools/svg2compose/target/
 *.iml
 .idea/
 out/

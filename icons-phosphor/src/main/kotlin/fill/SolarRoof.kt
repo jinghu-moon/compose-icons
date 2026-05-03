@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,68 +17,17 @@ val PhosphorIcons.Fill.SolarRoof: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(247.16f, 124.42f),
-                    PathNode.LineTo(207.16f, 44.42f),
-                    PathNode.CurveTo(205.80348f, 41.70914f, 203.03131f, 39.99783f, 200.0f, 40.0f),
-                    PathNode.LineTo(56.0f, 40.0f),
-                    PathNode.CurveTo(52.96868f, 39.99783f, 50.196514f, 41.70914f, 48.84f, 44.42f),
-                    PathNode.LineTo(8.84f, 124.42f),
-                    PathNode.CurveTo(8.288568f, 125.53291f, 8.001125f, 126.757965f, 8.0f, 128.0f),
-                    PathNode.LineTo(8.0f, 184.0f),
-                    PathNode.CurveTo(8.0f, 192.83656f, 15.163444f, 200.0f, 24.0f, 200.0f),
-                    PathNode.LineTo(232.0f, 200.0f),
-                    PathNode.CurveTo(240.83656f, 200.0f, 248.0f, 192.83656f, 248.0f, 184.0f),
-                    PathNode.LineTo(248.0f, 128.0f),
-                    PathNode.CurveTo(247.99887f, 126.757965f, 247.71143f, 125.53291f, 247.16f, 124.42f),
-                    PathNode.Close,
-                    PathNode.MoveTo(99.06f, 56.0f),
-                    PathNode.LineTo(111.06f, 80.0f),
-                    PathNode.LineTo(80.94f, 80.0f),
-                    PathNode.LineTo(68.94f, 56.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(147.06f, 56.0f),
-                    PathNode.LineTo(159.06f, 80.0f),
-                    PathNode.LineTo(128.94f, 80.0f),
-                    PathNode.LineTo(116.94f, 56.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(100.94f, 120.0f),
-                    PathNode.LineTo(88.94f, 96.0f),
-                    PathNode.LineTo(119.06f, 96.0f),
-                    PathNode.LineTo(131.06f, 120.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(148.94f, 120.0f),
-                    PathNode.LineTo(136.94f, 96.0f),
-                    PathNode.LineTo(167.06f, 96.0f),
-                    PathNode.LineTo(179.06f, 120.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(196.94f, 120.0f),
-                    PathNode.LineTo(184.94f, 96.0f),
-                    PathNode.LineTo(215.06f, 96.0f),
-                    PathNode.LineTo(227.06f, 120.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(207.06f, 80.0f),
-                    PathNode.LineTo(176.94f, 80.0f),
-                    PathNode.LineTo(164.94f, 56.0f),
-                    PathNode.LineTo(195.06f, 56.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(104.0f, 184.0f),
-                    PathNode.LineTo(104.0f, 136.0f),
-                    PathNode.LineTo(232.0f, 136.0f),
-                    PathNode.LineTo(232.0f, 184.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 247.160 124.420 L 207.160 44.420 C 205.803 41.709 203.031 39.998 200.000 40.000 L 56.000 40.000 C 52.969 39.998 50.197 41.709 48.840 44.420 L 8.840 124.420 C 8.289 125.533 8.001 126.758 8.000 128.000 L 8.000 184.000 C 8.000 192.837 15.163 200.000 24.000 200.000 L 232.000 200.000 C 240.837 200.000 248.000 192.837 248.000 184.000 L 248.000 128.000 C 247.999 126.758 247.711 125.533 247.160 124.420 ZM 99.060 56.000 L 111.060 80.000 L 80.940 80.000 L 68.940 56.000 ZM 147.060 56.000 L 159.060 80.000 L 128.940 80.000 L 116.940 56.000 ZM 100.940 120.000 L 88.940 96.000 L 119.060 96.000 L 131.060 120.000 ZM 148.940 120.000 L 136.940 96.000 L 167.060 96.000 L 179.060 120.000 ZM 196.940 120.000 L 184.940 96.000 L 215.060 96.000 L 227.060 120.000 ZM 207.060 80.000 L 176.940 80.000 L 164.940 56.000 L 195.060 56.000 ZM 104.000 184.000 L 104.000 136.000 L 232.000 136.000 L 232.000 184.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _solarRoof!!
     }

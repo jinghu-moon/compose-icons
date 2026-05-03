@@ -2,10 +2,10 @@ package composeicons.phosphor.bold
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorBoldIcon
 
@@ -17,44 +17,17 @@ val PhosphorIcons.Bold.MagnifyingGlassMinus: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(156.0f, 112.0f),
-                    PathNode.CurveTo(156.0f, 118.62742f, 150.62741f, 124.0f, 144.0f, 124.0f),
-                    PathNode.LineTo(80.0f, 124.0f),
-                    PathNode.CurveTo(73.37258f, 124.0f, 68.0f, 118.62742f, 68.0f, 112.0f),
-                    PathNode.CurveTo(68.0f, 105.37258f, 73.37258f, 100.0f, 80.0f, 100.0f),
-                    PathNode.LineTo(144.0f, 100.0f),
-                    PathNode.CurveTo(150.62741f, 100.0f, 156.0f, 105.37258f, 156.0f, 112.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(232.49f, 232.49f),
-                    PathNode.CurveTo(230.23837f, 234.74945f, 227.17982f, 236.01947f, 223.99f, 236.01947f),
-                    PathNode.CurveTo(220.80019f, 236.01947f, 217.74162f, 234.74945f, 215.49f, 232.49f),
-                    PathNode.LineTo(168.0f, 185.0f),
-                    PathNode.CurveTo(129.49312f, 214.54955f, 74.66399f, 209.15083f, 42.65989f, 172.65846f),
-                    PathNode.CurveTo(10.655792f, 136.16609f, 12.457935f, 81.101295f, 46.779613f, 46.779613f),
-                    PathNode.CurveTo(81.101295f, 12.457935f, 136.16609f, 10.655792f, 172.65846f, 42.65989f),
-                    PathNode.CurveTo(209.15083f, 74.66399f, 214.54955f, 129.49312f, 185.0f, 168.0f),
-                    PathNode.LineTo(232.54f, 215.53f),
-                    PathNode.CurveTo(237.20547f, 220.22887f, 237.18309f, 227.81873f, 232.49f, 232.49f),
-                    PathNode.Close,
-                    PathNode.MoveTo(112.0f, 180.0f),
-                    PathNode.CurveTo(149.55536f, 180.0f, 180.0f, 149.55536f, 180.0f, 112.0f),
-                    PathNode.CurveTo(180.0f, 74.44463f, 149.55536f, 44.0f, 112.0f, 44.0f),
-                    PathNode.CurveTo(74.44463f, 44.0f, 44.0f, 74.44463f, 44.0f, 112.0f),
-                    PathNode.CurveTo(44.044083f, 149.5371f, 74.46291f, 179.95592f, 112.0f, 180.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 24.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 156.000 112.000 C 156.000 118.627 150.627 124.000 144.000 124.000 L 80.000 124.000 C 73.373 124.000 68.000 118.627 68.000 112.000 C 68.000 105.373 73.373 100.000 80.000 100.000 L 144.000 100.000 C 150.627 100.000 156.000 105.373 156.000 112.000 ZM 232.490 232.490 C 230.238 234.749 227.180 236.019 223.990 236.019 C 220.800 236.019 217.742 234.749 215.490 232.490 L 168.000 185.000 C 129.493 214.550 74.664 209.151 42.660 172.658 C 10.656 136.166 12.458 81.101 46.780 46.780 C 81.101 12.458 136.166 10.656 172.658 42.660 C 209.151 74.664 214.550 129.493 185.000 168.000 L 232.540 215.530 C 237.205 220.229 237.183 227.819 232.490 232.490 ZM 112.000 180.000 C 149.555 180.000 180.000 149.555 180.000 112.000 C 180.000 74.445 149.555 44.000 112.000 44.000 C 74.445 44.000 44.000 74.445 44.000 112.000 C 44.044 149.537 74.463 179.956 112.000 180.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _magnifyingGlassMinus!!
     }

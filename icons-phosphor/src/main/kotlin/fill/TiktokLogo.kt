@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,41 +17,17 @@ val PhosphorIcons.Fill.TiktokLogo: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(232.0f, 80.0f),
-                    PathNode.LineTo(232.0f, 120.0f),
-                    PathNode.CurveTo(232.0f, 124.41828f, 228.41827f, 128.0f, 224.0f, 128.0f),
-                    PathNode.CurveTo(207.2881f, 128.0388f, 190.81653f, 124.02043f, 176.0f, 116.29f),
-                    PathNode.LineTo(176.0f, 156.0f),
-                    PathNode.CurveTo(176.0f, 197.97365f, 141.97365f, 232.0f, 100.0f, 232.0f),
-                    PathNode.CurveTo(58.02636f, 232.0f, 24.0f, 197.97365f, 24.0f, 156.0f),
-                    PathNode.CurveTo(24.0f, 119.1f, 50.91f, 86.48f, 86.6f, 80.12f),
-                    PathNode.CurveTo(88.93074f, 79.70573f, 91.32527f, 80.34498f, 93.13942f, 81.86577f),
-                    PathNode.CurveTo(94.95357f, 83.386566f, 96.00102f, 85.63274f, 96.0f, 88.0f),
-                    PathNode.LineTo(96.0f, 130.69f),
-                    PathNode.CurveTo(96.00101f, 133.7804f, 94.22194f, 136.59499f, 91.43f, 137.92f),
-                    PathNode.CurveTo(82.47728f, 142.16579f, 77.98292f, 152.32669f, 80.86436f, 161.80695f),
-                    PathNode.CurveTo(83.7458f, 171.2872f, 93.13429f, 177.22853f, 102.93546f, 175.77423f),
-                    PathNode.CurveTo(112.73663f, 174.31995f, 119.99546f, 165.90848f, 120.0f, 156.0f),
-                    PathNode.LineTo(120.0f, 24.0f),
-                    PathNode.CurveTo(120.0f, 19.581722f, 123.58172f, 16.0f, 128.0f, 16.0f),
-                    PathNode.LineTo(168.0f, 16.0f),
-                    PathNode.CurveTo(172.41827f, 16.0f, 176.0f, 19.581722f, 176.0f, 24.0f),
-                    PathNode.CurveTo(176.02756f, 50.498245f, 197.50175f, 71.97244f, 224.0f, 72.0f),
-                    PathNode.CurveTo(228.41827f, 72.0f, 232.0f, 75.58172f, 232.0f, 80.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 232.000 80.000 L 232.000 120.000 C 232.000 124.418 228.418 128.000 224.000 128.000 C 207.288 128.039 190.817 124.020 176.000 116.290 L 176.000 156.000 C 176.000 197.974 141.974 232.000 100.000 232.000 C 58.026 232.000 24.000 197.974 24.000 156.000 C 24.000 119.100 50.910 86.480 86.600 80.120 C 88.931 79.706 91.325 80.345 93.139 81.866 C 94.954 83.387 96.001 85.633 96.000 88.000 L 96.000 130.690 C 96.001 133.780 94.222 136.595 91.430 137.920 C 82.477 142.166 77.983 152.327 80.864 161.807 C 83.746 171.287 93.134 177.229 102.935 175.774 C 112.737 174.320 119.995 165.908 120.000 156.000 L 120.000 24.000 C 120.000 19.582 123.582 16.000 128.000 16.000 L 168.000 16.000 C 172.418 16.000 176.000 19.582 176.000 24.000 C 176.028 50.498 197.502 71.972 224.000 72.000 C 228.418 72.000 232.000 75.582 232.000 80.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _tiktokLogo!!
     }

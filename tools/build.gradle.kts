@@ -113,3 +113,20 @@ val downloadUsvg = tasks.register("resolveUsvg") {
         }
     }
 }
+
+tasks.register<Exec>("buildSvg2Compose") {
+    description = "Compile svg2compose Rust CLI for Windows"
+    group = "build"
+    workingDir = file("svg2compose")
+    commandLine("cmd", "/c", "cargo", "build", "--release")
+    inputs.dir("svg2compose/src")
+    inputs.file("svg2compose/Cargo.toml")
+    outputs.file("svg2compose/target/release/svg2compose.exe")
+}
+
+tasks.register<Copy>("installSvg2Compose") {
+    description = "Copy svg2compose.exe to tools/ directory"
+    dependsOn("buildSvg2Compose")
+    from("svg2compose/target/release/svg2compose.exe")
+    into(projectDir)
+}

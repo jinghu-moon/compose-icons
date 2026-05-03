@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,44 +17,17 @@ val PhosphorIcons.Thin.Lightning: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(211.89f, 119.09f),
-                    PathNode.CurveTo(211.58734f, 117.7864f, 210.65283f, 116.72053f, 209.4f, 116.25f),
-                    PathNode.LineTo(148.59f, 93.45f),
-                    PathNode.LineTo(163.92f, 16.78f),
-                    PathNode.CurveTo(164.26364f, 15.030306f, 163.40764f, 13.264448f, 161.8212f, 12.450357f),
-                    PathNode.CurveTo(160.23477f, 11.636267f, 158.30106f, 11.970561f, 157.08f, 13.27f),
-                    PathNode.LineTo(45.08f, 133.27f),
-                    PathNode.CurveTo(44.159103f, 134.23985f, 43.783848f, 135.60579f, 44.08f, 136.91f),
-                    PathNode.CurveTo(44.382656f, 138.2136f, 45.317173f, 139.27946f, 46.57f, 139.75f),
-                    PathNode.LineTo(107.38f, 162.55f),
-                    PathNode.LineTo(92.08f, 239.22f),
-                    PathNode.CurveTo(91.73637f, 240.9697f, 92.59237f, 242.73555f, 94.1788f, 243.54964f),
-                    PathNode.CurveTo(95.76523f, 244.36374f, 97.698944f, 244.02943f, 98.92f, 242.73f),
-                    PathNode.LineTo(210.92f, 122.73f),
-                    PathNode.CurveTo(211.83018f, 121.75439f, 212.194f, 120.389175f, 211.89f, 119.09f),
-                    PathNode.Close,
-                    PathNode.MoveTo(102.68f, 227.0f),
-                    PathNode.LineTo(115.92f, 160.8f),
-                    PathNode.CurveTo(116.30444f, 158.87636f, 115.23716f, 156.95778f, 113.4f, 156.27f),
-                    PathNode.LineTo(55.0f, 134.36f),
-                    PathNode.LineTo(153.32f, 29.0f),
-                    PathNode.LineTo(140.08f, 95.2f),
-                    PathNode.CurveTo(139.69556f, 97.12364f, 140.76283f, 99.04221f, 142.6f, 99.73f),
-                    PathNode.LineTo(201.0f, 121.64f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 211.890 119.090 C 211.587 117.786 210.653 116.721 209.400 116.250 L 148.590 93.450 L 163.920 16.780 C 164.264 15.030 163.408 13.264 161.821 12.450 C 160.235 11.636 158.301 11.971 157.080 13.270 L 45.080 133.270 C 44.159 134.240 43.784 135.606 44.080 136.910 C 44.383 138.214 45.317 139.279 46.570 139.750 L 107.380 162.550 L 92.080 239.220 C 91.736 240.970 92.592 242.736 94.179 243.550 C 95.765 244.364 97.699 244.029 98.920 242.730 L 210.920 122.730 C 211.830 121.754 212.194 120.389 211.890 119.090 ZM 102.680 227.000 L 115.920 160.800 C 116.304 158.876 115.237 156.958 113.400 156.270 L 55.000 134.360 L 153.320 29.000 L 140.080 95.200 C 139.696 97.124 140.763 99.042 142.600 99.730 L 201.000 121.640 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _lightning!!
     }

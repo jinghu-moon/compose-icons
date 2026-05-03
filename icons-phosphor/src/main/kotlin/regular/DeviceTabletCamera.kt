@@ -2,10 +2,10 @@ package composeicons.phosphor.regular
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorRegularIcon
 
@@ -17,44 +17,17 @@ val PhosphorIcons.Regular.DeviceTabletCamera: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(192.0f, 24.0f),
-                    PathNode.LineTo(64.0f, 24.0f),
-                    PathNode.CurveTo(50.745167f, 24.0f, 40.0f, 34.745167f, 40.0f, 48.0f),
-                    PathNode.LineTo(40.0f, 208.0f),
-                    PathNode.CurveTo(40.0f, 221.25484f, 50.745167f, 232.0f, 64.0f, 232.0f),
-                    PathNode.LineTo(192.0f, 232.0f),
-                    PathNode.CurveTo(205.25484f, 232.0f, 216.0f, 221.25484f, 216.0f, 208.0f),
-                    PathNode.LineTo(216.0f, 48.0f),
-                    PathNode.CurveTo(216.0f, 34.745167f, 205.25484f, 24.0f, 192.0f, 24.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(200.0f, 208.0f),
-                    PathNode.CurveTo(200.0f, 212.41827f, 196.41827f, 216.0f, 192.0f, 216.0f),
-                    PathNode.LineTo(64.0f, 216.0f),
-                    PathNode.CurveTo(59.581722f, 216.0f, 56.0f, 212.41827f, 56.0f, 208.0f),
-                    PathNode.LineTo(56.0f, 48.0f),
-                    PathNode.CurveTo(56.0f, 43.581722f, 59.581722f, 40.0f, 64.0f, 40.0f),
-                    PathNode.LineTo(192.0f, 40.0f),
-                    PathNode.CurveTo(196.41827f, 40.0f, 200.0f, 43.581722f, 200.0f, 48.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(140.0f, 68.0f),
-                    PathNode.CurveTo(140.0f, 74.62742f, 134.62741f, 80.0f, 128.0f, 80.0f),
-                    PathNode.CurveTo(121.37258f, 80.0f, 116.0f, 74.62742f, 116.0f, 68.0f),
-                    PathNode.CurveTo(116.0f, 61.37258f, 121.37258f, 56.0f, 128.0f, 56.0f),
-                    PathNode.CurveTo(134.62741f, 56.0f, 140.0f, 61.37258f, 140.0f, 68.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 192.000 24.000 L 64.000 24.000 C 50.745 24.000 40.000 34.745 40.000 48.000 L 40.000 208.000 C 40.000 221.255 50.745 232.000 64.000 232.000 L 192.000 232.000 C 205.255 232.000 216.000 221.255 216.000 208.000 L 216.000 48.000 C 216.000 34.745 205.255 24.000 192.000 24.000 ZM 200.000 208.000 C 200.000 212.418 196.418 216.000 192.000 216.000 L 64.000 216.000 C 59.582 216.000 56.000 212.418 56.000 208.000 L 56.000 48.000 C 56.000 43.582 59.582 40.000 64.000 40.000 L 192.000 40.000 C 196.418 40.000 200.000 43.582 200.000 48.000 ZM 140.000 68.000 C 140.000 74.627 134.627 80.000 128.000 80.000 C 121.373 80.000 116.000 74.627 116.000 68.000 C 116.000 61.373 121.373 56.000 128.000 56.000 C 134.627 56.000 140.000 61.373 140.000 68.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _deviceTabletCamera!!
     }

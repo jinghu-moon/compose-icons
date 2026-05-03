@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,59 +17,17 @@ val PhosphorIcons.Light.CloudX: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(160.0f, 42.0f),
-                    PathNode.CurveTo(126.89743f, 42.029118f, 96.74202f, 61.031265f, 82.43f, 90.88f),
-                    PathNode.CurveTo(59.3639f, 86.95178f, 36.05095f, 96.3437f, 22.149662f, 115.1647f),
-                    PathNode.CurveTo(8.248373f, 133.9857f, 6.126796f, 159.02968f, 16.663895f, 179.92096f),
-                    PathNode.CurveTo(27.200993f, 200.81224f, 48.6018f, 213.99203f, 72.0f, 214.0f),
-                    PathNode.LineTo(160.0f, 214.0f),
-                    PathNode.CurveTo(207.49649f, 214.0f, 246.0f, 175.49649f, 246.0f, 128.0f),
-                    PathNode.CurveTo(246.0f, 80.50351f, 207.49649f, 42.0f, 160.0f, 42.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(160.0f, 202.0f),
-                    PathNode.LineTo(72.0f, 202.0f),
-                    PathNode.CurveTo(44.38576f, 202.0f, 22.0f, 179.61424f, 22.0f, 152.0f),
-                    PathNode.CurveTo(22.0f, 124.385765f, 44.38576f, 102.0f, 72.0f, 102.0f),
-                    PathNode.CurveTo(73.975136f, 102.00138f, 75.9485f, 102.11825f, 77.91f, 102.35f),
-                    PathNode.CurveTo(75.311066f, 110.651695f, 73.99259f, 119.301f, 74.0f, 128.0f),
-                    PathNode.CurveTo(74.0f, 131.3137f, 76.686295f, 134.0f, 80.0f, 134.0f),
-                    PathNode.CurveTo(83.313705f, 134.0f, 86.0f, 131.3137f, 86.0f, 128.0f),
-                    PathNode.CurveTo(86.0f, 87.13093f, 119.13093f, 54.0f, 160.0f, 54.0f),
-                    PathNode.CurveTo(200.86908f, 54.0f, 234.0f, 87.13093f, 234.0f, 128.0f),
-                    PathNode.CurveTo(234.0f, 168.86908f, 200.86908f, 202.0f, 160.0f, 202.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(188.24f, 116.24f),
-                    PathNode.LineTo(168.48f, 136.0f),
-                    PathNode.LineTo(188.24f, 155.76f),
-                    PathNode.CurveTo(189.84523f, 157.25575f, 190.506f, 159.50844f, 189.96309f, 161.63431f),
-                    PathNode.CurveTo(189.42018f, 163.76018f, 187.76018f, 165.42018f, 185.63431f, 165.96309f),
-                    PathNode.CurveTo(183.50844f, 166.506f, 181.25575f, 165.84523f, 179.76f, 164.24f),
-                    PathNode.LineTo(160.0f, 144.48f),
-                    PathNode.LineTo(140.24f, 164.24f),
-                    PathNode.CurveTo(137.87592f, 166.44287f, 134.19193f, 166.37787f, 131.90703f, 164.09297f),
-                    PathNode.CurveTo(129.62213f, 161.80807f, 129.55713f, 158.12408f, 131.76f, 155.76f),
-                    PathNode.LineTo(151.52f, 136.0f),
-                    PathNode.LineTo(131.76f, 116.24f),
-                    PathNode.CurveTo(129.55713f, 113.87592f, 129.62213f, 110.191925f, 131.90703f, 107.90703f),
-                    PathNode.CurveTo(134.19193f, 105.62213f, 137.87592f, 105.55713f, 140.24f, 107.76f),
-                    PathNode.LineTo(160.0f, 127.52f),
-                    PathNode.LineTo(179.76f, 107.76f),
-                    PathNode.CurveTo(182.12408f, 105.55713f, 185.80807f, 105.62213f, 188.09297f, 107.90703f),
-                    PathNode.CurveTo(190.37787f, 110.191925f, 190.44287f, 113.87592f, 188.24f, 116.24f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 160.000 42.000 C 126.897 42.029 96.742 61.031 82.430 90.880 C 59.364 86.952 36.051 96.344 22.150 115.165 C 8.248 133.986 6.127 159.030 16.664 179.921 C 27.201 200.812 48.602 213.992 72.000 214.000 L 160.000 214.000 C 207.496 214.000 246.000 175.496 246.000 128.000 C 246.000 80.504 207.496 42.000 160.000 42.000 ZM 160.000 202.000 L 72.000 202.000 C 44.386 202.000 22.000 179.614 22.000 152.000 C 22.000 124.386 44.386 102.000 72.000 102.000 C 73.975 102.001 75.949 102.118 77.910 102.350 C 75.311 110.652 73.993 119.301 74.000 128.000 C 74.000 131.314 76.686 134.000 80.000 134.000 C 83.314 134.000 86.000 131.314 86.000 128.000 C 86.000 87.131 119.131 54.000 160.000 54.000 C 200.869 54.000 234.000 87.131 234.000 128.000 C 234.000 168.869 200.869 202.000 160.000 202.000 ZM 188.240 116.240 L 168.480 136.000 L 188.240 155.760 C 189.845 157.256 190.506 159.508 189.963 161.634 C 189.420 163.760 187.760 165.420 185.634 165.963 C 183.508 166.506 181.256 165.845 179.760 164.240 L 160.000 144.480 L 140.240 164.240 C 137.876 166.443 134.192 166.378 131.907 164.093 C 129.622 161.808 129.557 158.124 131.760 155.760 L 151.520 136.000 L 131.760 116.240 C 129.557 113.876 129.622 110.192 131.907 107.907 C 134.192 105.622 137.876 105.557 140.240 107.760 L 160.000 127.520 L 179.760 107.760 C 182.124 105.557 185.808 105.622 188.093 107.907 C 190.378 110.192 190.443 113.876 188.240 116.240 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _cloudX!!
     }

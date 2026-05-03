@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,65 +17,17 @@ val PhosphorIcons.Thin.PenNibStraight: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(218.75f, 125.66f),
-                    PathNode.CurveTo(218.72272f, 125.59366f, 218.68924f, 125.530045f, 218.65f, 125.47f),
-                    PathNode.LineTo(188.0f, 70.94f),
-                    PathNode.LineTo(188.0f, 32.0f),
-                    PathNode.CurveTo(188.0f, 25.372583f, 182.62741f, 20.0f, 176.0f, 20.0f),
-                    PathNode.LineTo(80.0f, 20.0f),
-                    PathNode.CurveTo(73.37258f, 20.0f, 68.0f, 25.372583f, 68.0f, 32.0f),
-                    PathNode.LineTo(68.0f, 71.0f),
-                    PathNode.LineTo(37.34f, 125.47f),
-                    PathNode.LineTo(37.24f, 125.66f),
-                    PathNode.CurveTo(35.239708f, 129.71094f, 35.68417f, 134.54202f, 38.39f, 138.16f),
-                    PathNode.LineTo(124.83f, 250.44f),
-                    PathNode.CurveTo(125.58721f, 251.42397f, 126.75841f, 252.00052f, 128.0f, 252.00052f),
-                    PathNode.CurveTo(129.2416f, 252.00052f, 130.4128f, 251.42397f, 131.17f, 250.44f),
-                    PathNode.LineTo(217.66f, 138.09f),
-                    PathNode.CurveTo(220.31825f, 134.47615f, 220.73872f, 129.68134f, 218.75f, 125.66f),
-                    PathNode.Close,
-                    PathNode.MoveTo(80.0f, 28.0f),
-                    PathNode.LineTo(176.0f, 28.0f),
-                    PathNode.CurveTo(178.20914f, 28.0f, 180.0f, 29.790861f, 180.0f, 32.0f),
-                    PathNode.LineTo(180.0f, 68.0f),
-                    PathNode.LineTo(76.0f, 68.0f),
-                    PathNode.LineTo(76.0f, 32.0f),
-                    PathNode.CurveTo(76.0f, 29.790861f, 77.79086f, 28.0f, 80.0f, 28.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 148.0f),
-                    PathNode.CurveTo(119.163445f, 148.0f, 112.0f, 140.83656f, 112.0f, 132.0f),
-                    PathNode.CurveTo(112.0f, 123.163445f, 119.163445f, 116.0f, 128.0f, 116.0f),
-                    PathNode.CurveTo(136.83656f, 116.0f, 144.0f, 123.163445f, 144.0f, 132.0f),
-                    PathNode.CurveTo(144.0f, 140.83656f, 136.83656f, 148.0f, 128.0f, 148.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(211.27f, 133.28f),
-                    PathNode.LineTo(132.0f, 236.25f),
-                    PathNode.LineTo(132.0f, 155.66f),
-                    PathNode.CurveTo(144.30225f, 153.58052f, 152.95934f, 142.4217f, 151.91594f, 129.98865f),
-                    PathNode.CurveTo(150.87254f, 117.555595f, 140.47676f, 107.99568f, 128.0f, 107.99568f),
-                    PathNode.CurveTo(115.52325f, 107.99568f, 105.12745f, 117.555595f, 104.08407f, 129.98865f),
-                    PathNode.CurveTo(103.04068f, 142.4217f, 111.697754f, 153.58052f, 124.0f, 155.66f),
-                    PathNode.LineTo(124.0f, 236.24f),
-                    PathNode.LineTo(44.78f, 133.34f),
-                    PathNode.CurveTo(43.91468f, 132.16148f, 43.761303f, 130.60474f, 44.38f, 129.28f),
-                    PathNode.LineTo(74.35f, 76.0f),
-                    PathNode.LineTo(181.66f, 76.0f),
-                    PathNode.LineTo(211.66f, 129.28f),
-                    PathNode.CurveTo(212.25789f, 130.5866f, 212.10901f, 132.1135f, 211.27f, 133.28f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 218.750 125.660 C 218.723 125.594 218.689 125.530 218.650 125.470 L 188.000 70.940 L 188.000 32.000 C 188.000 25.373 182.627 20.000 176.000 20.000 L 80.000 20.000 C 73.373 20.000 68.000 25.373 68.000 32.000 L 68.000 71.000 L 37.340 125.470 L 37.240 125.660 C 35.240 129.711 35.684 134.542 38.390 138.160 L 124.830 250.440 C 125.587 251.424 126.758 252.001 128.000 252.001 C 129.242 252.001 130.413 251.424 131.170 250.440 L 217.660 138.090 C 220.318 134.476 220.739 129.681 218.750 125.660 ZM 80.000 28.000 L 176.000 28.000 C 178.209 28.000 180.000 29.791 180.000 32.000 L 180.000 68.000 L 76.000 68.000 L 76.000 32.000 C 76.000 29.791 77.791 28.000 80.000 28.000 ZM 128.000 148.000 C 119.163 148.000 112.000 140.837 112.000 132.000 C 112.000 123.163 119.163 116.000 128.000 116.000 C 136.837 116.000 144.000 123.163 144.000 132.000 C 144.000 140.837 136.837 148.000 128.000 148.000 ZM 211.270 133.280 L 132.000 236.250 L 132.000 155.660 C 144.302 153.581 152.959 142.422 151.916 129.989 C 150.873 117.556 140.477 107.996 128.000 107.996 C 115.523 107.996 105.127 117.556 104.084 129.989 C 103.041 142.422 111.698 153.581 124.000 155.660 L 124.000 236.240 L 44.780 133.340 C 43.915 132.161 43.761 130.605 44.380 129.280 L 74.350 76.000 L 181.660 76.000 L 211.660 129.280 C 212.258 130.587 212.109 132.113 211.270 133.280 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _penNibStraight!!
     }

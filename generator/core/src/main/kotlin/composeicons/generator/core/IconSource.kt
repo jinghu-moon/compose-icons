@@ -45,6 +45,7 @@ data class PathStyle(
     val strokeLineCap: String?,
     val strokeLineJoin: String?,
     val fillRule: String?,
+    val alpha: Float = 1.0f,
     val originalFill: String? = null,
     val originalStroke: String? = null,
 )

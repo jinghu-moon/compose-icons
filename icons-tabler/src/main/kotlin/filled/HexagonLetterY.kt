@@ -1,0 +1,35 @@
+package composeicons.tabler.filled
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.tabler.TablerIcons
+import composeicons.tabler.tablerFilledIcon
+
+val TablerIcons.Filled.HexagonLetterY: ImageVector
+    get() {
+        if (_hexagonLetterY != null) return _hexagonLetterY!!
+        _hexagonLetterY = tablerFilledIcon(
+            name = "HexagonLetterY",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+    addPath(
+        pathData = parseSvgPathData("M 13.666 1.429 L 20.416 5.409 L 20.512 5.472 L 20.605 5.550 L 20.711 5.624 C 21.470 6.193 21.940 7.067 21.995 8.014 L 22.000 8.218 L 22.000 15.502 C 22.000 16.677 21.357 17.758 20.377 18.295 L 13.573 22.597 C 12.593 23.135 11.407 23.135 10.373 22.565 L 3.678 18.328 C 2.645 17.762 2.002 16.679 2.000 15.502 L 2.000 8.217 C 2.000 7.111 2.570 6.089 3.476 5.512 L 10.426 1.414 C 11.426 0.862 12.640 0.862 13.666 1.429M 14.371 7.072 C 14.125 6.973 13.849 6.977 13.606 7.081 C 13.362 7.186 13.170 7.383 13.071 7.629 L 12.000 10.307 L 10.928 7.629 C 10.711 7.136 10.142 6.903 9.642 7.103 C 9.141 7.303 8.889 7.864 9.072 8.371 L 11.000 13.194 L 11.000 16.000 C 11.000 16.507 11.380 16.934 11.883 16.993 L 12.000 17.000 C 12.552 17.000 13.000 16.552 13.000 16.000 L 13.000 13.191 L 14.928 8.371 C 15.116 7.901 14.923 7.363 14.478 7.121 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
+        }
+        return _hexagonLetterY!!
+    }
+
+private var _hexagonLetterY: ImageVector? = null

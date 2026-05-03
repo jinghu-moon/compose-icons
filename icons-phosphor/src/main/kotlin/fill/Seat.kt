@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,45 +17,17 @@ val PhosphorIcons.Fill.Seat: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(224.0f, 232.0f),
-                    PathNode.CurveTo(224.0f, 236.41827f, 220.41827f, 240.0f, 216.0f, 240.0f),
-                    PathNode.LineTo(112.0f, 240.0f),
-                    PathNode.CurveTo(107.58172f, 240.0f, 104.0f, 236.41827f, 104.0f, 232.0f),
-                    PathNode.CurveTo(104.0f, 227.58173f, 107.58172f, 224.0f, 112.0f, 224.0f),
-                    PathNode.LineTo(216.0f, 224.0f),
-                    PathNode.CurveTo(220.41827f, 224.0f, 224.0f, 227.58173f, 224.0f, 232.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(208.0f, 144.0f),
-                    PathNode.LineTo(143.78f, 144.0f),
-                    PathNode.LineTo(112.0f, 80.0f),
-                    PathNode.LineTo(126.19f, 53.68f),
-                    PathNode.CurveTo(126.23259f, 53.60978f, 126.26938f, 53.5362f, 126.3f, 53.46f),
-                    PathNode.CurveTo(130.24838f, 45.559338f, 127.048f, 35.953712f, 119.15f, 32.0f),
-                    PathNode.LineTo(118.68f, 31.78f),
-                    PathNode.LineTo(85.0f, 17.57f),
-                    PathNode.CurveTo(77.13286f, 13.812723f, 67.70576f, 17.045507f, 63.8f, 24.84f),
-                    PathNode.LineTo(41.68f, 68.84f),
-                    PathNode.CurveTo(39.44037f, 73.350624f, 39.44037f, 78.649376f, 41.68f, 83.16f),
-                    PathNode.LineTo(99.79f, 199.16f),
-                    PathNode.CurveTo(102.49037f, 204.59328f, 108.0427f, 208.02084f, 114.11f, 208.0f),
-                    PathNode.LineTo(208.0f, 208.0f),
-                    PathNode.CurveTo(216.83656f, 208.0f, 224.0f, 200.83656f, 224.0f, 192.0f),
-                    PathNode.LineTo(224.0f, 160.0f),
-                    PathNode.CurveTo(224.0f, 151.16344f, 216.83656f, 144.0f, 208.0f, 144.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 224.000 232.000 C 224.000 236.418 220.418 240.000 216.000 240.000 L 112.000 240.000 C 107.582 240.000 104.000 236.418 104.000 232.000 C 104.000 227.582 107.582 224.000 112.000 224.000 L 216.000 224.000 C 220.418 224.000 224.000 227.582 224.000 232.000 ZM 208.000 144.000 L 143.780 144.000 L 112.000 80.000 L 126.190 53.680 C 126.233 53.610 126.269 53.536 126.300 53.460 C 130.248 45.559 127.048 35.954 119.150 32.000 L 118.680 31.780 L 85.000 17.570 C 77.133 13.813 67.706 17.046 63.800 24.840 L 41.680 68.840 C 39.440 73.351 39.440 78.649 41.680 83.160 L 99.790 199.160 C 102.490 204.593 108.043 208.021 114.110 208.000 L 208.000 208.000 C 216.837 208.000 224.000 200.837 224.000 192.000 L 224.000 160.000 C 224.000 151.163 216.837 144.000 208.000 144.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _seat!!
     }

@@ -2,10 +2,10 @@ package composeicons.phosphor.regular
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorRegularIcon
 
@@ -17,42 +17,17 @@ val PhosphorIcons.Regular.GenderMale: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(216.0f, 32.0f),
-                    PathNode.LineTo(168.0f, 32.0f),
-                    PathNode.CurveTo(163.58173f, 32.0f, 160.0f, 35.581722f, 160.0f, 40.0f),
-                    PathNode.CurveTo(160.0f, 44.418278f, 163.58173f, 48.0f, 168.0f, 48.0f),
-                    PathNode.LineTo(196.69f, 48.0f),
-                    PathNode.LineTo(154.62f, 90.07f),
-                    PathNode.CurveTo(121.61629f, 63.092617f, 73.25642f, 66.73133f, 44.66112f, 98.34357f),
-                    PathNode.CurveTo(16.065828f, 129.95581f, 17.279745f, 178.43718f, 47.421284f, 208.57872f),
-                    PathNode.CurveTo(77.56282f, 238.72026f, 126.0442f, 239.93417f, 157.65643f, 211.33888f),
-                    PathNode.CurveTo(189.26868f, 182.74359f, 192.90738f, 134.38371f, 165.93f, 101.38f),
-                    PathNode.LineTo(208.0f, 59.32f),
-                    PathNode.LineTo(208.0f, 88.0f),
-                    PathNode.CurveTo(208.0f, 92.41828f, 211.58173f, 96.0f, 216.0f, 96.0f),
-                    PathNode.CurveTo(220.41827f, 96.0f, 224.0f, 92.41828f, 224.0f, 88.0f),
-                    PathNode.LineTo(224.0f, 40.0f),
-                    PathNode.CurveTo(224.0f, 35.581722f, 220.41827f, 32.0f, 216.0f, 32.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(149.24f, 197.29f),
-                    PathNode.CurveTo(124.24348f, 222.2753f, 83.72615f, 222.26923f, 58.73711f, 197.27644f),
-                    PathNode.CurveTo(33.748074f, 172.28366f, 33.748074f, 131.76633f, 58.73711f, 106.77355f),
-                    PathNode.CurveTo(83.72615f, 81.78078f, 124.24348f, 81.774704f, 149.24f, 106.76f),
-                    PathNode.CurveTo(174.19199f, 131.77869f, 174.19199f, 172.2713f, 149.24f, 197.29f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 216.000 32.000 L 168.000 32.000 C 163.582 32.000 160.000 35.582 160.000 40.000 C 160.000 44.418 163.582 48.000 168.000 48.000 L 196.690 48.000 L 154.620 90.070 C 121.616 63.093 73.256 66.731 44.661 98.344 C 16.066 129.956 17.280 178.437 47.421 208.579 C 77.563 238.720 126.044 239.934 157.656 211.339 C 189.269 182.744 192.907 134.384 165.930 101.380 L 208.000 59.320 L 208.000 88.000 C 208.000 92.418 211.582 96.000 216.000 96.000 C 220.418 96.000 224.000 92.418 224.000 88.000 L 224.000 40.000 C 224.000 35.582 220.418 32.000 216.000 32.000 ZM 149.240 197.290 C 124.243 222.275 83.726 222.269 58.737 197.276 C 33.748 172.284 33.748 131.766 58.737 106.774 C 83.726 81.781 124.243 81.775 149.240 106.760 C 174.192 131.779 174.192 172.271 149.240 197.290 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _genderMale!!
     }

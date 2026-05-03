@@ -2,10 +2,10 @@ package composeicons.phosphor.regular
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorRegularIcon
 
@@ -17,42 +17,17 @@ val PhosphorIcons.Regular.Flag: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(42.76f, 50.0f),
-                    PathNode.CurveTo(41.018864f, 51.5092f, 40.013f, 53.695854f, 40.0f, 56.0f),
-                    PathNode.LineTo(40.0f, 224.0f),
-                    PathNode.CurveTo(40.0f, 228.41827f, 43.581722f, 232.0f, 48.0f, 232.0f),
-                    PathNode.CurveTo(52.418278f, 232.0f, 56.0f, 228.41827f, 56.0f, 224.0f),
-                    PathNode.LineTo(56.0f, 179.77f),
-                    PathNode.CurveTo(82.79f, 158.61f, 105.87f, 170.02f, 132.45f, 183.18f),
-                    PathNode.CurveTo(148.85f, 191.29f, 166.51f, 200.03f, 185.45f, 200.03f),
-                    PathNode.CurveTo(199.38f, 200.03f, 213.99f, 195.28f, 229.27f, 182.03f),
-                    PathNode.CurveTo(231.01114f, 180.5208f, 232.017f, 178.33414f, 232.03f, 176.03f),
-                    PathNode.LineTo(232.03f, 56.0f),
-                    PathNode.CurveTo(232.0226f, 52.863934f, 230.1835f, 50.021408f, 227.32596f, 48.72937f),
-                    PathNode.CurveTo(224.4684f, 47.43734f, 221.11946f, 47.9341f, 218.76f, 50.0f),
-                    PathNode.CurveTo(190.76f, 74.23f, 167.04f, 62.49f, 139.55f, 48.88f),
-                    PathNode.CurveTo(111.07f, 34.76f, 78.78f, 18.79f, 42.76f, 50.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(216.0f, 172.25f),
-                    PathNode.CurveTo(189.21f, 193.41f, 166.13f, 181.99f, 139.55f, 168.84f),
-                    PathNode.CurveTo(114.55f, 156.49f, 86.74f, 142.71f, 56.0f, 160.44f),
-                    PathNode.LineTo(56.0f, 59.79f),
-                    PathNode.CurveTo(82.79f, 38.63f, 105.87f, 50.04f, 132.45f, 63.19f),
-                    PathNode.CurveTo(157.45f, 75.54f, 185.27f, 89.32f, 216.0f, 71.59f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 42.760 50.000 C 41.019 51.509 40.013 53.696 40.000 56.000 L 40.000 224.000 C 40.000 228.418 43.582 232.000 48.000 232.000 C 52.418 232.000 56.000 228.418 56.000 224.000 L 56.000 179.770 C 82.790 158.610 105.870 170.020 132.450 183.180 C 148.850 191.290 166.510 200.030 185.450 200.030 C 199.380 200.030 213.990 195.280 229.270 182.030 C 231.011 180.521 232.017 178.334 232.030 176.030 L 232.030 56.000 C 232.023 52.864 230.184 50.021 227.326 48.729 C 224.468 47.437 221.119 47.934 218.760 50.000 C 190.760 74.230 167.040 62.490 139.550 48.880 C 111.070 34.760 78.780 18.790 42.760 50.000 ZM 216.000 172.250 C 189.210 193.410 166.130 181.990 139.550 168.840 C 114.550 156.490 86.740 142.710 56.000 160.440 L 56.000 59.790 C 82.790 38.630 105.870 50.040 132.450 63.190 C 157.450 75.540 185.270 89.320 216.000 71.590 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _flag!!
     }

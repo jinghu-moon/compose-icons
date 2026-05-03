@@ -2,10 +2,10 @@ package composeicons.phosphor.bold
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorBoldIcon
 
@@ -17,35 +17,17 @@ val PhosphorIcons.Bold.WaveSawtooth: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(238.29f, 138.22f),
-                    PathNode.LineTo(134.29f, 202.22f),
-                    PathNode.CurveTo(130.58746f, 204.4989f, 125.94188f, 204.5969f, 122.14653f, 202.47615f),
-                    PathNode.CurveTo(118.35118f, 200.35541f, 115.99978f, 196.34767f, 116.0f, 192.0f),
-                    PathNode.LineTo(116.0f, 85.47f),
-                    PathNode.LineTo(30.29f, 138.22f),
-                    PathNode.CurveTo(24.645647f, 141.69388f, 17.253872f, 139.93436f, 13.780001f, 134.29f),
-                    PathNode.CurveTo(10.306129f, 128.64565f, 12.06565f, 121.253876f, 17.71f, 117.78f),
-                    PathNode.LineTo(121.71f, 53.78f),
-                    PathNode.CurveTo(125.412544f, 51.5011f, 130.05812f, 51.403107f, 133.85347f, 53.523853f),
-                    PathNode.CurveTo(137.64882f, 55.644596f, 140.00023f, 59.652332f, 140.0f, 64.0f),
-                    PathNode.LineTo(140.0f, 170.53f),
-                    PathNode.LineTo(225.71f, 117.78f),
-                    PathNode.CurveTo(231.35435f, 114.30613f, 238.74612f, 116.06565f, 242.22f, 121.71f),
-                    PathNode.CurveTo(245.69388f, 127.35435f, 243.93436f, 134.74612f, 238.29f, 138.22f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 24.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 238.290 138.220 L 134.290 202.220 C 130.587 204.499 125.942 204.597 122.147 202.476 C 118.351 200.355 116.000 196.348 116.000 192.000 L 116.000 85.470 L 30.290 138.220 C 24.646 141.694 17.254 139.934 13.780 134.290 C 10.306 128.646 12.066 121.254 17.710 117.780 L 121.710 53.780 C 125.413 51.501 130.058 51.403 133.853 53.524 C 137.649 55.645 140.000 59.652 140.000 64.000 L 140.000 170.530 L 225.710 117.780 C 231.354 114.306 238.746 116.066 242.220 121.710 C 245.694 127.354 243.934 134.746 238.290 138.220 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _waveSawtooth!!
     }

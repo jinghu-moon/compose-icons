@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,46 +17,17 @@ val PhosphorIcons.Thin.DeviceTabletSpeaker: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(192.0f, 28.0f),
-                    PathNode.LineTo(64.0f, 28.0f),
-                    PathNode.CurveTo(52.954304f, 28.0f, 44.0f, 36.954304f, 44.0f, 48.0f),
-                    PathNode.LineTo(44.0f, 208.0f),
-                    PathNode.CurveTo(44.0f, 219.0457f, 52.954304f, 228.0f, 64.0f, 228.0f),
-                    PathNode.LineTo(192.0f, 228.0f),
-                    PathNode.CurveTo(203.0457f, 228.0f, 212.0f, 219.0457f, 212.0f, 208.0f),
-                    PathNode.LineTo(212.0f, 48.0f),
-                    PathNode.CurveTo(212.0f, 36.954304f, 203.0457f, 28.0f, 192.0f, 28.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(204.0f, 208.0f),
-                    PathNode.CurveTo(204.0f, 214.62741f, 198.62741f, 220.0f, 192.0f, 220.0f),
-                    PathNode.LineTo(64.0f, 220.0f),
-                    PathNode.CurveTo(57.37258f, 220.0f, 52.0f, 214.62741f, 52.0f, 208.0f),
-                    PathNode.LineTo(52.0f, 48.0f),
-                    PathNode.CurveTo(52.0f, 41.37258f, 57.37258f, 36.0f, 64.0f, 36.0f),
-                    PathNode.LineTo(192.0f, 36.0f),
-                    PathNode.CurveTo(198.62741f, 36.0f, 204.0f, 41.37258f, 204.0f, 48.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(164.0f, 64.0f),
-                    PathNode.CurveTo(164.0f, 66.20914f, 162.20914f, 68.0f, 160.0f, 68.0f),
-                    PathNode.LineTo(96.0f, 68.0f),
-                    PathNode.CurveTo(93.79086f, 68.0f, 92.0f, 66.20914f, 92.0f, 64.0f),
-                    PathNode.CurveTo(92.0f, 61.79086f, 93.79086f, 60.0f, 96.0f, 60.0f),
-                    PathNode.LineTo(160.0f, 60.0f),
-                    PathNode.CurveTo(162.20914f, 60.0f, 164.0f, 61.79086f, 164.0f, 64.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 192.000 28.000 L 64.000 28.000 C 52.954 28.000 44.000 36.954 44.000 48.000 L 44.000 208.000 C 44.000 219.046 52.954 228.000 64.000 228.000 L 192.000 228.000 C 203.046 228.000 212.000 219.046 212.000 208.000 L 212.000 48.000 C 212.000 36.954 203.046 28.000 192.000 28.000 ZM 204.000 208.000 C 204.000 214.627 198.627 220.000 192.000 220.000 L 64.000 220.000 C 57.373 220.000 52.000 214.627 52.000 208.000 L 52.000 48.000 C 52.000 41.373 57.373 36.000 64.000 36.000 L 192.000 36.000 C 198.627 36.000 204.000 41.373 204.000 48.000 ZM 164.000 64.000 C 164.000 66.209 162.209 68.000 160.000 68.000 L 96.000 68.000 C 93.791 68.000 92.000 66.209 92.000 64.000 C 92.000 61.791 93.791 60.000 96.000 60.000 L 160.000 60.000 C 162.209 60.000 164.000 61.791 164.000 64.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _deviceTabletSpeaker!!
     }

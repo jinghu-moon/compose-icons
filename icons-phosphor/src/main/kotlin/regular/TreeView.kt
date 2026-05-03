@@ -2,10 +2,10 @@ package composeicons.phosphor.regular
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorRegularIcon
 
@@ -17,72 +17,17 @@ val PhosphorIcons.Regular.TreeView: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(176.0f, 152.0f),
-                    PathNode.LineTo(208.0f, 152.0f),
-                    PathNode.CurveTo(216.83656f, 152.0f, 224.0f, 144.83656f, 224.0f, 136.0f),
-                    PathNode.LineTo(224.0f, 104.0f),
-                    PathNode.CurveTo(224.0f, 95.163445f, 216.83656f, 88.0f, 208.0f, 88.0f),
-                    PathNode.LineTo(176.0f, 88.0f),
-                    PathNode.CurveTo(167.16344f, 88.0f, 160.0f, 95.163445f, 160.0f, 104.0f),
-                    PathNode.LineTo(160.0f, 112.0f),
-                    PathNode.LineTo(88.0f, 112.0f),
-                    PathNode.LineTo(88.0f, 80.0f),
-                    PathNode.LineTo(96.0f, 80.0f),
-                    PathNode.CurveTo(104.836555f, 80.0f, 112.0f, 72.836555f, 112.0f, 64.0f),
-                    PathNode.LineTo(112.0f, 32.0f),
-                    PathNode.CurveTo(112.0f, 23.163445f, 104.836555f, 16.0f, 96.0f, 16.0f),
-                    PathNode.LineTo(64.0f, 16.0f),
-                    PathNode.CurveTo(55.163445f, 16.0f, 48.0f, 23.163445f, 48.0f, 32.0f),
-                    PathNode.LineTo(48.0f, 64.0f),
-                    PathNode.CurveTo(48.0f, 72.836555f, 55.163445f, 80.0f, 64.0f, 80.0f),
-                    PathNode.LineTo(72.0f, 80.0f),
-                    PathNode.LineTo(72.0f, 192.0f),
-                    PathNode.CurveTo(72.0f, 205.25484f, 82.74516f, 216.0f, 96.0f, 216.0f),
-                    PathNode.LineTo(160.0f, 216.0f),
-                    PathNode.LineTo(160.0f, 224.0f),
-                    PathNode.CurveTo(160.0f, 232.83656f, 167.16344f, 240.0f, 176.0f, 240.0f),
-                    PathNode.LineTo(208.0f, 240.0f),
-                    PathNode.CurveTo(216.83656f, 240.0f, 224.0f, 232.83656f, 224.0f, 224.0f),
-                    PathNode.LineTo(224.0f, 192.0f),
-                    PathNode.CurveTo(224.0f, 183.16344f, 216.83656f, 176.0f, 208.0f, 176.0f),
-                    PathNode.LineTo(176.0f, 176.0f),
-                    PathNode.CurveTo(167.16344f, 176.0f, 160.0f, 183.16344f, 160.0f, 192.0f),
-                    PathNode.LineTo(160.0f, 200.0f),
-                    PathNode.LineTo(96.0f, 200.0f),
-                    PathNode.CurveTo(91.58172f, 200.0f, 88.0f, 196.41827f, 88.0f, 192.0f),
-                    PathNode.LineTo(88.0f, 128.0f),
-                    PathNode.LineTo(160.0f, 128.0f),
-                    PathNode.LineTo(160.0f, 136.0f),
-                    PathNode.CurveTo(160.0f, 144.83656f, 167.16344f, 152.0f, 176.0f, 152.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(64.0f, 32.0f),
-                    PathNode.LineTo(96.0f, 32.0f),
-                    PathNode.LineTo(96.0f, 64.0f),
-                    PathNode.LineTo(64.0f, 64.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(176.0f, 192.0f),
-                    PathNode.LineTo(208.0f, 192.0f),
-                    PathNode.LineTo(208.0f, 224.0f),
-                    PathNode.LineTo(176.0f, 224.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(176.0f, 104.0f),
-                    PathNode.LineTo(208.0f, 104.0f),
-                    PathNode.LineTo(208.0f, 136.0f),
-                    PathNode.LineTo(176.0f, 136.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 176.000 152.000 L 208.000 152.000 C 216.837 152.000 224.000 144.837 224.000 136.000 L 224.000 104.000 C 224.000 95.163 216.837 88.000 208.000 88.000 L 176.000 88.000 C 167.163 88.000 160.000 95.163 160.000 104.000 L 160.000 112.000 L 88.000 112.000 L 88.000 80.000 L 96.000 80.000 C 104.837 80.000 112.000 72.837 112.000 64.000 L 112.000 32.000 C 112.000 23.163 104.837 16.000 96.000 16.000 L 64.000 16.000 C 55.163 16.000 48.000 23.163 48.000 32.000 L 48.000 64.000 C 48.000 72.837 55.163 80.000 64.000 80.000 L 72.000 80.000 L 72.000 192.000 C 72.000 205.255 82.745 216.000 96.000 216.000 L 160.000 216.000 L 160.000 224.000 C 160.000 232.837 167.163 240.000 176.000 240.000 L 208.000 240.000 C 216.837 240.000 224.000 232.837 224.000 224.000 L 224.000 192.000 C 224.000 183.163 216.837 176.000 208.000 176.000 L 176.000 176.000 C 167.163 176.000 160.000 183.163 160.000 192.000 L 160.000 200.000 L 96.000 200.000 C 91.582 200.000 88.000 196.418 88.000 192.000 L 88.000 128.000 L 160.000 128.000 L 160.000 136.000 C 160.000 144.837 167.163 152.000 176.000 152.000 ZM 64.000 32.000 L 96.000 32.000 L 96.000 64.000 L 64.000 64.000 ZM 176.000 192.000 L 208.000 192.000 L 208.000 224.000 L 176.000 224.000 ZM 176.000 104.000 L 208.000 104.000 L 208.000 136.000 L 176.000 136.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _treeView!!
     }

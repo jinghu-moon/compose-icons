@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,50 +17,17 @@ val PhosphorIcons.Thin.DeviceMobile: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(176.0f, 20.0f),
-                    PathNode.LineTo(80.0f, 20.0f),
-                    PathNode.CurveTo(68.95431f, 20.0f, 60.0f, 28.954306f, 60.0f, 40.0f),
-                    PathNode.LineTo(60.0f, 216.0f),
-                    PathNode.CurveTo(60.0f, 227.0457f, 68.95431f, 236.0f, 80.0f, 236.0f),
-                    PathNode.LineTo(176.0f, 236.0f),
-                    PathNode.CurveTo(187.0457f, 236.0f, 196.0f, 227.0457f, 196.0f, 216.0f),
-                    PathNode.LineTo(196.0f, 40.0f),
-                    PathNode.CurveTo(196.0f, 28.954306f, 187.0457f, 20.0f, 176.0f, 20.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(68.0f, 60.0f),
-                    PathNode.LineTo(188.0f, 60.0f),
-                    PathNode.LineTo(188.0f, 196.0f),
-                    PathNode.LineTo(68.0f, 196.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(80.0f, 28.0f),
-                    PathNode.LineTo(176.0f, 28.0f),
-                    PathNode.CurveTo(182.62741f, 28.0f, 188.0f, 33.37258f, 188.0f, 40.0f),
-                    PathNode.LineTo(188.0f, 52.0f),
-                    PathNode.LineTo(68.0f, 52.0f),
-                    PathNode.LineTo(68.0f, 40.0f),
-                    PathNode.CurveTo(68.0f, 33.37258f, 73.37258f, 28.0f, 80.0f, 28.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(176.0f, 228.0f),
-                    PathNode.LineTo(80.0f, 228.0f),
-                    PathNode.CurveTo(73.37258f, 228.0f, 68.0f, 222.62741f, 68.0f, 216.0f),
-                    PathNode.LineTo(68.0f, 204.0f),
-                    PathNode.LineTo(188.0f, 204.0f),
-                    PathNode.LineTo(188.0f, 216.0f),
-                    PathNode.CurveTo(188.0f, 222.62741f, 182.62741f, 228.0f, 176.0f, 228.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 176.000 20.000 L 80.000 20.000 C 68.954 20.000 60.000 28.954 60.000 40.000 L 60.000 216.000 C 60.000 227.046 68.954 236.000 80.000 236.000 L 176.000 236.000 C 187.046 236.000 196.000 227.046 196.000 216.000 L 196.000 40.000 C 196.000 28.954 187.046 20.000 176.000 20.000 ZM 68.000 60.000 L 188.000 60.000 L 188.000 196.000 L 68.000 196.000 ZM 80.000 28.000 L 176.000 28.000 C 182.627 28.000 188.000 33.373 188.000 40.000 L 188.000 52.000 L 68.000 52.000 L 68.000 40.000 C 68.000 33.373 73.373 28.000 80.000 28.000 ZM 176.000 228.000 L 80.000 228.000 C 73.373 228.000 68.000 222.627 68.000 216.000 L 68.000 204.000 L 188.000 204.000 L 188.000 216.000 C 188.000 222.627 182.627 228.000 176.000 228.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _deviceMobile!!
     }

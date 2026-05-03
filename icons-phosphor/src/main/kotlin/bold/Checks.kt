@@ -2,10 +2,10 @@ package composeicons.phosphor.bold
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorBoldIcon
 
@@ -17,43 +17,17 @@ val PhosphorIcons.Bold.Checks: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(152.41f, 88.56f),
-                    PathNode.LineTo(62.81f, 176.56f),
-                    PathNode.CurveTo(58.141445f, 181.1468f, 50.658558f, 181.1468f, 45.99f, 176.56f),
-                    PathNode.LineTo(7.59f, 138.85f),
-                    PathNode.CurveTo(2.859681f, 134.20529f, 2.790286f, 126.60532f, 7.435f, 121.875f),
-                    PathNode.CurveTo(12.079715f, 117.14468f, 19.679682f, 117.07529f, 24.41f, 121.72f),
-                    PathNode.LineTo(54.41f, 151.18f),
-                    PathNode.LineTo(135.6f, 71.44f),
-                    PathNode.CurveTo(140.32756f, 66.79529f, 147.92528f, 66.86244f, 152.57f, 71.59f),
-                    PathNode.CurveTo(157.21472f, 76.31756f, 157.14755f, 83.91528f, 152.42f, 88.56f),
-                    PathNode.Close,
-                    PathNode.MoveTo(248.56f, 71.56f),
-                    PathNode.CurveTo(246.32837f, 69.28056f, 243.281f, 67.98349f, 240.09114f, 67.955345f),
-                    PathNode.CurveTo(236.90129f, 67.9272f, 233.8315f, 69.170296f, 231.56f, 71.41f),
-                    PathNode.LineTo(150.4f, 151.18f),
-                    PathNode.LineTo(142.52f, 143.44f),
-                    PathNode.CurveTo(137.79245f, 138.7953f, 130.19472f, 138.86244f, 125.55f, 143.59f),
-                    PathNode.CurveTo(120.90529f, 148.31755f, 120.97244f, 155.91528f, 125.7f, 160.56f),
-                    PathNode.LineTo(141.99f, 176.56f),
-                    PathNode.CurveTo(146.65855f, 181.1468f, 154.14145f, 181.1468f, 158.81f, 176.56f),
-                    PathNode.LineTo(248.41f, 88.56f),
-                    PathNode.CurveTo(250.68027f, 86.32954f, 251.9715f, 83.28857f, 251.99963f, 80.106064f),
-                    PathNode.CurveTo(252.02776f, 76.92357f, 250.79048f, 73.860245f, 248.56f, 71.59f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 24.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 152.410 88.560 L 62.810 176.560 C 58.141 181.147 50.659 181.147 45.990 176.560 L 7.590 138.850 C 2.860 134.205 2.790 126.605 7.435 121.875 C 12.080 117.145 19.680 117.075 24.410 121.720 L 54.410 151.180 L 135.600 71.440 C 140.328 66.795 147.925 66.862 152.570 71.590 C 157.215 76.318 157.148 83.915 152.420 88.560 ZM 248.560 71.560 C 246.328 69.281 243.281 67.983 240.091 67.955 C 236.901 67.927 233.831 69.170 231.560 71.410 L 150.400 151.180 L 142.520 143.440 C 137.792 138.795 130.195 138.862 125.550 143.590 C 120.905 148.318 120.972 155.915 125.700 160.560 L 141.990 176.560 C 146.659 181.147 154.141 181.147 158.810 176.560 L 248.410 88.560 C 250.680 86.330 251.971 83.289 252.000 80.106 C 252.028 76.924 250.790 73.860 248.560 71.590 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _checks!!
     }

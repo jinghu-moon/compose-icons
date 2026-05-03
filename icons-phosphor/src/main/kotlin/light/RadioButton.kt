@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,43 +17,17 @@ val PhosphorIcons.Light.RadioButton: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(128.0f, 26.0f),
-                    PathNode.CurveTo(71.666954f, 26.0f, 26.0f, 71.666954f, 26.0f, 128.0f),
-                    PathNode.CurveTo(26.0f, 184.33304f, 71.666954f, 230.0f, 128.0f, 230.0f),
-                    PathNode.CurveTo(184.33304f, 230.0f, 230.0f, 184.33304f, 230.0f, 128.0f),
-                    PathNode.CurveTo(229.93387f, 71.69437f, 184.30563f, 26.066126f, 128.0f, 26.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 218.0f),
-                    PathNode.CurveTo(78.29437f, 218.0f, 38.0f, 177.70563f, 38.0f, 128.0f),
-                    PathNode.CurveTo(38.0f, 78.29437f, 78.29437f, 38.0f, 128.0f, 38.0f),
-                    PathNode.CurveTo(177.70563f, 38.0f, 218.0f, 78.29437f, 218.0f, 128.0f),
-                    PathNode.CurveTo(217.94489f, 177.68279f, 177.68279f, 217.94489f, 128.0f, 218.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 74.0f),
-                    PathNode.CurveTo(98.17662f, 74.0f, 74.0f, 98.17662f, 74.0f, 128.0f),
-                    PathNode.CurveTo(74.0f, 157.82338f, 98.17662f, 182.0f, 128.0f, 182.0f),
-                    PathNode.CurveTo(157.82338f, 182.0f, 182.0f, 157.82338f, 182.0f, 128.0f),
-                    PathNode.CurveTo(181.96693f, 98.19033f, 157.80966f, 74.033066f, 128.0f, 74.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 170.0f),
-                    PathNode.CurveTo(104.80404f, 170.0f, 86.0f, 151.19595f, 86.0f, 128.0f),
-                    PathNode.CurveTo(86.0f, 104.80404f, 104.80404f, 86.0f, 128.0f, 86.0f),
-                    PathNode.CurveTo(151.19595f, 86.0f, 170.0f, 104.80404f, 170.0f, 128.0f),
-                    PathNode.CurveTo(170.0f, 151.19595f, 151.19595f, 170.0f, 128.0f, 170.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 128.000 26.000 C 71.667 26.000 26.000 71.667 26.000 128.000 C 26.000 184.333 71.667 230.000 128.000 230.000 C 184.333 230.000 230.000 184.333 230.000 128.000 C 229.934 71.694 184.306 26.066 128.000 26.000 ZM 128.000 218.000 C 78.294 218.000 38.000 177.706 38.000 128.000 C 38.000 78.294 78.294 38.000 128.000 38.000 C 177.706 38.000 218.000 78.294 218.000 128.000 C 217.945 177.683 177.683 217.945 128.000 218.000 ZM 128.000 74.000 C 98.177 74.000 74.000 98.177 74.000 128.000 C 74.000 157.823 98.177 182.000 128.000 182.000 C 157.823 182.000 182.000 157.823 182.000 128.000 C 181.967 98.190 157.810 74.033 128.000 74.000 ZM 128.000 170.000 C 104.804 170.000 86.000 151.196 86.000 128.000 C 86.000 104.804 104.804 86.000 128.000 86.000 C 151.196 86.000 170.000 104.804 170.000 128.000 C 170.000 151.196 151.196 170.000 128.000 170.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _radioButton!!
     }

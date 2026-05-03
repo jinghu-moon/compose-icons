@@ -2,10 +2,10 @@ package composeicons.phosphor.bold
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorBoldIcon
 
@@ -17,47 +17,17 @@ val PhosphorIcons.Bold.GooglePlayLogo: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(241.79f, 110.7f),
-                    PathNode.LineTo(74.0f, 14.65f),
-                    PathNode.CurveTo(67.75765f, 11.099044f, 60.101063f, 11.121876f, 53.88f, 14.71f),
-                    PathNode.CurveTo(47.73951f, 18.221489f, 43.96459f, 24.766464f, 44.0f, 31.84f),
-                    PathNode.LineTo(44.0f, 224.16f),
-                    PathNode.CurveTo(43.97072f, 231.23978f, 47.75795f, 237.78622f, 53.91f, 241.29f),
-                    PathNode.CurveTo(60.129967f, 244.88219f, 67.78872f, 244.90503f, 74.03f, 241.35f),
-                    PathNode.LineTo(241.79f, 145.35f),
-                    PathNode.CurveTo(248.09004f, 141.8729f, 252.00183f, 135.2459f, 252.00183f, 128.05f),
-                    PathNode.CurveTo(252.00183f, 120.85411f, 248.09004f, 114.227104f, 241.79f, 110.75f),
-                    PathNode.Close,
-                    PathNode.MoveTo(68.0f, 203.0f),
-                    PathNode.LineTo(68.0f, 53.0f),
-                    PathNode.LineTo(143.0f, 128.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(160.0f, 145.0f),
-                    PathNode.LineTo(172.4f, 157.4f),
-                    PathNode.LineTo(114.4f, 190.6f),
-                    PathNode.Close,
-                    PathNode.MoveTo(114.41f, 65.43f),
-                    PathNode.LineTo(172.41f, 98.63f),
-                    PathNode.LineTo(160.0f, 111.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(194.0f, 145.0f),
-                    PathNode.LineTo(177.0f, 128.0f),
-                    PathNode.LineTo(194.0f, 111.0f),
-                    PathNode.LineTo(223.72f, 128.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 24.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 241.790 110.700 L 74.000 14.650 C 67.758 11.099 60.101 11.122 53.880 14.710 C 47.740 18.221 43.965 24.766 44.000 31.840 L 44.000 224.160 C 43.971 231.240 47.758 237.786 53.910 241.290 C 60.130 244.882 67.789 244.905 74.030 241.350 L 241.790 145.350 C 248.090 141.873 252.002 135.246 252.002 128.050 C 252.002 120.854 248.090 114.227 241.790 110.750 ZM 68.000 203.000 L 68.000 53.000 L 143.000 128.000 ZM 160.000 145.000 L 172.400 157.400 L 114.400 190.600 ZM 114.410 65.430 L 172.410 98.630 L 160.000 111.000 ZM 194.000 145.000 L 177.000 128.000 L 194.000 111.000 L 223.720 128.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _googlePlayLogo!!
     }

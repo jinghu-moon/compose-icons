@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,61 +17,17 @@ val PhosphorIcons.Light.CurrencyCircleDollar: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(128.0f, 26.0f),
-                    PathNode.CurveTo(71.666954f, 26.0f, 26.0f, 71.666954f, 26.0f, 128.0f),
-                    PathNode.CurveTo(26.0f, 184.33304f, 71.666954f, 230.0f, 128.0f, 230.0f),
-                    PathNode.CurveTo(184.33304f, 230.0f, 230.0f, 184.33304f, 230.0f, 128.0f),
-                    PathNode.CurveTo(229.93387f, 71.69437f, 184.30563f, 26.066126f, 128.0f, 26.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 218.0f),
-                    PathNode.CurveTo(78.29437f, 218.0f, 38.0f, 177.70563f, 38.0f, 128.0f),
-                    PathNode.CurveTo(38.0f, 78.29437f, 78.29437f, 38.0f, 128.0f, 38.0f),
-                    PathNode.CurveTo(177.70563f, 38.0f, 218.0f, 78.29437f, 218.0f, 128.0f),
-                    PathNode.CurveTo(217.94489f, 177.68279f, 177.68279f, 217.94489f, 128.0f, 218.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(166.0f, 148.0f),
-                    PathNode.CurveTo(166.0f, 162.3594f, 154.3594f, 174.0f, 140.0f, 174.0f),
-                    PathNode.LineTo(134.0f, 174.0f),
-                    PathNode.LineTo(134.0f, 184.0f),
-                    PathNode.CurveTo(134.0f, 187.3137f, 131.3137f, 190.0f, 128.0f, 190.0f),
-                    PathNode.CurveTo(124.686295f, 190.0f, 122.0f, 187.3137f, 122.0f, 184.0f),
-                    PathNode.LineTo(122.0f, 174.0f),
-                    PathNode.LineTo(104.0f, 174.0f),
-                    PathNode.CurveTo(100.686295f, 174.0f, 98.0f, 171.3137f, 98.0f, 168.0f),
-                    PathNode.CurveTo(98.0f, 164.6863f, 100.686295f, 162.0f, 104.0f, 162.0f),
-                    PathNode.LineTo(140.0f, 162.0f),
-                    PathNode.CurveTo(147.73198f, 162.0f, 154.0f, 155.73198f, 154.0f, 148.0f),
-                    PathNode.CurveTo(154.0f, 140.26802f, 147.73198f, 134.0f, 140.0f, 134.0f),
-                    PathNode.LineTo(116.0f, 134.0f),
-                    PathNode.CurveTo(101.640594f, 134.0f, 90.0f, 122.359406f, 90.0f, 108.0f),
-                    PathNode.CurveTo(90.0f, 93.640594f, 101.640594f, 82.0f, 116.0f, 82.0f),
-                    PathNode.LineTo(122.0f, 82.0f),
-                    PathNode.LineTo(122.0f, 72.0f),
-                    PathNode.CurveTo(122.0f, 68.686295f, 124.686295f, 66.0f, 128.0f, 66.0f),
-                    PathNode.CurveTo(131.3137f, 66.0f, 134.0f, 68.686295f, 134.0f, 72.0f),
-                    PathNode.LineTo(134.0f, 82.0f),
-                    PathNode.LineTo(152.0f, 82.0f),
-                    PathNode.CurveTo(155.3137f, 82.0f, 158.0f, 84.686295f, 158.0f, 88.0f),
-                    PathNode.CurveTo(158.0f, 91.313705f, 155.3137f, 94.0f, 152.0f, 94.0f),
-                    PathNode.LineTo(116.0f, 94.0f),
-                    PathNode.CurveTo(108.26801f, 94.0f, 102.0f, 100.26801f, 102.0f, 108.0f),
-                    PathNode.CurveTo(102.0f, 115.73199f, 108.26801f, 122.0f, 116.0f, 122.0f),
-                    PathNode.LineTo(140.0f, 122.0f),
-                    PathNode.CurveTo(154.3594f, 122.0f, 166.0f, 133.6406f, 166.0f, 148.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 128.000 26.000 C 71.667 26.000 26.000 71.667 26.000 128.000 C 26.000 184.333 71.667 230.000 128.000 230.000 C 184.333 230.000 230.000 184.333 230.000 128.000 C 229.934 71.694 184.306 26.066 128.000 26.000 ZM 128.000 218.000 C 78.294 218.000 38.000 177.706 38.000 128.000 C 38.000 78.294 78.294 38.000 128.000 38.000 C 177.706 38.000 218.000 78.294 218.000 128.000 C 217.945 177.683 177.683 217.945 128.000 218.000 ZM 166.000 148.000 C 166.000 162.359 154.359 174.000 140.000 174.000 L 134.000 174.000 L 134.000 184.000 C 134.000 187.314 131.314 190.000 128.000 190.000 C 124.686 190.000 122.000 187.314 122.000 184.000 L 122.000 174.000 L 104.000 174.000 C 100.686 174.000 98.000 171.314 98.000 168.000 C 98.000 164.686 100.686 162.000 104.000 162.000 L 140.000 162.000 C 147.732 162.000 154.000 155.732 154.000 148.000 C 154.000 140.268 147.732 134.000 140.000 134.000 L 116.000 134.000 C 101.641 134.000 90.000 122.359 90.000 108.000 C 90.000 93.641 101.641 82.000 116.000 82.000 L 122.000 82.000 L 122.000 72.000 C 122.000 68.686 124.686 66.000 128.000 66.000 C 131.314 66.000 134.000 68.686 134.000 72.000 L 134.000 82.000 L 152.000 82.000 C 155.314 82.000 158.000 84.686 158.000 88.000 C 158.000 91.314 155.314 94.000 152.000 94.000 L 116.000 94.000 C 108.268 94.000 102.000 100.268 102.000 108.000 C 102.000 115.732 108.268 122.000 116.000 122.000 L 140.000 122.000 C 154.359 122.000 166.000 133.641 166.000 148.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _currencyCircleDollar!!
     }

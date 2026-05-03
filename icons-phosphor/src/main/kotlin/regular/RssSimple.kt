@@ -2,10 +2,10 @@ package composeicons.phosphor.regular
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorRegularIcon
 
@@ -17,41 +17,17 @@ val PhosphorIcons.Regular.RssSimple: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(224.0f, 192.0f),
-                    PathNode.CurveTo(224.0f, 196.41827f, 220.41827f, 200.0f, 216.0f, 200.0f),
-                    PathNode.CurveTo(211.58173f, 200.0f, 208.0f, 196.41827f, 208.0f, 192.0f),
-                    PathNode.CurveTo(208.0f, 112.6f, 143.4f, 48.0f, 64.0f, 48.0f),
-                    PathNode.CurveTo(59.581722f, 48.0f, 56.0f, 44.418278f, 56.0f, 40.0f),
-                    PathNode.CurveTo(56.0f, 35.581722f, 59.581722f, 32.0f, 64.0f, 32.0f),
-                    PathNode.CurveTo(152.22f, 32.0f, 224.0f, 103.78f, 224.0f, 192.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(64.0f, 104.0f),
-                    PathNode.CurveTo(59.581722f, 104.0f, 56.0f, 107.58172f, 56.0f, 112.0f),
-                    PathNode.CurveTo(56.0f, 116.41828f, 59.581722f, 120.0f, 64.0f, 120.0f),
-                    PathNode.CurveTo(103.74622f, 120.04409f, 135.95592f, 152.25377f, 136.0f, 192.0f),
-                    PathNode.CurveTo(136.0f, 196.41827f, 139.58173f, 200.0f, 144.0f, 200.0f),
-                    PathNode.CurveTo(148.41827f, 200.0f, 152.0f, 196.41827f, 152.0f, 192.0f),
-                    PathNode.CurveTo(151.94489f, 143.42178f, 112.57822f, 104.05511f, 64.0f, 104.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(68.0f, 176.0f),
-                    PathNode.CurveTo(61.37258f, 176.0f, 56.0f, 181.37259f, 56.0f, 188.0f),
-                    PathNode.CurveTo(56.0f, 194.62741f, 61.37258f, 200.0f, 68.0f, 200.0f),
-                    PathNode.CurveTo(74.62742f, 200.0f, 80.0f, 194.62741f, 80.0f, 188.0f),
-                    PathNode.CurveTo(80.0f, 181.37259f, 74.62742f, 176.0f, 68.0f, 176.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 224.000 192.000 C 224.000 196.418 220.418 200.000 216.000 200.000 C 211.582 200.000 208.000 196.418 208.000 192.000 C 208.000 112.600 143.400 48.000 64.000 48.000 C 59.582 48.000 56.000 44.418 56.000 40.000 C 56.000 35.582 59.582 32.000 64.000 32.000 C 152.220 32.000 224.000 103.780 224.000 192.000 ZM 64.000 104.000 C 59.582 104.000 56.000 107.582 56.000 112.000 C 56.000 116.418 59.582 120.000 64.000 120.000 C 103.746 120.044 135.956 152.254 136.000 192.000 C 136.000 196.418 139.582 200.000 144.000 200.000 C 148.418 200.000 152.000 196.418 152.000 192.000 C 151.945 143.422 112.578 104.055 64.000 104.000 ZM 68.000 176.000 C 61.373 176.000 56.000 181.373 56.000 188.000 C 56.000 194.627 61.373 200.000 68.000 200.000 C 74.627 200.000 80.000 194.627 80.000 188.000 C 80.000 181.373 74.627 176.000 68.000 176.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _rssSimple!!
     }

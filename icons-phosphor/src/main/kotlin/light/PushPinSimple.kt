@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,47 +17,17 @@ val PhosphorIcons.Light.PushPinSimple: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(216.0f, 170.0f),
-                    PathNode.LineTo(205.0f, 170.0f),
-                    PathNode.LineTo(183.15f, 46.0f),
-                    PathNode.LineTo(192.0f, 46.0f),
-                    PathNode.CurveTo(195.3137f, 46.0f, 198.0f, 43.31371f, 198.0f, 40.0f),
-                    PathNode.CurveTo(198.0f, 36.68629f, 195.3137f, 34.0f, 192.0f, 34.0f),
-                    PathNode.LineTo(64.0f, 34.0f),
-                    PathNode.CurveTo(60.68629f, 34.0f, 58.0f, 36.68629f, 58.0f, 40.0f),
-                    PathNode.CurveTo(58.0f, 43.31371f, 60.68629f, 46.0f, 64.0f, 46.0f),
-                    PathNode.LineTo(72.85f, 46.0f),
-                    PathNode.LineTo(51.0f, 170.0f),
-                    PathNode.LineTo(40.0f, 170.0f),
-                    PathNode.CurveTo(36.68629f, 170.0f, 34.0f, 172.6863f, 34.0f, 176.0f),
-                    PathNode.CurveTo(34.0f, 179.3137f, 36.68629f, 182.0f, 40.0f, 182.0f),
-                    PathNode.LineTo(122.0f, 182.0f),
-                    PathNode.LineTo(122.0f, 240.0f),
-                    PathNode.CurveTo(122.0f, 243.3137f, 124.686295f, 246.0f, 128.0f, 246.0f),
-                    PathNode.CurveTo(131.3137f, 246.0f, 134.0f, 243.3137f, 134.0f, 240.0f),
-                    PathNode.LineTo(134.0f, 182.0f),
-                    PathNode.LineTo(216.0f, 182.0f),
-                    PathNode.CurveTo(219.3137f, 182.0f, 222.0f, 179.3137f, 222.0f, 176.0f),
-                    PathNode.CurveTo(222.0f, 172.6863f, 219.3137f, 170.0f, 216.0f, 170.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(85.0f, 46.0f),
-                    PathNode.LineTo(171.0f, 46.0f),
-                    PathNode.LineTo(192.88f, 170.0f),
-                    PathNode.LineTo(63.15f, 170.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 216.000 170.000 L 205.000 170.000 L 183.150 46.000 L 192.000 46.000 C 195.314 46.000 198.000 43.314 198.000 40.000 C 198.000 36.686 195.314 34.000 192.000 34.000 L 64.000 34.000 C 60.686 34.000 58.000 36.686 58.000 40.000 C 58.000 43.314 60.686 46.000 64.000 46.000 L 72.850 46.000 L 51.000 170.000 L 40.000 170.000 C 36.686 170.000 34.000 172.686 34.000 176.000 C 34.000 179.314 36.686 182.000 40.000 182.000 L 122.000 182.000 L 122.000 240.000 C 122.000 243.314 124.686 246.000 128.000 246.000 C 131.314 246.000 134.000 243.314 134.000 240.000 L 134.000 182.000 L 216.000 182.000 C 219.314 182.000 222.000 179.314 222.000 176.000 C 222.000 172.686 219.314 170.000 216.000 170.000 ZM 85.000 46.000 L 171.000 46.000 L 192.880 170.000 L 63.150 170.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _pushPinSimple!!
     }

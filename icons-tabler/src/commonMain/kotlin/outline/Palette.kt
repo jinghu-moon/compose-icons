@@ -1,0 +1,102 @@
+package composeicons.tabler.outline
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.tabler.TablerIcons
+import composeicons.tabler.tablerOutlineIcon
+
+val TablerIcons.Outline.Palette: ImageVector
+    get() {
+        if (_palette != null) return _palette!!
+        _palette = tablerOutlineIcon(
+            name = "Palette",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(12.0f, 21.0f),
+                    PathNode.CurveTo(7.029437f, 21.0f, 3.0f, 16.970562f, 3.0f, 12.0f),
+                    PathNode.CurveTo(3.0f, 7.029437f, 7.029437f, 3.0f, 12.0f, 3.0f),
+                    PathNode.CurveTo(16.97f, 3.0f, 21.0f, 6.582f, 21.0f, 11.0f),
+                    PathNode.CurveTo(21.0f, 12.06f, 20.526f, 13.078f, 19.682f, 13.828f),
+                    PathNode.CurveTo(18.838f, 14.578f, 17.693f, 15.0f, 16.5f, 15.0f),
+                    PathNode.LineTo(14.0f, 15.0f),
+                    PathNode.CurveTo(13.08202f, 14.985208f, 12.271867f, 15.597315f, 12.035307f, 16.484415f),
+                    PathNode.CurveTo(11.798747f, 17.371515f, 12.196544f, 18.305742f, 13.0f, 18.75f),
+                    PathNode.CurveTo(13.409385f, 19.127756f, 13.532599f, 19.724352f, 13.306363f, 20.233383f),
+                    PathNode.CurveTo(13.080128f, 20.742414f, 12.554727f, 21.050737f, 12.0f, 21.0f)
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color.Black),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 2.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(7.5f, 10.5f),
+                    PathNode.CurveTo(7.5f, 11.052285f, 7.947716f, 11.5f, 8.5f, 11.5f),
+                    PathNode.CurveTo(9.052285f, 11.5f, 9.5f, 11.052285f, 9.5f, 10.5f),
+                    PathNode.CurveTo(9.5f, 9.947715f, 9.052285f, 9.5f, 8.5f, 9.5f),
+                    PathNode.CurveTo(7.947716f, 9.5f, 7.5f, 9.947715f, 7.5f, 10.5f)
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color.Black),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 2.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(11.5f, 7.5f),
+                    PathNode.CurveTo(11.5f, 8.052285f, 11.947715f, 8.5f, 12.5f, 8.5f),
+                    PathNode.CurveTo(13.052285f, 8.5f, 13.5f, 8.052285f, 13.5f, 7.5f),
+                    PathNode.CurveTo(13.5f, 6.947716f, 13.052285f, 6.5f, 12.5f, 6.5f),
+                    PathNode.CurveTo(11.947715f, 6.5f, 11.5f, 6.947716f, 11.5f, 7.5f)
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color.Black),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 2.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(15.5f, 10.5f),
+                    PathNode.CurveTo(15.5f, 11.052285f, 15.947715f, 11.5f, 16.5f, 11.5f),
+                    PathNode.CurveTo(17.052284f, 11.5f, 17.5f, 11.052285f, 17.5f, 10.5f),
+                    PathNode.CurveTo(17.5f, 9.947715f, 17.052284f, 9.5f, 16.5f, 9.5f),
+                    PathNode.CurveTo(15.947715f, 9.5f, 15.5f, 9.947715f, 15.5f, 10.5f)
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color.Black),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 2.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _palette!!
+    }
+
+private var _palette: ImageVector? = null

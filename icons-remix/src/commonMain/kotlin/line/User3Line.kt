@@ -1,0 +1,35 @@
+package composeicons.remix.line
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.remix.RemixIcons
+import composeicons.remix.remixIcon
+
+val RemixIcons.Line.User3Line: ImageVector
+    get() {
+        if (_user3Line != null) return _user3Line!!
+        _user3Line = remixIcon(
+            name = "User3Line",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+    addPath(
+        pathData = parseSvgPathData("M 20.000 22.000 L 18.000 22.000 L 18.000 20.000 C 18.000 18.343 16.657 17.000 15.000 17.000 L 9.000 17.000 C 7.343 17.000 6.000 18.343 6.000 20.000 L 6.000 22.000 L 4.000 22.000 L 4.000 20.000 C 4.000 17.239 6.239 15.000 9.000 15.000 L 15.000 15.000 C 17.761 15.000 20.000 17.239 20.000 20.000 L 20.000 22.000 ZM 12.000 13.000 C 8.686 13.000 6.000 10.314 6.000 7.000 C 6.000 3.686 8.686 1.000 12.000 1.000 C 15.314 1.000 18.000 3.686 18.000 7.000 C 18.000 10.314 15.314 13.000 12.000 13.000 ZM 12.000 11.000 C 14.209 11.000 16.000 9.209 16.000 7.000 C 16.000 4.791 14.209 3.000 12.000 3.000 C 9.791 3.000 8.000 4.791 8.000 7.000 C 8.000 9.209 9.791 11.000 12.000 11.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
+        }
+        return _user3Line!!
+    }
+
+private var _user3Line: ImageVector? = null

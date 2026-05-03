@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,40 +17,17 @@ val PhosphorIcons.Thin.Heart: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(178.0f, 44.0f),
-                    PathNode.CurveTo(156.56f, 44.0f, 138.08f, 54.19f, 128.0f, 71.07f),
-                    PathNode.CurveTo(117.92f, 54.19f, 99.44f, 44.0f, 78.0f, 44.0f),
-                    PathNode.CurveTo(45.983475f, 44.03857f, 20.03857f, 69.983475f, 20.0f, 102.0f),
-                    PathNode.CurveTo(20.0f, 130.59f, 38.0f, 160.47f, 73.4f, 190.79f),
-                    PathNode.CurveTo(89.745056f, 204.69902f, 107.39342f, 216.9993f, 126.1f, 227.52f),
-                    PathNode.CurveTo(127.285805f, 228.16008f, 128.71419f, 228.16008f, 129.9f, 227.52f),
-                    PathNode.CurveTo(148.60658f, 216.9993f, 166.25494f, 204.69902f, 182.6f, 190.79f),
-                    PathNode.CurveTo(218.0f, 160.47f, 236.0f, 130.59f, 236.0f, 102.0f),
-                    PathNode.CurveTo(235.96143f, 69.983475f, 210.01653f, 44.03857f, 178.0f, 44.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 219.42f),
-                    PathNode.CurveTo(114.0f, 211.42f, 28.0f, 160.07f, 28.0f, 102.0f),
-                    PathNode.CurveTo(28.033062f, 74.39947f, 50.399467f, 52.03306f, 78.0f, 52.0f),
-                    PathNode.CurveTo(99.11f, 52.0f, 116.85f, 63.31f, 124.3f, 81.51f),
-                    PathNode.CurveTo(124.91636f, 83.01047f, 126.37787f, 83.990135f, 128.0f, 83.990135f),
-                    PathNode.CurveTo(129.62213f, 83.990135f, 131.08365f, 83.01047f, 131.7f, 81.51f),
-                    PathNode.CurveTo(139.15f, 63.31f, 156.89f, 52.0f, 178.0f, 52.0f),
-                    PathNode.CurveTo(205.60052f, 52.03306f, 227.96693f, 74.39947f, 228.0f, 102.0f),
-                    PathNode.CurveTo(228.0f, 160.0f, 142.0f, 211.46f, 128.0f, 219.42f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 178.000 44.000 C 156.560 44.000 138.080 54.190 128.000 71.070 C 117.920 54.190 99.440 44.000 78.000 44.000 C 45.983 44.039 20.039 69.983 20.000 102.000 C 20.000 130.590 38.000 160.470 73.400 190.790 C 89.745 204.699 107.393 216.999 126.100 227.520 C 127.286 228.160 128.714 228.160 129.900 227.520 C 148.607 216.999 166.255 204.699 182.600 190.790 C 218.000 160.470 236.000 130.590 236.000 102.000 C 235.961 69.983 210.017 44.039 178.000 44.000 ZM 128.000 219.420 C 114.000 211.420 28.000 160.070 28.000 102.000 C 28.033 74.399 50.399 52.033 78.000 52.000 C 99.110 52.000 116.850 63.310 124.300 81.510 C 124.916 83.010 126.378 83.990 128.000 83.990 C 129.622 83.990 131.084 83.010 131.700 81.510 C 139.150 63.310 156.890 52.000 178.000 52.000 C 205.601 52.033 227.967 74.399 228.000 102.000 C 228.000 160.000 142.000 211.460 128.000 219.420 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _heart!!
     }

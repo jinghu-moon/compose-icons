@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,43 +17,17 @@ val PhosphorIcons.Fill.TumblrLogo: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(152.0f, 120.0f),
-                    PathNode.LineTo(152.0f, 168.0f),
-                    PathNode.CurveTo(152.0f, 172.41827f, 155.58173f, 176.0f, 160.0f, 176.0f),
-                    PathNode.LineTo(192.0f, 176.0f),
-                    PathNode.CurveTo(196.41827f, 176.0f, 200.0f, 179.58173f, 200.0f, 184.0f),
-                    PathNode.LineTo(200.0f, 232.0f),
-                    PathNode.CurveTo(200.0f, 236.41827f, 196.41827f, 240.0f, 192.0f, 240.0f),
-                    PathNode.LineTo(152.0f, 240.0f),
-                    PathNode.CurveTo(116.66977f, 239.96143f, 88.03858f, 211.33023f, 88.0f, 176.0f),
-                    PathNode.LineTo(88.0f, 120.0f),
-                    PathNode.LineTo(64.0f, 120.0f),
-                    PathNode.CurveTo(59.581722f, 120.0f, 56.0f, 116.41828f, 56.0f, 112.0f),
-                    PathNode.LineTo(56.0f, 72.0f),
-                    PathNode.CurveTo(56.0f, 67.58172f, 59.581722f, 64.0f, 64.0f, 64.0f),
-                    PathNode.CurveTo(86.09139f, 64.0f, 104.0f, 46.09139f, 104.0f, 24.0f),
-                    PathNode.CurveTo(104.0f, 19.581722f, 107.58172f, 16.0f, 112.0f, 16.0f),
-                    PathNode.LineTo(144.0f, 16.0f),
-                    PathNode.CurveTo(148.41827f, 16.0f, 152.0f, 19.581722f, 152.0f, 24.0f),
-                    PathNode.LineTo(152.0f, 64.0f),
-                    PathNode.LineTo(192.0f, 64.0f),
-                    PathNode.CurveTo(196.41827f, 64.0f, 200.0f, 67.58172f, 200.0f, 72.0f),
-                    PathNode.LineTo(200.0f, 112.0f),
-                    PathNode.CurveTo(200.0f, 116.41828f, 196.41827f, 120.0f, 192.0f, 120.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 152.000 120.000 L 152.000 168.000 C 152.000 172.418 155.582 176.000 160.000 176.000 L 192.000 176.000 C 196.418 176.000 200.000 179.582 200.000 184.000 L 200.000 232.000 C 200.000 236.418 196.418 240.000 192.000 240.000 L 152.000 240.000 C 116.670 239.961 88.039 211.330 88.000 176.000 L 88.000 120.000 L 64.000 120.000 C 59.582 120.000 56.000 116.418 56.000 112.000 L 56.000 72.000 C 56.000 67.582 59.582 64.000 64.000 64.000 C 86.091 64.000 104.000 46.091 104.000 24.000 C 104.000 19.582 107.582 16.000 112.000 16.000 L 144.000 16.000 C 148.418 16.000 152.000 19.582 152.000 24.000 L 152.000 64.000 L 192.000 64.000 C 196.418 64.000 200.000 67.582 200.000 72.000 L 200.000 112.000 C 200.000 116.418 196.418 120.000 192.000 120.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _tumblrLogo!!
     }

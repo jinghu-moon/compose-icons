@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,44 +17,17 @@ val PhosphorIcons.Thin.Knife: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(229.0f, 35.0f),
-                    PathNode.CurveTo(219.69849f, 25.720913f, 204.64153f, 25.720913f, 195.34f, 35.0f),
-                    PathNode.LineTo(21.17f, 209.22f),
-                    PathNode.CurveTo(20.145061f, 210.24861f, 19.758059f, 211.75188f, 20.158895f, 213.14754f),
-                    PathNode.CurveTo(20.559732f, 214.5432f, 21.685446f, 215.61201f, 23.1f, 215.94f),
-                    PathNode.CurveTo(34.673977f, 218.63138f, 46.517223f, 219.99352f, 58.4f, 220.0f),
-                    PathNode.CurveTo(97.81f, 220.0f, 130.67f, 204.92f, 153.18f, 190.4f),
-                    PathNode.CurveTo(184.39f, 170.26f, 202.41f, 147.4f, 203.18f, 146.49f),
-                    PathNode.CurveTo(204.42433f, 144.89882f, 204.28706f, 142.6296f, 202.86f, 141.2f),
-                    PathNode.LineTo(179.67f, 118.0f),
-                    PathNode.LineTo(229.0f, 68.63f),
-                    PathNode.CurveTo(238.25368f, 59.32969f, 238.25368f, 44.300312f, 229.0f, 35.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(194.59f, 144.27f),
-                    PathNode.CurveTo(181.13484f, 159.49225f, 165.6576f, 172.79932f, 148.59f, 183.82f),
-                    PathNode.CurveTo(110.74f, 208.17f, 71.59f, 216.82f, 32.04f, 209.63f),
-                    PathNode.LineTo(146.0f, 95.67f),
-                    PathNode.Close,
-                    PathNode.MoveTo(223.38f, 63.0f),
-                    PathNode.LineTo(174.0f, 112.36f),
-                    PathNode.LineTo(151.66f, 90.0f),
-                    PathNode.LineTo(201.0f, 40.62f),
-                    PathNode.CurveTo(207.18007f, 34.439934f, 217.19994f, 34.439934f, 223.38f, 40.62f),
-                    PathNode.CurveTo(229.56006f, 46.800068f, 229.56006f, 56.819935f, 223.38f, 63.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 229.000 35.000 C 219.698 25.721 204.642 25.721 195.340 35.000 L 21.170 209.220 C 20.145 210.249 19.758 211.752 20.159 213.148 C 20.560 214.543 21.685 215.612 23.100 215.940 C 34.674 218.631 46.517 219.994 58.400 220.000 C 97.810 220.000 130.670 204.920 153.180 190.400 C 184.390 170.260 202.410 147.400 203.180 146.490 C 204.424 144.899 204.287 142.630 202.860 141.200 L 179.670 118.000 L 229.000 68.630 C 238.254 59.330 238.254 44.300 229.000 35.000 ZM 194.590 144.270 C 181.135 159.492 165.658 172.799 148.590 183.820 C 110.740 208.170 71.590 216.820 32.040 209.630 L 146.000 95.670 ZM 223.380 63.000 L 174.000 112.360 L 151.660 90.000 L 201.000 40.620 C 207.180 34.440 217.200 34.440 223.380 40.620 C 229.560 46.800 229.560 56.820 223.380 63.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _knife!!
     }

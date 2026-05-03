@@ -2,10 +2,10 @@ package composeicons.phosphor.regular
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorRegularIcon
 
@@ -17,42 +17,17 @@ val PhosphorIcons.Regular.CaretCircleUp: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(128.0f, 24.0f),
-                    PathNode.CurveTo(70.562386f, 24.0f, 24.0f, 70.562386f, 24.0f, 128.0f),
-                    PathNode.CurveTo(24.0f, 185.4376f, 70.562386f, 232.0f, 128.0f, 232.0f),
-                    PathNode.CurveTo(185.4376f, 232.0f, 232.0f, 185.4376f, 232.0f, 128.0f),
-                    PathNode.CurveTo(231.93938f, 70.58752f, 185.41248f, 24.060629f, 128.0f, 24.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 216.0f),
-                    PathNode.CurveTo(79.39894f, 216.0f, 40.0f, 176.60106f, 40.0f, 128.0f),
-                    PathNode.CurveTo(40.0f, 79.39894f, 79.39894f, 40.0f, 128.0f, 40.0f),
-                    PathNode.CurveTo(176.60106f, 40.0f, 216.0f, 79.39894f, 216.0f, 128.0f),
-                    PathNode.CurveTo(215.94489f, 176.57822f, 176.57822f, 215.94489f, 128.0f, 216.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(173.66f, 138.34f),
-                    PathNode.CurveTo(176.78593f, 141.46593f, 176.78593f, 146.53407f, 173.66f, 149.66f),
-                    PathNode.CurveTo(170.53407f, 152.78593f, 165.46593f, 152.78593f, 162.34f, 149.66f),
-                    PathNode.LineTo(128.0f, 115.31f),
-                    PathNode.LineTo(93.66f, 149.66f),
-                    PathNode.CurveTo(90.534065f, 152.78593f, 85.465935f, 152.78593f, 82.34f, 149.66f),
-                    PathNode.CurveTo(79.214066f, 146.53407f, 79.214066f, 141.46593f, 82.34f, 138.34f),
-                    PathNode.LineTo(122.34f, 98.34f),
-                    PathNode.CurveTo(123.840546f, 96.83778f, 125.876724f, 95.993706f, 128.0f, 95.993706f),
-                    PathNode.CurveTo(130.12328f, 95.993706f, 132.15945f, 96.83778f, 133.66f, 98.34f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 128.000 24.000 C 70.562 24.000 24.000 70.562 24.000 128.000 C 24.000 185.438 70.562 232.000 128.000 232.000 C 185.438 232.000 232.000 185.438 232.000 128.000 C 231.939 70.588 185.412 24.061 128.000 24.000 ZM 128.000 216.000 C 79.399 216.000 40.000 176.601 40.000 128.000 C 40.000 79.399 79.399 40.000 128.000 40.000 C 176.601 40.000 216.000 79.399 216.000 128.000 C 215.945 176.578 176.578 215.945 128.000 216.000 ZM 173.660 138.340 C 176.786 141.466 176.786 146.534 173.660 149.660 C 170.534 152.786 165.466 152.786 162.340 149.660 L 128.000 115.310 L 93.660 149.660 C 90.534 152.786 85.466 152.786 82.340 149.660 C 79.214 146.534 79.214 141.466 82.340 138.340 L 122.340 98.340 C 123.841 96.838 125.877 95.994 128.000 95.994 C 130.123 95.994 132.159 96.838 133.660 98.340 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _caretCircleUp!!
     }

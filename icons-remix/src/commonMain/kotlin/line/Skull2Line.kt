@@ -1,0 +1,35 @@
+package composeicons.remix.line
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.remix.RemixIcons
+import composeicons.remix.remixIcon
+
+val RemixIcons.Line.Skull2Line: ImageVector
+    get() {
+        if (_skull2Line != null) return _skull2Line!!
+        _skull2Line = remixIcon(
+            name = "Skull2Line",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+    addPath(
+        pathData = parseSvgPathData("M 12.000 2.000 C 17.523 2.000 22.000 6.477 22.000 12.000 L 22.000 15.764 C 22.000 16.521 21.572 17.214 20.894 17.553 L 18.000 19.000 L 18.000 20.000 C 18.000 21.598 16.751 22.904 15.176 22.995 L 14.950 23.000 C 14.972 22.893 14.987 22.782 14.994 22.670 L 15.000 22.500 L 15.000 22.000 C 15.000 20.946 14.184 20.082 13.149 20.006 L 13.000 20.000 L 11.000 20.000 C 9.946 20.000 9.082 20.816 9.005 21.851 L 9.000 22.000 L 9.000 22.500 C 9.000 22.671 9.017 22.839 9.050 23.000 L 9.000 23.000 C 7.343 23.000 6.000 21.657 6.000 20.000 L 6.000 19.000 L 3.106 17.553 C 2.428 17.214 2.000 16.521 2.000 15.764 L 2.000 12.000 C 2.000 6.477 6.477 2.000 12.000 2.000 ZM 12.000 4.000 C 7.665 4.000 4.135 7.448 4.004 11.751 L 4.000 12.000 L 4.000 15.764 L 8.000 17.764 L 8.000 19.355 L 8.075 19.271 C 8.764 18.534 9.728 18.058 10.798 18.005 L 11.000 18.000 L 13.073 18.001 L 13.296 18.011 C 14.295 18.085 15.187 18.522 15.845 19.188 L 16.000 19.355 L 16.000 17.764 L 20.000 15.764 L 20.000 12.000 C 20.000 7.582 16.418 4.000 12.000 4.000 ZM 8.000 11.000 C 9.105 11.000 10.000 11.895 10.000 13.000 C 10.000 14.105 9.105 15.000 8.000 15.000 C 6.895 15.000 6.000 14.105 6.000 13.000 C 6.000 11.895 6.895 11.000 8.000 11.000 ZM 16.000 11.000 C 17.105 11.000 18.000 11.895 18.000 13.000 C 18.000 14.105 17.105 15.000 16.000 15.000 C 14.895 15.000 14.000 14.105 14.000 13.000 C 14.000 11.895 14.895 11.000 16.000 11.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
+        }
+        return _skull2Line!!
+    }
+
+private var _skull2Line: ImageVector? = null

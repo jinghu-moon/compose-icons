@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,39 +17,17 @@ val PhosphorIcons.Fill.CircleNotch: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(128.0f, 24.0f),
-                    PathNode.CurveTo(70.562386f, 24.0f, 24.0f, 70.562386f, 24.0f, 128.0f),
-                    PathNode.CurveTo(24.0f, 185.4376f, 70.562386f, 232.0f, 128.0f, 232.0f),
-                    PathNode.CurveTo(185.4376f, 232.0f, 232.0f, 185.4376f, 232.0f, 128.0f),
-                    PathNode.CurveTo(231.93938f, 70.58752f, 185.41248f, 24.060629f, 128.0f, 24.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 200.0f),
-                    PathNode.CurveTo(95.40811f, 200.00484f, 66.87747f, 178.11562f, 58.442436f, 146.63417f),
-                    PathNode.CurveTo(50.007393f, 115.152725f, 63.7718f, 81.93111f, 92.0f, 65.64f),
-                    PathNode.CurveTo(95.81065f, 63.57076f, 100.576126f, 64.91413f, 102.744995f, 68.668976f),
-                    PathNode.CurveTo(104.91386f, 72.42382f, 103.696434f, 77.223015f, 100.0f, 79.49f),
-                    PathNode.CurveTo(78.04979f, 92.16296f, 67.348145f, 117.999016f, 73.90816f, 142.4813f),
-                    PathNode.CurveTo(80.46816f, 166.96356f, 102.65408f, 183.98743f, 128.0f, 183.98743f),
-                    PathNode.CurveTo(153.34592f, 183.98743f, 175.53185f, 166.96356f, 182.09184f, 142.4813f),
-                    PathNode.CurveTo(188.65186f, 117.999016f, 177.95021f, 92.16296f, 156.0f, 79.49f),
-                    PathNode.CurveTo(152.30356f, 77.223015f, 151.08615f, 72.42382f, 153.255f, 68.668976f),
-                    PathNode.CurveTo(155.42387f, 64.91413f, 160.18935f, 63.57076f, 164.0f, 65.64f),
-                    PathNode.CurveTo(192.2282f, 81.93111f, 205.9926f, 115.152725f, 197.55757f, 146.63417f),
-                    PathNode.CurveTo(189.12253f, 178.11562f, 160.59189f, 200.00484f, 128.0f, 200.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 128.000 24.000 C 70.562 24.000 24.000 70.562 24.000 128.000 C 24.000 185.438 70.562 232.000 128.000 232.000 C 185.438 232.000 232.000 185.438 232.000 128.000 C 231.939 70.588 185.412 24.061 128.000 24.000 ZM 128.000 200.000 C 95.408 200.005 66.877 178.116 58.442 146.634 C 50.007 115.153 63.772 81.931 92.000 65.640 C 95.811 63.571 100.576 64.914 102.745 68.669 C 104.914 72.424 103.696 77.223 100.000 79.490 C 78.050 92.163 67.348 117.999 73.908 142.481 C 80.468 166.964 102.654 183.987 128.000 183.987 C 153.346 183.987 175.532 166.964 182.092 142.481 C 188.652 117.999 177.950 92.163 156.000 79.490 C 152.304 77.223 151.086 72.424 153.255 68.669 C 155.424 64.914 160.189 63.571 164.000 65.640 C 192.228 81.931 205.993 115.153 197.558 146.634 C 189.123 178.116 160.592 200.005 128.000 200.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _circleNotch!!
     }

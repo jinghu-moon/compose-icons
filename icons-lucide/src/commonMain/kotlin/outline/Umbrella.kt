@@ -1,0 +1,77 @@
+package composeicons.lucide.outline
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.lucide.LucideIcons
+import composeicons.lucide.lucideOutlineIcon
+
+val LucideIcons.Outline.Umbrella: ImageVector
+    get() {
+        if (_umbrella != null) return _umbrella!!
+        _umbrella = lucideOutlineIcon(
+            name = "Umbrella",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(12.0f, 13.0f),
+                    PathNode.LineTo(12.0f, 20.0f),
+                    PathNode.CurveTo(12.0f, 21.10457f, 12.895431f, 22.0f, 14.0f, 22.0f),
+                    PathNode.CurveTo(15.104569f, 22.0f, 16.0f, 21.10457f, 16.0f, 20.0f)
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color.Black),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 2.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(12.0f, 2.0f),
+                    PathNode.LineTo(12.0f, 4.0f)
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color.Black),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 2.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(20.992f, 13.0f),
+                    PathNode.CurveTo(21.307112f, 13.002609f, 21.605019f, 12.856535f, 21.795912f, 12.605814f),
+                    PathNode.CurveTo(21.986807f, 12.355093f, 22.048355f, 12.029058f, 21.962f, 11.726f),
+                    PathNode.CurveTo(20.795315f, 7.177698f, 16.696053f, 3.997225f, 12.0005f, 3.997225f),
+                    PathNode.CurveTo(7.304948f, 3.997225f, 3.205685f, 7.177698f, 2.039f, 11.726f),
+                    PathNode.CurveTo(1.953093f, 12.027532f, 2.013578f, 12.351899f, 2.202387f, 12.602203f),
+                    PathNode.CurveTo(2.391196f, 12.852509f, 2.68647f, 12.999771f, 3.0f, 13.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color.Black),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 2.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _umbrella!!
+    }
+
+private var _umbrella: ImageVector? = null

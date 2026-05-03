@@ -1,0 +1,35 @@
+package composeicons.tabler.outline
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.tabler.TablerIcons
+import composeicons.tabler.tablerOutlineIcon
+
+val TablerIcons.Outline.Egg: ImageVector
+    get() {
+        if (_egg != null) return _egg!!
+        _egg = tablerOutlineIcon(
+            name = "Egg",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+    addPath(
+        pathData = parseSvgPathData("M 19.000 14.083 C 19.000 18.237 16.034 20.823 12.000 21.000 C 7.800 21.000 5.000 18.237 5.000 14.083 C 5.000 8.545 8.500 2.993 12.000 3.000 C 15.500 3.007 19.000 8.545 19.000 14.083"),
+        pathFillType = PathFillType.NonZero,
+        fill = null,
+        fillAlpha = 1.0f,
+        stroke = SolidColor(Color(0xFF000000)),
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 2.0f,
+        strokeLineCap = StrokeCap.Round,
+        strokeLineJoin = StrokeJoin.Round,
+    )
+        }
+        return _egg!!
+    }
+
+private var _egg: ImageVector? = null

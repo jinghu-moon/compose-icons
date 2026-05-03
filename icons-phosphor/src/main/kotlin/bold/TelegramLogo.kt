@@ -2,10 +2,10 @@ package composeicons.phosphor.bold
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorBoldIcon
 
@@ -17,47 +17,17 @@ val PhosphorIcons.Bold.TelegramLogo: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(231.49f, 23.16f),
-                    PathNode.CurveTo(227.83994f, 20.012377f, 222.74797f, 19.142548f, 218.26f, 20.9f),
-                    PathNode.LineTo(15.6f, 100.21f),
-                    PathNode.CurveTo(8.04383f, 103.15286f, 3.341935f, 110.7353f, 4.064809f, 118.812035f),
-                    PathNode.CurveTo(4.787684f, 126.88876f, 10.761333f, 133.51573f, 18.72f, 135.07f),
-                    PathNode.LineTo(68.0f, 144.74f),
-                    PathNode.LineTo(68.0f, 200.0f),
-                    PathNode.CurveTo(67.99979f, 208.15637f, 72.95257f, 215.49573f, 80.51644f, 218.54765f),
-                    PathNode.CurveTo(88.08032f, 221.5996f, 96.739685f, 219.7526f, 102.4f, 213.88f),
-                    PathNode.LineTo(125.07f, 190.37f),
-                    PathNode.LineTo(162.35f, 223.0f),
-                    PathNode.CurveTo(167.64026f, 227.6525f, 174.98816f, 229.17848f, 181.69348f, 227.01718f),
-                    PathNode.CurveTo(188.39882f, 224.85588f, 193.47247f, 219.32614f, 195.05f, 212.46f),
-                    PathNode.LineTo(235.67f, 35.91f),
-                    PathNode.CurveTo(236.74707f, 31.213776f, 235.13843f, 26.307001f, 231.49f, 23.16f),
-                    PathNode.Close,
-                    PathNode.MoveTo(139.41f, 77.52f),
-                    PathNode.LineTo(77.22f, 122.09f),
-                    PathNode.LineTo(42.79f, 115.34f),
-                    PathNode.Close,
-                    PathNode.MoveTo(92.0f, 190.06f),
-                    PathNode.LineTo(92.0f, 161.35f),
-                    PathNode.LineTo(107.0f, 174.5f),
-                    PathNode.Close,
-                    PathNode.MoveTo(173.16f, 200.58f),
-                    PathNode.LineTo(99.28f, 135.81f),
-                    PathNode.LineTo(205.59f, 59.63f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 24.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 231.490 23.160 C 227.840 20.012 222.748 19.143 218.260 20.900 L 15.600 100.210 C 8.044 103.153 3.342 110.735 4.065 118.812 C 4.788 126.889 10.761 133.516 18.720 135.070 L 68.000 144.740 L 68.000 200.000 C 68.000 208.156 72.953 215.496 80.516 218.548 C 88.080 221.600 96.740 219.753 102.400 213.880 L 125.070 190.370 L 162.350 223.000 C 167.640 227.652 174.988 229.178 181.693 227.017 C 188.399 224.856 193.472 219.326 195.050 212.460 L 235.670 35.910 C 236.747 31.214 235.138 26.307 231.490 23.160 ZM 139.410 77.520 L 77.220 122.090 L 42.790 115.340 ZM 92.000 190.060 L 92.000 161.350 L 107.000 174.500 ZM 173.160 200.580 L 99.280 135.810 L 205.590 59.630 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _telegramLogo!!
     }

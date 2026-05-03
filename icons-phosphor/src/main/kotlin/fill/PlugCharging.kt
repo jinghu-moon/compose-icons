@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,64 +17,17 @@ val PhosphorIcons.Fill.PlugCharging: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(224.0f, 56.0f),
-                    PathNode.LineTo(176.0f, 56.0f),
-                    PathNode.LineTo(176.0f, 16.0f),
-                    PathNode.CurveTo(176.0f, 11.581722f, 172.41827f, 8.0f, 168.0f, 8.0f),
-                    PathNode.CurveTo(163.58173f, 8.0f, 160.0f, 11.581722f, 160.0f, 16.0f),
-                    PathNode.LineTo(160.0f, 56.0f),
-                    PathNode.LineTo(96.0f, 56.0f),
-                    PathNode.LineTo(96.0f, 16.0f),
-                    PathNode.CurveTo(96.0f, 11.581722f, 92.41828f, 8.0f, 88.0f, 8.0f),
-                    PathNode.CurveTo(84.79f, 8.0f, 80.0f, 10.27f, 80.0f, 16.54f),
-                    PathNode.LineTo(80.0f, 56.0f),
-                    PathNode.LineTo(32.55f, 56.0f),
-                    PathNode.CurveTo(26.28f, 56.0f, 24.0f, 60.78f, 24.0f, 64.0f),
-                    PathNode.CurveTo(24.0f, 68.41828f, 27.581722f, 72.0f, 32.0f, 72.0f),
-                    PathNode.LineTo(48.0f, 72.0f),
-                    PathNode.LineTo(48.0f, 160.0f),
-                    PathNode.CurveTo(48.0f, 182.09138f, 65.90861f, 200.0f, 88.0f, 200.0f),
-                    PathNode.LineTo(120.0f, 200.0f),
-                    PathNode.LineTo(120.0f, 240.0f),
-                    PathNode.CurveTo(120.0f, 244.41827f, 123.58172f, 248.0f, 128.0f, 248.0f),
-                    PathNode.CurveTo(132.41827f, 248.0f, 136.0f, 244.41827f, 136.0f, 240.0f),
-                    PathNode.LineTo(136.0f, 200.0f),
-                    PathNode.LineTo(168.0f, 200.0f),
-                    PathNode.CurveTo(190.09138f, 200.0f, 208.0f, 182.09138f, 208.0f, 160.0f),
-                    PathNode.LineTo(208.0f, 72.0f),
-                    PathNode.LineTo(224.0f, 72.0f),
-                    PathNode.CurveTo(228.41827f, 72.0f, 232.0f, 68.41828f, 232.0f, 64.0f),
-                    PathNode.CurveTo(232.0f, 59.581722f, 228.41827f, 56.0f, 224.0f, 56.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(151.49f, 130.81f),
-                    PathNode.LineTo(139.49f, 162.81f),
-                    PathNode.CurveTo(137.93808f, 166.95213f, 133.32213f, 169.05193f, 129.18f, 167.5f),
-                    PathNode.CurveTo(125.037865f, 165.94807f, 122.93808f, 161.33214f, 124.49f, 157.19f),
-                    PathNode.LineTo(132.49f, 136.0f),
-                    PathNode.LineTo(112.0f, 136.0f),
-                    PathNode.CurveTo(109.376015f, 135.99992f, 106.918884f, 134.71306f, 105.42447f, 132.55621f),
-                    PathNode.CurveTo(103.93004f, 130.39937f, 103.588326f, 127.64679f, 104.51f, 125.19f),
-                    PathNode.LineTo(116.51f, 93.19f),
-                    PathNode.CurveTo(118.06192f, 89.04787f, 122.677864f, 86.94808f, 126.82f, 88.5f),
-                    PathNode.CurveTo(130.96214f, 90.05192f, 133.06192f, 94.66786f, 131.51f, 98.81f),
-                    PathNode.LineTo(123.51f, 120.0f),
-                    PathNode.LineTo(144.0f, 120.0f),
-                    PathNode.CurveTo(146.62398f, 120.00008f, 149.0811f, 121.28695f, 150.57553f, 123.44379f),
-                    PathNode.CurveTo(152.06996f, 125.60063f, 152.41167f, 128.35321f, 151.49f, 130.81f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 224.000 56.000 L 176.000 56.000 L 176.000 16.000 C 176.000 11.582 172.418 8.000 168.000 8.000 C 163.582 8.000 160.000 11.582 160.000 16.000 L 160.000 56.000 L 96.000 56.000 L 96.000 16.000 C 96.000 11.582 92.418 8.000 88.000 8.000 C 84.790 8.000 80.000 10.270 80.000 16.540 L 80.000 56.000 L 32.550 56.000 C 26.280 56.000 24.000 60.780 24.000 64.000 C 24.000 68.418 27.582 72.000 32.000 72.000 L 48.000 72.000 L 48.000 160.000 C 48.000 182.091 65.909 200.000 88.000 200.000 L 120.000 200.000 L 120.000 240.000 C 120.000 244.418 123.582 248.000 128.000 248.000 C 132.418 248.000 136.000 244.418 136.000 240.000 L 136.000 200.000 L 168.000 200.000 C 190.091 200.000 208.000 182.091 208.000 160.000 L 208.000 72.000 L 224.000 72.000 C 228.418 72.000 232.000 68.418 232.000 64.000 C 232.000 59.582 228.418 56.000 224.000 56.000 ZM 151.490 130.810 L 139.490 162.810 C 137.938 166.952 133.322 169.052 129.180 167.500 C 125.038 165.948 122.938 161.332 124.490 157.190 L 132.490 136.000 L 112.000 136.000 C 109.376 136.000 106.919 134.713 105.424 132.556 C 103.930 130.399 103.588 127.647 104.510 125.190 L 116.510 93.190 C 118.062 89.048 122.678 86.948 126.820 88.500 C 130.962 90.052 133.062 94.668 131.510 98.810 L 123.510 120.000 L 144.000 120.000 C 146.624 120.000 149.081 121.287 150.576 123.444 C 152.070 125.601 152.412 128.353 151.490 130.810 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _plugCharging!!
     }

@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,30 +17,17 @@ val PhosphorIcons.Light.CaretUp: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(212.24f, 164.24f),
-                    PathNode.CurveTo(209.89746f, 166.57962f, 206.10254f, 166.57962f, 203.76f, 164.24f),
-                    PathNode.LineTo(128.0f, 88.49f),
-                    PathNode.LineTo(52.24f, 164.24f),
-                    PathNode.CurveTo(49.875923f, 166.44287f, 46.19192f, 166.37787f, 43.907024f, 164.09297f),
-                    PathNode.CurveTo(41.622128f, 161.80807f, 41.55713f, 158.12408f, 43.76f, 155.76f),
-                    PathNode.LineTo(123.76f, 75.76f),
-                    PathNode.CurveTo(126.10254f, 73.42038f, 129.89746f, 73.42038f, 132.24f, 75.76f),
-                    PathNode.LineTo(212.24f, 155.76f),
-                    PathNode.CurveTo(214.57962f, 158.10254f, 214.57962f, 161.89746f, 212.24f, 164.24f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 212.240 164.240 C 209.897 166.580 206.103 166.580 203.760 164.240 L 128.000 88.490 L 52.240 164.240 C 49.876 166.443 46.192 166.378 43.907 164.093 C 41.622 161.808 41.557 158.124 43.760 155.760 L 123.760 75.760 C 126.103 73.420 129.897 73.420 132.240 75.760 L 212.240 155.760 C 214.580 158.103 214.580 161.897 212.240 164.240 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _caretUp!!
     }

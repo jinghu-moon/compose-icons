@@ -1,0 +1,57 @@
+package composeicons.tabler.outline
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.tabler.TablerIcons
+import composeicons.tabler.tablerOutlineIcon
+
+val TablerIcons.Outline.MugOff: ImageVector
+    get() {
+        if (_mugOff != null) return _mugOff!!
+        _mugOff = tablerOutlineIcon(
+            name = "MugOff",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+    addPath(
+        pathData = parseSvgPathData("M 9.000 5.000 L 14.917 5.000 C 15.203 4.999 15.478 5.112 15.682 5.314 C 15.885 5.516 15.999 5.791 16.000 6.077 L 16.000 12.000M 15.833 15.880 C 15.294 17.732 13.596 19.004 11.667 19.000 L 7.333 19.000 C 4.940 19.000 3.000 17.071 3.000 14.692 L 3.000 6.077 C 3.001 5.791 3.115 5.516 3.318 5.314 C 3.522 5.112 3.797 4.999 4.083 5.000 L 5.000 5.000"),
+        pathFillType = PathFillType.NonZero,
+        fill = null,
+        fillAlpha = 1.0f,
+        stroke = SolidColor(Color(0xFF000000)),
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 2.0f,
+        strokeLineCap = StrokeCap.Round,
+        strokeLineJoin = StrokeJoin.Round,
+    )
+    addPath(
+        pathData = parseSvgPathData("M 16.000 8.000 L 18.500 8.000 C 19.880 8.000 21.000 9.045 21.000 10.333 L 21.000 12.667 C 21.000 13.815 20.110 14.770 18.940 14.964"),
+        pathFillType = PathFillType.NonZero,
+        fill = null,
+        fillAlpha = 1.0f,
+        stroke = SolidColor(Color(0xFF000000)),
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 2.0f,
+        strokeLineCap = StrokeCap.Round,
+        strokeLineJoin = StrokeJoin.Round,
+    )
+    addPath(
+        pathData = parseSvgPathData("M 3.000 3.000 L 21.000 21.000"),
+        pathFillType = PathFillType.NonZero,
+        fill = null,
+        fillAlpha = 1.0f,
+        stroke = SolidColor(Color(0xFF000000)),
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 2.0f,
+        strokeLineCap = StrokeCap.Round,
+        strokeLineJoin = StrokeJoin.Round,
+    )
+        }
+        return _mugOff!!
+    }
+
+private var _mugOff: ImageVector? = null

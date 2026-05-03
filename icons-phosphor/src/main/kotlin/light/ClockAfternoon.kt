@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,44 +17,17 @@ val PhosphorIcons.Light.ClockAfternoon: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(128.0f, 26.0f),
-                    PathNode.CurveTo(71.666954f, 26.0f, 26.0f, 71.666954f, 26.0f, 128.0f),
-                    PathNode.CurveTo(26.0f, 184.33304f, 71.666954f, 230.0f, 128.0f, 230.0f),
-                    PathNode.CurveTo(184.33304f, 230.0f, 230.0f, 184.33304f, 230.0f, 128.0f),
-                    PathNode.CurveTo(229.93387f, 71.69437f, 184.30563f, 26.066126f, 128.0f, 26.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 218.0f),
-                    PathNode.CurveTo(78.29437f, 218.0f, 38.0f, 177.70563f, 38.0f, 128.0f),
-                    PathNode.CurveTo(38.0f, 78.29437f, 78.29437f, 38.0f, 128.0f, 38.0f),
-                    PathNode.CurveTo(177.70563f, 38.0f, 218.0f, 78.29437f, 218.0f, 128.0f),
-                    PathNode.CurveTo(217.94489f, 177.68279f, 177.68279f, 217.94489f, 128.0f, 218.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(190.0f, 128.0f),
-                    PathNode.CurveTo(190.0f, 131.3137f, 187.3137f, 134.0f, 184.0f, 134.0f),
-                    PathNode.LineTo(142.49f, 134.0f),
-                    PathNode.LineTo(172.24f, 163.76f),
-                    PathNode.CurveTo(173.84523f, 165.25575f, 174.506f, 167.50844f, 173.96309f, 169.63431f),
-                    PathNode.CurveTo(173.42018f, 171.76018f, 171.76018f, 173.42018f, 169.63431f, 173.96309f),
-                    PathNode.CurveTo(167.50844f, 174.506f, 165.25575f, 173.84523f, 163.76f, 172.24f),
-                    PathNode.LineTo(123.76f, 132.24f),
-                    PathNode.CurveTo(122.046234f, 130.52411f, 121.533936f, 127.94527f, 122.4617f, 125.70461f),
-                    PathNode.CurveTo(123.38947f, 123.46396f, 125.57487f, 122.00214f, 128.0f, 122.0f),
-                    PathNode.LineTo(184.0f, 122.0f),
-                    PathNode.CurveTo(187.3137f, 122.0f, 190.0f, 124.686295f, 190.0f, 128.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 128.000 26.000 C 71.667 26.000 26.000 71.667 26.000 128.000 C 26.000 184.333 71.667 230.000 128.000 230.000 C 184.333 230.000 230.000 184.333 230.000 128.000 C 229.934 71.694 184.306 26.066 128.000 26.000 ZM 128.000 218.000 C 78.294 218.000 38.000 177.706 38.000 128.000 C 38.000 78.294 78.294 38.000 128.000 38.000 C 177.706 38.000 218.000 78.294 218.000 128.000 C 217.945 177.683 177.683 217.945 128.000 218.000 ZM 190.000 128.000 C 190.000 131.314 187.314 134.000 184.000 134.000 L 142.490 134.000 L 172.240 163.760 C 173.845 165.256 174.506 167.508 173.963 169.634 C 173.420 171.760 171.760 173.420 169.634 173.963 C 167.508 174.506 165.256 173.845 163.760 172.240 L 123.760 132.240 C 122.046 130.524 121.534 127.945 122.462 125.705 C 123.389 123.464 125.575 122.002 128.000 122.000 L 184.000 122.000 C 187.314 122.000 190.000 124.686 190.000 128.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _clockAfternoon!!
     }

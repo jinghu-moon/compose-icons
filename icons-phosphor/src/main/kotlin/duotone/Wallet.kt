@@ -2,10 +2,10 @@ package composeicons.phosphor.duotone
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorDuotoneIcon
 
@@ -17,71 +17,32 @@ val PhosphorIcons.Duotone.Wallet: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(224.0f, 80.0f),
-                    PathNode.LineTo(224.0f, 192.0f),
-                    PathNode.CurveTo(224.0f, 196.41827f, 220.41827f, 200.0f, 216.0f, 200.0f),
-                    PathNode.LineTo(56.0f, 200.0f),
-                    PathNode.CurveTo(47.163445f, 200.0f, 40.0f, 192.83656f, 40.0f, 184.0f),
-                    PathNode.LineTo(40.0f, 56.0f),
-                    PathNode.CurveTo(40.0f, 64.836555f, 47.163445f, 72.0f, 56.0f, 72.0f),
-                    PathNode.LineTo(216.0f, 72.0f),
-                    PathNode.CurveTo(220.41827f, 72.0f, 224.0f, 75.58172f, 224.0f, 80.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(216.0f, 64.0f),
-                    PathNode.LineTo(56.0f, 64.0f),
-                    PathNode.CurveTo(51.581722f, 64.0f, 48.0f, 60.418278f, 48.0f, 56.0f),
-                    PathNode.CurveTo(48.0f, 51.581722f, 51.581722f, 48.0f, 56.0f, 48.0f),
-                    PathNode.LineTo(192.0f, 48.0f),
-                    PathNode.CurveTo(196.41827f, 48.0f, 200.0f, 44.418278f, 200.0f, 40.0f),
-                    PathNode.CurveTo(200.0f, 35.581722f, 196.41827f, 32.0f, 192.0f, 32.0f),
-                    PathNode.LineTo(56.0f, 32.0f),
-                    PathNode.CurveTo(42.745167f, 32.0f, 32.0f, 42.745167f, 32.0f, 56.0f),
-                    PathNode.LineTo(32.0f, 184.0f),
-                    PathNode.CurveTo(32.0f, 197.25484f, 42.745167f, 208.0f, 56.0f, 208.0f),
-                    PathNode.LineTo(216.0f, 208.0f),
-                    PathNode.CurveTo(224.83656f, 208.0f, 232.0f, 200.83656f, 232.0f, 192.0f),
-                    PathNode.LineTo(232.0f, 80.0f),
-                    PathNode.CurveTo(232.0f, 71.163445f, 224.83656f, 64.0f, 216.0f, 64.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(216.0f, 192.0f),
-                    PathNode.LineTo(56.0f, 192.0f),
-                    PathNode.CurveTo(51.581722f, 192.0f, 48.0f, 188.41827f, 48.0f, 184.0f),
-                    PathNode.LineTo(48.0f, 78.63f),
-                    PathNode.CurveTo(50.568756f, 79.54059f, 53.274628f, 80.00397f, 56.0f, 80.0f),
-                    PathNode.LineTo(216.0f, 80.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(168.0f, 132.0f),
-                    PathNode.CurveTo(168.0f, 125.37258f, 173.37259f, 120.0f, 180.0f, 120.0f),
-                    PathNode.CurveTo(186.62741f, 120.0f, 192.0f, 125.37258f, 192.0f, 132.0f),
-                    PathNode.CurveTo(192.0f, 138.62741f, 186.62741f, 144.0f, 180.0f, 144.0f),
-                    PathNode.CurveTo(173.37259f, 144.0f, 168.0f, 138.62741f, 168.0f, 132.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 16.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    group(
+        groupAlpha = 0.20000000298023224f,
+    ) {
+        addPath(
+            pathData = parseSvgPathData("M 224.000 80.000 L 224.000 192.000 C 224.000 196.418 220.418 200.000 216.000 200.000 L 56.000 200.000 C 47.163 200.000 40.000 192.837 40.000 184.000 L 40.000 56.000 C 40.000 64.837 47.163 72.000 56.000 72.000 L 216.000 72.000 C 220.418 72.000 224.000 75.582 224.000 80.000 Z"),
+            pathFillType = PathFillType.NonZero,
+            fill = SolidColor(Color(0xFF000000)),
+            fillAlpha = 1.0f,
+            stroke = null,
+            strokeAlpha = 1.0f,
+            strokeLineWidth = 0.0f,
+            strokeLineCap = StrokeCap.Butt,
+            strokeLineJoin = StrokeJoin.Miter,
+        )
+    }
+    addPath(
+        pathData = parseSvgPathData("M 216.000 64.000 L 56.000 64.000 C 51.582 64.000 48.000 60.418 48.000 56.000 C 48.000 51.582 51.582 48.000 56.000 48.000 L 192.000 48.000 C 196.418 48.000 200.000 44.418 200.000 40.000 C 200.000 35.582 196.418 32.000 192.000 32.000 L 56.000 32.000 C 42.745 32.000 32.000 42.745 32.000 56.000 L 32.000 184.000 C 32.000 197.255 42.745 208.000 56.000 208.000 L 216.000 208.000 C 224.837 208.000 232.000 200.837 232.000 192.000 L 232.000 80.000 C 232.000 71.163 224.837 64.000 216.000 64.000 ZM 216.000 192.000 L 56.000 192.000 C 51.582 192.000 48.000 188.418 48.000 184.000 L 48.000 78.630 C 50.569 79.541 53.275 80.004 56.000 80.000 L 216.000 80.000 ZM 168.000 132.000 C 168.000 125.373 173.373 120.000 180.000 120.000 C 186.627 120.000 192.000 125.373 192.000 132.000 C 192.000 138.627 186.627 144.000 180.000 144.000 C 173.373 144.000 168.000 138.627 168.000 132.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _wallet!!
     }

@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,48 +17,17 @@ val PhosphorIcons.Fill.FilmSlate: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(216.0f, 104.0f),
-                    PathNode.LineTo(102.09f, 104.0f),
-                    PathNode.LineTo(210.0f, 75.51f),
-                    PathNode.CurveTo(212.0631f, 74.96639f, 213.8236f, 73.621216f, 214.8902f, 71.773445f),
-                    PathNode.CurveTo(215.95679f, 69.925674f, 216.24112f, 67.7284f, 215.68f, 65.67f),
-                    PathNode.LineTo(207.52f, 35.67f),
-                    PathNode.CurveTo(205.18286f, 27.270985f, 196.52834f, 22.310896f, 188.1f, 24.54f),
-                    PathNode.LineTo(35.81f, 64.74f),
-                    PathNode.CurveTo(31.7138f, 65.803314f, 28.21785f, 68.47033f, 26.11f, 72.14f),
-                    PathNode.CurveTo(23.990053f, 75.765205f, 23.430775f, 80.095116f, 24.56f, 84.14f),
-                    PathNode.LineTo(32.0f, 111.56f),
-                    PathNode.CurveTo(32.0f, 111.7f, 32.0f, 111.85f, 32.0f, 112.0f),
-                    PathNode.LineTo(32.0f, 200.0f),
-                    PathNode.CurveTo(32.0f, 208.83656f, 39.163445f, 216.0f, 48.0f, 216.0f),
-                    PathNode.LineTo(208.0f, 216.0f),
-                    PathNode.CurveTo(216.83656f, 216.0f, 224.0f, 208.83656f, 224.0f, 200.0f),
-                    PathNode.LineTo(224.0f, 112.0f),
-                    PathNode.CurveTo(224.0f, 107.58172f, 220.41827f, 104.0f, 216.0f, 104.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(192.16f, 40.0f),
-                    PathNode.LineTo(198.16f, 62.07f),
-                    PathNode.LineTo(164.57f, 71.0f),
-                    PathNode.LineTo(136.44f, 54.72f),
-                    PathNode.Close,
-                    PathNode.MoveTo(77.55f, 70.27f),
-                    PathNode.LineTo(105.67f, 86.51f),
-                    PathNode.LineTo(46.07f, 102.24f),
-                    PathNode.LineTo(40.07f, 80.16f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 216.000 104.000 L 102.090 104.000 L 210.000 75.510 C 212.063 74.966 213.824 73.621 214.890 71.773 C 215.957 69.926 216.241 67.728 215.680 65.670 L 207.520 35.670 C 205.183 27.271 196.528 22.311 188.100 24.540 L 35.810 64.740 C 31.714 65.803 28.218 68.470 26.110 72.140 C 23.990 75.765 23.431 80.095 24.560 84.140 L 32.000 111.560 C 32.000 111.700 32.000 111.850 32.000 112.000 L 32.000 200.000 C 32.000 208.837 39.163 216.000 48.000 216.000 L 208.000 216.000 C 216.837 216.000 224.000 208.837 224.000 200.000 L 224.000 112.000 C 224.000 107.582 220.418 104.000 216.000 104.000 ZM 192.160 40.000 L 198.160 62.070 L 164.570 71.000 L 136.440 54.720 ZM 77.550 70.270 L 105.670 86.510 L 46.070 102.240 L 40.070 80.160 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _filmSlate!!
     }

@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,45 +17,17 @@ val PhosphorIcons.Fill.Slideshow: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(208.0f, 64.0f),
-                    PathNode.LineTo(208.0f, 192.0f),
-                    PathNode.CurveTo(208.0f, 200.83656f, 200.83656f, 208.0f, 192.0f, 208.0f),
-                    PathNode.LineTo(64.0f, 208.0f),
-                    PathNode.CurveTo(55.163445f, 208.0f, 48.0f, 200.83656f, 48.0f, 192.0f),
-                    PathNode.LineTo(48.0f, 64.0f),
-                    PathNode.CurveTo(48.0f, 55.163445f, 55.163445f, 48.0f, 64.0f, 48.0f),
-                    PathNode.LineTo(192.0f, 48.0f),
-                    PathNode.CurveTo(200.83656f, 48.0f, 208.0f, 55.163445f, 208.0f, 64.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(232.0f, 48.0f),
-                    PathNode.CurveTo(227.58173f, 48.0f, 224.0f, 51.581722f, 224.0f, 56.0f),
-                    PathNode.LineTo(224.0f, 200.0f),
-                    PathNode.CurveTo(224.0f, 204.41827f, 227.58173f, 208.0f, 232.0f, 208.0f),
-                    PathNode.CurveTo(236.41827f, 208.0f, 240.0f, 204.41827f, 240.0f, 200.0f),
-                    PathNode.LineTo(240.0f, 56.0f),
-                    PathNode.CurveTo(240.0f, 51.581722f, 236.41827f, 48.0f, 232.0f, 48.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(24.0f, 48.0f),
-                    PathNode.CurveTo(19.581722f, 48.0f, 16.0f, 51.581722f, 16.0f, 56.0f),
-                    PathNode.LineTo(16.0f, 200.0f),
-                    PathNode.CurveTo(16.0f, 204.41827f, 19.581722f, 208.0f, 24.0f, 208.0f),
-                    PathNode.CurveTo(28.418278f, 208.0f, 32.0f, 204.41827f, 32.0f, 200.0f),
-                    PathNode.LineTo(32.0f, 56.0f),
-                    PathNode.CurveTo(32.0f, 51.581722f, 28.418278f, 48.0f, 24.0f, 48.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 208.000 64.000 L 208.000 192.000 C 208.000 200.837 200.837 208.000 192.000 208.000 L 64.000 208.000 C 55.163 208.000 48.000 200.837 48.000 192.000 L 48.000 64.000 C 48.000 55.163 55.163 48.000 64.000 48.000 L 192.000 48.000 C 200.837 48.000 208.000 55.163 208.000 64.000 ZM 232.000 48.000 C 227.582 48.000 224.000 51.582 224.000 56.000 L 224.000 200.000 C 224.000 204.418 227.582 208.000 232.000 208.000 C 236.418 208.000 240.000 204.418 240.000 200.000 L 240.000 56.000 C 240.000 51.582 236.418 48.000 232.000 48.000 ZM 24.000 48.000 C 19.582 48.000 16.000 51.582 16.000 56.000 L 16.000 200.000 C 16.000 204.418 19.582 208.000 24.000 208.000 C 28.418 208.000 32.000 204.418 32.000 200.000 L 32.000 56.000 C 32.000 51.582 28.418 48.000 24.000 48.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _slideshow!!
     }

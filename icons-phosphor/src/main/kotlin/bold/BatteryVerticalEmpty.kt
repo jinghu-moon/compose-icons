@@ -2,10 +2,10 @@ package composeicons.phosphor.bold
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorBoldIcon
 
@@ -17,46 +17,17 @@ val PhosphorIcons.Bold.BatteryVerticalEmpty: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(92.0f, 12.0f),
-                    PathNode.CurveTo(92.0f, 5.372583f, 97.37258f, 0f, 104.0f, 0f),
-                    PathNode.LineTo(152.0f, 0f),
-                    PathNode.CurveTo(158.62741f, 0f, 164.0f, 5.372583f, 164.0f, 12.0f),
-                    PathNode.CurveTo(164.0f, 18.627417f, 158.62741f, 24.0f, 152.0f, 24.0f),
-                    PathNode.LineTo(104.0f, 24.0f),
-                    PathNode.CurveTo(97.37258f, 24.0f, 92.0f, 18.627417f, 92.0f, 12.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(204.0f, 60.0f),
-                    PathNode.LineTo(204.0f, 228.0f),
-                    PathNode.CurveTo(204.0f, 243.46397f, 191.46397f, 256.0f, 176.0f, 256.0f),
-                    PathNode.LineTo(80.0f, 256.0f),
-                    PathNode.CurveTo(64.536026f, 256.0f, 52.0f, 243.46397f, 52.0f, 228.0f),
-                    PathNode.LineTo(52.0f, 60.0f),
-                    PathNode.CurveTo(52.0f, 44.53603f, 64.536026f, 32.0f, 80.0f, 32.0f),
-                    PathNode.LineTo(176.0f, 32.0f),
-                    PathNode.CurveTo(191.46397f, 32.0f, 204.0f, 44.53603f, 204.0f, 60.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(180.0f, 60.0f),
-                    PathNode.CurveTo(180.0f, 57.79086f, 178.20914f, 56.0f, 176.0f, 56.0f),
-                    PathNode.LineTo(80.0f, 56.0f),
-                    PathNode.CurveTo(77.79086f, 56.0f, 76.0f, 57.79086f, 76.0f, 60.0f),
-                    PathNode.LineTo(76.0f, 228.0f),
-                    PathNode.CurveTo(76.0f, 230.20914f, 77.79086f, 232.0f, 80.0f, 232.0f),
-                    PathNode.LineTo(176.0f, 232.0f),
-                    PathNode.CurveTo(178.20914f, 232.0f, 180.0f, 230.20914f, 180.0f, 228.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 24.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 92.000 12.000 C 92.000 5.373 97.373 0.000 104.000 0.000 L 152.000 0.000 C 158.627 0.000 164.000 5.373 164.000 12.000 C 164.000 18.627 158.627 24.000 152.000 24.000 L 104.000 24.000 C 97.373 24.000 92.000 18.627 92.000 12.000 ZM 204.000 60.000 L 204.000 228.000 C 204.000 243.464 191.464 256.000 176.000 256.000 L 80.000 256.000 C 64.536 256.000 52.000 243.464 52.000 228.000 L 52.000 60.000 C 52.000 44.536 64.536 32.000 80.000 32.000 L 176.000 32.000 C 191.464 32.000 204.000 44.536 204.000 60.000 ZM 180.000 60.000 C 180.000 57.791 178.209 56.000 176.000 56.000 L 80.000 56.000 C 77.791 56.000 76.000 57.791 76.000 60.000 L 76.000 228.000 C 76.000 230.209 77.791 232.000 80.000 232.000 L 176.000 232.000 C 178.209 232.000 180.000 230.209 180.000 228.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _batteryVerticalEmpty!!
     }

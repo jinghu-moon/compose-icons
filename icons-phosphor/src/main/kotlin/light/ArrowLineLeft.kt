@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,43 +17,17 @@ val PhosphorIcons.Light.ArrowLineLeft: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(230.0f, 128.0f),
-                    PathNode.CurveTo(230.0f, 131.3137f, 227.3137f, 134.0f, 224.0f, 134.0f),
-                    PathNode.LineTo(86.49f, 134.0f),
-                    PathNode.LineTo(148.24f, 195.76f),
-                    PathNode.CurveTo(149.84523f, 197.25575f, 150.506f, 199.50844f, 149.96309f, 201.63431f),
-                    PathNode.CurveTo(149.42018f, 203.76018f, 147.76018f, 205.42018f, 145.63431f, 205.96309f),
-                    PathNode.CurveTo(143.50844f, 206.506f, 141.25575f, 205.84523f, 139.76f, 204.24f),
-                    PathNode.LineTo(67.76f, 132.24f),
-                    PathNode.CurveTo(65.42037f, 129.89746f, 65.42037f, 126.10254f, 67.76f, 123.76f),
-                    PathNode.LineTo(139.76f, 51.76f),
-                    PathNode.CurveTo(142.12408f, 49.55713f, 145.80807f, 49.622128f, 148.09297f, 51.907024f),
-                    PathNode.CurveTo(150.37787f, 54.19192f, 150.44287f, 57.875923f, 148.24f, 60.24f),
-                    PathNode.LineTo(86.49f, 122.0f),
-                    PathNode.LineTo(224.0f, 122.0f),
-                    PathNode.CurveTo(227.3137f, 122.0f, 230.0f, 124.686295f, 230.0f, 128.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(40.0f, 34.0f),
-                    PathNode.CurveTo(36.68629f, 34.0f, 34.0f, 36.68629f, 34.0f, 40.0f),
-                    PathNode.LineTo(34.0f, 216.0f),
-                    PathNode.CurveTo(34.0f, 219.3137f, 36.68629f, 222.0f, 40.0f, 222.0f),
-                    PathNode.CurveTo(43.31371f, 222.0f, 46.0f, 219.3137f, 46.0f, 216.0f),
-                    PathNode.LineTo(46.0f, 40.0f),
-                    PathNode.CurveTo(46.0f, 36.68629f, 43.31371f, 34.0f, 40.0f, 34.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 230.000 128.000 C 230.000 131.314 227.314 134.000 224.000 134.000 L 86.490 134.000 L 148.240 195.760 C 149.845 197.256 150.506 199.508 149.963 201.634 C 149.420 203.760 147.760 205.420 145.634 205.963 C 143.508 206.506 141.256 205.845 139.760 204.240 L 67.760 132.240 C 65.420 129.897 65.420 126.103 67.760 123.760 L 139.760 51.760 C 142.124 49.557 145.808 49.622 148.093 51.907 C 150.378 54.192 150.443 57.876 148.240 60.240 L 86.490 122.000 L 224.000 122.000 C 227.314 122.000 230.000 124.686 230.000 128.000 ZM 40.000 34.000 C 36.686 34.000 34.000 36.686 34.000 40.000 L 34.000 216.000 C 34.000 219.314 36.686 222.000 40.000 222.000 C 43.314 222.000 46.000 219.314 46.000 216.000 L 46.000 40.000 C 46.000 36.686 43.314 34.000 40.000 34.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _arrowLineLeft!!
     }

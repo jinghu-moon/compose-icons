@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,47 +17,17 @@ val PhosphorIcons.Light.Peace: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(128.0f, 26.0f),
-                    PathNode.CurveTo(71.666954f, 26.0f, 26.0f, 71.666954f, 26.0f, 128.0f),
-                    PathNode.CurveTo(26.0f, 184.33304f, 71.666954f, 230.0f, 128.0f, 230.0f),
-                    PathNode.CurveTo(184.33304f, 230.0f, 230.0f, 184.33304f, 230.0f, 128.0f),
-                    PathNode.CurveTo(229.93387f, 71.69437f, 184.30563f, 26.066126f, 128.0f, 26.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(218.0f, 128.0f),
-                    PathNode.CurveTo(218.02614f, 144.42583f, 213.52838f, 160.54164f, 205.0f, 174.58f),
-                    PathNode.LineTo(134.0f, 124.88f),
-                    PathNode.LineTo(134.0f, 38.2f),
-                    PathNode.CurveTo(181.24413f, 41.41571f, 217.94118f, 80.64659f, 218.0f, 128.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(122.0f, 38.2f),
-                    PathNode.LineTo(122.0f, 124.88f),
-                    PathNode.LineTo(51.0f, 174.58f),
-                    PathNode.CurveTo(34.743813f, 147.70505f, 33.67435f, 114.29927f, 48.178246f, 86.43954f),
-                    PathNode.CurveTo(62.68214f, 58.5798f, 90.66102f, 40.296734f, 122.0f, 38.2f),
-                    PathNode.Close,
-                    PathNode.MoveTo(57.92f, 184.4f),
-                    PathNode.LineTo(122.0f, 139.53f),
-                    PathNode.LineTo(122.0f, 217.8f),
-                    PathNode.CurveTo(96.909706f, 216.11555f, 73.670784f, 204.00288f, 57.92f, 184.4f),
-                    PathNode.Close,
-                    PathNode.MoveTo(134.0f, 217.8f),
-                    PathNode.LineTo(134.0f, 139.53f),
-                    PathNode.LineTo(198.08f, 184.4f),
-                    PathNode.CurveTo(182.32921f, 204.00288f, 159.09029f, 216.11555f, 134.0f, 217.8f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 128.000 26.000 C 71.667 26.000 26.000 71.667 26.000 128.000 C 26.000 184.333 71.667 230.000 128.000 230.000 C 184.333 230.000 230.000 184.333 230.000 128.000 C 229.934 71.694 184.306 26.066 128.000 26.000 ZM 218.000 128.000 C 218.026 144.426 213.528 160.542 205.000 174.580 L 134.000 124.880 L 134.000 38.200 C 181.244 41.416 217.941 80.647 218.000 128.000 ZM 122.000 38.200 L 122.000 124.880 L 51.000 174.580 C 34.744 147.705 33.674 114.299 48.178 86.440 C 62.682 58.580 90.661 40.297 122.000 38.200 ZM 57.920 184.400 L 122.000 139.530 L 122.000 217.800 C 96.910 216.116 73.671 204.003 57.920 184.400 ZM 134.000 217.800 L 134.000 139.530 L 198.080 184.400 C 182.329 204.003 159.090 216.116 134.000 217.800 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _peace!!
     }

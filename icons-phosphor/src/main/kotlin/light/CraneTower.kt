@@ -2,10 +2,10 @@ package composeicons.phosphor.light
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorLightIcon
 
@@ -17,71 +17,17 @@ val PhosphorIcons.Light.CraneTower: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(240.0f, 82.0f),
-                    PathNode.LineTo(107.71f, 82.0f),
-                    PathNode.LineTo(85.37f, 37.32f),
-                    PathNode.CurveTo(84.35401f, 35.284912f, 82.274605f, 33.999317f, 80.0f, 34.0f),
-                    PathNode.LineTo(48.0f, 34.0f),
-                    PathNode.CurveTo(44.68629f, 34.0f, 42.0f, 36.68629f, 42.0f, 40.0f),
-                    PathNode.LineTo(42.0f, 82.0f),
-                    PathNode.LineTo(24.0f, 82.0f),
-                    PathNode.CurveTo(20.68629f, 82.0f, 18.0f, 84.686295f, 18.0f, 88.0f),
-                    PathNode.CurveTo(18.0f, 91.313705f, 20.68629f, 94.0f, 24.0f, 94.0f),
-                    PathNode.LineTo(42.0f, 94.0f),
-                    PathNode.LineTo(42.0f, 210.0f),
-                    PathNode.LineTo(24.0f, 210.0f),
-                    PathNode.CurveTo(20.68629f, 210.0f, 18.0f, 212.6863f, 18.0f, 216.0f),
-                    PathNode.CurveTo(18.0f, 219.3137f, 20.68629f, 222.0f, 24.0f, 222.0f),
-                    PathNode.LineTo(128.0f, 222.0f),
-                    PathNode.CurveTo(131.3137f, 222.0f, 134.0f, 219.3137f, 134.0f, 216.0f),
-                    PathNode.CurveTo(134.0f, 212.6863f, 131.3137f, 210.0f, 128.0f, 210.0f),
-                    PathNode.LineTo(110.0f, 210.0f),
-                    PathNode.LineTo(110.0f, 94.0f),
-                    PathNode.LineTo(210.0f, 94.0f),
-                    PathNode.LineTo(210.0f, 184.0f),
-                    PathNode.CurveTo(210.0f, 185.10457f, 209.10457f, 186.0f, 208.0f, 186.0f),
-                    PathNode.LineTo(192.0f, 186.0f),
-                    PathNode.CurveTo(190.89543f, 186.0f, 190.0f, 185.10457f, 190.0f, 184.0f),
-                    PathNode.LineTo(190.0f, 176.0f),
-                    PathNode.CurveTo(190.0f, 172.6863f, 187.3137f, 170.0f, 184.0f, 170.0f),
-                    PathNode.CurveTo(180.6863f, 170.0f, 178.0f, 172.6863f, 178.0f, 176.0f),
-                    PathNode.LineTo(178.0f, 184.0f),
-                    PathNode.CurveTo(178.0f, 191.73198f, 184.26802f, 198.0f, 192.0f, 198.0f),
-                    PathNode.LineTo(208.0f, 198.0f),
-                    PathNode.CurveTo(215.73198f, 198.0f, 222.0f, 191.73198f, 222.0f, 184.0f),
-                    PathNode.LineTo(222.0f, 94.0f),
-                    PathNode.LineTo(240.0f, 94.0f),
-                    PathNode.CurveTo(243.3137f, 94.0f, 246.0f, 91.313705f, 246.0f, 88.0f),
-                    PathNode.CurveTo(246.0f, 84.686295f, 243.3137f, 82.0f, 240.0f, 82.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(54.0f, 46.0f),
-                    PathNode.LineTo(76.29f, 46.0f),
-                    PathNode.LineTo(94.29f, 82.0f),
-                    PathNode.LineTo(54.0f, 82.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(54.0f, 210.0f),
-                    PathNode.LineTo(54.0f, 158.0f),
-                    PathNode.LineTo(98.0f, 158.0f),
-                    PathNode.LineTo(98.0f, 210.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(98.0f, 146.0f),
-                    PathNode.LineTo(54.0f, 146.0f),
-                    PathNode.LineTo(54.0f, 94.0f),
-                    PathNode.LineTo(98.0f, 94.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 12.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 240.000 82.000 L 107.710 82.000 L 85.370 37.320 C 84.354 35.285 82.275 33.999 80.000 34.000 L 48.000 34.000 C 44.686 34.000 42.000 36.686 42.000 40.000 L 42.000 82.000 L 24.000 82.000 C 20.686 82.000 18.000 84.686 18.000 88.000 C 18.000 91.314 20.686 94.000 24.000 94.000 L 42.000 94.000 L 42.000 210.000 L 24.000 210.000 C 20.686 210.000 18.000 212.686 18.000 216.000 C 18.000 219.314 20.686 222.000 24.000 222.000 L 128.000 222.000 C 131.314 222.000 134.000 219.314 134.000 216.000 C 134.000 212.686 131.314 210.000 128.000 210.000 L 110.000 210.000 L 110.000 94.000 L 210.000 94.000 L 210.000 184.000 C 210.000 185.105 209.105 186.000 208.000 186.000 L 192.000 186.000 C 190.895 186.000 190.000 185.105 190.000 184.000 L 190.000 176.000 C 190.000 172.686 187.314 170.000 184.000 170.000 C 180.686 170.000 178.000 172.686 178.000 176.000 L 178.000 184.000 C 178.000 191.732 184.268 198.000 192.000 198.000 L 208.000 198.000 C 215.732 198.000 222.000 191.732 222.000 184.000 L 222.000 94.000 L 240.000 94.000 C 243.314 94.000 246.000 91.314 246.000 88.000 C 246.000 84.686 243.314 82.000 240.000 82.000 ZM 54.000 46.000 L 76.290 46.000 L 94.290 82.000 L 54.000 82.000 ZM 54.000 210.000 L 54.000 158.000 L 98.000 158.000 L 98.000 210.000 ZM 98.000 146.000 L 54.000 146.000 L 54.000 94.000 L 98.000 94.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _craneTower!!
     }

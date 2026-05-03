@@ -1,0 +1,68 @@
+package composeicons.phosphor.bold
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorBoldIcon
+
+val PhosphorIcons.Bold.Clipboard: ImageVector
+    get() {
+        if (_clipboard != null) return _clipboard!!
+        _clipboard = phosphorBoldIcon(
+            name = "Clipboard",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
+        ) {
+            addPath(
+                pathData = listOf(
+                    PathNode.MoveTo(200.0f, 28.0f),
+                    PathNode.LineTo(165.47f, 28.0f),
+                    PathNode.CurveTo(155.68405f, 17.781021f, 142.14894f, 12.002217f, 128.0f, 12.002217f),
+                    PathNode.CurveTo(113.85107f, 12.002217f, 100.31595f, 17.781021f, 90.53f, 28.0f),
+                    PathNode.LineTo(56.0f, 28.0f),
+                    PathNode.CurveTo(44.954304f, 28.0f, 36.0f, 36.954304f, 36.0f, 48.0f),
+                    PathNode.LineTo(36.0f, 216.0f),
+                    PathNode.CurveTo(36.0f, 227.0457f, 44.954304f, 236.0f, 56.0f, 236.0f),
+                    PathNode.LineTo(200.0f, 236.0f),
+                    PathNode.CurveTo(211.0457f, 236.0f, 220.0f, 227.0457f, 220.0f, 216.0f),
+                    PathNode.LineTo(220.0f, 48.0f),
+                    PathNode.CurveTo(220.0f, 36.954304f, 211.0457f, 28.0f, 200.0f, 28.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(155.71f, 60.0f),
+                    PathNode.LineTo(100.29f, 60.0f),
+                    PathNode.CurveTo(102.286995f, 46.232746f, 114.08867f, 36.01944f, 128.0f, 36.01944f),
+                    PathNode.CurveTo(141.91133f, 36.01944f, 153.71301f, 46.232746f, 155.71f, 60.0f),
+                    PathNode.Close,
+                    PathNode.MoveTo(196.0f, 212.0f),
+                    PathNode.LineTo(60.0f, 212.0f),
+                    PathNode.LineTo(60.0f, 52.0f),
+                    PathNode.LineTo(77.41f, 52.0f),
+                    PathNode.CurveTo(76.47646f, 55.931828f, 76.00329f, 59.958866f, 76.0f, 64.0f),
+                    PathNode.LineTo(76.0f, 72.0f),
+                    PathNode.CurveTo(76.0f, 78.62742f, 81.37258f, 84.0f, 88.0f, 84.0f),
+                    PathNode.LineTo(168.0f, 84.0f),
+                    PathNode.CurveTo(174.62741f, 84.0f, 180.0f, 78.62742f, 180.0f, 72.0f),
+                    PathNode.LineTo(180.0f, 64.0f),
+                    PathNode.CurveTo(179.9967f, 59.958866f, 179.52353f, 55.931828f, 178.59f, 52.0f),
+                    PathNode.LineTo(196.0f, 52.0f),
+                    PathNode.Close
+                ),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 24.0f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+                strokeLineMiter = 4f,
+            )
+        }
+        return _clipboard!!
+    }
+
+private var _clipboard: ImageVector? = null

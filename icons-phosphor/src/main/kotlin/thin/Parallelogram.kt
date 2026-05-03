@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,43 +17,17 @@ val PhosphorIcons.Thin.Parallelogram: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(242.07f, 49.48f),
-                    PathNode.CurveTo(239.85939f, 46.064327f, 236.06862f, 44.001427f, 232.0f, 44.0f),
-                    PathNode.LineTo(88.81f, 44.0f),
-                    PathNode.CurveTo(84.06622f, 43.97829f, 79.75492f, 46.753204f, 77.81f, 51.08f),
-                    PathNode.LineTo(13.01f, 195.08f),
-                    PathNode.CurveTo(11.337541f, 198.80048f, 11.669567f, 203.11577f, 13.891491f, 206.5366f),
-                    PathNode.CurveTo(16.113417f, 209.95743f, 19.920927f, 212.0153f, 24.0f, 212.0f),
-                    PathNode.LineTo(167.19f, 212.0f),
-                    PathNode.CurveTo(171.91566f, 212.00195f, 176.20248f, 209.23021f, 178.14f, 204.92f),
-                    PathNode.LineTo(242.94f, 60.92f),
-                    PathNode.CurveTo(244.6098f, 57.20605f, 244.28223f, 52.898724f, 242.07f, 49.48f),
-                    PathNode.Close,
-                    PathNode.MoveTo(235.64f, 57.64f),
-                    PathNode.LineTo(170.84f, 201.64f),
-                    PathNode.CurveTo(170.19415f, 203.07674f, 168.76523f, 204.00066f, 167.19f, 204.0f),
-                    PathNode.LineTo(24.0f, 204.0f),
-                    PathNode.CurveTo(22.642673f, 204.00056f, 21.377674f, 203.31277f, 20.64022f, 202.17325f),
-                    PathNode.CurveTo(19.90277f, 201.03374f, 19.793497f, 199.59798f, 20.35f, 198.36f),
-                    PathNode.LineTo(85.15f, 54.36f),
-                    PathNode.CurveTo(85.797325f, 52.91995f, 87.231155f, 51.995403f, 88.81f, 52.0f),
-                    PathNode.LineTo(232.0f, 52.0f),
-                    PathNode.CurveTo(233.35733f, 51.99944f, 234.62233f, 52.687233f, 235.35977f, 53.826748f),
-                    PathNode.CurveTo(236.09723f, 54.966263f, 236.2065f, 56.402004f, 235.65f, 57.64f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 242.070 49.480 C 239.859 46.064 236.069 44.001 232.000 44.000 L 88.810 44.000 C 84.066 43.978 79.755 46.753 77.810 51.080 L 13.010 195.080 C 11.338 198.800 11.670 203.116 13.891 206.537 C 16.113 209.957 19.921 212.015 24.000 212.000 L 167.190 212.000 C 171.916 212.002 176.202 209.230 178.140 204.920 L 242.940 60.920 C 244.610 57.206 244.282 52.899 242.070 49.480 ZM 235.640 57.640 L 170.840 201.640 C 170.194 203.077 168.765 204.001 167.190 204.000 L 24.000 204.000 C 22.643 204.001 21.378 203.313 20.640 202.173 C 19.903 201.034 19.793 199.598 20.350 198.360 L 85.150 54.360 C 85.797 52.920 87.231 51.995 88.810 52.000 L 232.000 52.000 C 233.357 51.999 234.622 52.687 235.360 53.827 C 236.097 54.966 236.206 56.402 235.650 57.640 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _parallelogram!!
     }

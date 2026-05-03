@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15">
+  <mask id="a" fill="white">
+    <path d="M 0 0 L 15 0 L 15 15 L 0 15 Z M 5 3 L 5 12 L 13 12 L 13 3 Z"/>
+  </mask>
+  <path d="M 0 0 L 15 0 L 15 15 L 0 15 Z M 5 3 L 5 12 L 13 12 L 13 3 Z" fill="currentColor"/>
+  <g mask="url(#a)">
+    <path d="M -5 -5 L 20 -5 L 20 20 L -5 20 Z" fill="currentColor"/>
+  </g>
+</svg>

@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,44 +17,17 @@ val PhosphorIcons.Thin.Sigma: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(188.0f, 72.0f),
-                    PathNode.LineTo(188.0f, 52.0f),
-                    PathNode.LineTo(72.32f, 52.0f),
-                    PathNode.LineTo(131.12f, 125.5f),
-                    PathNode.CurveTo(132.29001f, 126.961334f, 132.29001f, 129.03867f, 131.12f, 130.5f),
-                    PathNode.LineTo(72.32f, 204.0f),
-                    PathNode.LineTo(188.0f, 204.0f),
-                    PathNode.LineTo(188.0f, 184.0f),
-                    PathNode.CurveTo(188.0f, 181.79086f, 189.79086f, 180.0f, 192.0f, 180.0f),
-                    PathNode.CurveTo(194.20914f, 180.0f, 196.0f, 181.79086f, 196.0f, 184.0f),
-                    PathNode.LineTo(196.0f, 208.0f),
-                    PathNode.CurveTo(196.0f, 210.20914f, 194.20914f, 212.0f, 192.0f, 212.0f),
-                    PathNode.LineTo(64.0f, 212.0f),
-                    PathNode.CurveTo(62.462547f, 211.99904f, 61.06171f, 211.11697f, 60.396404f, 209.73093f),
-                    PathNode.CurveTo(59.7311f, 208.34488f, 59.919098f, 206.70018f, 60.88f, 205.5f),
-                    PathNode.LineTo(122.88f, 128.0f),
-                    PathNode.LineTo(60.88f, 50.5f),
-                    PathNode.CurveTo(59.919098f, 49.299828f, 59.7311f, 47.655125f, 60.396404f, 46.269073f),
-                    PathNode.CurveTo(61.06171f, 44.883026f, 62.462547f, 44.00096f, 64.0f, 44.0f),
-                    PathNode.LineTo(192.0f, 44.0f),
-                    PathNode.CurveTo(194.20914f, 44.0f, 196.0f, 45.79086f, 196.0f, 48.0f),
-                    PathNode.LineTo(196.0f, 72.0f),
-                    PathNode.CurveTo(196.0f, 74.20914f, 194.20914f, 76.0f, 192.0f, 76.0f),
-                    PathNode.CurveTo(189.79086f, 76.0f, 188.0f, 74.20914f, 188.0f, 72.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 188.000 72.000 L 188.000 52.000 L 72.320 52.000 L 131.120 125.500 C 132.290 126.961 132.290 129.039 131.120 130.500 L 72.320 204.000 L 188.000 204.000 L 188.000 184.000 C 188.000 181.791 189.791 180.000 192.000 180.000 C 194.209 180.000 196.000 181.791 196.000 184.000 L 196.000 208.000 C 196.000 210.209 194.209 212.000 192.000 212.000 L 64.000 212.000 C 62.463 211.999 61.062 211.117 60.396 209.731 C 59.731 208.345 59.919 206.700 60.880 205.500 L 122.880 128.000 L 60.880 50.500 C 59.919 49.300 59.731 47.655 60.396 46.269 C 61.062 44.883 62.463 44.001 64.000 44.000 L 192.000 44.000 C 194.209 44.000 196.000 45.791 196.000 48.000 L 196.000 72.000 C 196.000 74.209 194.209 76.000 192.000 76.000 C 189.791 76.000 188.000 74.209 188.000 72.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _sigma!!
     }

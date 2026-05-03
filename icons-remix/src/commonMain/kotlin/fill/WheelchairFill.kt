@@ -1,0 +1,35 @@
+package composeicons.remix.fill
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.remix.RemixIcons
+import composeicons.remix.remixIcon
+
+val RemixIcons.Fill.WheelchairFill: ImageVector
+    get() {
+        if (_wheelchairFill != null) return _wheelchairFill!!
+        _wheelchairFill = remixIcon(
+            name = "WheelchairFill",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+    addPath(
+        pathData = parseSvgPathData("M 7.998 10.341 L 7.998 12.535 C 6.802 13.227 5.998 14.519 5.998 16.000 C 5.998 18.209 7.789 20.000 9.998 20.000 C 11.479 20.000 12.771 19.196 13.463 18.000 L 15.656 18.000 C 14.833 20.331 12.610 22.000 9.998 22.000 C 6.684 22.000 3.998 19.314 3.998 16.000 C 3.998 13.387 5.668 11.165 7.998 10.341 ZM 11.998 17.000 C 10.341 17.000 8.998 15.657 8.998 14.000 L 8.998 10.000 C 8.998 8.343 10.341 7.000 11.998 7.000 C 13.655 7.000 14.998 8.343 14.998 10.000 L 14.998 15.000 L 16.432 15.000 C 17.080 15.000 17.685 15.314 18.058 15.836 L 18.147 15.971 L 20.855 20.486 L 19.141 21.514 L 16.432 17.000 L 11.998 17.000 ZM 11.998 2.000 C 13.379 2.000 14.498 3.119 14.498 4.500 C 14.498 5.881 13.379 7.000 11.998 7.000 C 10.617 7.000 9.498 5.881 9.498 4.500 C 9.498 3.119 10.617 2.000 11.998 2.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
+        }
+        return _wheelchairFill!!
+    }
+
+private var _wheelchairFill: ImageVector? = null

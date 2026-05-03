@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,49 +17,17 @@ val PhosphorIcons.Thin.NumberCircleNine: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(144.0f, 80.29f),
-                    PathNode.CurveTo(131.29112f, 72.93559f, 115.207886f, 75.17414f, 104.9904f, 85.71955f),
-                    PathNode.CurveTo(94.77291f, 96.26496f, 93.04339f, 112.41088f, 100.79547f, 124.88116f),
-                    PathNode.CurveTo(108.54756f, 137.35144f, 123.79176f, 142.94572f, 137.77f, 138.45f),
-                    PathNode.LineTo(116.57f, 174.0f),
-                    PathNode.CurveTo(115.44022f, 175.89468f, 116.05762f, 178.34636f, 117.95f, 179.48f),
-                    PathNode.CurveTo(118.55319f, 179.8466f, 119.24417f, 180.04353f, 119.95f, 180.05f),
-                    PathNode.CurveTo(121.356674f, 180.04832f, 122.65908f, 179.30789f, 123.38f, 178.1f),
-                    PathNode.LineTo(155.71f, 124.0f),
-                    PathNode.CurveTo(164.5451f, 108.696f, 159.30266f, 89.12744f, 144.0f, 80.29f),
-                    PathNode.Close,
-                    PathNode.MoveTo(148.8f, 120.0f),
-                    PathNode.LineTo(148.74f, 120.09f),
-                    PathNode.CurveTo(141.79135f, 130.45917f, 127.75674f, 133.23993f, 117.379265f, 126.30368f),
-                    PathNode.CurveTo(107.0018f, 119.36743f, 104.20426f, 105.33615f, 111.1281f, 94.9504f),
-                    PathNode.CurveTo(118.05193f, 84.56464f, 132.07986f, 81.750336f, 142.47389f, 88.66175f),
-                    PathNode.CurveTo(152.8679f, 95.573166f, 155.69899f, 109.597725f, 148.8f, 120.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 28.0f),
-                    PathNode.CurveTo(72.77152f, 28.0f, 28.0f, 72.77152f, 28.0f, 128.0f),
-                    PathNode.CurveTo(28.0f, 183.22847f, 72.77152f, 228.0f, 128.0f, 228.0f),
-                    PathNode.CurveTo(183.22847f, 228.0f, 228.0f, 183.22847f, 228.0f, 128.0f),
-                    PathNode.CurveTo(227.93938f, 72.79665f, 183.20334f, 28.060623f, 128.0f, 28.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 220.0f),
-                    PathNode.CurveTo(77.18981f, 220.0f, 36.0f, 178.8102f, 36.0f, 128.0f),
-                    PathNode.CurveTo(36.0f, 77.18981f, 77.18981f, 36.0f, 128.0f, 36.0f),
-                    PathNode.CurveTo(178.8102f, 36.0f, 220.0f, 77.18981f, 220.0f, 128.0f),
-                    PathNode.CurveTo(219.94489f, 178.78735f, 178.78735f, 219.94489f, 128.0f, 220.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 144.000 80.290 C 131.291 72.936 115.208 75.174 104.990 85.720 C 94.773 96.265 93.043 112.411 100.795 124.881 C 108.548 137.351 123.792 142.946 137.770 138.450 L 116.570 174.000 C 115.440 175.895 116.058 178.346 117.950 179.480 C 118.553 179.847 119.244 180.044 119.950 180.050 C 121.357 180.048 122.659 179.308 123.380 178.100 L 155.710 124.000 C 164.545 108.696 159.303 89.127 144.000 80.290 ZM 148.800 120.000 L 148.740 120.090 C 141.791 130.459 127.757 133.240 117.379 126.304 C 107.002 119.367 104.204 105.336 111.128 94.950 C 118.052 84.565 132.080 81.750 142.474 88.662 C 152.868 95.573 155.699 109.598 148.800 120.000 ZM 128.000 28.000 C 72.772 28.000 28.000 72.772 28.000 128.000 C 28.000 183.228 72.772 228.000 128.000 228.000 C 183.228 228.000 228.000 183.228 228.000 128.000 C 227.939 72.797 183.203 28.061 128.000 28.000 ZM 128.000 220.000 C 77.190 220.000 36.000 178.810 36.000 128.000 C 36.000 77.190 77.190 36.000 128.000 36.000 C 178.810 36.000 220.000 77.190 220.000 128.000 C 219.945 178.787 178.787 219.945 128.000 220.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _numberCircleNine!!
     }

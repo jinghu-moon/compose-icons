@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,45 +17,17 @@ val PhosphorIcons.Fill.ChatTeardropDots: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(132.0f, 24.0f),
-                    PathNode.CurveTo(76.79665f, 24.060623f, 32.060623f, 68.79665f, 32.0f, 124.0f),
-                    PathNode.LineTo(32.0f, 208.0f),
-                    PathNode.CurveTo(32.0f, 216.83656f, 39.163445f, 224.0f, 48.0f, 224.0f),
-                    PathNode.LineTo(132.0f, 224.0f),
-                    PathNode.CurveTo(187.22847f, 224.0f, 232.0f, 179.22847f, 232.0f, 124.0f),
-                    PathNode.CurveTo(232.0f, 68.77152f, 187.22847f, 24.0f, 132.0f, 24.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(88.0f, 140.0f),
-                    PathNode.CurveTo(81.37258f, 140.0f, 76.0f, 134.62741f, 76.0f, 128.0f),
-                    PathNode.CurveTo(76.0f, 121.37258f, 81.37258f, 116.0f, 88.0f, 116.0f),
-                    PathNode.CurveTo(94.62742f, 116.0f, 100.0f, 121.37258f, 100.0f, 128.0f),
-                    PathNode.CurveTo(100.0f, 134.62741f, 94.62742f, 140.0f, 88.0f, 140.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(132.0f, 140.0f),
-                    PathNode.CurveTo(125.37258f, 140.0f, 120.0f, 134.62741f, 120.0f, 128.0f),
-                    PathNode.CurveTo(120.0f, 121.37258f, 125.37258f, 116.0f, 132.0f, 116.0f),
-                    PathNode.CurveTo(138.62741f, 116.0f, 144.0f, 121.37258f, 144.0f, 128.0f),
-                    PathNode.CurveTo(144.0f, 134.62741f, 138.62741f, 140.0f, 132.0f, 140.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(176.0f, 140.0f),
-                    PathNode.CurveTo(169.37259f, 140.0f, 164.0f, 134.62741f, 164.0f, 128.0f),
-                    PathNode.CurveTo(164.0f, 121.37258f, 169.37259f, 116.0f, 176.0f, 116.0f),
-                    PathNode.CurveTo(182.62741f, 116.0f, 188.0f, 121.37258f, 188.0f, 128.0f),
-                    PathNode.CurveTo(188.0f, 134.62741f, 182.62741f, 140.0f, 176.0f, 140.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 132.000 24.000 C 76.797 24.061 32.061 68.797 32.000 124.000 L 32.000 208.000 C 32.000 216.837 39.163 224.000 48.000 224.000 L 132.000 224.000 C 187.228 224.000 232.000 179.228 232.000 124.000 C 232.000 68.772 187.228 24.000 132.000 24.000 ZM 88.000 140.000 C 81.373 140.000 76.000 134.627 76.000 128.000 C 76.000 121.373 81.373 116.000 88.000 116.000 C 94.627 116.000 100.000 121.373 100.000 128.000 C 100.000 134.627 94.627 140.000 88.000 140.000 ZM 132.000 140.000 C 125.373 140.000 120.000 134.627 120.000 128.000 C 120.000 121.373 125.373 116.000 132.000 116.000 C 138.627 116.000 144.000 121.373 144.000 128.000 C 144.000 134.627 138.627 140.000 132.000 140.000 ZM 176.000 140.000 C 169.373 140.000 164.000 134.627 164.000 128.000 C 164.000 121.373 169.373 116.000 176.000 116.000 C 182.627 116.000 188.000 121.373 188.000 128.000 C 188.000 134.627 182.627 140.000 176.000 140.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _chatTeardropDots!!
     }

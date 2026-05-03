@@ -1,0 +1,35 @@
+package composeicons.remix.fill
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.remix.RemixIcons
+import composeicons.remix.remixIcon
+
+val RemixIcons.Fill.AccountBox2Fill: ImageVector
+    get() {
+        if (_accountBox2Fill != null) return _accountBox2Fill!!
+        _accountBox2Fill = remixIcon(
+            name = "AccountBox2Fill",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24.0f, height = 24.0f),
+        ) {
+    addPath(
+        pathData = parseSvgPathData("M 3.000 4.995 C 3.000 3.893 3.893 3.000 4.995 3.000 L 19.005 3.000 C 20.107 3.000 21.000 3.893 21.000 4.995 L 21.000 19.005 C 21.000 20.107 20.107 21.000 19.005 21.000 L 4.995 21.000 C 3.893 21.000 3.000 20.107 3.000 19.005 L 3.000 4.995 ZM 12.000 8.000 C 12.552 8.000 13.000 8.448 13.000 9.000 C 13.000 9.552 12.552 10.000 12.000 10.000 C 11.448 10.000 11.000 9.552 11.000 9.000 C 11.000 8.448 11.448 8.000 12.000 8.000 ZM 12.000 12.000 C 13.657 12.000 15.000 10.657 15.000 9.000 C 15.000 7.343 13.657 6.000 12.000 6.000 C 10.343 6.000 9.000 7.343 9.000 9.000 C 9.000 10.657 10.343 12.000 12.000 12.000 ZM 12.000 15.000 C 13.105 15.000 14.000 15.895 14.000 17.000 L 16.000 17.000 C 16.000 14.791 14.209 13.000 12.000 13.000 C 9.791 13.000 8.000 14.791 8.000 17.000 L 10.000 17.000 C 10.000 15.895 10.895 15.000 12.000 15.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
+        }
+        return _accountBox2Fill!!
+    }
+
+private var _accountBox2Fill: ImageVector? = null

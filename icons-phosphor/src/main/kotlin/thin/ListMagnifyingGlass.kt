@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,61 +17,17 @@ val PhosphorIcons.Thin.ListMagnifyingGlass: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(36.0f, 64.0f),
-                    PathNode.CurveTo(36.0f, 61.79086f, 37.79086f, 60.0f, 40.0f, 60.0f),
-                    PathNode.LineTo(216.0f, 60.0f),
-                    PathNode.CurveTo(218.20914f, 60.0f, 220.0f, 61.79086f, 220.0f, 64.0f),
-                    PathNode.CurveTo(220.0f, 66.20914f, 218.20914f, 68.0f, 216.0f, 68.0f),
-                    PathNode.LineTo(40.0f, 68.0f),
-                    PathNode.CurveTo(37.79086f, 68.0f, 36.0f, 66.20914f, 36.0f, 64.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(40.0f, 132.0f),
-                    PathNode.LineTo(112.0f, 132.0f),
-                    PathNode.CurveTo(114.20914f, 132.0f, 116.0f, 130.20914f, 116.0f, 128.0f),
-                    PathNode.CurveTo(116.0f, 125.79086f, 114.20914f, 124.0f, 112.0f, 124.0f),
-                    PathNode.LineTo(40.0f, 124.0f),
-                    PathNode.CurveTo(37.79086f, 124.0f, 36.0f, 125.79086f, 36.0f, 128.0f),
-                    PathNode.CurveTo(36.0f, 130.20914f, 37.79086f, 132.0f, 40.0f, 132.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(128.0f, 188.0f),
-                    PathNode.LineTo(40.0f, 188.0f),
-                    PathNode.CurveTo(37.79086f, 188.0f, 36.0f, 189.79086f, 36.0f, 192.0f),
-                    PathNode.CurveTo(36.0f, 194.20914f, 37.79086f, 196.0f, 40.0f, 196.0f),
-                    PathNode.LineTo(128.0f, 196.0f),
-                    PathNode.CurveTo(130.20914f, 196.0f, 132.0f, 194.20914f, 132.0f, 192.0f),
-                    PathNode.CurveTo(132.0f, 189.79086f, 130.20914f, 188.0f, 128.0f, 188.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(234.83f, 194.83f),
-                    PathNode.CurveTo(234.07973f, 195.58112f, 233.06163f, 196.00314f, 232.0f, 196.00314f),
-                    PathNode.CurveTo(230.93837f, 196.00314f, 229.92027f, 195.58112f, 229.17f, 194.83f),
-                    PathNode.LineTo(206.45f, 172.11f),
-                    PathNode.CurveTo(191.50003f, 184.05624f, 169.82191f, 182.2438f, 157.06322f, 167.98093f),
-                    PathNode.CurveTo(144.3045f, 153.71805f, 144.90929f, 131.9727f, 158.441f, 118.440994f),
-                    PathNode.CurveTo(171.9727f, 104.90929f, 193.71805f, 104.30452f, 207.98093f, 117.06322f),
-                    PathNode.CurveTo(222.2438f, 129.82191f, 224.05624f, 151.50003f, 212.11f, 166.45f),
-                    PathNode.LineTo(234.83f, 189.17f),
-                    PathNode.CurveTo(235.58112f, 189.92027f, 236.00314f, 190.93837f, 236.00314f, 192.0f),
-                    PathNode.CurveTo(236.00314f, 193.06163f, 235.58112f, 194.07973f, 234.83f, 194.83f),
-                    PathNode.Close,
-                    PathNode.MoveTo(184.0f, 172.0f),
-                    PathNode.CurveTo(199.46397f, 172.0f, 212.0f, 159.46397f, 212.0f, 144.0f),
-                    PathNode.CurveTo(212.0f, 128.53603f, 199.46397f, 116.0f, 184.0f, 116.0f),
-                    PathNode.CurveTo(168.53603f, 116.0f, 156.0f, 128.53603f, 156.0f, 144.0f),
-                    PathNode.CurveTo(156.0f, 159.46397f, 168.53603f, 172.0f, 184.0f, 172.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 36.000 64.000 C 36.000 61.791 37.791 60.000 40.000 60.000 L 216.000 60.000 C 218.209 60.000 220.000 61.791 220.000 64.000 C 220.000 66.209 218.209 68.000 216.000 68.000 L 40.000 68.000 C 37.791 68.000 36.000 66.209 36.000 64.000 ZM 40.000 132.000 L 112.000 132.000 C 114.209 132.000 116.000 130.209 116.000 128.000 C 116.000 125.791 114.209 124.000 112.000 124.000 L 40.000 124.000 C 37.791 124.000 36.000 125.791 36.000 128.000 C 36.000 130.209 37.791 132.000 40.000 132.000 ZM 128.000 188.000 L 40.000 188.000 C 37.791 188.000 36.000 189.791 36.000 192.000 C 36.000 194.209 37.791 196.000 40.000 196.000 L 128.000 196.000 C 130.209 196.000 132.000 194.209 132.000 192.000 C 132.000 189.791 130.209 188.000 128.000 188.000 ZM 234.830 194.830 C 234.080 195.581 233.062 196.003 232.000 196.003 C 230.938 196.003 229.920 195.581 229.170 194.830 L 206.450 172.110 C 191.500 184.056 169.822 182.244 157.063 167.981 C 144.305 153.718 144.909 131.973 158.441 118.441 C 171.973 104.909 193.718 104.305 207.981 117.063 C 222.244 129.822 224.056 151.500 212.110 166.450 L 234.830 189.170 C 235.581 189.920 236.003 190.938 236.003 192.000 C 236.003 193.062 235.581 194.080 234.830 194.830 ZM 184.000 172.000 C 199.464 172.000 212.000 159.464 212.000 144.000 C 212.000 128.536 199.464 116.000 184.000 116.000 C 168.536 116.000 156.000 128.536 156.000 144.000 C 156.000 159.464 168.536 172.000 184.000 172.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _listMagnifyingGlass!!
     }

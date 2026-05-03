@@ -7,8 +7,8 @@ import java.io.File
 fun main(args: Array<String>) {
     val projectRoot = args.firstOrNull()?.let(::File) ?: File(System.getProperty("user.dir"))
     val referLucideRoot = projectRoot.resolve("refer/lucide-main")
-    val outputDir = projectRoot.resolve("icons-lucide/src/main/kotlin/composeicons/lucide")
-    val reportDir = projectRoot.resolve("build/compose-icons")
+    val outputDir = projectRoot.resolve("icons-lucide/src/main/kotlin")
+    val reportDir = projectRoot.resolve("web-preview/public/data")
 
     val source = LucideIconSource(referRoot = referLucideRoot)
     val engine = GeneratorEngine(projectRoot = projectRoot)

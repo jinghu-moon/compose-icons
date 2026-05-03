@@ -2,10 +2,10 @@ package composeicons.phosphor.fill
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorFillIcon
 
@@ -17,31 +17,17 @@ val PhosphorIcons.Fill.Parallelogram: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(246.58f, 62.57f),
-                    PathNode.LineTo(181.78f, 206.57f),
-                    PathNode.CurveTo(179.19514f, 212.30974f, 173.48492f, 216.00044f, 167.19f, 216.0f),
-                    PathNode.LineTo(24.0f, 216.0f),
-                    PathNode.CurveTo(18.571503f, 215.997f, 13.514803f, 213.24173f, 10.5692f, 208.6819f),
-                    PathNode.CurveTo(7.623596f, 204.12207f, 7.190922f, 198.37973f, 9.42f, 193.43f),
-                    PathNode.LineTo(74.22f, 49.43f),
-                    PathNode.CurveTo(76.804855f, 43.69026f, 82.515076f, 39.999554f, 88.81f, 40.0f),
-                    PathNode.LineTo(232.0f, 40.0f),
-                    PathNode.CurveTo(237.43027f, 39.999615f, 242.4901f, 42.75351f, 245.43808f, 47.313904f),
-                    PathNode.CurveTo(248.38608f, 51.8743f, 248.81981f, 57.618652f, 246.59f, 62.57f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 246.580 62.570 L 181.780 206.570 C 179.195 212.310 173.485 216.000 167.190 216.000 L 24.000 216.000 C 18.572 215.997 13.515 213.242 10.569 208.682 C 7.624 204.122 7.191 198.380 9.420 193.430 L 74.220 49.430 C 76.805 43.690 82.515 40.000 88.810 40.000 L 232.000 40.000 C 237.430 40.000 242.490 42.754 245.438 47.314 C 248.386 51.874 248.820 57.619 246.590 62.570 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _parallelogram!!
     }

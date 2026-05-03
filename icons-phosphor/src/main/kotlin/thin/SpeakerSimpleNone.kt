@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,45 +17,17 @@ val PhosphorIcons.Thin.SpeakerSimpleNone: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(161.76f, 28.41f),
-                    PathNode.CurveTo(160.3869f, 27.73426f, 158.74858f, 27.901197f, 157.54f, 28.84f),
-                    PathNode.LineTo(86.63f, 84.0f),
-                    PathNode.LineTo(40.0f, 84.0f),
-                    PathNode.CurveTo(33.37258f, 84.0f, 28.0f, 89.37258f, 28.0f, 96.0f),
-                    PathNode.LineTo(28.0f, 160.0f),
-                    PathNode.CurveTo(28.0f, 166.62741f, 33.37258f, 172.0f, 40.0f, 172.0f),
-                    PathNode.LineTo(86.63f, 172.0f),
-                    PathNode.LineTo(157.54f, 227.16f),
-                    PathNode.CurveTo(158.24614f, 227.70137f, 159.11023f, 227.99643f, 160.0f, 228.0f),
-                    PathNode.CurveTo(160.6106f, 228.00227f, 161.21329f, 227.86188f, 161.76f, 227.59f),
-                    PathNode.CurveTo(163.13033f, 226.91856f, 163.99924f, 225.52597f, 164.0f, 224.0f),
-                    PathNode.LineTo(164.0f, 32.0f),
-                    PathNode.CurveTo(163.99924f, 30.474026f, 163.13033f, 29.081429f, 161.76f, 28.41f),
-                    PathNode.Close,
-                    PathNode.MoveTo(156.0f, 215.82f),
-                    PathNode.LineTo(90.46f, 164.82f),
-                    PathNode.CurveTo(89.75168f, 164.28511f, 88.88759f, 163.99709f, 88.0f, 164.0f),
-                    PathNode.LineTo(40.0f, 164.0f),
-                    PathNode.CurveTo(37.79086f, 164.0f, 36.0f, 162.20914f, 36.0f, 160.0f),
-                    PathNode.LineTo(36.0f, 96.0f),
-                    PathNode.CurveTo(36.0f, 93.79086f, 37.79086f, 92.0f, 40.0f, 92.0f),
-                    PathNode.LineTo(88.0f, 92.0f),
-                    PathNode.CurveTo(88.8899f, 91.99717f, 89.75422f, 91.702034f, 90.46f, 91.16f),
-                    PathNode.LineTo(156.0f, 40.16f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 161.760 28.410 C 160.387 27.734 158.749 27.901 157.540 28.840 L 86.630 84.000 L 40.000 84.000 C 33.373 84.000 28.000 89.373 28.000 96.000 L 28.000 160.000 C 28.000 166.627 33.373 172.000 40.000 172.000 L 86.630 172.000 L 157.540 227.160 C 158.246 227.701 159.110 227.996 160.000 228.000 C 160.611 228.002 161.213 227.862 161.760 227.590 C 163.130 226.919 163.999 225.526 164.000 224.000 L 164.000 32.000 C 163.999 30.474 163.130 29.081 161.760 28.410 ZM 156.000 215.820 L 90.460 164.820 C 89.752 164.285 88.888 163.997 88.000 164.000 L 40.000 164.000 C 37.791 164.000 36.000 162.209 36.000 160.000 L 36.000 96.000 C 36.000 93.791 37.791 92.000 40.000 92.000 L 88.000 92.000 C 88.890 91.997 89.754 91.702 90.460 91.160 L 156.000 40.160 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _speakerSimpleNone!!
     }

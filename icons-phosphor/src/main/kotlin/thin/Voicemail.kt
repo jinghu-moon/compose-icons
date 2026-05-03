@@ -2,10 +2,10 @@ package composeicons.phosphor.thin
 
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.unit.dp
 import composeicons.core.IconSize
 import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
 import composeicons.phosphor.PhosphorIcons
 import composeicons.phosphor.phosphorThinIcon
 
@@ -17,43 +17,17 @@ val PhosphorIcons.Thin.Voicemail: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 256.0f, height = 256.0f),
         ) {
-            addPath(
-                pathData = listOf(
-                    PathNode.MoveTo(200.0f, 76.0f),
-                    PathNode.CurveTo(176.84552f, 76.0235f, 156.49606f, 91.35377f, 150.08546f, 113.60314f),
-                    PathNode.CurveTo(143.67487f, 135.85252f, 152.74773f, 159.6601f, 172.34f, 172.0f),
-                    PathNode.LineTo(83.66f, 172.0f),
-                    PathNode.CurveTo(105.5839f, 158.1915f, 113.997215f, 130.3498f, 103.38937f, 106.71071f),
-                    PathNode.CurveTo(92.781525f, 83.07163f, 66.389465f, 70.84856f, 41.499527f, 78.047386f),
-                    PathNode.CurveTo(16.609583f, 85.246216f, 0.816831f, 109.67024f, 4.465243f, 135.32217f),
-                    PathNode.CurveTo(8.113655f, 160.9741f, 30.089931f, 180.02634f, 56.0f, 180.0f),
-                    PathNode.LineTo(200.0f, 180.0f),
-                    PathNode.CurveTo(228.71881f, 180.0f, 252.0f, 156.71881f, 252.0f, 128.0f),
-                    PathNode.CurveTo(252.0f, 99.2812f, 228.71881f, 76.0f, 200.0f, 76.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(12.0f, 128.0f),
-                    PathNode.CurveTo(12.0f, 103.69947f, 31.69947f, 84.0f, 56.0f, 84.0f),
-                    PathNode.CurveTo(80.30053f, 84.0f, 100.0f, 103.69947f, 100.0f, 128.0f),
-                    PathNode.CurveTo(100.0f, 152.30052f, 80.30053f, 172.0f, 56.0f, 172.0f),
-                    PathNode.CurveTo(31.710894f, 171.97244f, 12.027555f, 152.28911f, 12.0f, 128.0f),
-                    PathNode.Close,
-                    PathNode.MoveTo(200.0f, 172.0f),
-                    PathNode.CurveTo(175.69948f, 172.0f, 156.0f, 152.30052f, 156.0f, 128.0f),
-                    PathNode.CurveTo(156.0f, 103.69947f, 175.69948f, 84.0f, 200.0f, 84.0f),
-                    PathNode.CurveTo(224.30052f, 84.0f, 244.0f, 103.69947f, 244.0f, 128.0f),
-                    PathNode.CurveTo(243.97244f, 152.28911f, 224.28911f, 171.97244f, 200.0f, 172.0f),
-                    PathNode.Close
-                ),
-                pathFillType = PathFillType.NonZero,
-                fill = SolidColor(Color.Black),
-                fillAlpha = 1f,
-                stroke = null,
-                strokeAlpha = 1f,
-                strokeLineWidth = 8.0f,
-                strokeLineCap = StrokeCap.Round,
-                strokeLineJoin = StrokeJoin.Round,
-                strokeLineMiter = 4f,
-            )
+    addPath(
+        pathData = parseSvgPathData("M 200.000 76.000 C 176.846 76.023 156.496 91.354 150.085 113.603 C 143.675 135.853 152.748 159.660 172.340 172.000 L 83.660 172.000 C 105.584 158.191 113.997 130.350 103.389 106.711 C 92.782 83.072 66.389 70.849 41.500 78.047 C 16.610 85.246 0.817 109.670 4.465 135.322 C 8.114 160.974 30.090 180.026 56.000 180.000 L 200.000 180.000 C 228.719 180.000 252.000 156.719 252.000 128.000 C 252.000 99.281 228.719 76.000 200.000 76.000 ZM 12.000 128.000 C 12.000 103.699 31.699 84.000 56.000 84.000 C 80.301 84.000 100.000 103.699 100.000 128.000 C 100.000 152.301 80.301 172.000 56.000 172.000 C 31.711 171.972 12.028 152.289 12.000 128.000 ZM 200.000 172.000 C 175.699 172.000 156.000 152.301 156.000 128.000 C 156.000 103.699 175.699 84.000 200.000 84.000 C 224.301 84.000 244.000 103.699 244.000 128.000 C 243.972 152.289 224.289 171.972 200.000 172.000 Z"),
+        pathFillType = PathFillType.NonZero,
+        fill = SolidColor(Color(0xFF000000)),
+        fillAlpha = 1.0f,
+        stroke = null,
+        strokeAlpha = 1.0f,
+        strokeLineWidth = 0.0f,
+        strokeLineCap = StrokeCap.Butt,
+        strokeLineJoin = StrokeJoin.Miter,
+    )
         }
         return _voicemail!!
     }

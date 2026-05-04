@@ -1,242 +1,402 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import type { PreviewDataset, PreviewEntry } from './types'
-import { buildSvgPath } from './svg-path'
+import { computed, onMounted, ref, watch } from 'vue'
+import type { PreviewDataset, ExplorerEntry } from './types'
 
-type SourceEntry = PreviewEntry & { source: string }
-
-const datasets = ref<PreviewDataset[]>([])
-const activeSources = ref<string[]>(['tabler', 'lucide'])
+const datasets = ref<(PreviewDataset & { id: string })[]>([])
+const activeSource = ref<string>('')
 const query = ref('')
-const styleFilter = ref<'all' | 'outline' | 'filled'>('all')
-const selectedEntries = ref<SourceEntry[]>([])
-const scrollTopBySource = ref<Record<string, number>>({})
+const styleFilter = ref<string>('all')
+const selectedEntry = ref<ExplorerEntry | null>(null)
+const cardSize = ref(160)
+const isReviewMode = ref(false)
 
-const rowHeight = 116
-const viewportHeight = 660
+const fixedIconNames = [
+  'Accessibility',
+  'PanelLeft', 'PanelRight', 'PanelTop', 'PanelBottom',
+  'BorderLeft', 'BorderRight', 'BorderTop', 'BorderBottom', 'BorderAll'
+]
+
+// 虚拟滚动状态
+const containerRef = ref<HTMLElement | null>(null)
+const scrollTop = ref(0)
+const itemsPerRow = ref(6)
+const itemHeight = ref(200)
+const viewportHeight = ref(800)
+
+// 主题管理
+const isDark = ref(localStorage.getItem('theme') === 'dark' || 
+                 (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches))
+
+function toggleTheme() {
+  isDark.value = !isDark.value
+  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+  updateThemeAttribute()
+}
+
+function updateThemeAttribute() {
+  document.documentElement.setAttribute('data-theme', isDark.value ? 'dark' : 'light')
+}
 
 onMounted(async () => {
-  const tabler = (await fetch('/data/tabler.json').then((response) => response.json())) as PreviewDataset
-  const lucide = (await fetch('/data/lucide.json').then((response) => response.json())) as PreviewDataset
-  datasets.value = [tabler, lucide]
+  updateThemeAttribute()
+  
+  try {
+    const registryResponse = await fetch('/data/libraries.json')
+    if (!registryResponse.ok) throw new Error('Failed to load library registry')
+    const sources = await registryResponse.json()
+    
+    // 并行加载，加载完一个显示一个，提高响应速度
+    sources.forEach(async (s) => {
+      try {
+        const response = await fetch(`/data/${s.file}`)
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        
+        const text = await response.json()
+        datasets.value.push({ ...text, id: s.id })
+        
+        if (!activeSource.value) {
+          activeSource.value = s.id
+        }
+      } catch (e) {
+        console.error(`Error loading ${s.id}:`, e)
+      }
+    })
+  } catch (e) {
+    console.error('Registry loading error:', e)
+  }
+  
+  updateGridConfig()
+  window.addEventListener('resize', updateGridConfig)
 })
 
-const selectedDatasets = computed(() =>
-  activeSources.value
-    .map((source) => datasets.value.find((dataset) => dataset.source === source))
-    .filter((dataset): dataset is PreviewDataset => dataset !== undefined),
-)
+// 监听数据变化以重新计算布局
+watch(datasets, () => {
+  setTimeout(updateGridConfig, 100)
+}, { deep: true })
 
-const datasetPanels = computed(() =>
-  selectedDatasets.value.map((dataset, index) => ({
-    dataset,
-    label: `图标库 ${index + 1}`,
-  })),
-)
+function updateGridConfig() {
+  if (containerRef.value) {
+    const width = containerRef.value.clientWidth
+    const padding = 64 // 左右 padding 之和
+    const gap = 24     // 左右间距
+    
+    // 动态列数
+    itemsPerRow.value = Math.floor((width - padding) / 160) || 1
+    
+    // 计算格子的精确宽度
+    const availableWidth = width - padding - (itemsPerRow.value - 1) * gap
+    cardSize.value = availableWidth / itemsPerRow.value
+    
+    // 行高 = 卡片高度 + 垂直间距 (32)
+    itemHeight.value = cardSize.value + 32
+    
+    viewportHeight.value = containerRef.value.clientHeight
+  }
+}
 
-const filteredEntriesBySource = computed<Record<string, SourceEntry[]>>(() => {
-  const normalized = query.value.trim().toLowerCase()
-  return Object.fromEntries(
-    selectedDatasets.value.map((dataset) => [
-      dataset.source,
-      dataset.entries
-        .map((entry) => ({ ...entry, source: dataset.source }))
-        .filter((entry) => {
-          const styleMatched = styleFilter.value === 'all' || entry.style === styleFilter.value
-          if (!styleMatched) return false
-          if (!normalized) return true
-          return (
-            entry.name.toLowerCase().includes(normalized) ||
-            entry.kotlinPath.toLowerCase().includes(normalized) ||
-            entry.upstreamId.toLowerCase().includes(normalized) ||
-            entry.aliases.some((alias) => alias.toLowerCase().includes(normalized)) ||
-            entry.tags.some((tag) => tag.toLowerCase().includes(normalized))
-          )
-        }),
-    ]),
+const sortedDatasets = computed(() => {
+  const order = ['tabler', 'lucide', 'phosphor']
+  return [...datasets.value].sort((a, b) => 
+    order.indexOf(a.id) - order.indexOf(b.id)
   )
 })
 
-const totalFilteredEntries = computed(() =>
-  Object.values(filteredEntriesBySource.value).reduce((total, entries) => total + entries.length, 0),
+const currentDataset = computed(() => 
+  datasets.value.find(d => d.id === activeSource.value)
 )
 
-function onSourceScroll(source: string, event: Event) {
-  scrollTopBySource.value = {
-    ...scrollTopBySource.value,
-    [source]: (event.target as HTMLElement).scrollTop,
+const availableStyles = computed(() => {
+  if (!currentDataset.value) return []
+  const styles = new Set(currentDataset.value.explorerEntries.map(e => e.style))
+  return ['all', ...Array.from(styles)]
+})
+
+const filteredEntries = computed(() => {
+  if (isReviewMode.value) {
+    // Review 模式：从所有库中聚合那 10 个特定图标
+    const allEntries: ExplorerEntry[] = []
+    datasets.value.forEach(ds => {
+      const fixed = ds.explorerEntries.filter(e => fixedIconNames.includes(e.name))
+      allEntries.push(...fixed.map(e => ({ ...e, libraryId: ds.id })))
+    })
+    return allEntries
   }
-}
 
-function startIndexFor(source: string) {
-  return Math.floor((scrollTopBySource.value[source] ?? 0) / rowHeight)
-}
+  if (!currentDataset.value) return []
+  const q = query.value.toLowerCase().trim()
+  return currentDataset.value.explorerEntries.map(e => ({ ...e, libraryId: activeSource.value })).filter(e => {
+    const styleMatch = styleFilter.value === 'all' || e.style === styleFilter.value
+    if (!styleMatch) return false
+    if (!q) return true
+    return e.name.toLowerCase().includes(q) || 
+           e.tags.some(t => t.toLowerCase().includes(q)) ||
+           e.category?.toLowerCase().includes(q)
+  })
+})
 
-function endIndexFor(source: string) {
-  const entries = filteredEntriesBySource.value[source] ?? []
-  return Math.min(entries.length, startIndexFor(source) + Math.ceil(viewportHeight / rowHeight) + 8)
-}
-
-function visibleEntriesFor(source: string) {
-  const entries = filteredEntriesBySource.value[source] ?? []
-  return entries.slice(startIndexFor(source), endIndexFor(source))
-}
-
-function topPaddingFor(source: string) {
-  return startIndexFor(source) * rowHeight
-}
-
-function totalHeightFor(source: string) {
-  return (filteredEntriesBySource.value[source] ?? []).length * rowHeight
-}
-
-function toggleSource(source: string) {
-  activeSources.value = activeSources.value.includes(source)
-    ? activeSources.value.filter((item) => item !== source)
-    : [...activeSources.value, source]
-}
-
-function toggleCompare(entry: SourceEntry) {
-  const existed = selectedEntries.value.find((item) => item.kotlinPath === entry.kotlinPath)
-  if (existed) {
-    selectedEntries.value = selectedEntries.value.filter((item) => item.kotlinPath !== entry.kotlinPath)
-    return
+const visibleRows = computed(() => {
+  const startRow = Math.floor(scrollTop.value / itemHeight.value)
+  const endRow = startRow + Math.ceil(viewportHeight.value / itemHeight.value) + 1
+  
+  const rows = []
+  for (let i = startRow; i <= endRow; i++) {
+    const startIndex = i * itemsPerRow.value
+    const rowItems = filteredEntries.value.slice(startIndex, startIndex + itemsPerRow.value)
+    if (rowItems.length > 0) {
+      rows.push({ index: i, items: rowItems })
+    }
   }
-  selectedEntries.value = [entry]
+  return rows
+})
+
+const totalHeight = computed(() => 
+  Math.ceil(filteredEntries.value.length / itemsPerRow.value) * itemHeight.value
+)
+
+function handleScroll(e: Event) {
+  scrollTop.value = (e.target as HTMLElement).scrollTop
 }
 
-function isSelected(entry: SourceEntry) {
-  return selectedEntries.value.some((item) => item.kotlinPath === entry.kotlinPath)
+function copyCode(entry: ExplorerEntry) {
+  const code = `Icon(
+    imageVector = ${entry.kotlinPath},
+    contentDescription = "${entry.name}",
+    modifier = Modifier.size(24.dp)
+)`
+  navigator.clipboard.writeText(code)
+  // Simple visual feedback could be added here
 }
 
-function clearCompare() {
-  selectedEntries.value = []
+function selectIcon(entry: ExplorerEntry) {
+  selectedEntry.value = entry
+}
+
+// 针对 Duotone 风格的特殊处理
+function getPathStyle(path: any, entry: ExplorerEntry) {
+  const isDuotone = entry.style.toLowerCase() === 'duotone'
+  const isFill = entry.style.toLowerCase() === 'fill'
+  
+  // 模拟 Compose 的渲染逻辑
+  let fill = path.fill || 'none'
+  let stroke = path.stroke || 'none'
+  
+  if (fill === 'currentColor') fill = 'var(--text-primary)'
+  if (stroke === 'currentColor') stroke = 'var(--text-primary)'
+  
+  return {
+    fill,
+    stroke,
+    strokeWidth: path.strokeWidth,
+    strokeLinecap: path.strokeLineCap,
+    strokeLinejoin: path.strokeLineJoin,
+    opacity: path.alpha || 1
+  }
 }
 </script>
 
 <template>
-  <main class="layout-shell">
-    <section class="search-band">
-      <div class="search-band__title">搜索框</div>
-      <div class="search-band__controls">
-        <input
-          v-model="query"
-          class="search-input"
-          placeholder="输入名称、alias、tag、kotlinPath"
-        />
-
-        <div class="control-group">
-          <span class="control-label">风格</span>
-          <div class="chip-row">
-            <button class="chip" :class="{ active: styleFilter === 'all' }" @click="styleFilter = 'all'">All</button>
-            <button class="chip" :class="{ active: styleFilter === 'outline' }" @click="styleFilter = 'outline'">Outline</button>
-            <button class="chip" :class="{ active: styleFilter === 'filled' }" @click="styleFilter = 'filled'">Filled</button>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <span class="control-label">图标库</span>
-          <div class="chip-row">
-            <button class="chip" :class="{ active: activeSources.includes('tabler') }" @click="toggleSource('tabler')">Tabler</button>
-            <button class="chip" :class="{ active: activeSources.includes('lucide') }" @click="toggleSource('lucide')">Lucide</button>
-          </div>
-        </div>
-
-        <div class="search-band__summary">
-          <strong>{{ totalFilteredEntries }}</strong>
-          <span>搜索结果</span>
-        </div>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <span>Compose Icons</span>
       </div>
-    </section>
 
-    <section class="library-grid" :class="{ single: datasetPanels.length <= 1 }">
-      <section
-        v-for="panel in datasetPanels"
-        :key="panel.dataset.source"
-        class="library-panel"
-        :class="`library-panel--${panel.dataset.source}`"
-      >
-        <header class="library-panel__header">
-          <div>
-            <h2>{{ panel.label }}</h2>
-            <p>{{ panel.dataset.source }}</p>
-          </div>
-          <span>{{ filteredEntriesBySource[panel.dataset.source]?.length ?? 0 }}</span>
-        </header>
+      <nav class="filter-section">
+        <span class="filter-label">Quick Review</span>
+        <div class="source-list">
+          <button 
+            class="source-item"
+            :class="{ active: isReviewMode }"
+            @click="isReviewMode = !isReviewMode"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Fixed Icons Review
+          </button>
+        </div>
+      </nav>
 
-        <div class="virtual-list" @scroll="onSourceScroll(panel.dataset.source, $event)">
-          <div :style="{ height: `${totalHeightFor(panel.dataset.source)}px` }">
-            <div :style="{ transform: `translateY(${topPaddingFor(panel.dataset.source)}px)` }">
-                <button
-                  v-for="entry in visibleEntriesFor(panel.dataset.source)"
-                  :key="entry.kotlinPath"
-                  class="entry-row"
-                  :class="{ selected: isSelected(entry) }"
-                  @click="toggleCompare(entry)"
-                >
-                  <div class="icon-slot">
-                    <div class="svg-markup" v-html="entry.svgMarkup"></div>
-                  </div>
-                  <div class="entry-copy">
-                    <strong>{{ entry.name }}</strong>
-                  <span>{{ entry.upstreamId }}</span>
-                  <small>{{ entry.kotlinPath }}</small>
-                </div>
-              </button>
-            </div>
+      <nav class="filter-section" v-show="!isReviewMode">
+        <span class="filter-label">Library</span>
+        <div class="source-list">
+          <button 
+            v-for="ds in sortedDatasets" 
+            :key="ds.id"
+            class="source-item"
+            :class="{ active: activeSource === ds.id }"
+            @click="activeSource = ds.id; styleFilter = 'all'"
+          >
+            {{ ds.source }}
+            <small style="margin-left: auto; opacity: 0.5">v{{ ds.upstreamVersion }}</small>
+          </button>
+          
+          <div v-if="datasets.length < 3" class="source-item" style="opacity: 0.5; cursor: default">
+             Loading libraries... ({{ datasets.length }}/3)
           </div>
         </div>
-      </section>
-    </section>
+      </nav>
 
-    <section v-if="selectedEntries.length > 0" class="compare-drawer">
-      <header class="compare-drawer__header">
-        <div>
-          <h3>对比视图</h3>
-          <p>SVG 与 KT 路径渲染对比，同时仅预览 1 个图标</p>
+      <nav class="filter-section" v-if="availableStyles.length > 2">
+        <span class="filter-label">Style</span>
+        <div class="source-list">
+          <button 
+            v-for="style in availableStyles" 
+            :key="style"
+            class="source-item"
+            :class="{ active: styleFilter === style }"
+            @click="styleFilter = style"
+          >
+            {{ style }}
+          </button>
         </div>
-        <button class="close-button" @click="clearCompare">关闭</button>
+      </nav>
+      
+      <div style="margin-top: auto">
+        <button class="theme-toggle" @click="toggleTheme">
+          <svg v-if="isDark" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-11.314l.707.707m11.314 11.314l.707.707M12 8a4 4 0 110 8 4 4 0 010-8z"/></svg>
+          <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          {{ isDark ? 'Light Mode' : 'Dark Mode' }}
+        </button>
+        <a href="https://github.com/jinghu-moon/compose-icons" target="_blank" class="source-item" style="margin-top: 8px">
+          GitHub Repository
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="header-bar">
+        <div class="search-container">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            v-model="query" 
+            class="search-input" 
+            placeholder="Search icons by name, tags..." 
+          />
+        </div>
+        <div class="stats">
+          Showing <strong>{{ filteredEntries.length }}</strong> icons
+        </div>
       </header>
 
-      <div class="compare-stack">
-        <article v-for="entry in selectedEntries" :key="entry.kotlinPath" class="compare-card">
-          <div class="compare-head">
-            <div>
-              <strong>{{ entry.name }}</strong>
-              <span>{{ entry.source }} / {{ entry.style }}</span>
-            </div>
-            <code>{{ entry.kotlinPath }}</code>
-          </div>
-
-          <div class="render-grid">
-            <section>
-              <h4>SVG 原始预览</h4>
-              <div class="render-box">
-                <div class="svg-markup svg-markup--large" v-html="entry.svgMarkup"></div>
-              </div>
-            </section>
-
-            <section>
-              <h4>KT 数据渲染</h4>
-              <div class="render-box">
-                <svg class="compare-svg" :viewBox="`${entry.viewBox.minX} ${entry.viewBox.minY} ${entry.viewBox.width} ${entry.viewBox.height}`">
-                  <template v-for="(path, index) in entry.paths" :key="index">
-                    <path
-                      :d="buildSvgPath([path])"
-                      :fill="path.fill === 'currentColor' ? '#a84a2d' : path.fill || 'none'"
-                      :stroke="path.stroke === 'currentColor' ? '#a84a2d' : path.stroke || 'none'"
-                      :stroke-width="path.strokeWidth ?? 0"
-                      :stroke-linecap="path.strokeLineCap ?? undefined"
-                      :stroke-linejoin="path.strokeLineJoin ?? undefined"
-                      :fill-rule="path.fillRule ?? undefined"
-                    />
-                  </template>
+      <div class="icon-grid-container" ref="containerRef" @scroll="handleScroll">
+        <div :style="{ height: `${totalHeight}px`, position: 'relative' }">
+          <div 
+            v-for="row in visibleRows" 
+            :key="row.index"
+            class="icon-grid"
+            :style="{ 
+              position: 'absolute', 
+              top: `${row.index * itemHeight}px`, 
+              left: 0, 
+              right: 0,
+              height: `${cardSize}px`,
+              display: 'grid',
+              gap: '24px',
+              gridTemplateColumns: `repeat(${itemsPerRow}, 1fr)`
+            }"
+          >
+            <div 
+              v-for="entry in row.items" 
+              :key="entry.kotlinPath" 
+              class="icon-card"
+              :style="{ height: `${cardSize}px` }"
+              @click="selectIcon(entry)"
+            >
+              <div class="icon-preview">
+                <svg :viewBox="`${entry.viewBox.minX} ${entry.viewBox.minY} ${entry.viewBox.width} ${entry.viewBox.height}`" width="32" height="32">
+                  <path 
+                    v-for="(path, idx) in entry.paths" 
+                    :key="idx"
+                    :d="path.d"
+                    v-bind="getPathStyle(path, entry)"
+                  />
                 </svg>
               </div>
-            </section>
+              <span class="icon-name">{{ entry.name }}</span>
+              <span class="icon-style-tag">{{ entry.style }}</span>
+            </div>
           </div>
-        </article>
+        </div>
       </div>
-    </section>
-  </main>
+
+      <!-- Details Overlay -->
+      <transition>
+        <div v-if="selectedEntry" class="details-overlay">
+          <div class="details-header">
+            <div>
+              <h2 style="font-size: 24px">{{ selectedEntry.name }}</h2>
+              <p style="color: var(--text-secondary)">{{ (selectedEntry as any).libraryId }} / {{ selectedEntry.style }}</p>
+            </div>
+            <button class="close-btn" @click="selectedEntry = null">✕</button>
+          </div>
+
+          <div class="comparison-grid">
+            <div class="preview-box">
+              <span class="preview-label">SVG Source</span>
+              <div class="preview-canvas">
+                <svg :viewBox="`${selectedEntry.viewBox.minX} ${selectedEntry.viewBox.minY} ${selectedEntry.viewBox.width} ${selectedEntry.viewBox.height}`" width="64" height="64">
+                  <path 
+                    v-for="(path, idx) in selectedEntry.paths" 
+                    :key="idx"
+                    :d="path.d"
+                    v-bind="getPathStyle(path, selectedEntry)"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="preview-box highlight">
+              <span class="preview-label">Compose Render (KT)</span>
+              <div class="preview-canvas">
+                <!-- 这里使用相同的数据，但模拟 Compose 的渲染逻辑（例如显式处理 fillRule 等） -->
+                <svg :viewBox="`${selectedEntry.viewBox.minX} ${selectedEntry.viewBox.minY} ${selectedEntry.viewBox.width} ${selectedEntry.viewBox.height}`" width="64" height="64">
+                  <path 
+                    v-for="(path, idx) in selectedEntry.paths" 
+                    :key="idx"
+                    :d="path.d"
+                    fill="currentColor"
+                    :fill-rule="path.fillRule?.toLowerCase() === 'evenodd' ? 'evenodd' : 'nonzero'"
+                    v-bind="getPathStyle(path, selectedEntry)"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-group">
+            <span class="filter-label">Usage (Jetpack Compose)</span>
+            <div class="code-block" @click="copyCode(selectedEntry)">
+              <pre><code>Icon(
+  imageVector = {{ selectedEntry.name }},
+  contentDescription = null
+)</code></pre>
+            </div>
+          </div>
+
+          <div class="info-group">
+            <span class="filter-label">Full Path</span>
+            <div class="code-block" style="font-size: 11px">
+              {{ selectedEntry.kotlinPath }}
+            </div>
+          </div>
+
+          <div class="info-group" v-if="selectedEntry.tags.length">
+            <span class="filter-label">Tags</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <span v-for="tag in selectedEntry.tags" :key="tag" class="icon-style-tag">
+                {{ tag }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </main>
+  </div>
 </template>
+
+<style>
+@import './styles.css';
+</style>

@@ -1,40 +1,34 @@
-export type PreviewPathCommand = {
-  command: string
-  arguments: number[]
+export interface ExplorerViewBox {
+  minX: number
+  minY: number
+  width: number
+  height: number
 }
 
-export type PreviewPath = {
+export interface ExplorerPathNode {
   fill: string | null
   stroke: string | null
   strokeWidth: number | null
   strokeLineCap: string | null
   strokeLineJoin: string | null
   fillRule: string | null
-  commands: PreviewPathCommand[]
+  d: string
 }
 
-export type PreviewEntry = {
+export interface ExplorerEntry {
   name: string
   style: string
   kotlinPath: string
-  ktFilePath: string
-  svgFilePath: string
-  svgMarkup: string
-  upstreamId: string
-  category: string | null
-  aliases: string[]
+  viewBox: ExplorerViewBox
+  paths: ExplorerPathNode[]
   tags: string[]
-  viewBox: {
-    minX: number
-    minY: number
-    width: number
-    height: number
-  }
-  paths: PreviewPath[]
+  category: string | null
 }
 
-export type PreviewDataset = {
+export interface PreviewDataset {
   source: string
-  count: number
-  entries: PreviewEntry[]
+  upstreamVersion: string
+  total: number
+  succeeded: number
+  explorerEntries: ExplorerEntry[]
 }

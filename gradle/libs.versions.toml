@@ -8,7 +8,7 @@ kotlinTest = "2.3.10"
 
 # Screenshot testing (Roborazzi replaces Paparazzi for AGP 9 compatibility)
 roborazzi = "1.60.0"
-robolectric = "4.13"
+robolectric = "4.15.1"
 androidxTest = "1.6.1"
 androidxTestExt = "1.2.1"
 

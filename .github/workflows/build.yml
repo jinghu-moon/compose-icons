@@ -71,6 +71,7 @@ jobs:
 
     - name: Build svg2compose and generate all icons
       run: |
+        chmod +x gradlew
         ./gradlew :tools:resolveSvg2Compose
         ./gradlew :generator:tabler:run \
                    :generator:lucide:run \

@@ -34,7 +34,7 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    # Download upstream SVG sources (versions pinned in IconSource classes)
+    # Download upstream SVG sources (cached, versions pinned in IconSource classes)
     - name: Cache upstream SVG sources
       id: svg-cache
       uses: actions/cache@v4
@@ -45,29 +45,32 @@ jobs:
     - name: Download upstream SVG sources
       if: steps.svg-cache.outputs.cache-hit != 'true'
       run: |
-        set -e
+        set -eo pipefail
         echo "Downloading upstream icon sources..."
         mkdir -p refer && cd refer
 
-        # Tabler Icons (pinned v3.41.1 in TablerIconSource)
-        git clone --depth=1 https://github.com/tabler/tabler-icons.git tabler-icons-main
-        echo "Tabler: $(ls tabler-icons-main/icons/outline/*.svg | wc -l) outline SVGs"
+        # Tabler Icons (archive: tabler-icons-main/)
+        curl -fsSL https://github.com/tabler/tabler-icons/archive/refs/heads/main.tar.gz | tar xz
+        echo "Tabler: $(ls tabler-icons-main/icons/outline/*.svg 2>/dev/null | wc -l) outline SVGs"
 
-        # Lucide Icons
-        git clone --depth=1 https://github.com/lucide/lucide.git lucide-main
-        echo "Lucide: $(ls lucide-main/icons/*.svg | wc -l) SVGs"
+        # Lucide Icons (archive: lucide-main/)
+        curl -fsSL https://github.com/lucide/lucide/archive/refs/heads/main.tar.gz | tar xz
+        echo "Lucide: $(ls lucide-main/icons/*.svg 2>/dev/null | wc -l) SVGs"
 
-        # Phosphor Icons (pinned v2.1.0)
-        git clone --depth=1 --branch v2.1.0 https://github.com/phosphor-icons/phosphor-icons.git phosphor-icons-master
-        echo "Phosphor: $(ls phosphor-icons-master/public/assets/phosphor.iconjar/icons/*.svg | wc -l) SVGs"
+        # Phosphor Icons v2.1.0 (archive: phosphor-icons-2.1.0/ → rename)
+        curl -fsSL https://github.com/phosphor-icons/phosphor-icons/archive/refs/tags/v2.1.0.tar.gz | tar xz
+        mv phosphor-icons-2.1.0 phosphor-icons-master
+        echo "Phosphor: $(ls phosphor-icons-master/public/assets/phosphor.iconjar/icons/*.svg 2>/dev/null | wc -l) SVGs"
 
-        # Radix Icons (pinned v1.3.0)
-        git clone --depth=1 https://github.com/radix-ui/icons.git Radix-Icons-main
-        echo "Radix: $(ls Radix-Icons-main/packages/radix-icons/icons/*.svg | wc -l) SVGs"
+        # Radix Icons (archive: icons-master/ → rename)
+        curl -fsSL https://github.com/radix-ui/icons/archive/refs/heads/master.tar.gz | tar xz
+        mv icons-master Radix-Icons-main
+        echo "Radix: $(ls Radix-Icons-main/packages/radix-icons/icons/*.svg 2>/dev/null | wc -l) SVGs"
 
-        # Remix Icons (pinned v4.2.0)
-        git clone --depth=1 --branch v4.2.0 https://github.com/Remix-Design/RemixIcon.git RemixIcon-master
-        echo "Remix: $(find RemixIcon-master/icons -name '*.svg' | wc -l) SVGs"
+        # Remix Icons v4.2.0 (archive: RemixIcon-4.2.0/ → rename)
+        curl -fsSL https://github.com/Remix-Design/RemixIcon/archive/refs/tags/v4.2.0.tar.gz | tar xz
+        mv RemixIcon-4.2.0 RemixIcon-master
+        echo "Remix: $(find RemixIcon-master/icons -name '*.svg' 2>/dev/null | wc -l) SVGs"
 
     - name: Build svg2compose and generate all icons
       run: |

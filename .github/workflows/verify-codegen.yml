@@ -56,10 +56,22 @@ jobs:
 
     - name: Generate test Kotlin files
       run: |
-        mkdir -p test-icons
-        tools/svg2compose/target/release/svg2compose \
-          --manifest tools/svg2compose/tests/test-manifest.json \
-          --output-dir test-icons
+        set -eo pipefail
+        BINARY="tools/svg2compose/target/release/svg2compose"
+        MANIFEST="tools/svg2compose/tests/test-manifest.json"
+        OUTPUT_DIR="test-icons"
+
+        echo "Binary: $(ls -la "$BINARY")"
+        chmod +x "$BINARY"
+        echo "Manifest: $(cat "$MANIFEST")"
+
+        rm -rf "$OUTPUT_DIR"
+        mkdir -p "$OUTPUT_DIR"
+
+        "$BINARY" --manifest "$MANIFEST" --output-dir "$OUTPUT_DIR"
+
+        echo "Generated files:"
+        find "$OUTPUT_DIR" -name "*.kt" -type f
 
     - name: Layer 3 - Kotlin Syntax Verification
       run: bash tools/svg2compose/tests/verify_kotlin_syntax.sh test-icons

@@ -1,3 +1,4 @@
+use crate::compact::{compact_path, RawCommand};
 use crate::protocol::*;
 use usvg::Tree;
 
@@ -30,7 +31,7 @@ fn convert_path(path: &usvg::Path) -> Option<PathNode> {
     }
 
     let abs_transform = path.abs_transform();
-    let d = path_data_to_string(path.data(), abs_transform);
+    let d = compact_path(&path_to_commands(path.data(), abs_transform));
 
     let fill = path.fill().map(|f| FillStyle {
         color: color_to_hex(f.paint()),
@@ -73,19 +74,103 @@ fn convert_group(group: &usvg::Group) -> Option<GroupNode> {
     }
 
     let opacity = group.opacity().get() as f64;
-    let clip_path = group.clip_path().map(|cp| extract_clip_path_data(cp));
-    let children = group.children().iter().filter_map(convert_node).collect();
+    let clip_path = group.clip_path().map(extract_clip_path_data);
 
+    // Compose ImageVector.Builder.group() 不支持 alpha 参数。
+    // 将 group opacity bake 到子节点的 fill/stroke opacity 中。
+    let children: Vec<Node> = group
+        .children()
+        .iter()
+        .filter_map(|node| convert_node_with_opacity(node, opacity))
+        .collect();
+
+    // bake 后 group 自身 opacity 重置为 1.0
     Some(GroupNode {
-        opacity,
+        opacity: 1.0,
         transform: [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],
         clip_path,
         children,
     })
 }
 
-fn path_data_to_string(data: &tiny_skia_path::Path, transform: usvg::Transform) -> String {
-    let mut result = String::new();
+fn convert_node_with_opacity(node: &usvg::Node, group_opacity: f64) -> Option<Node> {
+    match node {
+        usvg::Node::Group(g) => {
+            // 递归：嵌套 group 的 opacity 相乘
+            let inner_opacity = g.opacity().get() as f64 * group_opacity;
+            let clip_path = g.clip_path().map(extract_clip_path_data);
+            if g.mask().is_some() {
+                return None;
+            }
+            let children: Vec<Node> = g
+                .children()
+                .iter()
+                .filter_map(|n| convert_node_with_opacity(n, inner_opacity))
+                .collect();
+            Some(Node::Group(GroupNode {
+                opacity: 1.0,
+                transform: [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],
+                clip_path,
+                children,
+            }))
+        }
+        usvg::Node::Path(p) => convert_path_with_opacity(p, group_opacity).map(Node::Path),
+        _ => None,
+    }
+}
+
+fn convert_path_with_opacity(path: &usvg::Path, group_opacity: f64) -> Option<PathNode> {
+    if !path.is_visible() {
+        return None;
+    }
+
+    let abs_transform = path.abs_transform();
+    let d = compact_path(&path_to_commands(path.data(), abs_transform));
+
+    let fill = path.fill().map(|f| {
+        let base_opacity = f.opacity().get() as f64;
+        FillStyle {
+            color: color_to_hex(f.paint()),
+            opacity: base_opacity * group_opacity,
+            rule: match f.rule() {
+                usvg::FillRule::NonZero => "nonzero".to_string(),
+                usvg::FillRule::EvenOdd => "evenodd".to_string(),
+            },
+        }
+    });
+
+    let stroke = path.stroke().map(|s| {
+        let base_opacity = s.opacity().get() as f64;
+        StrokeStyle {
+            color: color_to_hex(s.paint()),
+            opacity: base_opacity * group_opacity,
+            width: s.width().get() as f64,
+            linecap: match s.linecap() {
+                usvg::LineCap::Butt => "butt".to_string(),
+                usvg::LineCap::Round => "round".to_string(),
+                usvg::LineCap::Square => "square".to_string(),
+            },
+            linejoin: match s.linejoin() {
+                usvg::LineJoin::Miter | usvg::LineJoin::MiterClip => "miter".to_string(),
+                usvg::LineJoin::Round => "round".to_string(),
+                usvg::LineJoin::Bevel => "bevel".to_string(),
+            },
+        }
+    });
+
+    Some(PathNode {
+        d,
+        transform: [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],
+        fill,
+        stroke,
+        visibility: "visible".to_string(),
+    })
+}
+
+/// Convert tiny-skia-path verbs+points directly to RawCommand list.
+/// Bypasses string representation, avoiding token concatenation bugs.
+fn path_to_commands(data: &tiny_skia_path::Path, transform: usvg::Transform) -> Vec<RawCommand> {
+    let mut cmds = Vec::new();
     let mut points_iter = data.points().iter();
 
     for verb in data.verbs() {
@@ -93,19 +178,19 @@ fn path_data_to_string(data: &tiny_skia_path::Path, transform: usvg::Transform) 
             tiny_skia_path::PathVerb::Move => {
                 let p = points_iter.next().unwrap();
                 let (x, y) = apply_transform(p.x, p.y, &transform);
-                result.push_str(&format!("M {:.3} {:.3}", x, y));
+                cmds.push(RawCommand::M { x, y });
             }
             tiny_skia_path::PathVerb::Line => {
                 let p = points_iter.next().unwrap();
                 let (x, y) = apply_transform(p.x, p.y, &transform);
-                result.push_str(&format!(" L {:.3} {:.3}", x, y));
+                cmds.push(RawCommand::L { x, y });
             }
             tiny_skia_path::PathVerb::Quad => {
                 let p1 = points_iter.next().unwrap();
                 let p2 = points_iter.next().unwrap();
                 let (x1, y1) = apply_transform(p1.x, p1.y, &transform);
                 let (x2, y2) = apply_transform(p2.x, p2.y, &transform);
-                result.push_str(&format!(" Q {:.3} {:.3} {:.3} {:.3}", x1, y1, x2, y2));
+                cmds.push(RawCommand::Q { x1, y1, x: x2, y: y2 });
             }
             tiny_skia_path::PathVerb::Cubic => {
                 let p1 = points_iter.next().unwrap();
@@ -114,18 +199,15 @@ fn path_data_to_string(data: &tiny_skia_path::Path, transform: usvg::Transform) 
                 let (x1, y1) = apply_transform(p1.x, p1.y, &transform);
                 let (x2, y2) = apply_transform(p2.x, p2.y, &transform);
                 let (x3, y3) = apply_transform(p3.x, p3.y, &transform);
-                result.push_str(&format!(
-                    " C {:.3} {:.3} {:.3} {:.3} {:.3} {:.3}",
-                    x1, y1, x2, y2, x3, y3
-                ));
+                cmds.push(RawCommand::C { x1, y1, x2, y2, x: x3, y: y3 });
             }
             tiny_skia_path::PathVerb::Close => {
-                result.push_str(" Z");
+                cmds.push(RawCommand::Z);
             }
         }
     }
 
-    result
+    cmds
 }
 
 fn apply_transform(x: f32, y: f32, t: &usvg::Transform) -> (f64, f64) {
@@ -145,7 +227,7 @@ fn extract_clip_path_data(clip: &usvg::ClipPath) -> String {
     let mut paths = String::new();
     for node in clip.root().children() {
         if let usvg::Node::Path(path) = node {
-            let d = path_data_to_string(path.data(), path.abs_transform());
+            let d = compact_path(&path_to_commands(path.data(), path.abs_transform()));
             if !paths.is_empty() {
                 paths.push(' ');
             }
@@ -197,7 +279,8 @@ mod tests {
                         // transform 应为单位矩阵（已 bake）
                         assert_eq!(p.transform, [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]);
                         // rotate(-180 7.5 7.5) applied to M 1 1 -> M 14 14
-                        assert!(p.d.contains("14.000"));
+                        // compact_path strips trailing zeros, so "14.000" → "14"
+                        assert!(p.d.contains("14"));
                     }
                     _ => panic!("Expected Path node"),
                 }
@@ -215,34 +298,57 @@ mod tests {
         assert_eq!(doc.nodes.len(), 1);
         match &doc.nodes[0] {
             Node::Group(g) => {
-                assert!((g.opacity - 0.5).abs() < 0.01);
+                // group opacity 已 bake 到子 path，自身重置为 1.0
+                assert!((g.opacity - 1.0).abs() < 0.01);
                 assert!(g.clip_path.is_some());
                 assert!(g.clip_path.as_ref().unwrap().starts_with('M'));
                 assert_eq!(g.children.len(), 1);
+                // 子 path 的 fill opacity 应包含 group opacity (0.5)
+                match &g.children[0] {
+                    Node::Path(p) => {
+                        let fill = p.fill.as_ref().unwrap();
+                        assert!((fill.opacity - 0.5).abs() < 0.01,
+                            "group opacity 0.5 should be baked into fill opacity, got {}", fill.opacity);
+                    }
+                    _ => panic!("Expected Path child"),
+                }
             }
             _ => panic!("Expected Group node"),
         }
     }
 
     #[test]
-    fn test_nested_group_children_converted_recursively() {
-        let svg = r#"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    fn test_nested_group_opacity_multiplies() {
+        let svg = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g opacity="0.8">
                 <g opacity="0.5">
-                    <path d="M 0 0 L 24 24 Z"/>
+                    <path d="M 0 0 L 24 24 Z" fill="#000"/>
                 </g>
             </g>
-        </svg>"#;
+        </svg>"##;
         let tree = Tree::from_str(svg, &usvg::Options::default()).unwrap();
         let doc = convert_tree(&tree);
 
+        // 两层 group 均无 clipPath，应被 codegen 扁平化（但 converter 层仍保留结构）
         assert_eq!(doc.nodes.len(), 1);
         match &doc.nodes[0] {
             Node::Group(outer) => {
+                // 外层 group opacity 已 bake
+                assert!((outer.opacity - 1.0).abs() < 0.01);
                 assert_eq!(outer.children.len(), 1);
                 match &outer.children[0] {
                     Node::Group(inner) => {
+                        assert!((inner.opacity - 1.0).abs() < 0.01);
                         assert_eq!(inner.children.len(), 1);
+                        // 最终 path 的 fill opacity = 0.8 * 0.5 * 1.0 = 0.4
+                        match &inner.children[0] {
+                            Node::Path(p) => {
+                                let fill = p.fill.as_ref().unwrap();
+                                assert!((fill.opacity - 0.4).abs() < 0.01,
+                                    "nested opacity should be 0.8*0.5=0.4, got {}", fill.opacity);
+                            }
+                            _ => panic!("Expected Path"),
+                        }
                     }
                     _ => panic!("Expected inner Group"),
                 }

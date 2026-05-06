@@ -1,0 +1,25 @@
+package composeicons.lucide.outline
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.lucide.LucideIcons
+import composeicons.lucide.lucideOutlineIcon
+
+val LucideIcons.Outline.BookmarkCheck: ImageVector
+    get() {
+        if (_bookmarkCheck != null) return _bookmarkCheck!!
+        _bookmarkCheck = lucideOutlineIcon(
+            name = "BookmarkCheck",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
+        ) {
+            addPathData("M17 3c1.105 0 2 .895 2 2v15c-0 .356-.19 .686-.498 .865-.308 .179-.688 .18-.998 .003L12.992 18.29c-.615-.351-1.369-.351-1.984 0L6.496 20.868c-.309 .177-.69 .175-.998-.003C5.19 20.686 5 20.356 5 20v-15C5 3.895 5.895 3 7 3Z")
+            addPathData("M9 10l2 2L15 8")
+        }
+        return _bookmarkCheck!!
+    }
+
+private var _bookmarkCheck: ImageVector? = null

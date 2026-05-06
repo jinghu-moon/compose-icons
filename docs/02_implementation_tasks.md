@@ -14,14 +14,17 @@
 
 `v1` 交付物：
 
-1. usvg 集成的 SVG → `ImageVector` 生成器
+1. svg2compose Rust CLI（基于 usvg 的 SVG → .kt 生成器）
 2. `icons-core`
 3. `icons-tabler`（outline + filled 单 artifact）
 4. `icons-lucide`（outline）
-5. Paparazzi 采样截图基线
-6. 真实 sample app（最小 demo + R8 体积基准）
-7. README + Architecture 文档
-8. `Maven Central` 发布流程
+5. `icons-phosphor`（6 weight）
+6. `icons-radix`（outline）
+7. `icons-remix`（line + fill）
+8. Paparazzi 采样截图基线
+9. 真实 sample app（最小 demo + R8 体积基准）
+10. README + Architecture 文档
+11. `Maven Central` 发布流程
 
 `v1` **不交付**：catalog 模块、多色保真、Phosphor、Heroicons。详见 [01_design_specification.md §2.4 永久不做](./01_design_specification.md#24-永久不做红线)。
 
@@ -149,7 +152,7 @@
 
 > 这是 v1 最关键的工作量，决定项目"差异化定位"是否落地。详见 [architecture.md §3.2](./architecture.md#32-第二层svg-结构差异--usvg-预处理)。
 >
-> **状态**：核心模块（usvg 工具链 + UsvgPipeline + NormalizedPathParser + catalog 删除）已稳定。MetaJsonExporter（8.27-8.29）与合规自动化测试（8.32）作为 Phase 8 收尾推进到下一波。
+> **状态**：核心模块已稳定。**重大变更**：`usvg` + `NormalizedPathParser` + `KotlinFileGenerator` 三层已被 `svg2compose` Rust CLI 替代（直接生成 .kt 文件）。详见 [svg2compose-refactor-plan.md](./svg2compose-refactor-plan.md)。
 
 ### 10.1 usvg 工具链
 
@@ -246,6 +249,23 @@
 - [x] `8.32` 写一份 `architecture-compliance-test.kt`，断言核心类不引用具体图标源类（自动化版本，作为 Phase 8 收尾建议补完）
 - [x] `8.33` IconSource 接口完整契约文档化（已落地在 [architecture.md §4.1](./architecture.md#41-接口签名)）
 
+### 10.9 svg2compose Rust CLI 重构（已落地）
+
+> 用 `svg2compose` Rust CLI 替代 `usvg` + `NormalizedPathParser` + `KotlinFileGenerator` 三层。
+> 详见 [svg2compose-refactor-plan.md](./svg2compose-refactor-plan.md)。
+
+- [x] `8.34` 创建 `tools/svg2compose/` Rust 项目，实现 SVG→JSON 协议
+- [x] `8.35` 实现 usvg 强类型树遍历（Path/Group/clipPath/mask 处理）
+- [x] `8.36` 实现 manifest 模式（批量处理 + 直接生成 .kt）
+- [x] `8.37` Kotlin 端 `UsvgPipeline` 改造为调用 svg2compose
+- [x] `8.38` 删除 `NormalizedPathParser.kt`（~300 行手写解析）
+- [x] `8.39` 删除 `KotlinFileGenerator.kt`（Rust 端直接生成 .kt）
+- [x] `8.40` 简化 `SvgValidator.kt`（仅保留基础检测）
+- [x] `8.41` `IconBuilder.addPath` → `addPathData`（接受 SVG path 字符串）
+- [x] `8.42` 输出路径调整为 `icons-<source>/src/main/kotlin/composeicons/<source>`
+- [x] `8.43` web-preview 适配 manifest 模式
+- [x] `8.44` 端到端验证：Radix 332/332 图标全部成功
+
 ## 11. Phase 9 - 真实 Sample 与 Paparazzi 采样基线
 
 > 按 Q9 决策（S9-A + B），sample 同时承担最小 demo 与 R8 体积基准。详见 [architecture.md §6.4](./architecture.md#64-与同类项目的体积对照)。
@@ -328,37 +348,46 @@
 
 ### 13.1 L3 多色保真
 
-- [ ] `v2.1` 改写 `KotlinFileGenerator` emit 模板：`originalFill` 非 currentColor/none 时保留原色
+- [ ] `v2.1` 改写 svg2compose Rust 端 emit 模板：`originalFill` 非 currentColor/none 时保留原色
 - [ ] `v2.2` 验证：brand-github / brand-* 系列图标保留多色渲染
 - [ ] `v2.3` 文档更新：README 加多色示例
 - [ ] `v2.3a` 顺手完成 `PathStyle` → `PathAttributes` 重命名（合并 8.14 / 8.16 / 8.17 / 8.18 暂缓项）
 
-### 13.2 Phosphor 接入
+### 13.2 Phosphor 接入（已落地 v1）
 
-- [ ] `v2.4` `PhosphorIconSource`：6 weight × ~9000 = ~54000 个图标
+- [x] `v2.4` `PhosphorIconSource`：6 weight × ~9000 = ~54000 个图标
 - [ ] `v2.5` 处理 weight = `duotone`（多色，与 v2.1 联动）
-- [ ] `v2.6` 准入清单逐项验证（许可证 / metadata / usvg 兼容）
+- [x] `v2.6` 准入清单逐项验证（许可证 / metadata / svg2compose 兼容）
 
-### 13.3 Heroicons 接入
+> **Note**: Phosphor 已在 v1 阶段集成（commit `b203cefe3`），包含 6 weight 样式。
+
+### 13.3 Radix + Remix 接入（已落地 v1）
+
+- [x] `v2.4a` `RadixIconSource`：~332 个 outline 图标
+- [x] `v2.4b` `RemixIconSource`：line + fill 样式，~2000+ 图标
+
+> **Note**: Radix 和 Remix 已在 v1 阶段集成，作为 svg2compose 重构的端到端验证。
+
+### 13.4 Heroicons 接入
 
 - [ ] `v2.7` `HeroiconsIconSource`：4 style（24 outline / 24 solid / 20 solid / 16 solid）
 - [ ] `v2.8` 处理同名图标在不同 size 中 path 不同的场景
 
-### 13.4 独立 catalog 包
+### 13.5 独立 catalog 包
 
 - [ ] `v2.9` `icons-tabler-catalog` / `icons-lucide-catalog` / `icons-phosphor-catalog` / `icons-heroicons-catalog`
 - [ ] `v2.10` 各 catalog 模块编译期消费 generator 输出的 `meta-{source}.json`（消化 Phase 8.27-8.29 推迟项）
 - [ ] `v2.11` `IconCatalog` 接口设计（v1 旧版作为参考但重新设计）
 - [ ] `v2.12` 主包零依赖 catalog 包
 
-### 13.5 IDE 体验增强（探索）
+### 13.6 IDE 体验增强（探索）
 
 - [ ] `v2.13` 评估 KSP 索引方案的 ROI（编译速度影响 vs IDE 自动补全收益）
 - [ ] `v2.14` 评估提供 Live Templates 配合 IDE 自动 import
 
-### 13.6 性能极限优化（如需要）
+### 13.7 性能极限优化（如需要）
 
-- [ ] `v2.15` 评估 long-lived usvg IPC 方案（patch usvg 源码或包 Rust JNI）以突破 ProcessBuilder 启动开销瓶颈，目标全量 < 30s
+- [ ] `v2.15` 评估 long-lived svg2compose IPC 方案以突破 ProcessBuilder 启动开销瓶颈，目标全量 < 30s
 
 ## 14. Backlog（永久不做）
 

@@ -173,24 +173,42 @@ function selectIcon(entry: ExplorerEntry) {
 
 // 针对 Duotone 风格的特殊处理
 function getPathStyle(path: any, entry: ExplorerEntry) {
-  const isDuotone = entry.style.toLowerCase() === 'duotone'
-  const isFill = entry.style.toLowerCase() === 'fill'
-  
   // 模拟 Compose 的渲染逻辑
   let fill = path.fill || 'none'
   let stroke = path.stroke || 'none'
-  
+
   if (fill === 'currentColor') fill = 'var(--text-primary)'
   if (stroke === 'currentColor') stroke = 'var(--text-primary)'
-  
+
   return {
     fill,
     stroke,
-    strokeWidth: path.strokeWidth,
-    strokeLinecap: path.strokeLineCap,
-    strokeLinejoin: path.strokeLineJoin,
+    'stroke-width': path.strokeWidth,
+    'stroke-linecap': path.strokeLineCap,
+    'stroke-linejoin': path.strokeLineJoin,
     opacity: path.alpha || 1
   }
+}
+
+// Check if all paths share the same style attributes
+function getCommonStyle(paths: any[], entry: ExplorerEntry) {
+  if (paths.length < 2) return null
+  const first = getPathStyle(paths[0], entry)
+  const allSame = paths.every(p => {
+    const s = getPathStyle(p, entry)
+    return s.fill === first.fill && s.stroke === first.stroke &&
+           s['stroke-width'] === first['stroke-width'] &&
+           s['stroke-linecap'] === first['stroke-linecap'] &&
+           s['stroke-linejoin'] === first['stroke-linejoin'] &&
+           s.opacity === first.opacity
+  })
+  return allSame ? first : null
+}
+
+// Per-path style: empty when common style covers everything
+function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string, any> | null) {
+  if (!common) return getPathStyle(path, entry)
+  return {}
 }
 </script>
 
@@ -307,12 +325,13 @@ function getPathStyle(path: any, entry: ExplorerEntry) {
               @click="selectIcon(entry)"
             >
               <div class="icon-preview">
-                <svg :viewBox="`${entry.viewBox.minX} ${entry.viewBox.minY} ${entry.viewBox.width} ${entry.viewBox.height}`" width="32" height="32">
-                  <path 
-                    v-for="(path, idx) in entry.paths" 
+                <svg :viewBox="`${entry.viewBox.minX} ${entry.viewBox.minY} ${entry.viewBox.width} ${entry.viewBox.height}`" width="32" height="32"
+                  v-bind="getCommonStyle(entry.paths, entry)">
+                  <path
+                    v-for="(path, idx) in entry.paths"
                     :key="idx"
                     :d="path.d"
-                    v-bind="getPathStyle(path, entry)"
+                    v-bind="getPathDiffStyle(path, entry, getCommonStyle(entry.paths, entry))"
                   />
                 </svg>
               </div>
@@ -338,12 +357,13 @@ function getPathStyle(path: any, entry: ExplorerEntry) {
             <div class="preview-box">
               <span class="preview-label">SVG Source</span>
               <div class="preview-canvas">
-                <svg :viewBox="`${selectedEntry.viewBox.minX} ${selectedEntry.viewBox.minY} ${selectedEntry.viewBox.width} ${selectedEntry.viewBox.height}`" width="64" height="64">
-                  <path 
-                    v-for="(path, idx) in selectedEntry.paths" 
+                <svg :viewBox="`${selectedEntry.viewBox.minX} ${selectedEntry.viewBox.minY} ${selectedEntry.viewBox.width} ${selectedEntry.viewBox.height}`" width="64" height="64"
+                  v-bind="getCommonStyle(selectedEntry.paths, selectedEntry)">
+                  <path
+                    v-for="(path, idx) in selectedEntry.paths"
                     :key="idx"
                     :d="path.d"
-                    v-bind="getPathStyle(path, selectedEntry)"
+                    v-bind="getPathDiffStyle(path, selectedEntry, getCommonStyle(selectedEntry.paths, selectedEntry))"
                   />
                 </svg>
               </div>
@@ -352,14 +372,15 @@ function getPathStyle(path: any, entry: ExplorerEntry) {
               <span class="preview-label">Compose Render (KT)</span>
               <div class="preview-canvas">
                 <!-- 这里使用相同的数据，但模拟 Compose 的渲染逻辑（例如显式处理 fillRule 等） -->
-                <svg :viewBox="`${selectedEntry.viewBox.minX} ${selectedEntry.viewBox.minY} ${selectedEntry.viewBox.width} ${selectedEntry.viewBox.height}`" width="64" height="64">
-                  <path 
-                    v-for="(path, idx) in selectedEntry.paths" 
+                <svg :viewBox="`${selectedEntry.viewBox.minX} ${selectedEntry.viewBox.minY} ${selectedEntry.viewBox.width} ${selectedEntry.viewBox.height}`" width="64" height="64"
+                  v-bind="getCommonStyle(selectedEntry.paths, selectedEntry)">
+                  <path
+                    v-for="(path, idx) in selectedEntry.paths"
                     :key="idx"
                     :d="path.d"
                     fill="currentColor"
                     :fill-rule="path.fillRule?.toLowerCase() === 'evenodd' ? 'evenodd' : 'nonzero'"
-                    v-bind="getPathStyle(path, selectedEntry)"
+                    v-bind="getPathDiffStyle(path, selectedEntry, getCommonStyle(selectedEntry.paths, selectedEntry))"
                   />
                 </svg>
               </div>

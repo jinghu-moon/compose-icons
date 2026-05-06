@@ -7,7 +7,7 @@ import java.io.File
 fun main(args: Array<String>) {
     val projectRoot = args.firstOrNull()?.let(::File) ?: File(System.getProperty("user.dir"))
     val referTablerRoot = projectRoot.resolve("refer/tabler-icons-main")
-    val outputDir = projectRoot.resolve("icons-tabler/src/main/kotlin")
+    val outputDir = projectRoot.resolve("icons-tabler/src/main/kotlin/composeicons/tabler")
     val reportDir = projectRoot.resolve("web-preview/public/data")
 
     val source = TablerIconSource(referRoot = referTablerRoot)

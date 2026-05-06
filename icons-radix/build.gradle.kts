@@ -1,17 +1,73 @@
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
-    kotlin("multiplatform")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.vanniktech.maven.publish)
 }
 
-kotlin {
-    jvm()
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(project(":icons-core"))
-                implementation("androidx.compose.ui:ui:1.6.1")
-                implementation("androidx.compose.ui:ui-graphics:1.6.1")
-                implementation("androidx.compose.ui:ui-unit:1.6.1")
+android {
+    namespace = "composeicons.radix"
+    compileSdk = 36
+
+    defaultConfig {
+        minSdk = 21
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    buildFeatures {
+        compose = true
+    }
+}
+
+dependencies {
+    api(project(":icons-core"))
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+
+    coordinates(
+        groupId = providers.gradleProperty("composeIconsGroup").get(),
+        artifactId = "icons-radix",
+        version = providers.gradleProperty("composeIconsVersion").get(),
+    )
+
+    configure(
+        AndroidSingleVariantLibrary(
+            variant = "release",
+            sourcesJar = true,
+            publishJavadocJar = true,
+        )
+    )
+
+    pom {
+        name.set("icons-radix")
+        description.set("Radix Icons for Jetpack Compose - generated via usvg pipeline")
+        url.set("https://github.com/jinghu-moon/compose-icons")
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+                distribution.set("repo")
             }
+        }
+        developers {
+            developer {
+                id.set("jinghu-moon")
+                name.set("Jinghu Moon")
+                url.set("https://github.com/jinghu-moon")
+            }
+        }
+        scm {
+            url.set("https://github.com/jinghu-moon/compose-icons")
+            connection.set("scm:git:git://github.com/jinghu-moon/compose-icons.git")
+            developerConnection.set("scm:git:ssh://git@github.com/jinghu-moon/compose-icons.git")
         }
     }
 }

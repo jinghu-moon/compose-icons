@@ -1,0 +1,46 @@
+package composeicons.phosphor.duotone
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorDuotoneIcon
+
+val PhosphorIcons.Duotone.StarOfDavid: ImageVector
+    get() {
+        if (_starOfDavid != null) return _starOfDavid!!
+        _starOfDavid = phosphorDuotoneIcon(
+            name = "StarOfDavid",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M192 128l32 56h-64l-32 56L96 184h-64L64 128 32 72h64L128 16l32 56h64Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 0.2f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+            addPath(
+                pathData = parseSvgPathData("M201.21 128 231 76c1.436-2.486 1.429-5.551-.018-8.031C229.536 65.489 226.871 63.974 224 64h-59.35L135 12C133.577 9.503 130.924 7.962 128.05 7.962c-2.874 0-5.527 1.541-6.95 4.038L91.33 64h-59.33c-2.862-.008-5.51 1.514-6.945 3.991-1.434 2.477-1.436 5.531-.005 8.009l29.72 52L25.05 180c-1.436 2.486-1.429 5.551 .018 8.031 1.447 2.48 4.111 3.995 6.982 3.969h59.28l29.72 52c1.423 2.497 4.076 4.038 6.95 4.038 2.874 0 5.527-1.541 6.95-4.038l29.7-52h59.35c2.871 .026 5.536-1.489 6.982-3.969 1.447-2.48 1.453-5.545 .018-8.031ZM210.21 80 192 111.88 173.79 80ZM182.79 128l-27.42 48h-54.75L73.2 128 100.62 80h54.75ZM128 32.12 146.22 64h-36.45ZM45.78 80h36.41L64 111.88ZM45.78 175.92 64 144.12 82.19 176ZM128 223.88 109.77 192h36.45ZM173.79 176 192 144.12 210.21 176Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _starOfDavid!!
+    }
+
+private var _starOfDavid: ImageVector? = null

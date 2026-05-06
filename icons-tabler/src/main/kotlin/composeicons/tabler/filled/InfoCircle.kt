@@ -1,0 +1,35 @@
+package composeicons.tabler.filled
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.tabler.TablerIcons
+import composeicons.tabler.tablerFilledIcon
+
+val TablerIcons.Filled.InfoCircle: ImageVector
+    get() {
+        if (_infoCircle != null) return _infoCircle!!
+        _infoCircle = tablerFilledIcon(
+            name = "InfoCircle",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M12 2c5.523 0 10 4.477 10 10 .004 5.463-4.376 9.918-9.838 10.007C6.7 22.095 2.178 17.784 2.005 12.324L2 12l.004-.28C2.152 6.327 6.57 2 12 2ZM12 11h-1l-.117 .007c-.503 .06-.882 .486-.882 .993 0 .507 .379 .933 .882 .993L11 13v3l.007 .117c.054 .459 .417 .822 .876 .876L12 17h1l.117-.007c.459-.054 .822-.417 .876-.876L14 16l-.007-.117c-.049-.418-.354-.761-.764-.857l-.112-.02L13 15v-3l-.007-.117c-.054-.459-.417-.822-.876-.876L12 11ZM12.01 8l-.127 .007c-.503 .06-.882 .486-.882 .993 0 .507 .379 .933 .882 .993L12 10l.127-.007c.503-.06 .882-.486 .882-.993 0-.507-.379-.933-.882-.993L12.01 8Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _infoCircle!!
+    }
+
+private var _infoCircle: ImageVector? = null

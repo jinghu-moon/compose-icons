@@ -1,0 +1,35 @@
+package composeicons.phosphor.regular
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorRegularIcon
+
+val PhosphorIcons.Regular.PencilSimpleSlash: ImageVector
+    get() {
+        if (_pencilSimpleSlash != null) return _pencilSimpleSlash!!
+        _pencilSimpleSlash = phosphorRegularIcon(
+            name = "PencilSimpleSlash",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M53.92 34.62C52.008 32.465 49.085 31.504 46.267 32.105c-2.818 .601-5.095 2.67-5.961 5.418-.867 2.748-.189 5.749 1.774 7.858L90.28 98.38 36.68 152c-3.008 2.994-4.693 7.066-4.68 11.31v44.69c0 8.837 7.163 16 16 16h44.69c4.246 .014 8.32-1.676 11.31-4.69l50.4-50.39 47.69 52.46c1.912 2.155 4.835 3.116 7.653 2.515 2.818-.601 5.095-2.67 5.961-5.418 .867-2.748 .189-5.749-1.774-7.858ZM92.69 208h-44.69v-44.69l53.06-53 42.56 46.81ZM227.32 73.37 182.63 28.69c-3.001-3.001-7.071-4.688-11.315-4.688-4.244 0-8.314 1.686-11.315 4.688L118.33 70.36c-3.123 3.126-3.121 8.192 .005 11.315 3.126 3.123 8.192 3.121 11.315-.005L136 75.31 180.69 120l-9 9c-3.131 3.123-3.138 8.194-.015 11.325 3.123 3.131 8.194 3.138 11.325 .015L227.32 96c3.001-3.001 4.688-7.071 4.688-11.315 0-4.244-1.686-8.314-4.688-11.315ZM192 108.69 147.32 64l24-24L216 84.69Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _pencilSimpleSlash!!
+    }
+
+private var _pencilSimpleSlash: ImageVector? = null

@@ -1,0 +1,46 @@
+package composeicons.phosphor.duotone
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorDuotoneIcon
+
+val PhosphorIcons.Duotone.BellSimpleRinging: ImageVector
+    get() {
+        if (_bellSimpleRinging != null) return _bellSimpleRinging!!
+        _bellSimpleRinging = phosphorDuotoneIcon(
+            name = "BellSimpleRinging",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M208 192h-160c-2.85-.017-5.475-1.549-6.892-4.021-1.417-2.472-1.413-5.511 .012-7.979C47.71 168.6 56 147.81 56 112 56 72.235 88.235 40 128 40c39.764 0 72 32.235 72 72 0 35.82 8.3 56.6 14.9 68 1.427 2.471 1.429 5.514 .007 7.988-1.422 2.473-4.054 4.002-6.907 4.012Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 0.2f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+            addPath(
+                pathData = parseSvgPathData("M168 224c0 4.418-3.582 8-8 8h-64c-4.418 0-8-3.582-8-8 0-4.418 3.582-8 8-8h64c4.418 0 8 3.582 8 8ZM227.39 60.32C218.399 42.747 204.898 27.879 188.27 17.24c-2.417-1.544-5.476-1.676-8.018-.345-2.541 1.331-4.175 3.92-4.283 6.786-.108 2.866 1.327 5.571 3.761 7.089 14.266 9.075 25.824 21.825 33.46 36.91 2.098 3.791 6.834 5.223 10.681 3.229 3.847-1.994 5.407-6.689 3.519-10.589ZM35.71 72c2.988-.001 5.726-1.667 7.1-4.32C50.446 52.595 62.004 39.845 76.27 30.77c2.434-1.518 3.869-4.223 3.761-7.089-.108-2.866-1.742-5.456-4.283-6.786-2.541-1.331-5.6-1.199-8.018 .345C51.102 27.879 37.601 42.747 28.61 60.32c-1.285 2.479-1.183 5.449 .267 7.835 1.451 2.386 4.04 3.843 6.833 3.845ZM221.81 175.94c2.885 4.947 2.906 11.058 .055 16.025-2.851 4.967-8.138 8.031-13.865 8.035h-160c-5.723-.011-11.004-3.078-13.85-8.044-2.846-4.965-2.823-11.072 .06-16.016C43.22 160.39 48 138.28 48 112 48 67.817 83.817 32 128 32c44.183 0 80 35.817 80 80 0 26.27 4.78 48.38 13.81 63.94ZM208 184C197.36 165.73 192 141.51 192 112 192 76.654 163.346 48 128 48 92.654 48 64 76.654 64 112c0 29.52-5.38 53.74-16 72Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _bellSimpleRinging!!
+    }
+
+private var _bellSimpleRinging: ImageVector? = null

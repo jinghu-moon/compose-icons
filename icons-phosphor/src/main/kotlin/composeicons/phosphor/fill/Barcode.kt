@@ -1,0 +1,35 @@
+package composeicons.phosphor.fill
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorFillIcon
+
+val PhosphorIcons.Fill.Barcode: ImageVector
+    get() {
+        if (_barcode != null) return _barcode!!
+        _barcode = phosphorFillIcon(
+            name = "Barcode",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M224 40h-192c-4.418 0-8 3.582-8 8v160c0 4.418 3.582 8 8 8h192c4.418 0 8-3.582 8-8v-160c0-4.418-3.582-8-8-8ZM40 64c0-4.418 3.582-8 8-8h32c4.418 0 8 3.582 8 8 0 4.418-3.582 8-8 8h-24v24c0 4.418-3.582 8-8 8-4.418 0-8-3.582-8-8ZM80 200h-32c-4.418 0-8-3.582-8-8v-32c0-4.418 3.582-8 8-8 4.418 0 8 3.582 8 8v24h24c4.418 0 8 3.582 8 8 0 4.418-3.582 8-8 8ZM104 152c0 4.418-3.582 8-8 8-4.418 0-8-3.582-8-8v-48c0-4.418 3.582-8 8-8 4.418 0 8 3.582 8 8ZM136 152c0 4.418-3.582 8-8 8-4.418 0-8-3.582-8-8v-48c0-4.418 3.582-8 8-8 4.418 0 8 3.582 8 8ZM160 160c-4.418 0-8-3.582-8-8v-48c0-4.418 3.582-8 8-8 4.418 0 8 3.582 8 8v48c0 4.418-3.582 8-8 8ZM216 192c0 4.418-3.582 8-8 8h-32c-4.418 0-8-3.582-8-8 0-4.418 3.582-8 8-8h24v-24c0-4.418 3.582-8 8-8 4.418 0 8 3.582 8 8ZM216 96c0 4.418-3.582 8-8 8-4.418 0-8-3.582-8-8v-24h-24c-4.418 0-8-3.582-8-8 0-4.418 3.582-8 8-8h32c4.418 0 8 3.582 8 8Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _barcode!!
+    }
+
+private var _barcode: ImageVector? = null

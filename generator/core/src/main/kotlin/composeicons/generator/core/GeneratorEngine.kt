@@ -74,7 +74,7 @@ class GeneratorEngine(
             }
         }
 
-        // Phase 2: Build manifest and call Rust CLI once
+        // Phase 2: Build manifest and call Rust CLI (per-icon file mode)
         if (pending.isNotEmpty()) {
             val manifestEntries = pending.map { pe ->
                 ManifestEntry(
@@ -157,6 +157,7 @@ class GeneratorEngine(
         )
         GeneratorReportWriter.write(config.reportDir, report)
 
+        // Cleanup: delete .kt files that are no longer generated
         source.styles.forEach { style ->
             val styleDir = outputDir.resolve(style.subdirectory)
             if (styleDir.exists()) {

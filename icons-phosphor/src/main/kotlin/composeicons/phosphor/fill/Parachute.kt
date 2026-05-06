@@ -1,0 +1,35 @@
+package composeicons.phosphor.fill
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorFillIcon
+
+val PhosphorIcons.Fill.Parachute: ImageVector
+    get() {
+        if (_parachute != null) return _parachute!!
+        _parachute = phosphorFillIcon(
+            name = "Parachute",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M232 120C231.934 62.59 185.41 16.066 128 16h0C70.59 16.066 24.066 62.59 24 120c.006 2.516 1.195 4.883 3.21 6.39h0L120 196v20h-8c-4.418 0-8 3.582-8 8 0 4.418 3.582 8 8 8h32c4.418 0 8-3.582 8-8 0-4.418-3.582-8-8-8h-8v-20l92.8-69.6h0C230.814 124.889 232 122.518 232 120ZM215.64 112h-39.81C174.29 74.05 161.92 49.57 150.72 35c35.608 9.574 61.502 40.287 64.92 77ZM154.4 128 128 175.53 101.6 128ZM83.29 128l19.5 35.09L56 128ZM172.71 128h27.29l-46.79 35.09ZM105.28 35C94.08 49.57 81.71 74.05 80.17 112h-39.81C43.778 75.287 69.672 44.574 105.28 35Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _parachute!!
+    }
+
+private var _parachute: ImageVector? = null

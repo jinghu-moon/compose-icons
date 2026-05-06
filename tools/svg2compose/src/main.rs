@@ -113,13 +113,15 @@ fn batch_process(input_dir: &str, output_path: &str) -> Result<(), Box<dyn std::
 }
 
 fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&str>) -> Result<(), Box<dyn std::error::Error>> {
+    use svg2compose::codegen::generate_kotlin_file;
     use svg2compose::manifest::{IconResult, ManifestResult, ResultViewBox};
     use svg2compose::protocol::SvgDocument;
 
     let manifest = svg2compose::manifest::Manifest::load(manifest_path)?;
     let out_dir = std::path::Path::new(output_dir);
 
-    let results: Vec<(String, String, String, SvgDocument)> = manifest
+    // Phase 1: parallel SVG → SvgDocument + result data
+    let parsed: Vec<(&svg2compose::manifest::ManifestEntry, SvgDocument)> = manifest
         .icons
         .par_iter()
         .filter_map(|entry| {
@@ -127,31 +129,26 @@ fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&
             let cleaned = clean_svg(&raw);
             let tree = usvg::Tree::from_str(cleaned, &usvg::Options::default()).ok()?;
             let doc = svg2compose::converter::convert_tree(&tree);
-            let kt_code = svg2compose::codegen::generate_kotlin_file(
-                &doc,
-                entry,
-                &manifest.base_package,
-                &manifest.icon_container,
-            );
-            let rel_path = format!("{}/{}.kt", entry.subdirectory, entry.kotlin_name);
-            let result_key = format!("{}/{}", entry.subdirectory, entry.kotlin_name);
-            Some((rel_path, result_key, kt_code, doc))
+            Some((entry, doc))
         })
         .collect();
 
-    for (rel_path, _, code, _) in &results {
-        let file_path = out_dir.join(rel_path);
+    // Phase 2: generate one .kt file per icon (per-icon mode)
+    for (entry, doc) in &parsed {
+        let kt = generate_kotlin_file(doc, entry, &manifest.base_package, &manifest.icon_container);
+        let file_path = out_dir.join(&entry.subdirectory).join(format!("{}.kt", entry.kotlin_name));
         if let Some(parent) = file_path.parent() {
             std::fs::create_dir_all(parent).ok();
         }
-        std::fs::write(&file_path, code)?;
+        std::fs::write(&file_path, kt)?;
     }
 
     // Write result JSON if --result is specified
     if let Some(result_file) = result_path {
-        let manifest_result: ManifestResult = results
+        let manifest_result: ManifestResult = parsed
             .iter()
-            .map(|(_, key, _, doc)| {
+            .map(|(entry, doc)| {
+                let key = format!("{}/{}", entry.subdirectory, entry.kotlin_name);
                 let icon_result = IconResult {
                     view_box: ResultViewBox {
                         min_x: doc.view_box.x,
@@ -161,7 +158,7 @@ fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&
                     },
                     paths: collect_paths(&doc.nodes),
                 };
-                (key.clone(), icon_result)
+                (key, icon_result)
             })
             .collect();
         let json = serde_json::to_string(&manifest_result)?;

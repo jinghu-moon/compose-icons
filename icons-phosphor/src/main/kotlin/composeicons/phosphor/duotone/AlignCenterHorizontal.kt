@@ -1,0 +1,46 @@
+package composeicons.phosphor.duotone
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorDuotoneIcon
+
+val PhosphorIcons.Duotone.AlignCenterHorizontal: ImageVector
+    get() {
+        if (_alignCenterHorizontal != null) return _alignCenterHorizontal!!
+        _alignCenterHorizontal = phosphorDuotoneIcon(
+            name = "AlignCenterHorizontal",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M64 104v-40c0-4.418 3.582-8 8-8h112c4.418 0 8 3.582 8 8v40c0 4.418-3.582 8-8 8h-112c-4.418 0-8-3.582-8-8ZM208 144h-160c-4.418 0-8 3.582-8 8v40c0 4.418 3.582 8 8 8h160c4.418 0 8-3.582 8-8v-40c0-4.418-3.582-8-8-8Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 0.2f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+            addPath(
+                pathData = parseSvgPathData("M208 136h-72v-16h48c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16h-48v-16c0-4.418-3.582-8-8-8-4.418 0-8 3.582-8 8v16h-48C63.163 48 56 55.163 56 64v40c0 8.837 7.163 16 16 16h48v16h-72c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16h72v16c0 4.418 3.582 8 8 8 4.418 0 8-3.582 8-8v-16h72c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16ZM72 64h112v40h-112ZM208 192h-160v-40h160v40Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _alignCenterHorizontal!!
+    }
+
+private var _alignCenterHorizontal: ImageVector? = null

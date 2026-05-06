@@ -29,3 +29,9 @@ Thumbs.db
 .serena/
 .spec-workflow/
 
+# Claude Code local config
+.claude/
+
+# Web preview build output
+web-preview/dist/
+

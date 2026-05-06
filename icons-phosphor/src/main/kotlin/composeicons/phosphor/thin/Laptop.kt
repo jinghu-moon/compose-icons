@@ -1,0 +1,35 @@
+package composeicons.phosphor.thin
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorThinIcon
+
+val PhosphorIcons.Thin.Laptop: ImageVector
+    get() {
+        if (_laptop != null) return _laptop!!
+        _laptop = phosphorThinIcon(
+            name = "Laptop",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M232 172h-12v-100C220 60.954 211.046 52 200 52h-144C44.954 52 36 60.954 36 72v100h-12c-2.209 0-4 1.791-4 4v16c0 11.046 8.954 20 20 20h176c11.046 0 20-8.954 20-20v-16c0-2.209-1.791-4-4-4ZM44 72C44 65.373 49.373 60 56 60h144c6.627 0 12 5.373 12 12v100h-168ZM228 192c0 6.627-5.373 12-12 12h-176c-6.627 0-12-5.373-12-12v-12h200ZM148 88c0 2.209-1.791 4-4 4h-32c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4h32c2.209 0 4 1.791 4 4Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _laptop!!
+    }
+
+private var _laptop: ImageVector? = null

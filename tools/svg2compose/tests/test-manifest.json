@@ -1,0 +1,34 @@
+{
+    "base_package": "composeicons.test",
+    "icon_container": "TestIcons",
+    "icons": [
+        {
+            "svg": "tests/fixtures/single_path.svg",
+            "kotlin_name": "SinglePath",
+            "style_name": "Regular",
+            "subdirectory": "regular",
+            "helper": "testIcon"
+        },
+        {
+            "svg": "tests/fixtures/group_with_clip.svg",
+            "kotlin_name": "GroupWithClip",
+            "style_name": "Regular",
+            "subdirectory": "regular",
+            "helper": "testIcon"
+        },
+        {
+            "svg": "tests/fixtures/path_with_transform.svg",
+            "kotlin_name": "PathWithTransform",
+            "style_name": "Regular",
+            "subdirectory": "regular",
+            "helper": "testIcon"
+        },
+        {
+            "svg": "tests/fixtures/mask_panel.svg",
+            "kotlin_name": "MaskPanel",
+            "style_name": "Regular",
+            "subdirectory": "regular",
+            "helper": "testIcon"
+        }
+    ]
+}

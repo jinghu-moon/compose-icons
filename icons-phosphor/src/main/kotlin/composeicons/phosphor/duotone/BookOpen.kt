@@ -1,0 +1,46 @@
+package composeicons.phosphor.duotone
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorDuotoneIcon
+
+val PhosphorIcons.Duotone.BookOpen: ImageVector
+    get() {
+        if (_bookOpen != null) return _bookOpen!!
+        _bookOpen = phosphorDuotoneIcon(
+            name = "BookOpen",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M232 56v144h-72c-17.673 0-32 14.327-32 32 0-17.673-14.327-32-32-32h-72v-144h72c17.673 0 32 14.327 32 32 0-17.673 14.327-32 32-32Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 0.2f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+            addPath(
+                pathData = parseSvgPathData("M232 48h-72c-12.59 0-24.446 5.928-32 16C120.446 53.928 108.59 48 96 48h-72c-4.418 0-8 3.582-8 8v144c0 4.418 3.582 8 8 8h72c13.255 0 24 10.745 24 24 0 4.418 3.582 8 8 8 4.418 0 8-3.582 8-8 0-13.255 10.745-24 24-24h72c4.418 0 8-3.582 8-8v-144c0-4.418-3.582-8-8-8ZM96 192h-64v-128h64c13.255 0 24 10.745 24 24v112c-6.917-5.205-15.343-8.014-24-8ZM224 192h-64c-8.657-.014-17.083 2.795-24 8v-112c0-13.255 10.745-24 24-24h64Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _bookOpen!!
+    }
+
+private var _bookOpen: ImageVector? = null

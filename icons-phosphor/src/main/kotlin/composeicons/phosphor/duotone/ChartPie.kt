@@ -1,0 +1,46 @@
+package composeicons.phosphor.duotone
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.phosphor.PhosphorIcons
+import composeicons.phosphor.phosphorDuotoneIcon
+
+val PhosphorIcons.Duotone.ChartPie: ImageVector
+    get() {
+        if (_chartPie != null) return _chartPie!!
+        _chartPie = phosphorDuotoneIcon(
+            name = "ChartPie",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 256f, height = 256f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M128 32v96L44.86 176h0C27.711 146.297 27.711 109.702 44.86 79.999 62.01 50.297 93.702 31.999 128 32Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 0.2f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+            addPath(
+                pathData = parseSvgPathData("M128 24C70.562 24 24 70.562 24 128c0 57.438 46.562 104 104 104 57.438 0 104-46.562 104-104C231.939 70.588 185.412 24.061 128 24ZM199.87 77.27 136 114.14v-73.77c25.666 2.353 49.011 15.84 63.87 36.9ZM120 40.37v83L48.11 164.87C36.134 138.913 37.513 108.756 51.808 84 66.103 59.244 91.532 42.974 120 40.37ZM128 216C99.412 215.988 72.611 202.09 56.13 178.73L207.89 91.12c12.577 27.247 10.402 59.024-5.77 84.303C185.948 200.702 158.009 215.997 128 216Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _chartPie!!
+    }
+
+private var _chartPie: ImageVector? = null

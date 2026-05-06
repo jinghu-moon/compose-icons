@@ -1,0 +1,35 @@
+package composeicons.tabler.filled
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.tabler.TablerIcons
+import composeicons.tabler.tablerFilledIcon
+
+val TablerIcons.Filled.SquareLetterI: ImageVector
+    get() {
+        if (_squareLetterI != null) return _squareLetterI!!
+        _squareLetterI = tablerFilledIcon(
+            name = "SquareLetterI",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M19 2c1.657 0 3 1.343 3 3v14c0 1.657-1.343 3-3 3h-14C3.343 22 2 20.657 2 19v-14C2 3.343 3.343 2 5 2ZM12 7c-.552 0-1 .448-1 1v8c0 .552 .448 1 1 1 .552 0 1-.448 1-1v-8C13 7.448 12.552 7 12 7"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _squareLetterI!!
+    }
+
+private var _squareLetterI: ImageVector? = null

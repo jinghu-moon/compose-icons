@@ -1,0 +1,35 @@
+package composeicons.tabler.outline
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.tabler.TablerIcons
+import composeicons.tabler.tablerOutlineIcon
+
+val TablerIcons.Outline.BrandMcdonalds: ImageVector
+    get() {
+        if (_brandMcdonalds != null) return _brandMcdonalds!!
+        _brandMcdonalds = tablerOutlineIcon(
+            name = "BrandMcdonalds",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M20 20C20 16.048 19.034 4 15.962 4 12.89 4 12 13.087 12 18.756 12 13.087 11.104 4 8.038 4 4.973 4 4 16.048 4 20"),
+                pathFillType = PathFillType.NonZero,
+                fill = null,
+                fillAlpha = 1f,
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeAlpha = 1f,
+                strokeLineWidth = 2f,
+                strokeLineCap = StrokeCap.Round,
+                strokeLineJoin = StrokeJoin.Round,
+            )
+        }
+        return _brandMcdonalds!!
+    }
+
+private var _brandMcdonalds: ImageVector? = null

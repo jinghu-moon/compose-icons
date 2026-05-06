@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
     
     val config = GeneratorConfig(
         sourceRootDir = phosphorReferRoot,
-        outputDir = projectRoot.resolve("icons-phosphor/src/main/kotlin"),
+        outputDir = projectRoot.resolve("icons-phosphor/src/main/kotlin/composeicons/phosphor"),
         reportDir = projectRoot.resolve("web-preview/public/data"),
     )
     

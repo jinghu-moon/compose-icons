@@ -1,0 +1,35 @@
+package composeicons.radix.regular
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.radix.RadixIcons
+import composeicons.radix.radixIcon
+
+val RadixIcons.Regular.AlignRight: ImageVector
+    get() {
+        if (_alignRight != null) return _alignRight!!
+        _alignRight = radixIcon(
+            name = "AlignRight",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 15f, height = 15f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M15 13.5c0 .276-.224 .5-.5 .5-.276 0-.5-.224-.5-.5v-4.5h-11C2.448 9 2 8.552 2 8v-1c0-.552 .448-1 1-1h11v-4.5c0-.276 .224-.5 .5-.5 .276 0 .5 .224 .5 .5v12Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _alignRight!!
+    }
+
+private var _alignRight: ImageVector? = null

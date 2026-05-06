@@ -24,8 +24,10 @@ tasks.named<JavaExec>("run") {
 }
 
 tasks.register<JavaExec>("generateIcons") {
-    dependsOn(":tools:resolveUsvg")
+    dependsOn(":tools:resolveUsvg", "classes")
     group = "compose icons"
+    mainClass.set("composeicons.generator.phosphor.MainKt")
+    classpath = sourceSets["main"].runtimeClasspath
     workingDir = rootProject.projectDir
     args(rootProject.projectDir.absolutePath)
 }

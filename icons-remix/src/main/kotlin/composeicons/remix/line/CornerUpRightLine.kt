@@ -1,0 +1,35 @@
+package composeicons.remix.line
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.parseSvgPathData
+import composeicons.remix.RemixIcons
+import composeicons.remix.remixIcon
+
+val RemixIcons.Line.CornerUpRightLine: ImageVector
+    get() {
+        if (_cornerUpRightLine != null) return _cornerUpRightLine!!
+        _cornerUpRightLine = remixIcon(
+            name = "CornerUpRightLine",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
+        ) {
+            addPath(
+                pathData = parseSvgPathData("M5 10 5 19h2l0-7L17.172 12l-3.95 3.95 1.414 1.414L21 11 14.636 4.636 13.222 6.05 17.172 10 5 10Z"),
+                pathFillType = PathFillType.NonZero,
+                fill = SolidColor(Color(0xFF000000)),
+                fillAlpha = 1f,
+                stroke = null,
+                strokeAlpha = 1f,
+                strokeLineWidth = 0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+            )
+        }
+        return _cornerUpRightLine!!
+    }
+
+private var _cornerUpRightLine: ImageVector? = null

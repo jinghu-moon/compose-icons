@@ -1,20 +1,20 @@
 # compose-icons
 
 > **A high-performance, R8-friendly icon library for Jetpack Compose on Android.**
-> Powered by [usvg](https://github.com/linebender/resvg/tree/main/crates/usvg) for build-time SVG normalization. Zero runtime overhead, perfect tree-shaking. Currently shipping Tabler 3.41.1 + Lucide.
+> Powered by [svg2compose](https://github.com/linebender/resvg/tree/main/crates/usvg) (usvg-based Rust CLI) for build-time SVG normalization. Zero runtime overhead, perfect tree-shaking. Currently shipping Tabler 3.41.1 + Lucide + Phosphor + Radix + Remix.
 
 ---
 
 面向 **Android Jetpack Compose** 的高性能图标库。
 
-借助 [usvg](https://github.com/linebender/resvg/tree/main/crates/usvg)（Rust 实现的 SVG 标准化预处理器）在构建期把所有 SVG 拍平到极简 path 数据，生成的 `ImageVector` 代码**零冗余、零中间格式**。运行时不解析、不反射、不持有全局图标集合，配合 R8 实现完美裁剪：**用了多少打包多少**。
+借助 `svg2compose`（基于 [usvg](https://github.com/linebender/resvg/tree/main/crates/usvg) 的 Rust CLI）在构建期把所有 SVG 拍平到极简 path 数据，直接生成 `ImageVector` Kotlin 代码，**零冗余、零中间格式**。运行时不解析、不反射、不持有全局图标集合，配合 R8 实现完美裁剪：**用了多少打包多少**。
 
 ## ✨ 特性
 
 - ⚡ **零运行时开销** —— 纯 `ImageVector`，无反射、无解析、无注册表
 - 🎯 **R8 完美裁剪** —— 顶层 `val` getter，未引用图标在 release build 中**全部移除**
 - 🧱 **极简 API** —— `Icon(TablerIcons.Outline.Home, null)`，IDE 自动补全友好
-- 🛠️ **构建期纯净** —— usvg 拍平消化所有 SVG 复杂度（`<g>` / `<use>` / transform / CSS / 嵌套），Kotlin 端只面对绝对坐标 path
+- 🛠️ **构建期纯净** —— svg2compose（usvg 内核）拍平消化所有 SVG 复杂度（`<g>` / `<use>` / transform / CSS / 嵌套），Rust 端直接输出 `.kt` 文件
 - 📊 **基准透明** —— Sample 模块实测 0 / 10 / 100 / 全量 引用下的 APK 体积矩阵
 
 ## 📦 安装
@@ -78,10 +78,13 @@ fun MyScreen() {
 
 | 图标源 | 上游版本 | Style | 图标数量 | Artifact |
 |--------|---------|-------|---------|----------|
-| [Tabler Icons](https://tabler.io/icons) | 3.41.1 | Outline / Filled | 6092 | `icons-tabler` |
-| [Lucide Icons](https://lucide.dev/) | latest main | Outline | 1703 | `icons-lucide` |
+| [Tabler Icons](https://tabler.io/icons) | 3.41.1 | Outline / Filled | ~7145 | `icons-tabler` |
+| [Lucide Icons](https://lucide.dev/) | latest main | Outline | ~1703 | `icons-lucide` |
+| [Phosphor Icons](https://phosphoricons.com/) | latest | 6 weight | ~9000 | `icons-phosphor` |
+| [Radix Icons](https://www.radix-ui.com/icons) | latest | Outline | ~332 | `icons-radix` |
+| [Remix Icon](https://remixicon.com/) | latest | Line / Fill | ~2000+ | `icons-remix` |
 
-**v2 路线图**：[Phosphor](https://phosphoricons.com/)（6 weight）、[Heroicons v2](https://heroicons.com/)。详见 [架构白皮书 §5.2](./docs/architecture.md#52-v2-路线图按优先级排序)。
+**v2 路线图**：[Heroicons v2](https://heroicons.com/)、多色保真（L3）、独立 catalog 包。详见 [架构白皮书 §5.2](./docs/architecture.md#52-v2-路线图按优先级排序)。
 
 ## 🆚 与同类项目的差异
 
@@ -90,8 +93,8 @@ fun MyScreen() {
 | 平台 | KMP | Android + KMP | **仅 Android** |
 | Tabler | ✅ | ✅（按 style 拆 artifact） | ✅（单 artifact 含全 style） |
 | Lucide | ❌ | ✅ | ✅ |
-| 解析路径 | DOM/字符串 | androidx VD 中间格式 | **usvg 拍平** |
-| `<g>` / transform / `<use>` | 部分 | 部分 | **完整（usvg 处理）** |
+| 解析路径 | DOM/字符串 | androidx VD 中间格式 | **svg2compose (usvg 内核)** |
+| `<g>` / transform / `<use>` | 部分 | 部分 | **完整（svg2compose 处理）** |
 | 截图基线测试 | ❌ | ❌ | **Paparazzi 采样** |
 | 体积基准矩阵 | ❌ | ❌ | **Sample 实测** |
 | Web Preview | ❌ | ❌ | ✅（Vue 3） |
@@ -151,8 +154,8 @@ implementation("io.github.jinghu-moon.composeicons:icons-tabler-catalog:0.1.0") 
 如果你打算从源码构建（fork / 修改 / 提 PR）：
 
 ```bash
-# 自动下载 usvg binary（首次需要联网）
-./gradlew :tools:resolveUsvg
+# 自动下载 svg2compose binary（首次需要联网）
+./gradlew :tools:resolveSvg2Compose
 
 # 生成 Tabler 全部图标
 ./gradlew :generator:tabler:run
@@ -160,11 +163,20 @@ implementation("io.github.jinghu-moon.composeicons:icons-tabler-catalog:0.1.0") 
 # 生成 Lucide 全部图标
 ./gradlew :generator:lucide:run
 
+# 生成 Phosphor 全部图标
+./gradlew :generator:phosphor:run
+
+# 生成 Radix 全部图标
+./gradlew :generator:radix:run
+
+# 生成 Remix 全部图标
+./gradlew :generator:remix:run
+
 # 跑全量测试 + Paparazzi 截图基线验证
 ./gradlew check
 ```
 
-`usvg` binary 来源：[resvg releases](https://github.com/linebender/resvg/releases)，按 OS 自动选择对应 release。`tools/usvg(.exe)` 在 `.gitignore` 中，不会进入仓库。
+`svg2compose` 是基于 usvg 的 Rust CLI，源码位于 `tools/svg2compose/`，编译产物 `svg2compose(.exe)` 在 `.gitignore` 中，不会进入仓库。首次构建由 Gradle 任务自动触发编译。
 
 ## 📚 文档
 
@@ -185,7 +197,7 @@ implementation("io.github.jinghu-moon.composeicons:icons-tabler-catalog:0.1.0") 
 |--------|-------|
 | [Tabler Icons](https://github.com/tabler/tabler-icons) | MIT |
 | [Lucide Icons](https://github.com/lucide-icons/lucide) | ISC |
-| [usvg](https://github.com/linebender/resvg)（构建期工具） | Apache 2.0 / MIT |
+| [usvg](https://github.com/linebender/resvg)（svg2compose 内核） | Apache 2.0 / MIT |
 
 完整许可证文本见 [LICENSE-tabler](./LICENSE-tabler) / [LICENSE-lucide](./LICENSE-lucide)。
 
@@ -194,7 +206,7 @@ implementation("io.github.jinghu-moon.composeicons:icons-tabler-catalog:0.1.0") 
 PR 欢迎，重点关注方向：
 
 - **新图标源接入**（参考 [架构白皮书 §4.2 实现 checklist](./docs/architecture.md#42-实现-checklist)）
-- **构建期性能优化**（usvg worker pool / 增量构建）
+- **构建期性能优化**（svg2compose / 增量构建）
 - **截图基线扩充**（Paparazzi 代表图标采样）
 
 提交前请确认：

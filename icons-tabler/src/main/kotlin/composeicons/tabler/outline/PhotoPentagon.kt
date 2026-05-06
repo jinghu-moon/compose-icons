@@ -1,0 +1,27 @@
+package composeicons.tabler.outline
+
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.tabler.TablerIcons
+import composeicons.tabler.tablerOutlineIcon
+
+val TablerIcons.Outline.PhotoPentagon: ImageVector
+    get() {
+        if (_photoPentagon != null) return _photoPentagon!!
+        _photoPentagon = tablerOutlineIcon(
+            name = "PhotoPentagon",
+            size = IconSize(width = 24f.dp, height = 24f.dp),
+            viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
+        ) {
+            addPathData("M13.163 2.168l8.021 5.828c.694 .504 .984 1.397 .719 2.212l-3.064 9.43c-.265 .815-1.024 1.367-1.881 1.367h-9.916C6.185 21.005 5.426 20.453 5.161 19.638L2.097 10.208C1.832 9.393 2.122 8.5 2.816 7.996L10.837 2.168c.693-.504 1.633-.504 2.326 0")
+            addPathData("M15 8h.01")
+            addPathData("M4 15 8 11c.928-.893 2.072-.893 3 0l5 5")
+            addPathData("M14 14l1-1c.928-.893 2.072-.893 3 0l2 2")
+        }
+        return _photoPentagon!!
+    }
+
+private var _photoPentagon: ImageVector? = null

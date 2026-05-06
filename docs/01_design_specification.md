@@ -16,10 +16,10 @@
 ### 2.1 v1 目标
 
 - 提供面向 `Android` 的 `Jetpack Compose ImageVector` 图标库。
-- 首期交付 **Tabler Icons v3.41.1** 与 **Lucide Icons (latest main)**。
-- 架构支持后续接入同类型的静态 SVG icon pack（Phosphor、Heroicons 等）。
+- 首期交付 **Tabler Icons v3.41.1**、**Lucide Icons**、**Phosphor Icons**、**Radix Icons**、**Remix Icon**。
+- 架构支持后续接入同类型的静态 SVG icon pack（Heroicons 等）。
 - 每个图标源以独立 artifact 发布，使用方按需引入。
-- **生成过程引入 usvg 预处理**，运行时不解析 SVG。
+- **生成过程引入 svg2compose Rust CLI**（基于 usvg），运行时不解析 SVG。
 
 ### 2.2 v1 设计边界
 
@@ -30,7 +30,7 @@
 - 以 `path`、基础几何图形、简单变换为主
 - 不依赖复杂 CSS、动画、滤镜、遮罩正确渲染
 
-复杂特性（`<g transform>` / `<use>` / 嵌套 `<svg>` / CSS / 基础形状）由 **usvg 在构建期拍平**消化，generator-core 不感知。
+复杂特性（`<g transform>` / `<use>` / 嵌套 `<svg>` / CSS / 基础形状）由 **svg2compose（usvg 内核）在构建期处理**消化，generator-core 不感知。
 
 ### 2.3 v1 非目标
 
@@ -56,13 +56,13 @@
 
 | 指标 | 目标 |
 |------|------|
-| 首期图标源 | Tabler Icons `v3.41.1` + Lucide Icons (latest main) |
-| 首期 API 风格 | `TablerIcons.Outline.Home` / `LucideIcons.Outline.Home` |
+| 首期图标源 | Tabler Icons `v3.41.1` + Lucide Icons + Phosphor + Radix + Remix |
+| 首期 API 风格 | `TablerIcons.Outline.Home` / `LucideIcons.Outline.Home` / ... |
 | 平台 | Android |
 | 最低 API | 21 |
 | 编译目标 | compileSdk 36 |
 | 运行时格式 | `ImageVector` |
-| 发布模块 | `icons-core`、`icons-tabler`、`icons-lucide` |
+| 发布模块 | `icons-core`、`icons-tabler`、`icons-lucide`、`icons-phosphor`、`icons-radix`、`icons-remix` |
 | 不发布 | `icons-catalog`（v1） |
 | 发布渠道 | `Maven Central` 为主，`JitPack` 可选 |
 
@@ -147,10 +147,16 @@ LucideIcons.Outline.Home
 | `generator/core` | JVM lib | ❌ | 图标源无关的 pipeline 核心 |
 | `generator/tabler` | JVM app | ❌ | TablerIconSource 实现 + 入口 |
 | `generator/lucide` | JVM app | ❌ | LucideIconSource 实现 + 入口 |
-| `tools/usvg(.exe)` | binary | ❌（git ignore） | SVG 标准化预处理器 |
+| `generator/phosphor` | JVM app | ❌ | PhosphorIconSource 实现 + 入口 |
+| `generator/radix` | JVM app | ❌ | RadixIconSource 实现 + 入口 |
+| `generator/remix` | JVM app | ❌ | RemixIconSource 实现 + 入口 |
+| `tools/svg2compose(.exe)` | Rust binary | ❌（git ignore） | SVG→.kt 转换器（usvg 内核） |
 | `icons-core` | Android lib | ✅ | 公共构建辅助函数与共享类型 |
 | `icons-tabler` | Android lib | ✅ | Tabler 运行时模块（outline + filled） |
 | `icons-lucide` | Android lib | ✅ | Lucide 运行时模块（outline） |
+| `icons-phosphor` | Android lib | ✅ | Phosphor 运行时模块（6 weight） |
+| `icons-radix` | Android lib | ✅ | Radix 运行时模块（outline） |
+| `icons-remix` | Android lib | ✅ | Remix 运行时模块（line + fill） |
 | `sample` | Android app | ❌ | 最小集成 demo + R8 体积基准 |
 | `web-preview` | Vue 3 app | ❌ | 网页预览、搜索、对比与人工检查 |
 
@@ -287,6 +293,13 @@ inline fun iconBuilder(
     viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
     block: ImageVector.Builder.() -> Unit,
 ): ImageVector
+
+fun ImageVector.Builder.addPathData(
+    pathData: String,  // SVG path data 字符串，由 svg2compose 生成
+    pathFillType: PathFillType = PathFillType.NonZero,
+    fill: Brush? = null,
+    // ... 其他参数
+)
 ```
 
 要求：
@@ -294,6 +307,7 @@ inline fun iconBuilder(
 - 不写死 `24.dp`（默认值仅作为 fallback）
 - 宽高和 viewport 都来自生成结果
 - 图标文件只声明数据，不复制构建逻辑
+- `addPathData` 接受 SVG path 字符串，内部调用 `parseSvgPathData()`
 
 ### 9.2 图标入口对象
 
@@ -311,7 +325,8 @@ object LucideIcons {
 ### 9.3 生成文件示意
 
 ```kotlin
-// icons-tabler/.../outline/Home.kt
+// icons-tabler/src/main/kotlin/composeicons/tabler/outline/Home.kt
+// 由 svg2compose Rust CLI 直接生成
 
 val TablerIcons.Outline.Home: ImageVector
     get() {
@@ -321,7 +336,7 @@ val TablerIcons.Outline.Home: ImageVector
             size = IconSize(width = 24f.dp, height = 24f.dp),
             viewBox = ViewBox(minX = 0f, minY = 0f, width = 24f, height = 24f),
         ) {
-            // generated paths（来自 usvg 拍平输出）
+            addPathData(pathData = "M 3 9 l 9 -7 ...")
         }
         return _home!!
     }
@@ -365,16 +380,16 @@ Compose 官方 `Icon` 适用于单色图标并自动应用 tint。
 
 ### 10.1 集成方式
 
-按 [Q7 决策](./architecture.md#32-第二层svg-结构差异--usvg-预处理) 选择 **U7-A：外部 CLI + 进程调用**。
+使用 `svg2compose`（基于 usvg 的 Rust CLI），通过 manifest 模式批量处理。
 
 | 项目 | 说明 |
 |------|------|
-| 二进制位置 | `tools/usvg(.exe)` (git ignore) |
-| 下载机制 | Gradle 任务 `:tools:resolveUsvg` 检查二进制是否存在，不存在则从 [resvg releases](https://github.com/linebender/resvg/releases) 按 OS 自动下载 |
-| 调用命令 | `usvg - -c --indent none --coordinates-precision 6` |
-| 输入 | stdin 写入原始 SVG |
-| 输出 | stdout 读取拍平后 SVG（仅含绝对坐标 path） |
-| 批量优化 | 长生命周期 worker pool，stdin/stdout 流式处理 |
+| 二进制位置 | `tools/svg2compose(.exe)` (git ignore) |
+| 编译机制 | 源码 `tools/svg2compose/`，Gradle 任务自动触发 `cargo build --release` |
+| 调用命令 | `svg2compose --manifest <file> --output-dir <dir> --result <file>` |
+| 输入 | JSON manifest（SVG 路径 + 命名 + helper 函数名） |
+| 输出 | `.kt` 文件 + result JSON（viewBox + path 元数据） |
+| 批量优化 | manifest 模式一次性传入所有待处理图标，Rust 端内部并发 |
 
 ### 10.2 Pipeline
 
@@ -382,36 +397,31 @@ Compose 官方 `Icon` 适用于单色图标并自动应用 tint。
 [1] IconSource.discoverIcons()
     → 扁平化 List<SvgIconEntry>
 
-[2] usvg 拍平（worker pool）
-    → 每个 SVG 标准化为绝对坐标 path
+[2] 增量检查
+    → 基于 SVG 文件 MD5 hash，跳过未变更图标（读取旧 report）
 
-[3] NormalizedPathParser
-    → 解析 path 数据为 List<PathCommand>
+[3] SvgValidator 基础检测
+    → 检测 <filter>/<pattern>/<image>/<text>
 
-[4] 检测残留视觉特性
-    → 若残留 <filter>/<mask>/<clipPath>/<animate> 则该图标失败
-
-[5] 元数据合并
-    → 适配器解析上游 metadata（注释 / json / manifest）
-    → 与 path 数据组装成 ParsedSvgIcon
-
-[6] PathAttributes 合并
-    → final = raw (来自 usvg 输出) ?: default (来自 IconSource)
-
-[7] 坐标归一化
-    → 消除 viewBox.minX / minY 偏移
-
-[8] 命名转换
+[4] 命名转换
     → IconNameMapper.toKotlinName(fileName)
 
-[9] Kotlin 输出
-    → KotlinFileGenerator emit val Container.Style.Name: ImageVector
+[5] 构建 manifest JSON
+    → SVG 路径 + kotlin_name + style_name + subdirectory + helper
 
-[10] meta.json 输出
-     → MetaJsonExporter（供 web-preview 与 v2 catalog 包消费）
+[6] svg2compose manifest 模式
+    → Rust 端：usvg 解析 → 强类型树遍历 → 生成 .kt 文件
+    → transform bake、clipPath 提取、mask 跳过均在 Rust 端完成
+    → 输出 result JSON（viewBox + path 元数据）
 
-[11] 报告输出
-     → generation-report.txt
+[7] 读取 result JSON
+    → 用于 web-preview 和 v2 catalog 的 ExplorerEntry
+
+[8] 清理旧文件
+    → 删除不再生成的 .kt 文件
+
+[9] 报告输出
+    → generation-report.txt
 ```
 
 ### 10.3 失败处理
@@ -449,7 +459,7 @@ data class IconWarning(
 
 ### 10.4 Path 命令支持
 
-经过 usvg 拍平后，path 数据**只包含**：
+svg2compose 的 Rust 端直接遍历 usvg 的 `tiny_skia_path::Path`，输出 SVG path data 字符串，仅包含：
 
 - `M`（MoveTo，绝对坐标）
 - `L`（LineTo，绝对坐标）
@@ -457,7 +467,7 @@ data class IconWarning(
 - `C`（CurveTo，绝对坐标）
 - `Z`（ClosePath）
 
-`NormalizedPathParser` 只识别这五种。其他命令（H / V / S / T / A / 相对版本）出现 → 视为 usvg 输出异常，该图标判失败。
+所有坐标已经应用 `abs_transform`（bake 进祖先变换），Kotlin 端无需任何 transform 处理。
 
 ## 11. 构建、发布、版本与许可证
 
@@ -556,7 +566,7 @@ icons-lucide:0.1.0
 
 | 层级 | 内容 |
 |------|------|
-| 单元测试 | 命名转换、viewBox 解析、坐标归一化、fillRule 映射、PathAttributes 合并、NormalizedPathParser |
+| 单元测试 | 命名转换、viewBox 解析、坐标归一化、fillRule 映射、PathAttributes 合并 |
 | 集成测试 | usvg 调用 → 拍平 SVG → 解析 → emit Kotlin → 编译通过 |
 | 截图基线 | Paparazzi 100-300 个代表图标采样（V2 决策） |
 | 发布检查 | 产物可发布 / POM 正确 / 许可证声明完整 |
@@ -592,10 +602,10 @@ icons-lucide:0.1.0
 
 | 风险 | 缓解 |
 |------|------|
-| usvg 输出行为变化 | 锁定 binary 版本，升级时重跑完整截图基线 |
-| usvg binary 跨平台兼容性 | 在 CI 测试 Win / macOS / Linux 三个 OS 都能调用 |
-| 进程调用开销 | 用 worker pool + stdin/stdout 流式处理，目标全量 < 90s |
-| 残留 `<filter>` / `<mask>` / animation | 默认失败该图标，写入报告 |
+| svg2compose / usvg 输出行为变化 | 锁定 usvg 版本，升级时重跑完整截图基线 |
+| svg2compose 跨平台兼容性 | Rust 交叉编译，CI 测试 Win / macOS / Linux |
+| 进程调用开销 | manifest 模式批量处理，目标全量 < 90s |
+| 残留 `<filter>` / animation | Rust 端跳过，Kotlin 端基础检测 |
 | 非零原点 viewBox | 生成前做坐标归一化 |
 | 新图标源没有可靠 metadata | `SvgMetadata` 允许全空，至少支持名称搜索（v2 catalog） |
 | 发布渠道单点依赖 | `Maven Central` 为主，`JitPack` 为补充 |

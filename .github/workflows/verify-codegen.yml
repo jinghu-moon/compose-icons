@@ -1,0 +1,90 @@
+name: Verify Codegen
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'tools/svg2compose/**'
+      - 'generator/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'tools/svg2compose/**'
+      - 'generator/**'
+
+jobs:
+  verify-codegen:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Cache Rust dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          tools/svg2compose/target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('tools/svg2compose/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-
+
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    # Layer 1: Unit Tests
+    - name: Layer 1 - Rust Unit Tests
+      working-directory: tools/svg2compose
+      run: cargo test --lib
+
+    # Layer 2: Snapshot Tests
+    - name: Layer 2 - Snapshot Tests
+      working-directory: tools/svg2compose
+      run: cargo test --test snapshot_test
+
+    # Layer 3: Syntax Verification
+    - name: Build svg2compose
+      working-directory: tools/svg2compose
+      run: cargo build --release
+
+    - name: Generate test Kotlin files
+      run: |
+        mkdir -p test-icons
+        tools/svg2compose/target/release/svg2compose \
+          --manifest tools/svg2compose/tests/test-manifest.json \
+          --output-dir test-icons
+
+    - name: Layer 3 - Kotlin Syntax Verification
+      run: bash tools/svg2compose/tests/verify_kotlin_syntax.sh test-icons
+
+    # Layer 4: Rendering Verification (optional, requires Android SDK)
+    # - name: Layer 4 - Rendering Verification
+    #   run: ./gradlew :sample:verifyRoborazziDebug
+
+    - name: Upload generated files
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: generated-kotlin-files
+        path: test-icons/
+        retention-days: 7

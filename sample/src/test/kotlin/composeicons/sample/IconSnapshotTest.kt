@@ -33,7 +33,7 @@ import org.robolectric.annotation.Config
  *   ./gradlew :sample:verifyRoborazziDebug
  */
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [33], qualifiers = "w360dp-h640dp-xhdpi")
+@Config(sdk = [34], qualifiers = "w360dp-h640dp-xhdpi")
 class IconSnapshotTest {
 
     @get:Rule

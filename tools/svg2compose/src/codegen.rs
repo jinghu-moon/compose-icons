@@ -83,7 +83,9 @@ pub fn generate_kotlin_file(doc: &SvgDocument, entry: &ManifestEntry, base_packa
     out.push_str("import androidx.compose.ui.unit.dp\n");
     out.push_str("import composeicons.core.IconSize\n");
     out.push_str("import composeicons.core.ViewBox\n");
-    if !use_template {
+    if use_template {
+        out.push_str("import composeicons.core.addPathData\n");
+    } else {
         out.push_str("import composeicons.core.parseSvgPathData\n");
     }
     out.push_str(&format!("import {}.{}\n", base_package, icon_container));

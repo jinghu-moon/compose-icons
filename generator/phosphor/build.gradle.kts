@@ -18,7 +18,7 @@ dependencies {
 }
 
 tasks.named<JavaExec>("run") {
-    dependsOn(":tools:resolveUsvg")
+    dependsOn(":tools:resolveSvg2Compose")
     workingDir = rootProject.projectDir
     args(rootProject.projectDir.absolutePath)
 }

@@ -4,9 +4,15 @@ import java.io.File
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicInteger
 
+internal fun defaultSvg2ComposePath(projectRoot: File): File {
+    val isWindows = System.getProperty("os.name").lowercase().contains("win")
+    val ext = if (isWindows) ".exe" else ""
+    return projectRoot.resolve("tools/svg2compose$ext")
+}
+
 class GeneratorEngine(
     private val projectRoot: File,
-    private val pipeline: UsvgPipeline = UsvgPipeline(projectRoot.resolve("tools/svg2compose.exe")),
+    private val pipeline: UsvgPipeline = UsvgPipeline(defaultSvg2ComposePath(projectRoot)),
 ) {
     fun generate(config: GeneratorConfig, source: IconSource): GeneratorReport {
         val discovered = source.discoverIcons(config.sourceRootDir)

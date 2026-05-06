@@ -10,11 +10,11 @@ application {
 
 dependencies {
     implementation(project(":generator:core"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+    implementation(libs.kotlinx.serialization.json)
 }
 
 tasks.named<JavaExec>("run") {
-    dependsOn(":tools:resolveUsvg")
+    dependsOn(":tools:resolveSvg2Compose")
     workingDir = rootProject.projectDir
     args(rootProject.projectDir.absolutePath)
 }

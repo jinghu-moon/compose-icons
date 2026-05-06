@@ -15,6 +15,10 @@ android {
         minSdk = 21
         consumerProguardFiles("consumer-rules.pro")
     }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
@@ -44,7 +48,7 @@ mavenPublishing {
 
     pom {
         name.set("icons-lucide")
-        description.set("Lucide Icons (Outline) for Jetpack Compose - generated via usvg pipeline")
+        description.set("Lucide Icons (Outline) for Jetpack Compose - generated via svg2compose pipeline")
         url.set("https://github.com/jinghu-moon/compose-icons")
         licenses {
             license {

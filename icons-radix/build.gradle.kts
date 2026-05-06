@@ -48,7 +48,7 @@ mavenPublishing {
 
     pom {
         name.set("icons-radix")
-        description.set("Radix Icons for Jetpack Compose - generated via usvg pipeline")
+        description.set("Radix Icons for Jetpack Compose - generated via svg2compose pipeline")
         url.set("https://github.com/jinghu-moon/compose-icons")
         licenses {
             license {

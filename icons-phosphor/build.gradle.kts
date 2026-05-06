@@ -48,7 +48,7 @@ mavenPublishing {
 
     pom {
         name.set("icons-phosphor")
-        description.set("Phosphor Icons (6 styles) for Jetpack Compose - generated via usvg pipeline")
+        description.set("Phosphor Icons (6 styles) for Jetpack Compose - generated via svg2compose pipeline")
         url.set("https://github.com/jinghu-moon/compose-icons")
         licenses {
             license {

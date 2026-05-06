@@ -61,14 +61,3 @@ data class SvgMetadata(
     }
 }
 
-data class SvgPathNode(
-    val commands: List<SvgPathCommand>,
-    val style: PathStyle,
-)
-
-data class ParsedSvgIcon(
-    val entry: SvgIconEntry,
-    val viewBox: ViewBox,
-    val metadata: SvgMetadata,
-    val paths: List<SvgPathNode>,
-)

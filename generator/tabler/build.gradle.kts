@@ -18,13 +18,13 @@ dependencies {
 }
 
 tasks.named<JavaExec>("run") {
-    dependsOn(":tools:resolveUsvg")
+    dependsOn(":tools:resolveSvg2Compose")
     workingDir = rootProject.projectDir
     args(rootProject.projectDir.absolutePath)
 }
 
 tasks.register<JavaExec>("generateIcons") {
-    dependsOn(":tools:resolveUsvg")
+    dependsOn(":tools:resolveSvg2Compose")
     group = "compose icons"
     description = "Generate Compose icons from local Tabler SVG sources."
     classpath = sourceSets.main.get().runtimeClasspath

@@ -1,7 +1,15 @@
 use std::process::Command;
 
+fn svg2compose_binary() -> &'static str {
+    if cfg!(target_os = "windows") {
+        "target/release/svg2compose.exe"
+    } else {
+        "target/release/svg2compose"
+    }
+}
+
 fn run_cli(input_file: &str) -> (i32, String) {
-    let output = Command::new("target/release/svg2compose.exe")
+    let output = Command::new(svg2compose_binary())
         .args(["--input", input_file])
         .output()
         .expect("Failed to execute CLI");

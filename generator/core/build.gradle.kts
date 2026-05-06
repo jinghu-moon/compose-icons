@@ -14,5 +14,5 @@ dependencies {
 }
 
 tasks.test {
-    dependsOn(":tools:resolveUsvg")
+    dependsOn(":tools:resolveSvg2Compose")
 }

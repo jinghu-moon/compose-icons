@@ -6,7 +6,11 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-SVG2COMPOSE="$SCRIPT_DIR/../target/release/svg2compose.exe"
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
+    SVG2COMPOSE="$SCRIPT_DIR/../target/release/svg2compose.exe"
+else
+    SVG2COMPOSE="$SCRIPT_DIR/../target/release/svg2compose"
+fi
 MANIFEST="$SCRIPT_DIR/test-manifest.json"
 OUTPUT_DIR="$PROJECT_ROOT/test-icons"
 

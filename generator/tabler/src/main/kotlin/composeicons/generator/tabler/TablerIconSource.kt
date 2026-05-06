@@ -5,7 +5,6 @@ import composeicons.generator.core.IconStyle
 import composeicons.generator.core.PathStyle
 import composeicons.generator.core.SvgIconEntry
 import composeicons.generator.core.IconNameMapper
-import composeicons.generator.core.ParsedSvgIcon
 import composeicons.generator.core.SvgMetadata
 import java.io.File
 

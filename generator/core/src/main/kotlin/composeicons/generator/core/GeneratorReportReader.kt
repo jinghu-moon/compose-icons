@@ -5,7 +5,7 @@ import java.io.File
 
 object GeneratorReportReader {
     private val json = Json {
-        prettyPrint = true
+        prettyPrint = false
         encodeDefaults = true
         ignoreUnknownKeys = true
     }

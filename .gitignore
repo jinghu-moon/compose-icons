@@ -35,3 +35,16 @@ Thumbs.db
 # Web preview build output
 web-preview/dist/
 
+# Generated icon .kt files (build-time via svg2compose, not stored in git)
+# Ignore style subdirectories (outline/, filled/, bold/, etc.)
+**/outline/
+**/filled/
+**/bold/
+**/thin/
+**/light/
+**/regular/
+**/duotone/
+**/line/
+# Keep hand-written container/helper files (TablerIcons.kt, PhosphorIcons.kt, etc.)
+!icons-*/src/main/kotlin/composeicons/*/*.kt
+

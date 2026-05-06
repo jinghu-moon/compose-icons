@@ -22,10 +22,10 @@ tasks.register<Exec>("buildSvg2Compose") {
 }
 
 tasks.register<Copy>("installSvg2Compose") {
-    description = "Copy svg2compose binary to tools/ directory"
+    description = "Copy svg2compose binary to tools/bin/ directory"
     dependsOn("buildSvg2Compose")
     from("svg2compose/target/release/$binaryName")
-    into(projectDir)
+    into(file("bin"))
 }
 
 tasks.register("resolveSvg2Compose") {

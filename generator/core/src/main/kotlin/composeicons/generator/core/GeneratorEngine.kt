@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger
 internal fun defaultSvg2ComposePath(projectRoot: File): File {
     val isWindows = System.getProperty("os.name").lowercase().contains("win")
     val ext = if (isWindows) ".exe" else ""
-    return projectRoot.resolve("tools/svg2compose$ext")
+    return projectRoot.resolve("tools/bin/svg2compose$ext")
 }
 
 class GeneratorEngine(

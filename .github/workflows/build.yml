@@ -40,7 +40,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: refer
-        key: svg-sources-v1
+        key: svg-sources-v2
 
     - name: Download upstream SVG sources
       if: steps.svg-cache.outputs.cache-hit != 'true'

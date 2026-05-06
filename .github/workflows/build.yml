@@ -54,7 +54,7 @@ jobs:
         echo "Tabler: $(ls tabler-icons-main/icons/outline/*.svg 2>/dev/null | wc -l) outline SVGs"
 
         # Lucide Icons (archive: lucide-main/)
-        curl -fsSL https://github.com/lucide/lucide/archive/refs/heads/main.tar.gz | tar xz
+        curl -fsSL https://github.com/lucide-icons/lucide/archive/refs/heads/main.tar.gz | tar xz
         echo "Lucide: $(ls lucide-main/icons/*.svg 2>/dev/null | wc -l) SVGs"
 
         # Phosphor Icons v2.1.0 (archive: phosphor-icons-2.1.0/ → rename)

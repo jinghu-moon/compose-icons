@@ -32,38 +32,30 @@ class PhosphorIconSource(
     }
 
     override fun discoverIcons(svgDir: File): List<SvgIconEntry> {
-        val iconsDir = referRoot.resolve("public/assets/phosphor.iconjar/icons")
-        if (!iconsDir.exists()) {
-            error("Phosphor icons directory not found at ${iconsDir.absolutePath}")
+        val assetsDir = referRoot.resolve("assets")
+        if (!assetsDir.exists()) {
+            error("Phosphor assets directory not found at ${assetsDir.absolutePath}")
         }
 
-        val allSvgFiles = iconsDir.listFiles { file -> 
-            file.isFile && file.extension.equals("svg", ignoreCase = true) 
-        } ?: return emptyList()
+        // New core repo organizes SVGs by weight: assets/regular/, assets/bold/, etc.
+        return styles.flatMap { style ->
+            val styleDir = assetsDir.resolve(style.subdirectory.lowercase())
+            if (!styleDir.exists()) return@flatMap emptyList()
 
-        return allSvgFiles.mapNotNull { file ->
-            val fileName = file.name
-            val style = when {
-                fileName.endsWith("-thin.svg") -> styles.find { it.name == "Thin" }
-                fileName.endsWith("-light.svg") -> styles.find { it.name == "Light" }
-                fileName.endsWith("-bold.svg") -> styles.find { it.name == "Bold" }
-                fileName.endsWith("-fill.svg") -> styles.find { it.name == "Fill" }
-                fileName.endsWith("-duotone.svg") -> styles.find { it.name == "Duotone" }
-                else -> styles.find { it.name == "Regular" }
-            } ?: return@mapNotNull null
-
-            // 统一文件名，去掉后缀
-            val cleanName = when (style.name) {
-                "Regular" -> fileName
-                else -> fileName.replace("-${style.name.lowercase()}.svg", ".svg")
-            }
-
-            SvgIconEntry(
-                fileName = cleanName,
-                style = style,
-                file = file,
-                metadata = SvgMetadata.EMPTY
-            )
+            styleDir.listFiles { file -> file.isFile && file.extension.equals("svg", ignoreCase = true) }
+                ?.map { file ->
+                    val cleanName = when (style.name) {
+                        "Regular" -> file.name
+                        else -> file.name.replace("-${style.name.lowercase()}.svg", ".svg")
+                    }
+                    SvgIconEntry(
+                        fileName = cleanName,
+                        style = style,
+                        file = file,
+                        metadata = SvgMetadata.EMPTY
+                    )
+                }
+                .orEmpty()
         }.sortedBy { it.fileName + it.style.name }
     }
 

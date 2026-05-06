@@ -57,8 +57,8 @@ jobs:
         git clone --depth=1 https://github.com/lucide-icons/lucide.git lucide-main
         echo "Lucide: $(ls lucide-main/icons/*.svg | wc -l) SVGs"
 
-        # Phosphor Icons v2.1.0 (homepage = 原 phosphor-icons 仓库重命名)
-        git clone --depth=1 --branch v2.1.0 https://github.com/phosphor-icons/homepage.git phosphor-icons-master
+        # Phosphor Icons (homepage = 原 phosphor-icons 仓库重命名)
+        git clone --depth=1 https://github.com/phosphor-icons/homepage.git phosphor-icons-master
         echo "Phosphor: $(ls phosphor-icons-master/public/assets/phosphor.iconjar/icons/*.svg | wc -l) SVGs"
 
         # Radix Icons

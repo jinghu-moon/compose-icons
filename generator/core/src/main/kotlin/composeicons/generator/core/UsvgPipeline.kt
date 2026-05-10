@@ -71,14 +71,20 @@ class UsvgPipeline(
                 "--output-dir", outputDir.absolutePath,
                 "--result", resultFile.absolutePath,
             )
-                .redirectErrorStream(true)
                 .start()
 
-            val stderr = process.inputStream.bufferedReader().use { it.readText() }
+            val stdout = process.inputStream.bufferedReader().use { it.readText() }
+            val stderr = process.errorStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
 
             if (exitCode != 0) {
-                throw RuntimeException("svg2compose manifest failed with exit code $exitCode: $stderr")
+                throw RuntimeException("svg2compose manifest failed with exit code $exitCode: $stderr\n$stdout")
+            }
+
+            // Surface diagnostic stderr (e.g. T3 canonical-pool stats) so it
+            // does not get silently swallowed when the process succeeds.
+            if (stderr.isNotBlank()) {
+                System.err.print(stderr)
             }
 
             return if (resultFile.exists()) {
@@ -116,6 +122,7 @@ data class ManifestEntry(
     val style_name: String,
     val subdirectory: String,
     val helper: String,
+    val md5: String? = null,
 )
 
 @Serializable

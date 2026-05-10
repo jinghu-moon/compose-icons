@@ -11,6 +11,7 @@ data class GeneratorReport(
     val failed: List<FailedIcon>,
     val warnings: List<IconWarning>,
     val explorerEntries: List<ExplorerEntry> = emptyList(),
+    val iconNames: List<String> = emptyList(),
 )
 
 @Serializable

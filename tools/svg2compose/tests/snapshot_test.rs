@@ -16,6 +16,7 @@ fn make_entry(kotlin_name: &str) -> ManifestEntry {
         style_name: "Regular".to_string(),
         subdirectory: "regular".to_string(),
         helper: "testIcon".to_string(),
+        md5: None,
     }
 }
 
@@ -26,7 +27,7 @@ fn generate_and_compare(fixture_name: &str, kotlin_name: &str, snapshot_name: &s
     let doc = convert_tree(&tree);
 
     let entry = make_entry(kotlin_name);
-    let actual = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+    let actual = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
 
     let snapshot_path = format!("tests/snapshots/{}", snapshot_name);
     let expected = fs::read_to_string(&snapshot_path)
@@ -76,7 +77,7 @@ fn test_path_with_transform_snapshot() {
     let doc = convert_tree(&tree);
 
     let entry = make_entry("PathWithTransform");
-    let actual = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+    let actual = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
 
     // Verify the generated code contains baked coordinates
     // rotate(-180 7.5 7.5) applied to M 1 1 -> M 14 14
@@ -97,7 +98,7 @@ fn test_mask_panel_snapshot() {
     assert_eq!(doc.nodes.len(), 1, "Mask group should be skipped");
 
     let entry = make_entry("MaskPanel");
-    let actual = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+    let actual = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
 
     // Should not contain the expanded path coordinates
     assert!(!actual.contains("-5.000"), "Masked expanded path should be filtered out");

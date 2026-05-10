@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.roborazzi)
+    alias(libs.plugins.ksp)
+    id("io.github.jinghu-moon.composeicons.scanner")
 }
 
 android {
@@ -65,7 +67,7 @@ dependencies {
     testImplementation(libs.roborazzi.compose)
     testImplementation(libs.roborazzi.junit)
     testImplementation(libs.compose.ui.test.junit4)
-    testImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(libs.compose.ui.test.manifest)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.test.runner)
     testImplementation(libs.androidx.test.ext.junit)
@@ -78,24 +80,66 @@ tasks.register("reportApkSize") {
     dependsOn(flavorVariants.map { "assemble${it.replaceFirstChar { c -> c.uppercase() }}Release" })
 
     doLast {
-        val outputsDir = layout.buildDirectory.get().asFile.resolve("outputs/apk")
-        if (!outputsDir.exists()) {
-            println("APK output dir not found: ${outputsDir.absolutePath}")
-            return@doLast
-        }
-
+        val buildDir = layout.buildDirectory.get().asFile
         println("=== APK Size Report ===")
+        val rows = mutableListOf("variant,bytes,kb")
         flavorVariants.forEach { variant ->
-            val apkDir = outputsDir.resolve("${variant}/release")
-            val apk = apkDir.listFiles()?.firstOrNull { it.name.endsWith(".apk") }
+            val dir = buildDir.resolve("outputs/apk/${variant}/release")
+            val apk = dir.listFiles()?.firstOrNull { it.name.endsWith(".apk") }
             if (apk != null && apk.exists()) {
-                val sizeKb = apk.length() / 1024
+                val bytes = apk.length()
+                val sizeKb = bytes / 1024
                 val sizeMb = sizeKb / 1024.0
                 println(String.format("%-8s = %d KB (%.2f MB)", variant, sizeKb, sizeMb))
+                rows.add("$variant,$bytes,$sizeKb")
             } else {
-                println(String.format("%-8s = NOT FOUND in %s", variant, apkDir.absolutePath))
+                println(String.format("%-8s = NOT FOUND in %s", variant, dir.absolutePath))
+                rows.add("$variant,0,0")
             }
         }
         println("=======================")
+        val csv = layout.buildDirectory.file("reports/icons/apk-size.csv").get().asFile
+        csv.parentFile.mkdirs()
+        csv.writeText(rows.joinToString("\n") + "\n")
+        println("CSV: ${csv.absolutePath}")
+    }
+}
+
+// T1-09: dump per-variant R8 keep allowlists to a stable, git-trackable
+// location so a baseline diff catches accidental drift in references.
+//
+// Output goes to `sample/baseline/icon-keep-rules/` (NOT under build/) so
+// the baseline can be committed and `git diff` after rerunning the task
+// surfaces any change in references.
+tasks.register("dumpIconKeepRules") {
+    group = "compose-icons"
+    description = "Copy per-variant icon-allowlist.pro files to baseline/icon-keep-rules/ for git-tracked baselines"
+
+    val variantBases = flavorVariants.map { "${it}Release" }
+    dependsOn(variantBases.map { v ->
+        "generateIconKeepRules${v.replaceFirstChar { c -> c.uppercase() }}"
+    })
+
+    doLast {
+        val buildDir = layout.buildDirectory.get().asFile
+        val dst = layout.projectDirectory.dir("baseline/icon-keep-rules").asFile
+        dst.mkdirs()
+        variantBases.forEach { variant ->
+            val srcFile = buildDir.resolve("generated/composeicons/proguard/$variant/icon-allowlist.pro")
+            val dstFile = dst.resolve("$variant-keep.pro")
+            if (srcFile.exists()) {
+                // Strip absolute paths from `# Source:` comment so baselines
+                // are stable across machines (Windows/Linux, CI vs local, …).
+                val sanitized = srcFile.readLines().joinToString("\n") { line ->
+                    if (line.startsWith("# Source: ")) "# Source: <ksp manifest for $variant>"
+                    else line
+                }
+                dstFile.writeText(sanitized + "\n")
+                println("dumped: $variant → ${dstFile.absolutePath}")
+            } else {
+                dstFile.writeText("# Source missing for $variant\n")
+                println("missing source for $variant")
+            }
+        }
     }
 }

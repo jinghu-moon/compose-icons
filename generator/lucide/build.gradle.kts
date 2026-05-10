@@ -24,7 +24,7 @@ tasks.named<JavaExec>("run") {
 }
 
 tasks.register<JavaExec>("generateIcons") {
-    dependsOn(":tools:resolveUsvg", "classes")
+    dependsOn(":tools:resolveSvg2Compose", "classes")
     group = "compose icons"
     mainClass.set("composeicons.generator.lucide.MainKt")
     classpath = sourceSets["main"].runtimeClasspath

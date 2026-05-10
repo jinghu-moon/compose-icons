@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("scanner/gradle-plugin")
     repositories {
         google()
         mavenCentral()
@@ -31,3 +32,5 @@ include(":icons-remix")
 include(":generator:radix")
 include(":icons-radix")
 include(":generator:cli")
+include(":scanner:ksp")
+// scanner:gradle-plugin is included via pluginManagement { includeBuild() }

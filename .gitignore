@@ -48,3 +48,10 @@ web-preview/dist/
 # Keep hand-written container/helper files (TablerIcons.kt, PhosphorIcons.kt, etc.)
 !icons-*/src/main/kotlin/composeicons/*/*.kt
 
+_t3_diagnostic.txt
+
+# Backup files
+*.bak*
+
+# svg2compose cache
+.svg2compose-cache.json

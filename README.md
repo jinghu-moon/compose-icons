@@ -61,18 +61,84 @@ fun MyScreen() {
 
 ## 📊 APK 体积模型
 
-| 引用图标数 | 增量 Dex 大小 (相对于 0) | 区间内单图标平均边际 |
-|----------|---------------------------|----------------|
-| 0（baseline） | 0 KB (基准 856 KB) | - |
-| 10 | +112 KB (含类库基础结构初始化) | ~11 KB（首次引入摊销）|
-| 100 | +144 KB | ~360 字节（10 → 100 区间）|
-| 全量 (~7795 个) | +2.31 MB | ~285 字节（100 → 全量区间）|
+实测数据（2026-05-08，sample 模块 hundred flavor × release，AGP 9.1.0 / R8 默认）：
+
+### 4 flavor 总览（Plugin 默认配置）
+
+| 引用图标数 | APK 体积 | 与 zero 增量 |
+|---|---|---|
+| 0（zero） | 856 KB | 0 KB |
+| 10（ten，跨 3 source × 5 icon） | 969 KB | +113 KB（含 Compose runtime + Tabler/Lucide/Phosphor 基础结构）|
+| 100（hundred，Tabler+Lucide outline） | 970 KB | +114 KB（10→100 单图标边际 ≈ 11 字节）|
+| 全量 keep（all，proguard-rules-all.pro 强制 keep）| 2,088 KB | +1,232 KB |
+
+### Keep 规则三档策略（hundred variant 实测）
+
+T1-04 提供三档 keep 规则形态，权衡 R8 安全性 vs dex 体积：
+
+| 策略 | hundred APK | hundred dex | dex Δ vs NONE | 适用场景 |
+|---|---|---|---|---|
+| **NONE**（默认） | 993,426 B | 1,584,712 B | **0 B（基准）** | R8 默认可达性已最优；项目未写防御性 `-keep` 通配 |
+| **MEMBERS** | 1,009,810 B | 1,604,428 B | +19,716 B（+19 KB） | 需要保留 getter 签名抗反射；R8 仍能裁剪 lambda/`$stable`/metadata |
+| **AGGRESSIVE** | 1,009,810 B | 1,611,468 B | +26,756 B（+27 KB） | 替代 `-keep class composeicons.tabler.** { *; }` 通配；从全包 keep 降级到精确 keep |
+
+> **关键洞察**：在 R8 自由裁剪场景（`proguard-rules.pro` 不写通配 keep）下，**NONE 总是最优**——R8 的默认静态可达性分析比任何强制 keep 都精确。
+>
+> AGGRESSIVE 在迁移路径上有价值：消费方原本写了 `-keep class composeicons.tabler.** { *; }`（Tabler 全部 ~7000 个图标都 keep），引入 AGGRESSIVE 后**删除手动通配**，让精确 100 条 allowlist 取代 → 从"7000 个图标 keep"降到"100 个 keep" → 节省巨大。
+
+### 配置（`composeIconsScanner` DSL）
+
+```kotlin
+// app/build.gradle.kts
+composeIconsScanner {
+    keepRuleStrategy = KeepRuleStrategy.NONE        // 默认：零干预 R8
+    // KeepRuleStrategy.MEMBERS                      // 仅 keep getter 成员
+    // KeepRuleStrategy.AGGRESSIVE                   // -keep class …Kt { *; }
+}
+```
+
+或命令行 A/B 对照：
+```bash
+./gradlew :sample:assembleHundredRelease -Pcomposeicons.scanner.strategy=NONE
+./gradlew :sample:assembleHundredRelease -Pcomposeicons.scanner.strategy=MEMBERS
+./gradlew :sample:assembleHundredRelease -Pcomposeicons.scanner.strategy=AGGRESSIVE
+./gradlew :sample:assembleHundredRelease -Pcomposeicons.scanner.injectKeepRules=false  # 完全关闭注入
+```
+
+### 决策树
+
+```
+你的 proguard-rules.pro 是否写了 `-keep class composeicons.*.** { *; }` 通配？
+├─ 否：用 NONE（默认）→ R8 默认可达性最优 → dex 最小
+└─ 是：
+   ├─ 想替换通配为精确 keep？
+   │  → 用 AGGRESSIVE，并删除手动 -keep class composeicons.*.**
+   │  → 节省取决于通配 keep 的图标总数 - 实际引用数（可能数 MB）
+   └─ 仅作诊断 / 反射安全保险？
+      → 用 MEMBERS：保留 getter 签名，让 R8 自由裁掉其他成员
+```
+
+### 复现实测命令
+
+```bash
+# 4 flavor 体积矩阵
+./gradlew :sample:assembleZeroRelease :sample:assembleTenRelease :sample:assembleHundredRelease :sample:assembleAllRelease
+
+# 三档对照（hundred variant）
+./gradlew :sample:assembleHundredRelease -Pcomposeicons.scanner.strategy=NONE       --rerun-tasks
+./gradlew :sample:assembleHundredRelease -Pcomposeicons.scanner.strategy=MEMBERS    --rerun-tasks
+./gradlew :sample:assembleHundredRelease -Pcomposeicons.scanner.strategy=AGGRESSIVE --rerun-tasks
+
+# 锁定 keep allowlist 基线（git 跟踪）
+./gradlew :sample:dumpIconKeepRules
+# → sample/baseline/icon-keep-rules/{zero,ten,hundred,all}Release-keep.pro
+```
 
 > 数据由 `sample/` 模块的 4 个 build variant（zero / ten / hundred / all）实测填充。详见 [架构白皮书 §6.4](./docs/architecture.md#64-与同类项目的体积对照)。
 >
-> ⚠️ **关于 "全量" 行的口径**：`all` variant 通过 `proguard-rules-all.pro` 中的 `-keep class composeicons.tabler.**` 强制 R8 保留所有图标类，得到的 +2.31 MB 是 **R8 不裁剪时的上界**。真实使用场景下，开发者主动在代码里引用 7795 个 `val`，编译器会做 const inlining + 部分 lambda 内联，实际体积**略低于此值**。该指标用于回答 "如果你不小心把全部图标都拉进来，最坏多大"。
+> ⚠️ **关于 "全量" 行的口径**：`all` variant 通过 `proguard-rules-all.pro` 中的 `-keep class composeicons.tabler.**` / `-keep class composeicons.lucide.**` 强制 R8 保留所有 Tabler/Lucide 类，得到的 +1.23 MB 是 **R8 不裁剪时的上界**。该指标用于回答 "如果你不小心 -keep 通配把全部图标都拉进来，最坏多大"。
 
-**核心承诺**：使用方 APK 中**只**包含被实际引用的图标。如果你只用了 `TablerIcons.Outline.Home`，release APK 中只有 `Home` 这一个图标的 path 数据，剩下 6091 个 outline + 1053 个 filled icons **全部被 R8 移除**。
+**核心承诺**：使用方 APK 中**只**包含被实际引用的图标（前提是不写通配 -keep）。如果你只用了 `TablerIcons.Outline.Home`，release APK 中只有 `Home` 这一个图标的 path 数据，剩下 6091 个 outline + 1053 个 filled icons **全部被 R8 移除**。
 
 ## 🧩 已支持图标源
 

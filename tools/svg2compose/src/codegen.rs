@@ -1,8 +1,9 @@
 use crate::manifest::ManifestEntry;
+use crate::path_dedup::{IconDedupResult, SharedPathLookup};
 use crate::protocol::{GroupNode, Node, PathNode, SvgDocument};
 
 /// Style attributes of a path (everything except pathData).
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 struct PathStyle {
     fill_rule: String,
     fill_color: Option<String>,
@@ -52,7 +53,17 @@ fn all_paths_same_style(paths: &[&PathNode]) -> bool {
 }
 
 /// Generate a complete .kt file for one icon.
-pub fn generate_kotlin_file(doc: &SvgDocument, entry: &ManifestEntry, base_package: &str, icon_container: &str) -> String {
+///
+/// When `shared_lookup` is provided, template-mode paths that have a matching entry
+/// in the lookup will emit a reference to the shared constant instead of an inline
+/// string literal.
+pub fn generate_kotlin_file(
+    doc: &SvgDocument,
+    entry: &ManifestEntry,
+    base_package: &str,
+    icon_container: &str,
+    shared_lookup: Option<&SharedPathLookup>,
+) -> String {
     let mut out = String::with_capacity(2048);
 
     let package = format!("{}.{}", base_package, entry.subdirectory);
@@ -71,6 +82,29 @@ pub fn generate_kotlin_file(doc: &SvgDocument, entry: &ManifestEntry, base_packa
         && is_flat_paths_only(&doc.nodes)
         && all_paths_same_style(&all_paths);
 
+    // Pre-resolve shared path references for this icon+style
+    // Maps path_index → const_name (e.g., "_heartPath0") if the path is shared
+    let shared_refs: Option<Vec<String>> = if use_template {
+        shared_lookup.and_then(|lookup| {
+            let style = &entry.style_name;
+            let name = &entry.kotlin_name;
+            let mut refs = Vec::new();
+            let mut idx = 0usize;
+            loop {
+                let key = (name.clone(), style.clone(), idx);
+                match lookup.get(&key) {
+                    Some(sr) => refs.push(sr.const_name.clone()),
+                    None => break,
+                }
+                idx += 1;
+            }
+            if refs.is_empty() { None } else { Some(refs) }
+        })
+    } else {
+        None
+    };
+    let has_shared = shared_refs.is_some();
+
     // package
     out.push_str(&format!("package {}\n\n", package));
 
@@ -87,6 +121,9 @@ pub fn generate_kotlin_file(doc: &SvgDocument, entry: &ManifestEntry, base_packa
         out.push_str("import composeicons.core.addPathData\n");
     } else {
         out.push_str("import composeicons.core.parseSvgPathData\n");
+    }
+    if has_shared {
+        out.push_str(&format!("import {}.shared.*\n", base_package));
     }
     out.push_str(&format!("import {}.{}\n", base_package, icon_container));
     out.push_str(&format!("import {}.{}\n", base_package, entry.helper));
@@ -110,8 +147,9 @@ pub fn generate_kotlin_file(doc: &SvgDocument, entry: &ManifestEntry, base_packa
     out.push_str("        ) {\n");
 
     // icon content
+    let mut path_index = 0usize;
     for node in &doc.nodes {
-        generate_node(&mut out, node, 3, use_template);
+        generate_node(&mut out, node, 3, use_template, shared_refs.as_deref(), &mut path_index);
     }
 
     out.push_str("        }\n");
@@ -120,6 +158,76 @@ pub fn generate_kotlin_file(doc: &SvgDocument, entry: &ManifestEntry, base_packa
     out.push('\n');
     out.push_str(&format!("private var _{}: ImageVector? = null\n", vector_name));
 
+    out
+}
+
+/// Generate a shared paths Kotlin file for one icon.
+///
+/// Outputs `shared/XxxPaths.kt` containing `@PublishedApi internal val` constants
+/// that can be referenced by all style variants of the icon.
+pub fn generate_shared_paths_file(
+    dedup_result: &IconDedupResult,
+    base_package: &str,
+) -> String {
+    use crate::path_dedup::build_lookup;
+
+    let mut out = String::with_capacity(1024);
+
+    let package = format!("{}.shared", base_package);
+    out.push_str(&format!("package {}\n\n", package));
+
+    let results = vec![dedup_result.clone()];
+    let lookup = build_lookup(&results);
+
+    // Collect unique const_name → path_data pairs (deduplicated by const_name)
+    let mut seen = std::collections::HashSet::new();
+    for (_key, shared_ref) in &lookup {
+        if seen.insert(shared_ref.const_name.clone()) {
+            out.push_str("@PublishedApi\n");
+            out.push_str(&format!(
+                "internal val {}: String = \"{}\"\n",
+                shared_ref.const_name, shared_ref.path_data
+            ));
+        }
+    }
+
+    out
+}
+
+/// Generate the cross-icon canonical-hash shared file.
+///
+/// Unlike [generate_shared_paths_file] which writes one `XxxPaths.kt` per
+/// icon-name (Layer 1, cross-weight), this function emits a single
+/// `CanonicalPaths.kt` containing constants for every group in the canonical
+/// pool. Each constant represents a path sequence shared by ≥2 distinct
+/// icons within this artifact (aliases, visual duplicates).
+pub fn generate_canonical_paths_file(
+    groups: &[crate::canonical_hash::CanonicalGroup],
+    base_package: &str,
+) -> String {
+    let mut out = String::with_capacity(4096);
+    let package = format!("{}.shared", base_package);
+    out.push_str(&format!("package {}\n\n", package));
+    out.push_str(
+        "// Auto-generated canonical hash pool (T3): cross-icon path sharing within this artifact.\n",
+    );
+    out.push_str(
+        "// Each constant represents a unique path sequence shared by ≥2 distinct icons.\n\n",
+    );
+
+    let mut seen = std::collections::HashSet::new();
+    for group in groups {
+        for (idx, path) in group.paths.iter().enumerate() {
+            let const_name = format!("_p{}_{}", group.token, idx);
+            if seen.insert(const_name.clone()) {
+                out.push_str("@PublishedApi\n");
+                out.push_str(&format!(
+                    "internal val {}: String = \"{}\"\n",
+                    const_name, path
+                ));
+            }
+        }
+    }
     out
 }
 
@@ -135,27 +243,61 @@ fn has_meaningful_group(nodes: &[Node]) -> bool {
     })
 }
 
-fn generate_node(out: &mut String, node: &Node, indent: usize, use_template: bool) {
+fn generate_node(
+    out: &mut String,
+    node: &Node,
+    indent: usize,
+    use_template: bool,
+    shared_refs: Option<&[String]>,
+    path_index: &mut usize,
+) {
     match node {
         Node::Path(path) => {
             if use_template {
-                generate_path_minimal(out, path, indent);
+                let const_name = shared_refs
+                    .and_then(|refs| refs.get(*path_index))
+                    .map(|s| s.as_str());
+                generate_path_minimal(out, path, indent, const_name);
             } else {
                 generate_path(out, path, indent);
             }
+            *path_index += 1;
         }
-        Node::Group(group) => generate_group(out, group, indent, use_template),
+        Node::Group(group) => generate_group(out, group, indent, use_template, shared_refs, path_index),
     }
 }
 
 /// Minimal path output: just addPathData("...") with pathFillType only if EvenOdd.
-fn generate_path_minimal(out: &mut String, path: &PathNode, indent: usize) {
+/// When `const_name` is provided, emits a reference to the shared constant instead
+/// of an inline string literal.
+fn generate_path_minimal(
+    out: &mut String,
+    path: &PathNode,
+    indent: usize,
+    const_name: Option<&str>,
+) {
     let pad = "    ".repeat(indent);
     let is_evenodd = path.fill.as_ref().map(|f| f.rule.as_str()) == Some("evenodd");
-    if is_evenodd {
-        out.push_str(&format!("{}addPathData(\"{}\", pathFillType = PathFillType.EvenOdd)\n", pad, path.d));
-    } else {
-        out.push_str(&format!("{}addPathData(\"{}\")\n", pad, path.d));
+
+    match (const_name, is_evenodd) {
+        (Some(c), true) => {
+            out.push_str(&format!(
+                "{}addPathData({}, pathFillType = PathFillType.EvenOdd)\n",
+                pad, c
+            ));
+        }
+        (Some(c), false) => {
+            out.push_str(&format!("{}addPathData({})\n", pad, c));
+        }
+        (None, true) => {
+            out.push_str(&format!(
+                "{}addPathData(\"{}\", pathFillType = PathFillType.EvenOdd)\n",
+                pad, path.d
+            ));
+        }
+        (None, false) => {
+            out.push_str(&format!("{}addPathData(\"{}\")\n", pad, path.d));
+        }
     }
 }
 
@@ -210,13 +352,20 @@ fn generate_path(out: &mut String, path: &PathNode, indent: usize) {
     out.push_str(&format!("{})\n", pad));
 }
 
-fn generate_group(out: &mut String, group: &GroupNode, indent: usize, use_template: bool) {
+fn generate_group(
+    out: &mut String,
+    group: &GroupNode,
+    indent: usize,
+    use_template: bool,
+    shared_refs: Option<&[String]>,
+    path_index: &mut usize,
+) {
     let pad = "    ".repeat(indent);
 
     // 优化：group 无 clipPath 且 opacity 已为 1.0 时，直接输出子节点，跳过无意义的 group 包裹
     if group.clip_path.is_none() && (group.opacity - 1.0).abs() < f64::EPSILON {
         for child in &group.children {
-            generate_node(out, child, indent, use_template);
+            generate_node(out, child, indent, use_template, shared_refs, path_index);
         }
         return;
     }
@@ -231,7 +380,7 @@ fn generate_group(out: &mut String, group: &GroupNode, indent: usize, use_templa
     out.push_str(&format!("{}) {{\n", pad));
 
     for child in &group.children {
-        generate_node(out, child, indent + 1, use_template);
+        generate_node(out, child, indent + 1, use_template, shared_refs, path_index);
     }
 
     out.push_str(&format!("{}}}\n", pad));
@@ -314,8 +463,9 @@ pub fn generate_merged_kotlin_file(
         ));
         out.push_str("        ) {\n");
 
+        let mut path_index = 0usize;
         for node in &doc.nodes {
-            generate_node(&mut out, node, 3, use_template);
+            generate_node(&mut out, node, 3, use_template, None, &mut path_index);
         }
 
         out.push_str("        }\n");
@@ -390,8 +540,9 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "radixIcon".to_string(),
+                md5: None,
         };
-        let kt = generate_kotlin_file(&doc, &entry, "composeicons.radix", "RadixIcons");
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.radix", "RadixIcons", None);
 
         assert!(kt.contains("package composeicons.radix.regular"));
         assert!(kt.contains("val RadixIcons.Regular.TestIcon: ImageVector"));
@@ -418,8 +569,9 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
-        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
 
         assert!(kt.contains("group("));
         assert!(kt.contains("clipPathData = parseSvgPathData(\"M 0 0 L 24 0 L 24 24 Z\")"));
@@ -452,8 +604,9 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
-        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
 
         // 不应包含 group()，应直接输出 addPath
         assert!(!kt.contains("group("), "Empty group should be flattened");
@@ -489,8 +642,9 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
-        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
 
         assert!(kt.contains("fillAlpha = 0.8f"), "fillAlpha should be 0.8");
         assert!(kt.contains("strokeAlpha = 0.5f"), "strokeAlpha should be 0.5");
@@ -509,8 +663,9 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
-        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
         assert!(!kt.contains("import androidx.compose.ui.graphics.vector.group"),
             "group import should be omitted when no meaningful group exists");
     }
@@ -533,8 +688,9 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
-        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
         assert!(kt.contains("import androidx.compose.ui.graphics.vector.group"),
             "group import should be present when clip group exists");
     }
@@ -555,6 +711,7 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
         let entry2 = ManifestEntry {
             svg: "b.svg".to_string(),
@@ -562,6 +719,7 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
 
         let icons: Vec<(&SvgDocument, &ManifestEntry)> = vec![(&doc1, &entry1), (&doc2, &entry2)];
@@ -594,6 +752,7 @@ mod tests {
             style_name: "Outline".to_string(),
             subdirectory: "outline".to_string(),
             helper: "lucideIcon".to_string(),
+                md5: None,
         };
         let icons: Vec<(&SvgDocument, &ManifestEntry)> = vec![(&doc, &entry)];
         let kt = generate_merged_kotlin_file(&icons, "composeicons.lucide", "LucideIcons");
@@ -618,8 +777,9 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
-        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
 
         // Template mode: uses addPathData instead of addPath
         assert!(kt.contains("addPathData(\"M 0 0 L 12 12 Z\")"), "Should use addPathData");
@@ -642,8 +802,9 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
-        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
 
         // Single path: uses full addPath with parseSvgPathData
         assert!(kt.contains("addPath("), "Single path should use full addPath");
@@ -682,8 +843,9 @@ mod tests {
             style_name: "Regular".to_string(),
             subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
-        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
 
         // Different styles: uses full addPath per path
         assert!(kt.contains("addPath("), "Different styles should use full addPath");
@@ -708,11 +870,13 @@ mod tests {
             svg: "a.svg".to_string(), kotlin_name: "A".to_string(),
             style_name: "Regular".to_string(), subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
         let entry2 = ManifestEntry {
             svg: "b.svg".to_string(), kotlin_name: "B".to_string(),
             style_name: "Regular".to_string(), subdirectory: "regular".to_string(),
             helper: "testIcon".to_string(),
+                md5: None,
         };
         let icons: Vec<(&SvgDocument, &ManifestEntry)> = vec![
             (&doc_plain, &entry1), (&doc_clip, &entry2),
@@ -721,5 +885,313 @@ mod tests {
 
         assert!(kt.contains("import androidx.compose.ui.graphics.vector.group"),
             "merged file should include group import if any icon uses it");
+    }
+
+    // --- Phase 1B: Shared path codegen tests ---
+
+    use crate::path_dedup::SharedPathRef;
+
+    fn make_shared_lookup_single_group(
+        icon_name: &str,
+        styles: &[&str],
+        paths: &[&str],
+    ) -> SharedPathLookup {
+        let mut lookup = SharedPathLookup::new();
+        for (idx, path_data) in paths.iter().enumerate() {
+            let sr = SharedPathRef {
+                const_name: format!("_{}Path{}", lower_first(icon_name), idx),
+                path_data: path_data.to_string(),
+            };
+            for style in styles {
+                lookup.insert(
+                    (icon_name.to_string(), style.to_string(), idx),
+                    sr.clone(),
+                );
+            }
+        }
+        lookup
+    }
+
+    // Task 2.4: shared lookup → generated .kt uses internal val reference
+    #[test]
+    fn test_shared_path_emits_reference_not_inline() {
+        let doc = SvgDocument {
+            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
+            nodes: vec![
+                make_path("M 0 0 L 12 12 Z"),
+                make_path("M 12 0 L 0 12 Z"),
+            ],
+        };
+        let entry = ManifestEntry {
+            svg: "test.svg".to_string(),
+            kotlin_name: "Heart".to_string(),
+            style_name: "Thin".to_string(),
+            subdirectory: "thin".to_string(),
+            helper: "phosphorThinIcon".to_string(),
+                md5: None,
+        };
+        let lookup = make_shared_lookup_single_group(
+            "Heart",
+            &["Thin", "Light", "Regular", "Bold"],
+            &["M 0 0 L 12 12 Z", "M 12 0 L 0 12 Z"],
+        );
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.phosphor", "PhosphorIcons", Some(&lookup));
+
+        // Should reference shared constants, not inline strings
+        assert!(kt.contains("addPathData(_heartPath0)"), "Should reference _heartPath0");
+        assert!(kt.contains("addPathData(_heartPath1)"), "Should reference _heartPath1");
+        assert!(!kt.contains("addPathData(\"M 0 0 L 12 12 Z\")"), "Should not inline path data");
+        assert!(!kt.contains("addPathData(\"M 12 0 L 0 12 Z\")"), "Should not inline path data");
+        // Should import shared package
+        assert!(kt.contains("import composeicons.phosphor.shared.*"), "Should import shared package");
+    }
+
+    // Task 2.5: partial sharing → different weights reference different group constants
+    #[test]
+    fn test_partial_shared_path_references_correct_group() {
+        let doc = SvgDocument {
+            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
+            nodes: vec![
+                make_path("M 0 0 L 12 12 Z"),
+                make_path("M 5 12"),
+            ],
+        };
+
+        // Build lookup with 2 groups: groupA (Thin/Light) and groupB (Fill)
+        let mut lookup = SharedPathLookup::new();
+        // Path 0 is shared across all styles (single group)
+        let sr0 = SharedPathRef {
+            const_name: "_heartPath0".to_string(),
+            path_data: "M 0 0 L 12 12 Z".to_string(),
+        };
+        for style in &["Thin", "Light", "Fill"] {
+            lookup.insert(("Heart".to_string(), style.to_string(), 0), sr0.clone());
+        }
+        // Path 1 has different data per group
+        let sr1a = SharedPathRef {
+            const_name: "_heartPath1_groupA".to_string(),
+            path_data: "M 5 12".to_string(),
+        };
+        let sr1b = SharedPathRef {
+            const_name: "_heartPath1_groupB".to_string(),
+            path_data: "M 8 10".to_string(),
+        };
+        lookup.insert(("Heart".to_string(), "Thin".to_string(), 1), sr1a.clone());
+        lookup.insert(("Heart".to_string(), "Light".to_string(), 1), sr1a);
+        lookup.insert(("Heart".to_string(), "Fill".to_string(), 1), sr1b);
+
+        // Thin → groupA
+        let entry_thin = ManifestEntry {
+            svg: "test.svg".to_string(),
+            kotlin_name: "Heart".to_string(),
+            style_name: "Thin".to_string(),
+            subdirectory: "thin".to_string(),
+            helper: "phosphorThinIcon".to_string(),
+                md5: None,
+        };
+        let kt_thin = generate_kotlin_file(&doc, &entry_thin, "composeicons.phosphor", "PhosphorIcons", Some(&lookup));
+        assert!(kt_thin.contains("addPathData(_heartPath0)"), "Thin should reference _heartPath0");
+        assert!(kt_thin.contains("addPathData(_heartPath1_groupA)"), "Thin should reference _heartPath1_groupA");
+
+        // Fill → groupB
+        let doc_fill = SvgDocument {
+            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
+            nodes: vec![
+                make_path("M 0 0 L 12 12 Z"),
+                make_path("M 8 10"),
+            ],
+        };
+        let entry_fill = ManifestEntry {
+            svg: "test.svg".to_string(),
+            kotlin_name: "Heart".to_string(),
+            style_name: "Fill".to_string(),
+            subdirectory: "fill".to_string(),
+            helper: "phosphorFillIcon".to_string(),
+                md5: None,
+        };
+        let kt_fill = generate_kotlin_file(&doc_fill, &entry_fill, "composeicons.phosphor", "PhosphorIcons", Some(&lookup));
+        assert!(kt_fill.contains("addPathData(_heartPath0)"), "Fill should reference _heartPath0");
+        assert!(kt_fill.contains("addPathData(_heartPath1_groupB)"), "Fill should reference _heartPath1_groupB");
+    }
+
+    // Task 2.6: no shared lookup → inline strings (backward compatible)
+    #[test]
+    fn test_no_shared_lookup_backward_compatible() {
+        let doc = SvgDocument {
+            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
+            nodes: vec![
+                make_path("M 0 0 L 12 12 Z"),
+                make_path("M 12 0 L 0 12 Z"),
+            ],
+        };
+        let entry = ManifestEntry {
+            svg: "test.svg".to_string(),
+            kotlin_name: "Heart".to_string(),
+            style_name: "Regular".to_string(),
+            subdirectory: "regular".to_string(),
+            helper: "testIcon".to_string(),
+                md5: None,
+        };
+        // No shared lookup → same as before
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
+
+        assert!(kt.contains("addPathData(\"M 0 0 L 12 12 Z\")"), "Should inline path data");
+        assert!(kt.contains("addPathData(\"M 12 0 L 0 12 Z\")"), "Should inline path data");
+        assert!(!kt.contains("_heartPath"), "Should not reference shared constants");
+        assert!(!kt.contains("import composeicons.test.shared"), "Should not import shared package");
+    }
+
+    // ============================================================
+    // T2-06 — helper-level tests for Full vs Template mode decision
+    // ============================================================
+
+    fn make_styled_path(d: &str, fill: Option<&str>, stroke: Option<&str>) -> PathNode {
+        PathNode {
+            d: d.to_string(),
+            transform: [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],
+            fill: fill.map(|c| FillStyle {
+                color: c.to_string(),
+                opacity: 1.0,
+                rule: "nonzero".to_string(),
+            }),
+            stroke: stroke.map(|c| StrokeStyle {
+                color: c.to_string(),
+                opacity: 1.0,
+                width: 1.0,
+                linecap: "butt".to_string(),
+                linejoin: "miter".to_string(),
+            }),
+            visibility: "visible".to_string(),
+        }
+    }
+
+    fn make_group_node(children: Vec<Node>) -> Node {
+        Node::Group(GroupNode {
+            opacity: 1.0,
+            transform: [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],
+            clip_path: None,
+            children,
+        })
+    }
+
+    // --- is_flat_paths_only ---
+
+    #[test]
+    fn test_helper_is_flat_paths_only_all_paths() {
+        let nodes = vec![make_path("M 0 0"), make_path("M 1 1"), make_path("M 2 2")];
+        assert!(is_flat_paths_only(&nodes));
+    }
+
+    #[test]
+    fn test_helper_is_flat_paths_only_with_one_group() {
+        let nodes = vec![make_path("M 0 0"), make_group_node(vec![make_path("M 1 1")])];
+        assert!(!is_flat_paths_only(&nodes), "any nested group breaks flatness");
+    }
+
+    #[test]
+    fn test_helper_is_flat_paths_only_empty() {
+        // Vacuously true — no nodes means no group violates flatness.
+        let nodes: Vec<Node> = vec![];
+        assert!(is_flat_paths_only(&nodes));
+    }
+
+    #[test]
+    fn test_helper_is_flat_paths_only_only_groups() {
+        let nodes = vec![make_group_node(vec![]), make_group_node(vec![])];
+        assert!(!is_flat_paths_only(&nodes));
+    }
+
+    // --- all_paths_same_style ---
+
+    #[test]
+    fn test_helper_all_paths_same_style_single_path_returns_false() {
+        // Contract: a single path is treated as NOT-template-eligible
+        // (Template mode requires ≥2 paths with shared style; otherwise
+        // Full mode lets you keep the explicit PathStyle attributes.)
+        let path = make_styled_path("M 0 0", Some("#000"), None);
+        assert!(!all_paths_same_style(&[&path]));
+    }
+
+    #[test]
+    fn test_helper_all_paths_same_style_two_identical_fills() {
+        let a = make_styled_path("M 0 0", Some("#000"), None);
+        let b = make_styled_path("M 1 1", Some("#000"), None);
+        assert!(all_paths_same_style(&[&a, &b]));
+    }
+
+    #[test]
+    fn test_helper_all_paths_same_style_different_fills_returns_false() {
+        let a = make_styled_path("M 0 0", Some("#000"), None);
+        let b = make_styled_path("M 1 1", Some("#fff"), None);
+        assert!(!all_paths_same_style(&[&a, &b]));
+    }
+
+    #[test]
+    fn test_helper_all_paths_same_style_different_strokes_returns_false() {
+        let a = make_styled_path("M 0 0", None, Some("#000"));
+        let b = make_styled_path("M 1 1", None, Some("#fff"));
+        assert!(!all_paths_same_style(&[&a, &b]));
+    }
+
+    #[test]
+    fn test_helper_all_paths_same_style_one_fill_one_stroke_returns_false() {
+        let a = make_styled_path("M 0 0", Some("#000"), None);
+        let b = make_styled_path("M 1 1", None, Some("#000"));
+        assert!(!all_paths_same_style(&[&a, &b]));
+    }
+
+    #[test]
+    fn test_helper_all_paths_same_style_three_identical_paths() {
+        let a = make_styled_path("M 0 0", Some("#000"), None);
+        let b = make_styled_path("M 1 1", Some("#000"), None);
+        let c = make_styled_path("M 2 2", Some("#000"), None);
+        assert!(all_paths_same_style(&[&a, &b, &c]));
+    }
+
+    // --- extract_style equivalence ---
+
+    #[test]
+    fn test_helper_extract_style_no_fill_no_stroke_eq() {
+        // Two paths with no fill/stroke must produce equal PathStyle.
+        let a = make_styled_path("M 0 0", None, None);
+        let b = make_styled_path("M 1 1", None, None);
+        assert_eq!(extract_style(&a), extract_style(&b));
+    }
+
+    #[test]
+    fn test_helper_extract_style_distinct_when_stroke_widths_differ() {
+        let a = make_styled_path("M 0 0", None, Some("#000"));
+        let mut b_path = make_styled_path("M 1 1", None, Some("#000"));
+        if let Some(s) = b_path.stroke.as_mut() {
+            s.width = 2.0;
+        }
+        assert_ne!(extract_style(&a), extract_style(&b_path));
+    }
+
+    // --- end-to-end: nested group forces Full mode ---
+
+    #[test]
+    fn test_nested_group_forces_full_mode() {
+        // Non-flat structure (a group child) prevents template mode.
+        let doc = SvgDocument {
+            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
+            nodes: vec![
+                make_path("M 0 0 L 12 12 Z"),
+                make_group_node(vec![make_path("M 6 0 L 6 12 Z")]),
+            ],
+        };
+        let entry = ManifestEntry {
+            svg: "test.svg".to_string(),
+            kotlin_name: "GroupedIcon".to_string(),
+            style_name: "Regular".to_string(),
+            subdirectory: "regular".to_string(),
+            helper: "testIcon".to_string(),
+                md5: None,
+        };
+        let kt = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
+
+        // Full mode: addPath used, no addPathData
+        assert!(kt.contains("addPath("), "Nested group forces Full mode (addPath)");
+        assert!(!kt.contains("addPathData("), "Template mode must not be selected");
     }
 }

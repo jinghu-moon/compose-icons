@@ -30,7 +30,7 @@ class GeneratorEngine(
         val explorerEntries = ConcurrentLinkedQueue<ExplorerEntry>()
 
         if (discovered.isEmpty()) {
-            return GeneratorReport(source.name, source.upstreamVersion, 0, 0, emptyList(), emptyList(), emptyList())
+            return GeneratorReport(source.name, source.upstreamVersion, 0, 0, emptyList(), emptyList(), emptyList(), emptyList())
         }
 
         val collisions = IconNameCollisionDetector.detect(discovered)
@@ -80,6 +80,32 @@ class GeneratorEngine(
             }
         }
 
+        // Phase 1.5: Shared Path Pool — expand pending to include ALL styles
+        // for any icon that has at least one changed style.
+        // This ensures svg2compose's cross-style dedup has complete data.
+        val affectedKotlinNames = pending.map { it.kotlinName }.toSet()
+        if (affectedKotlinNames.isNotEmpty()) {
+            val extraPending = mutableListOf<PendingEntry>()
+            discovered.forEach { entry ->
+                val kotlinName = IconNameMapper.toKotlinName(entry.fileName)
+                if (kotlinName in affectedKotlinNames
+                    && pending.none { it.kotlinName == kotlinName && it.entry.style.name == entry.style.name }
+                ) {
+                    val targetFile = outputDir.resolve(entry.style.subdirectory).resolve("$kotlinName.kt")
+                    val currentHash = entry.file.calculateMd5()
+                    extraPending += PendingEntry(entry, kotlinName, currentHash, targetFile)
+                    cachedFiles.remove(targetFile)
+                    succeeded.decrementAndGet()
+                }
+            }
+            // Remove stale explorer entries for re-generated icons
+            val staleNames = extraPending.map { it.kotlinName to it.entry.style.name }.toSet()
+            val keptEntries = explorerEntries.filter { (it.name to it.style) !in staleNames }
+            explorerEntries.clear()
+            explorerEntries.addAll(keptEntries)
+            pending.addAll(extraPending)
+        }
+
         // Phase 2: Build manifest and call Rust CLI (per-icon file mode)
         if (pending.isNotEmpty()) {
             val manifestEntries = pending.map { pe ->
@@ -89,6 +115,7 @@ class GeneratorEngine(
                     style_name = pe.entry.style.name,
                     subdirectory = pe.entry.style.subdirectory,
                     helper = source.helperFunctionName(pe.entry.style),
+                    md5 = pe.currentHash,
                 )
             }
 
@@ -152,6 +179,7 @@ class GeneratorEngine(
 
         generatedFiles.addAll(cachedFiles)
 
+        val sortedEntries = explorerEntries.toList().sortedBy { it.name }
         val report = GeneratorReport(
             source = source.name,
             upstreamVersion = source.upstreamVersion,
@@ -159,7 +187,8 @@ class GeneratorEngine(
             succeeded = succeeded.get(),
             failed = failed.toList().sortedBy { it.fileName },
             warnings = warnings.toList().sortedBy { it.fileName },
-            explorerEntries = explorerEntries.toList().sortedBy { it.name },
+            explorerEntries = sortedEntries,
+            iconNames = sortedEntries.map { it.name },
         )
         GeneratorReportWriter.write(config.reportDir, report)
 
@@ -171,6 +200,22 @@ class GeneratorEngine(
                     if (!generatedFiles.contains(file)) {
                         file.delete()
                     }
+                }
+            }
+        }
+
+        // Cleanup: delete shared path files for icons that no longer exist
+        val sharedDir = outputDir.resolve("shared")
+        if (sharedDir.exists()) {
+            val existingIconNames = discovered.map { IconNameMapper.toKotlinName(it.fileName) }.toSet()
+            sharedDir.listFiles()?.filter { it.extension == "kt" }?.forEach { file ->
+                // CanonicalPaths.kt is the cross-icon T3 pool (a single file per
+                // artifact, not per-icon). Preserve it regardless.
+                if (file.name == "CanonicalPaths.kt") return@forEach
+                // File name format: "{IconName}Paths.kt"
+                val iconName = file.nameWithoutExtension.removeSuffix("Paths")
+                if (iconName !in existingIconNames) {
+                    file.delete()
                 }
             }
         }

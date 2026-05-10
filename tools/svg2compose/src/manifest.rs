@@ -9,13 +9,17 @@ pub struct Manifest {
     pub icons: Vec<ManifestEntry>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct ManifestEntry {
     pub svg: String,
     pub kotlin_name: String,
     pub style_name: String,
     pub subdirectory: String,
     pub helper: String,
+    /// MD5 hash of the SVG file content, passed by the generator for cache lookup.
+    /// When present + cache enabled, Rust can skip re-parsing unchanged SVGs.
+    #[serde(default)]
+    pub md5: Option<String>,
 }
 
 /// ViewBox info returned per successfully processed icon.

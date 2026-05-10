@@ -8,6 +8,7 @@ kotlin {
 }
 
 dependencies {
+
     implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit4)

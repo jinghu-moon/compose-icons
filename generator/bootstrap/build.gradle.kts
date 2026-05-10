@@ -5,6 +5,10 @@ plugins {
     id("compose-icons-generator")
 }
 
+dependencies {
+    implementation(project(":generator:core"))
+}
+
 val downloadIcons by tasks.registering(DownloadIconSourceTask::class) {
     repoUrl.set("https://github.com/twbs/icons.git")
     tagName.set("v1.11.3")

@@ -1,84 +1,51 @@
 package composeicons.generator.remix
 
 import composeicons.generator.core.*
+import composeicons.generator.core.SvgMetadata
+import composeicons.generator.core.manifest.*
 import kotlinx.serialization.json.*
 import java.io.File
 
-class RemixIconSource(private val referRoot: File) : IconSource {
-    override val name = "remixicons"
-    override val displayName = "Remix Icon"
-    override val iconContainerName = "RemixIcons"
-    override val upstreamVersion = "4.2.0"
-    override val basePackage = "composeicons.remix"
+fun RemixIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
+    name = "remixicons"
+    displayName = "Remix Icon"
+    iconContainerName = "RemixIcons"
+    basePackage = "composeicons.remix"
+    upstreamVersion = "4.2.0"
 
-    override val styles = listOf(
-        IconStyle("Fill", "fill"),
-        IconStyle("Line", "line")
-    )
+    style("Fill") {
+        helperFunction = "remixIcon"
+        defaultPathStyle { fill = "currentColor"; fillRule = "nonzero" }
+    }
+    style("Line") {
+        helperFunction = "remixIcon"
+        defaultPathStyle { fill = "currentColor"; fillRule = "nonzero" }
+    }
 
-    private val tagsMap: Map<String, Pair<String, Set<String>>> by lazy {
+    discovery = treeWalk("icons") {
+        match("Fill", "-fill")
+        match("Line", "-line")
+    }
+
+    // Hook: �?tags.json 加载元数�?    hook { entries ->
         val tagsFile = referRoot.resolve("tags.json")
-        if (!tagsFile.exists()) return@lazy emptyMap()
-        
+        if (!tagsFile.exists()) return@hook entries
+
         val json = Json.parseToJsonElement(tagsFile.readText()).jsonObject
-        val result = mutableMapOf<String, Pair<String, Set<String>>>()
+        val metaMap = mutableMapOf<String, SvgMetadata>()
         
         json.forEach { (category, icons) ->
             if (icons is JsonObject) {
-                icons.jsonObject.forEach { (name, tagsStr) ->
+                icons.forEach { (name, tagsStr) ->
                     val tags = tagsStr.jsonPrimitive.content.split(",").map { it.trim() }.toSet()
-                    result[name] = category to tags
+                    metaMap[name] = SvgMetadata(tags, category, null, null)
                 }
             }
         }
-        result
-    }
 
-    override fun downloadSvg(outputDir: File) {
-        // Already available in refer/
-    }
-
-    override fun discoverIcons(svgDir: File): List<SvgIconEntry> {
-        val iconsRoot = referRoot.resolve("icons")
-        val result = mutableListOf<SvgIconEntry>()
-        
-        iconsRoot.walkTopDown().filter { it.extension == "svg" }.forEach { file ->
-            val fileName = file.nameWithoutExtension
-            val style = when {
-                fileName.endsWith("-fill") -> styles[0]
-                fileName.endsWith("-line") -> styles[1]
-                else -> null
-            }
-            
-            if (style != null) {
-                // Remove suffix for lookup and clean name
-                val baseName = fileName.removeSuffix("-fill").removeSuffix("-line")
-                val metaInfo = tagsMap[baseName]
-                
-                result.add(SvgIconEntry(
-                    fileName = fileName,
-                    style = style,
-                    file = file,
-                    metadata = SvgMetadata(
-                        tags = metaInfo?.second ?: emptySet(),
-                        category = metaInfo?.first,
-                        version = null,
-                        unicode = null
-                    )
-                ))
-            }
+        entries.map { entry ->
+            val baseName = entry.fileName.removeSuffix(".svg").removeSuffix("-fill").removeSuffix("-line")
+            entry.copy(metadata = metaMap[baseName] ?: SvgMetadata.EMPTY)
         }
-        return result
     }
-
-    override fun defaultPathStyle(style: IconStyle) = PathStyle(
-        fill = "currentColor",
-        stroke = null,
-        strokeWidth = null,
-        strokeLineCap = null,
-        strokeLineJoin = null,
-        fillRule = "nonzero"
-    )
-
-    override fun helperFunctionName(style: IconStyle) = "remixIcon"
 }

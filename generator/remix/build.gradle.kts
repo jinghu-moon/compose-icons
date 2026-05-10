@@ -1,12 +1,13 @@
-import composeicons.gradle.GenerateIconsTask
+﻿import composeicons.gradle.GenerateIconsTask
 import composeicons.gradle.DownloadIconSourceTask
 
 plugins {
-    id("compose-icons-generator")
+    id("org.jetbrains.kotlin.jvm")
     alias(libs.plugins.kotlin.serialization)
 }
 
 dependencies {
+    implementation(project(":generator:core"))
     implementation(libs.kotlinx.serialization.json)
 }
 

@@ -21,6 +21,7 @@ fun tablerOutlineIcon(
     name = name,
     size = size,
     viewBox = viewBox,
+    autoMirror = autoMirror,
     block = block,
 )
 
@@ -34,5 +35,6 @@ fun tablerFilledIcon(
     name = name,
     size = size,
     viewBox = viewBox,
+    autoMirror = autoMirror,
     block = block,
 )

@@ -21,7 +21,7 @@ fun phosphorThinIcon(
     viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
     autoMirror: Boolean = false,
     block: ImageVector.Builder.() -> Unit,
-): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, autoMirror = autoMirror, block = block)
 
 fun phosphorLightIcon(
     name: String,
@@ -29,7 +29,7 @@ fun phosphorLightIcon(
     viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
     autoMirror: Boolean = false,
     block: ImageVector.Builder.() -> Unit,
-): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, autoMirror = autoMirror, block = block)
 
 fun phosphorRegularIcon(
     name: String,
@@ -37,7 +37,7 @@ fun phosphorRegularIcon(
     viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
     autoMirror: Boolean = false,
     block: ImageVector.Builder.() -> Unit,
-): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, autoMirror = autoMirror, block = block)
 
 fun phosphorBoldIcon(
     name: String,
@@ -45,7 +45,7 @@ fun phosphorBoldIcon(
     viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
     autoMirror: Boolean = false,
     block: ImageVector.Builder.() -> Unit,
-): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, autoMirror = autoMirror, block = block)
 
 fun phosphorFillIcon(
     name: String,
@@ -53,7 +53,7 @@ fun phosphorFillIcon(
     viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
     autoMirror: Boolean = false,
     block: ImageVector.Builder.() -> Unit,
-): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, autoMirror = autoMirror, block = block)
 
 fun phosphorDuotoneIcon(
     name: String,
@@ -61,4 +61,4 @@ fun phosphorDuotoneIcon(
     viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
     autoMirror: Boolean = false,
     block: ImageVector.Builder.() -> Unit,
-): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, autoMirror = autoMirror, block = block)

@@ -17,4 +17,4 @@ fun remixIcon(
     viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
     autoMirror: Boolean = false,
     block: ImageVector.Builder.() -> Unit,
-): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, autoMirror = autoMirror, block = block)

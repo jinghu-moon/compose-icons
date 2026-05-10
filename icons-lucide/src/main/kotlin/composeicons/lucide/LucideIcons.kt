@@ -20,5 +20,6 @@ fun lucideOutlineIcon(
     name = name,
     size = size,
     viewBox = viewBox,
+    autoMirror = autoMirror,
     block = block,
 )

@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
     - uses: actions/checkout@v4
@@ -25,50 +25,41 @@ jobs:
     - name: Setup Gradle with build cache
       uses: ./.github/actions/setup-gradle-cache
 
-    # Download upstream SVG sources (cached, versions pinned in IconSource classes)
+    # Cache the upstream/ directory (populated by each generator's DownloadIconSourceTask).
+    # Gradle uses `git clone --depth=1 --branch <tagName>` per IconSource build.gradle.kts,
+    # so versions are pinned there (single source of truth). Cache key includes a hash
+    # of all download configs so version bumps invalidate the cache automatically.
     - name: Cache upstream SVG sources
-      id: svg-cache
       uses: actions/cache@v4
       with:
-        path: refer
-        key: svg-sources-v2
+        path: upstream
+        key: upstream-svg-v3-${{ hashFiles('generator/*/build.gradle.kts') }}
+        restore-keys: |
+          upstream-svg-v3-
 
-    - name: Download upstream SVG sources
-      if: steps.svg-cache.outputs.cache-hit != 'true'
-      run: |
-        set -eo pipefail
-        echo "Downloading upstream icon sources..."
-        mkdir -p refer && cd refer
-
-        # Tabler Icons
-        git clone --depth=1 https://github.com/tabler/tabler-icons.git tabler-icons-main
-        echo "Tabler: $(ls tabler-icons-main/icons/outline/*.svg | wc -l) outline SVGs"
-
-        # Lucide Icons
-        git clone --depth=1 https://github.com/lucide-icons/lucide.git lucide-main
-        echo "Lucide: $(ls lucide-main/icons/*.svg | wc -l) SVGs"
-
-        # Phosphor Icons (homepage = 原 phosphor-icons 仓库重命名)
-        git clone --depth=1 https://github.com/phosphor-icons/homepage.git phosphor-icons-master
-        echo "Phosphor: $(ls phosphor-icons-master/public/assets/phosphor.iconjar/icons/*.svg | wc -l) SVGs"
-
-        # Radix Icons
-        git clone --depth=1 https://github.com/radix-ui/icons.git Radix-Icons-main
-        echo "Radix: $(ls Radix-Icons-main/packages/radix-icons/icons/*.svg | wc -l) SVGs"
-
-        # Remix Icons v4.2.0
-        git clone --depth=1 --branch v4.2.0 https://github.com/Remix-Design/RemixIcon.git RemixIcon-master
-        echo "Remix: $(find RemixIcon-master/icons -name '*.svg' | wc -l) SVGs"
-
-    - name: Build svg2compose and generate all icons
+    - name: Build svg2compose toolchain
       run: |
         chmod +x gradlew
         ./gradlew :tools:resolveSvg2Compose
-        ./gradlew :generator:tabler:run \
-                   :generator:lucide:run \
-                   :generator:phosphor:run \
-                   :generator:radix:run \
-                   :generator:remix:run
+
+    # Each :generator:X:generateIcons depends on its downloadIcons (from
+    # DownloadIconSourceTask) which does `git clone --depth=1 --branch <tag>` into
+    # upstream/. This replaces the old hand-maintained shell `git clone` block
+    # and guarantees CI matches local behavior (versions pinned in each
+    # generator's build.gradle.kts).
+    - name: Generate all icon libraries
+      run: |
+        ./gradlew \
+          :generator:tabler:generateIcons \
+          :generator:lucide:generateIcons \
+          :generator:phosphor:generateIcons \
+          :generator:radix:generateIcons \
+          :generator:remix:generateIcons \
+          :generator:heroicons:generateIcons \
+          :generator:iconoir:generateIcons \
+          :generator:ionicons:generateIcons \
+          :generator:bootstrap:generateIcons \
+          :generator:boxicons:generateIcons
 
     - name: Assemble
       run: ./gradlew assemble

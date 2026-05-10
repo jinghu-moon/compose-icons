@@ -23,7 +23,10 @@ class ArchitectureComplianceTest {
             )
         }
 
-        val forbiddenKeywords = listOf("tabler", "lucide")
+        val forbiddenKeywords = listOf(
+            "tabler", "lucide", "phosphor", "radix", "remix",
+            "heroicons", "iconoir", "ionicons", "bootstrap", "boxicons",
+        )
 
         actualSrcDir.walkTopDown()
             .filter { it.extension == "kt" }

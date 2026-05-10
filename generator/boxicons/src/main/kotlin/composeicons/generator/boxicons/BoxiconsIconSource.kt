@@ -7,7 +7,7 @@ class BoxiconsIconSource(private val referRoot: File) : IconSource {
     override val name = "boxicons"
     override val displayName = "Boxicons"
     override val iconContainerName = "BoxiconsIcons"
-    override val upstreamVersion = "2.1.4"
+    override val upstreamVersion = "main"
     override val basePackage = "composeicons.boxicons"
 
     override val styles: List<IconStyle> = listOf(

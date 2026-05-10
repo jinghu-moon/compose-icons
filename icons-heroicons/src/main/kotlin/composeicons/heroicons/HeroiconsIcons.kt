@@ -1,0 +1,42 @@
+package composeicons.heroicons
+
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import composeicons.core.IconSize
+import composeicons.core.ViewBox
+import composeicons.core.iconBuilder
+
+object HeroiconsIcons {
+    object Outline
+    object Solid
+    object Solid16
+    object Solid20
+}
+
+fun heroiconsOutlineIcon(
+    name: String,
+    size: IconSize = IconSize(width = 24.dp, height = 24.dp),
+    viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
+    block: ImageVector.Builder.() -> Unit,
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+
+fun heroiconsSolidIcon(
+    name: String,
+    size: IconSize = IconSize(width = 24.dp, height = 24.dp),
+    viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
+    block: ImageVector.Builder.() -> Unit,
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+
+fun heroiconsSolid16Icon(
+    name: String,
+    size: IconSize = IconSize(width = 24.dp, height = 24.dp),
+    viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
+    block: ImageVector.Builder.() -> Unit,
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)
+
+fun heroiconsSolid20Icon(
+    name: String,
+    size: IconSize = IconSize(width = 24.dp, height = 24.dp),
+    viewBox: ViewBox = ViewBox(width = 24f, height = 24f),
+    block: ImageVector.Builder.() -> Unit,
+): ImageVector = iconBuilder(name = name, size = size, viewBox = viewBox, block = block)

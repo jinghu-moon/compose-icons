@@ -117,9 +117,8 @@ fn batch_process(input_dir: &str, output_path: &str, normalize_size: Option<f64>
 }
 
 fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&str>, normalize_size: Option<f64>) -> Result<(), Box<dyn std::error::Error>> {
-    use svg2compose::codegen::{generate_kotlin_file, generate_shared_paths_file, generate_canonical_paths_file};
+    use svg2compose::codegen::generate_kotlin_file;
     use svg2compose::manifest::{IconResult, ManifestResult, ResultViewBox};
-    use svg2compose::{canonical_hash, path_dedup};
     use svg2compose::protocol::SvgDocument;
 
     let manifest = svg2compose::manifest::Manifest::load(manifest_path)?;
@@ -143,112 +142,9 @@ fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&
         })
         .collect();
 
-    // Phase 1.5: cross-style dedup — extract pathData, find shared groups, build lookup
-    let entries_with_paths: Vec<(svg2compose::manifest::ManifestEntry, Vec<String>)> = parsed
-        .iter()
-        .map(|(entry, doc)| {
-            let paths = path_dedup::extract_path_data(&doc.nodes);
-            (svg2compose::manifest::ManifestEntry::clone(entry), paths)
-        })
-        .collect();
-    let dedup_results = path_dedup::dedup_entries(&entries_with_paths);
-    // Only build lookup for icons with actual cross-style sharing (any group >1 style)
-    let sharing_results: Vec<_> = dedup_results.iter()
-        .filter(|r| r.groups.iter().any(|g| g.styles.len() > 1))
-        .cloned()
-        .collect();
-    let shared_lookup = path_dedup::build_lookup(&sharing_results);
-
-    // Phase 1.6 — Canonical hash pool (T3): cross-icon sharing within this
-    // source. Diagnostic-only: counts emitted but no codegen wiring yet.
-    let canonical_pool = canonical_hash::build_canonical_pool(&entries_with_paths);
-    let canonical_lookup =
-        canonical_hash::build_canonical_lookup(&canonical_pool, &shared_lookup);
-    {
-        let line1 = format!(
-            "[T3] canonical pool: {} groups | {} additional shared slots (Layer 1 already shared {})",
-            canonical_pool.len(),
-            canonical_lookup.len(),
-            shared_lookup.len(),
-        );
-        eprintln!("{}", line1);
-        let line2 = if !canonical_pool.is_empty() {
-            let total_members: usize = canonical_pool.iter().map(|g| g.members.len()).sum();
-            let line = format!(
-                "[T3]   covering {} icons across {} groups (avg {:.1} icons/group)",
-                total_members,
-                canonical_pool.len(),
-                total_members as f64 / canonical_pool.len() as f64,
-            );
-            eprintln!("{}", line);
-            Some(line)
-        } else {
-            None
-        };
-        // Also write to a stable diagnostic file so the data is recoverable
-        // even when stderr is swallowed by the Gradle process wrapper.
-        let log_path = out_dir.join("_t3_diagnostic.txt");
-        if let Some(parent) = log_path.parent() {
-            std::fs::create_dir_all(parent).ok();
-        }
-        let mut content = String::new();
-        content.push_str(&line1);
-        content.push('\n');
-        if let Some(l) = line2 {
-            content.push_str(&l);
-            content.push('\n');
-        }
-        // Per-group breakdown for inspection.
-        for group in &canonical_pool {
-            content.push_str(&format!(
-                "  group _{}: {} members → ",
-                group.token,
-                group.members.len()
-            ));
-            for (i, (style, name)) in group.members.iter().enumerate() {
-                if i > 0 { content.push_str(", "); }
-                content.push_str(&format!("{}/{}", style, name));
-            }
-            content.push('\n');
-        }
-        std::fs::write(&log_path, content).ok();
-    }
-
-    // Merge Layer 1 + T3 lookups. Layer 1 owns its slots first; T3 fills
-    // the gaps (build_canonical_lookup contract enforced this). Codegen
-    // accepts a single lookup so we union them here.
-    let mut merged_lookup = shared_lookup.clone();
-    for (k, v) in canonical_lookup {
-        merged_lookup.insert(k, v);
-    }
-
-    // Emit shared/CanonicalPaths.kt (T3) when there is at least one group.
-    if !canonical_pool.is_empty() {
-        let canonical_file = generate_canonical_paths_file(&canonical_pool, &manifest.base_package);
-        let file_path = out_dir.join("shared").join("CanonicalPaths.kt");
-        if let Some(parent) = file_path.parent() {
-            std::fs::create_dir_all(parent).ok();
-        }
-        std::fs::write(&file_path, canonical_file)?;
-    }
-
-    // Generate shared paths files (shared/XxxPaths.kt)
-    for result in &dedup_results {
-        // Only generate shared files when there's actual sharing (any group has >1 style)
-        if result.groups.iter().all(|g| g.styles.len() <= 1) {
-            continue;
-        }
-        let shared_file = generate_shared_paths_file(result, &manifest.base_package);
-        let file_path = out_dir.join("shared").join(format!("{}Paths.kt", result.icon_name));
-        if let Some(parent) = file_path.parent() {
-            std::fs::create_dir_all(parent).ok();
-        }
-        std::fs::write(&file_path, shared_file)?;
-    }
-
     // Phase 2: generate one .kt file per icon (per-icon mode)
     for (entry, doc) in &parsed {
-        let kt = generate_kotlin_file(doc, entry, &manifest.base_package, &manifest.icon_container, Some(&merged_lookup));
+        let kt = generate_kotlin_file(doc, entry, &manifest.base_package, &manifest.icon_container);
         let file_path = out_dir.join(&entry.subdirectory).join(format!("{}.kt", entry.kotlin_name));
         if let Some(parent) = file_path.parent() {
             std::fs::create_dir_all(parent).ok();

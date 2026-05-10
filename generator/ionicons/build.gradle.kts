@@ -7,7 +7,7 @@ plugins {
 
 val downloadIcons by tasks.registering(DownloadIconSourceTask::class) {
     repoUrl.set("https://github.com/ionic-team/ionicons.git")
-    tagName.set("")
+    tagName.set("main")
     targetDir.set(rootProject.layout.projectDirectory.dir("upstream/ionicons"))
 }
 

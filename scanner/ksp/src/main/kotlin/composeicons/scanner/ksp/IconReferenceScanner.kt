@@ -31,12 +31,18 @@ class IconReferenceScanner(
     }
 
     private val knownStyles = setOf(
-        // Tabler / Lucide
+        // Tabler / Lucide / Ionicons
         "Outline", "Filled",
         // Phosphor
         "Thin", "Light", "Regular", "Bold", "Fill", "Duotone",
         // Remix
         "Line",
+        // Heroicons
+        "Solid16", "Solid20", "Solid",
+        // Ionicons
+        "Sharp",
+        // Boxicons
+        "Logos",
         // Generic
         "Default", "Small", "Large",
     )
@@ -134,6 +140,9 @@ class IconReferenceScanner(
         .lowercase()
 
     companion object {
-        val DEFAULT_SOURCES = setOf("Tabler", "Lucide", "Phosphor", "Remix", "Radix")
+        val DEFAULT_SOURCES = setOf(
+            "Tabler", "Lucide", "Phosphor", "Remix", "Radix",
+            "Heroicons", "Iconoir", "Ionicons", "Bootstrap", "Boxicons",
+        )
     }
 }

@@ -38,5 +38,8 @@ class GeneratorConventionPlugin : Plugin<Project> {
 
         // 添加对 generator:core 的依赖
         project.dependencies.add("implementation", project.project(":generator:core"))
+
+        // 测试依赖（testImplementation 不传递，需显式声明）
+        project.dependencies.add("testImplementation", "org.jetbrains.kotlin:kotlin-test")
     }
 }

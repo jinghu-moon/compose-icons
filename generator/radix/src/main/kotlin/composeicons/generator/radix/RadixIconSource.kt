@@ -42,4 +42,7 @@ class RadixIconSource(private val referRoot: File) : IconSource {
     )
 
     override fun helperFunctionName(style: IconStyle) = "radixIcon"
+
+    override fun svgSourceDir(referRoot: File): File =
+        referRoot.resolve("packages/radix-icons/icons")
 }

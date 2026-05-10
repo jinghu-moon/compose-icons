@@ -92,4 +92,6 @@ class TablerIconSource(
         "Filled" -> "tablerFilledIcon"
         else -> error("Unknown style: ${style.name}")
     }
+
+    override fun svgSourceDir(referRoot: File): File = referRoot.resolve("icons")
 }

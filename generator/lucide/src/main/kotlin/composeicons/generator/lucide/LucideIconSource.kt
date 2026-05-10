@@ -51,4 +51,6 @@ class LucideIconSource(
     )
 
     override fun helperFunctionName(style: IconStyle): String = "lucideOutlineIcon"
+
+    override fun svgSourceDir(referRoot: File): File = referRoot.resolve("icons")
 }

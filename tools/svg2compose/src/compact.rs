@@ -267,8 +267,13 @@ fn format_path(cmds: &[OptCommand]) -> String {
             }
         };
 
-        // Command letter omission: same type consecutive
+        // Command letter omission: same type consecutive.
+        // EXCEPTION: M always emits its letter — two consecutive `M` commands
+        // represent two distinct subpath starts, and merging them (by dropping
+        // the second M's letter) would corrupt the path, turning independent
+        // subpaths into one continuous stroke with spurious connecting lines.
         let need_letter = match letter {
+            Some('M') => true, // M always emits: distinct subpath start
             Some(c) => {
                 if let Some(prev) = prev_cmd {
                     c != prev
@@ -530,5 +535,58 @@ mod tests {
         let result = compact_path(&cmds);
         assert!(result.contains('M'), "Move must be preserved: {}", result);
         assert!(!result.contains("16.000M"), "No token concatenation: {}", result);
+    }
+
+    // ── Regression: Multi-subpath stroke paths (Iconoir Adobe Illustrator "A" shape) ──
+
+    #[test]
+    fn e2e_stroke_multi_subpath_preserves_all_moves() {
+        // Source SVG (Iconoir adobe-illustrator.svg 4th path — the "A" glyph):
+        //   M7 16 L8.125 13
+        //   M13 16 L11.875 13
+        //   M8.125 13 L10 8 L11.875 13
+        //   M8.125 13 L11.875 13
+        //
+        // Four INDEPENDENT subpaths (stroke-only rendering). A buggy format_path
+        // previously dropped intermediate M letters — because an implicit-L-after-M
+        // left `prev_cmd` as 'M', the next explicit M was treated as "consecutive
+        // same command" and its letter was omitted, merging all subpaths into one
+        // continuous stroke with spurious diagonal lines. Fatal for stroke icons.
+        let cmds = vec![
+            RawCommand::M { x: 7.0, y: 16.0 },
+            RawCommand::L { x: 8.125, y: 13.0 },
+            RawCommand::M { x: 13.0, y: 16.0 },
+            RawCommand::L { x: 11.875, y: 13.0 },
+            RawCommand::M { x: 8.125, y: 13.0 },
+            RawCommand::L { x: 10.0, y: 8.0 },
+            RawCommand::L { x: 11.875, y: 13.0 },
+            RawCommand::M { x: 8.125, y: 13.0 },
+            RawCommand::L { x: 11.875, y: 13.0 },
+        ];
+        let result = compact_path(&cmds);
+        let move_count = result.chars().filter(|c| *c == 'M' || *c == 'm').count();
+        assert_eq!(
+            move_count, 4,
+            "Expected 4 moveto commands for 4 independent subpaths, got: {}",
+            result
+        );
+    }
+
+    #[test]
+    fn e2e_consecutive_m_not_merged() {
+        // Per SVG spec, two adjacent `M` commands are distinct subpath starts,
+        // NOT a candidate for letter-omission optimization.
+        let cmds = vec![
+            RawCommand::M { x: 10.0, y: 10.0 },
+            RawCommand::M { x: 20.0, y: 20.0 },
+            RawCommand::L { x: 30.0, y: 30.0 },
+        ];
+        let result = compact_path(&cmds);
+        let move_count = result.chars().filter(|c| *c == 'M').count();
+        assert_eq!(
+            move_count, 2,
+            "Both M commands must be preserved, got: {}",
+            result
+        );
     }
 }

@@ -23,8 +23,9 @@ pub fn convert_tree(tree: &Tree, normalize_size: Option<f64>) -> SvgDocument {
 
     let root = tree.root();
     let nodes = root.children().iter().filter_map(|n| convert_node(n, global_scale)).collect();
+    let merged_nodes = merge_nodes(nodes);
 
-    SvgDocument { view_box, nodes }
+    SvgDocument { view_box, nodes: merged_nodes }
 }
 
 fn convert_node(node: &usvg::Node, scale: f64) -> Option<Node> {
@@ -99,13 +100,14 @@ fn convert_group(group: &usvg::Group, scale: f64) -> Option<GroupNode> {
         .iter()
         .filter_map(|node| convert_node_with_opacity(node, opacity, scale))
         .collect();
+    let merged_children = merge_nodes(children);
 
     // bake 后 group 自身 opacity 重置为 1.0
     Some(GroupNode {
         opacity: 1.0,
         transform: [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],
         clip_path,
-        children,
+        children: merged_children,
     })
 }
 
@@ -123,11 +125,12 @@ fn convert_node_with_opacity(node: &usvg::Node, group_opacity: f64, scale: f64) 
                 .iter()
                 .filter_map(|n| convert_node_with_opacity(n, inner_opacity, scale))
                 .collect();
+            let merged_children = merge_nodes(children);
             Some(Node::Group(GroupNode {
                 opacity: 1.0,
                 transform: [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],
                 clip_path,
-                children,
+                children: merged_children,
             }))
         }
         usvg::Node::Path(p) => convert_path_with_opacity(p, group_opacity, scale).map(Node::Path),
@@ -187,6 +190,47 @@ fn convert_path_with_opacity(path: &usvg::Path, group_opacity: f64, scale: f64) 
         stroke,
         visibility: "visible".to_string(),
     })
+}
+
+/// Merge consecutive Path nodes with identical styles.
+fn merge_nodes(nodes: Vec<Node>) -> Vec<Node> {
+    if nodes.len() < 2 {
+        return nodes;
+    }
+
+    let mut result = Vec::new();
+    let mut iter = nodes.into_iter();
+
+    if let Some(mut current) = iter.next() {
+        for next in iter {
+            match (&mut current, &next) {
+                (Node::Path(p1), Node::Path(p2)) => {
+                    // Check if styles match exactly
+                    if p1.fill == p2.fill && 
+                       p1.stroke == p2.stroke && 
+                       p1.visibility == p2.visibility &&
+                       p1.transform == p2.transform 
+                    {
+                        // Merge them
+                        if !p1.d.is_empty() && !p2.d.is_empty() {
+                            p1.d.push(' ');
+                        }
+                        p1.d.push_str(&p2.d);
+                    } else {
+                        result.push(current);
+                        current = next;
+                    }
+                }
+                _ => {
+                    result.push(current);
+                    current = next;
+                }
+            }
+        }
+        result.push(current);
+    }
+
+    result
 }
 
 /// Convert tiny-skia-path verbs+points directly to RawCommand list.

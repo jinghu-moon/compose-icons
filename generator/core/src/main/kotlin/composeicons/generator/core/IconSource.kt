@@ -17,6 +17,16 @@ interface IconSource {
     fun defaultPathStyle(style: IconStyle): PathStyle
 
     fun helperFunctionName(style: IconStyle): String
+
+    /**
+     * 返回精确的 SVG 文件扫描根目录。
+     *
+     * 用于 GeneratorConfig.sourceRootDir 和 Gradle @InputDirectory 缓存键，
+     * 确保只追踪真正的 SVG 源文件，避免 README、LICENSE 等无关文件变更触发重新生成。
+     *
+     * 默认实现直接返回 referRoot，各实现可覆写以返回更精确的子目录。
+     */
+    fun svgSourceDir(referRoot: File): File = referRoot
 }
 
 data class IconStyle(

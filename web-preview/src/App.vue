@@ -95,10 +95,15 @@ function updateGridConfig() {
 }
 
 const sortedDatasets = computed(() => {
-  const order = ['tabler', 'lucide', 'phosphor']
-  return [...datasets.value].sort((a, b) => 
-    order.indexOf(a.id) - order.indexOf(b.id)
-  )
+  const order = ['tabler', 'lucide', 'phosphor', 'remixicons', 'radixicons', 'heroicons', 'iconoir', 'ionicons', 'bootstrap', 'boxicons']
+  return [...datasets.value].sort((a, b) => {
+    const idxA = order.indexOf(a.id)
+    const idxB = order.indexOf(b.id)
+    if (idxA === -1 && idxB === -1) return a.id.localeCompare(b.id)
+    if (idxA === -1) return 1
+    if (idxB === -1) return -1
+    return idxA - idxB
+  })
 })
 
 const currentDataset = computed(() => 
@@ -157,6 +162,8 @@ function handleScroll(e: Event) {
   scrollTop.value = (e.target as HTMLElement).scrollTop
 }
 
+const copiedStatus = ref(false)
+
 function copyCode(entry: ExplorerEntry) {
   const code = `Icon(
     imageVector = ${entry.kotlinPath},
@@ -164,7 +171,8 @@ function copyCode(entry: ExplorerEntry) {
     modifier = Modifier.size(24.dp)
 )`
   navigator.clipboard.writeText(code)
-  // Simple visual feedback could be added here
+  copiedStatus.value = true
+  setTimeout(() => copiedStatus.value = false, 2000)
 }
 
 function selectIcon(entry: ExplorerEntry) {
@@ -180,12 +188,15 @@ function getPathStyle(path: any, entry: ExplorerEntry) {
   if (fill === 'currentColor') fill = 'var(--text-primary)'
   if (stroke === 'currentColor') stroke = 'var(--text-primary)'
 
+  const fillRule = path.fillRule?.toLowerCase() === 'evenodd' ? 'evenodd' : 'nonzero'
+
   return {
     fill,
     stroke,
     'stroke-width': path.strokeWidth,
     'stroke-linecap': path.strokeLineCap,
     'stroke-linejoin': path.strokeLineJoin,
+    'fill-rule': fillRule,
     opacity: path.alpha || 1
   }
 }
@@ -200,6 +211,7 @@ function getCommonStyle(paths: any[], entry: ExplorerEntry) {
            s['stroke-width'] === first['stroke-width'] &&
            s['stroke-linecap'] === first['stroke-linecap'] &&
            s['stroke-linejoin'] === first['stroke-linejoin'] &&
+           s['fill-rule'] === first['fill-rule'] &&
            s.opacity === first.opacity
   })
   return allSame ? first : null
@@ -249,8 +261,8 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
             <small style="margin-left: auto; opacity: 0.5">v{{ ds.upstreamVersion }}</small>
           </button>
           
-          <div v-if="datasets.length < 3" class="source-item" style="opacity: 0.5; cursor: default">
-             Loading libraries... ({{ datasets.length }}/3)
+          <div v-if="datasets.length < 10" class="source-item" style="opacity: 0.5; cursor: default">
+             Loading libraries... ({{ datasets.length }}/10)
           </div>
         </div>
       </nav>
@@ -378,8 +390,6 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
                     v-for="(path, idx) in selectedEntry.paths"
                     :key="idx"
                     :d="path.d"
-                    fill="currentColor"
-                    :fill-rule="path.fillRule?.toLowerCase() === 'evenodd' ? 'evenodd' : 'nonzero'"
                     v-bind="getPathDiffStyle(path, selectedEntry, getCommonStyle(selectedEntry.paths, selectedEntry))"
                   />
                 </svg>
@@ -389,11 +399,16 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
 
           <div class="info-group">
             <span class="filter-label">Usage (Jetpack Compose)</span>
-            <div class="code-block" @click="copyCode(selectedEntry)">
+            <div class="code-block" @click="copyCode(selectedEntry)" style="position: relative">
               <pre><code>Icon(
   imageVector = {{ selectedEntry.name }},
   contentDescription = null
 )</code></pre>
+              <transition name="fade">
+                <div v-if="copiedStatus" style="position: absolute; top: 12px; right: 12px; background: var(--accent); color: var(--bg-main); padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">
+                  COPIED!
+                </div>
+              </transition>
             </div>
           </div>
 

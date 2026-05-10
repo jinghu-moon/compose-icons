@@ -36,3 +36,15 @@ include(":generator:cli")
 include(":scanner:ksp")
 include(":benchmark")
 // scanner:gradle-plugin is included via pluginManagement { includeBuild() }
+
+// 新增图标库
+include(":generator:heroicons")
+include(":icons-heroicons")
+include(":generator:iconoir")
+include(":icons-iconoir")
+include(":generator:ionicons")
+include(":icons-ionicons")
+include(":generator:bootstrap")
+include(":icons-bootstrap")
+include(":generator:boxicons")
+include(":icons-boxicons")

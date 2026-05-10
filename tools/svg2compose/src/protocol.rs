@@ -1,12 +1,12 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct SvgDocument {
     pub view_box: ViewBox,
     pub nodes: Vec<Node>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct ViewBox {
     pub x: f64,
     pub y: f64,
@@ -14,7 +14,7 @@ pub struct ViewBox {
     pub height: f64,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 pub enum Node {
     #[serde(rename = "path")]
@@ -23,7 +23,7 @@ pub enum Node {
     Group(GroupNode),
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct PathNode {
     pub d: String,
     #[serde(default = "default_transform")]
@@ -34,7 +34,7 @@ pub struct PathNode {
     pub visibility: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct GroupNode {
     #[serde(default = "default_opacity")]
     pub opacity: f64,
@@ -45,7 +45,7 @@ pub struct GroupNode {
     pub children: Vec<Node>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct FillStyle {
     pub color: String,
     #[serde(default = "default_opacity")]
@@ -54,7 +54,7 @@ pub struct FillStyle {
     pub rule: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct StrokeStyle {
     pub color: String,
     #[serde(default = "default_opacity")]

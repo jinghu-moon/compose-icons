@@ -11,6 +11,11 @@ dependencies {
         api(project(":icons-phosphor"))
         api(project(":icons-radix"))
         api(project(":icons-remix"))
+        api(project(":icons-heroicons"))
+        api(project(":icons-iconoir"))
+        api(project(":icons-ionicons"))
+        api(project(":icons-bootstrap"))
+        api(project(":icons-boxicons"))
     }
 }
 

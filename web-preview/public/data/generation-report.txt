@@ -1,3 +1,3 @@
 === compose-icons Generation Report ===
-Source: phosphor v2.1.0
-Total: 9072 | Succeeded: 9072 | Failed: 0 | Warnings: 0
+Source: iconoir vmain
+Total: 1671 | Succeeded: 1671 | Failed: 0 | Warnings: 0

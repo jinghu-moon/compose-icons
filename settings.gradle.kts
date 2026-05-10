@@ -20,6 +20,7 @@ rootProject.name = "compose-icons"
 include(":generator:core")
 include(":generator:tabler")
 include(":generator:lucide")
+include(":compose-icons-bom")
 include(":icons-core")
 include(":icons-tabler")
 include(":icons-lucide")

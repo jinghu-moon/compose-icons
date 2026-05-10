@@ -27,6 +27,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -59,6 +60,7 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.profileinstaller)
 
     // Screenshot testing (Roborazzi + Robolectric)
     testImplementation(libs.junit4)

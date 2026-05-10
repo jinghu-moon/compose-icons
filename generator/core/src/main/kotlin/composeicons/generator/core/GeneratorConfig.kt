@@ -12,7 +12,7 @@ data class GeneratorConfig(
         fun create(projectRoot: File, libName: String, referPath: String): GeneratorConfig {
             return GeneratorConfig(
                 sourceRootDir = projectRoot.resolve(referPath),
-                outputDir = projectRoot.resolve("icons-$libName/src/main/kotlin/composeicons/$libName"),
+                outputDir = projectRoot.resolve("icons-$libName/src/generated/kotlin/composeicons/$libName"),
                 reportDir = projectRoot.resolve("web-preview/public/data"),
             )
         }

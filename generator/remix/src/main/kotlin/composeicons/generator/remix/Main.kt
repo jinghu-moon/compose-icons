@@ -10,12 +10,12 @@ fun main(args: Array<String>) {
     println("Using project root: ${projectRoot.absolutePath}")
     val engine = GeneratorEngine(projectRoot)
     
-    val remixReferRoot = projectRoot.resolve("refer/RemixIcon-master")
+    val remixReferRoot = args.getOrNull(1)?.let(::File) ?: projectRoot.resolve("refer/RemixIcon-4.2.0")
     val source = RemixIconSource(referRoot = remixReferRoot)
     
     val config = GeneratorConfig(
         sourceRootDir = remixReferRoot,
-        outputDir = projectRoot.resolve("icons-remix/src/main/kotlin/composeicons/remix"),
+        outputDir = projectRoot.resolve("icons-remix/src/generated/kotlin/composeicons/remix"),
         reportDir = projectRoot.resolve("web-preview/public/data"),
     )
     

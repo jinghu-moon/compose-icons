@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开源图标库全览报告</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f4f3ee;
+    color: #1a1a1a;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  header {
+    background: #1a1a1a;
+    color: #f4f3ee;
+    padding: 4rem 3rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border: 1.5px solid rgba(244,243,238,0.12);
+    border-radius: 50%;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: 60px;
+    width: 200px; height: 200px;
+    border: 1px solid rgba(244,243,238,0.07);
+    border-radius: 50%;
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a0a090;
+    border: 1px solid #3a3a3a;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 1.5rem;
+  }
+
+  header h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  header h1 strong { font-weight: 700; }
+
+  .header-meta {
+    font-size: 13px;
+    color: #808070;
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+  }
+
+  .header-meta span { display: flex; align-items: center; gap: 6px; }
+
+  .toc-section {
+    background: #eae9e2;
+    padding: 2.5rem 3rem;
+    border-bottom: 1px solid #d8d7cf;
+  }
+
+  .toc-section h2 {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888878;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 6px;
+  }
+
+  .toc-item {
+    font-size: 13px;
+    color: #444;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .toc-item:hover { background: #d8d7cf; }
+
+  .toc-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  main { max-width: 960px; margin: 0 auto; padding: 3rem 2rem; }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3.5rem 0 1.5rem;
+  }
+
+  .category-header:first-child { margin-top: 0; }
+
+  .category-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #888;
+    white-space: nowrap;
+  }
+
+  .category-line {
+    flex: 1;
+    height: 1px;
+    background: #d0cfc7;
+  }
+
+  .library-card {
+    background: #fff;
+    border: 1px solid #e0dfd7;
+    border-radius: 10px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .library-card:hover {
+    border-color: #c0bfb5;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-name-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+  .card-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  .badge-count { background: #f0efe8; color: #666; }
+  .badge-license { background: #e8f4e8; color: #3a6e3a; }
+  .badge-recommend { background: #1a1a1a; color: #f4f3ee; }
+
+  .card-link {
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+    border: 1px solid #e0dfd7;
+    padding: 3px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+
+  .card-link:hover { border-color: #1a1a1a; color: #1a1a1a; }
+
+  .card-desc {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 0.85rem;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .tag {
+    font-size: 11.5px;
+    background: #f4f3ee;
+    color: #666;
+    padding: 2px 9px;
+    border-radius: 3px;
+    border: 1px solid #e4e3db;
+  }
+
+  .color-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 2px;
+  }
+
+  .section-note {
+    font-size: 13px;
+    color: #888;
+    background: #f8f7f2;
+    border: 1px solid #e8e7df;
+    border-left: 3px solid #c8c7bf;
+    padding: 0.75rem 1rem;
+    border-radius: 0 6px 6px 0;
+    margin: 1.5rem 0;
+    line-height: 1.6;
+  }
+
+  footer {
+    text-align: center;
+    padding: 3rem;
+    font-size: 12px;
+    color: #aaa;
+    border-top: 1px solid #e0dfd7;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 2.5rem 1.5rem 2rem; }
+    main { padding: 2rem 1rem; }
+    .toc-section { padding: 2rem 1.5rem; }
+    .card-top { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">开源资源报告 · 2026</div>
+  <h1>开源<strong>图标库</strong>全览</h1>
+  <p style="color:#a0a090; font-size:14px; max-width:520px;">收录 30+ 个主流开源图标库，涵盖通用 UI、品牌 Logo、特殊用途三大分类，附图标数量、授权说明与适用场景。</p>
+  <div class="header-meta">
+    <span>● 30+ 图标库</span>
+    <span>● 三大分类</span>
+    <span>● 全部开源免费</span>
+  </div>
+</header>
+
+<div class="toc-section">
+  <h2>目录</h2>
+  <div class="toc-grid">
+    <a href="#general" class="toc-item"><span class="toc-dot" style="background:#4a90d9"></span>通用 UI 图标库</a>
+    <a href="#lucide" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Lucide</a>
+    <a href="#heroicons" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Heroicons</a>
+    <a href="#phosphor" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Phosphor Icons</a>
+    <a href="#tabler" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Tabler Icons</a>
+    <a href="#feather" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Feather</a>
+    <a href="#material" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Material Symbols</a>
+    <a href="#mdi" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Material Design Icons</a>
+    <a href="#bootstrap" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Bootstrap Icons</a>
+    <a href="#remix" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Remix Icon</a>
+    <a href="#iconoir" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Iconoir</a>
+    <a href="#boxicons" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Boxicons</a>
+    <a href="#ionicons" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Ionicons</a>
+    <a href="#hugeicons" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Hugeicons</a>
+    <a href="#carbon" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Carbon Icons</a>
+    <a href="#iconsax" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Iconsax</a>
+    <a href="#streamline" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Streamline Icons</a>
+    <a href="#cssgg" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">css.gg</a>
+    <a href="#majesticons" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Majesticons</a>
+    <a href="#circum" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Circum Icons</a>
+    <a href="#octicons" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Octicons</a>
+    <a href="#fontawesome" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Font Awesome</a>
+    <a href="#lineawesome" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Line Awesome</a>
+    <a href="#brand" class="toc-item"><span class="toc-dot" style="background:#e07a5f"></span>品牌 Logo 图标库</a>
+    <a href="#simpleicons" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Simple Icons</a>
+    <a href="#devicons" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Devicons</a>
+    <a href="#svgporn" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">SVG Porn</a>
+    <a href="#svgl" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">svgl</a>
+    <a href="#supertiny" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Super Tiny Icons</a>
+    <a href="#thesvg" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">theSVG</a>
+    <a href="#worldvector" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">World Vector Logo</a>
+    <a href="#special" class="toc-item"><span class="toc-dot" style="background:#81b29a"></span>特殊用途图标库</a>
+    <a href="#flagpack" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Flagpack</a>
+    <a href="#crypto" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Cryptocurrency Icons</a>
+    <a href="#payment" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Payment Icons</a>
+    <a href="#openmoji" class="toc-item" style="padding-left:1.5rem; font-size:12px; color:#666;">Openmoji</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- ===== 通用 UI ===== -->
+  <div class="category-header" id="general">
+    <span class="category-label">通用 UI 图标库</span>
+    <div class="category-line"></div>
+  </div>
+
+  <div class="library-card" id="lucide">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Lucide</span>
+        <span class="badge badge-count">1,500+ 图标</span>
+        <span class="badge badge-license">ISC</span>
+        <span class="badge badge-recommend">推荐</span>
+      </div>
+      <a href="https://lucide.dev" class="card-link" target="_blank">lucide.dev ↗</a>
+    </div>
+    <p class="card-desc">Feather Icons 的社区分支，也是目前最活跃的线条图标库之一。所有图标统一绘制在 24×24 网格上，风格极度一致，线条克制、留白充足。与 Feather 相比，Lucide 持续维护且图标数量是其数倍。原生支持 React、Vue、Svelte、Angular 等主流框架，并提供 Figma 插件。Tree-shaking 支持完善，按需引入不增加包体积。</p>
+    <div class="card-tags">
+      <span class="tag">线条风格</span>
+      <span class="tag">SVG</span>
+      <span class="tag">React / Vue / Svelte</span>
+      <span class="tag">Figma 插件</span>
+      <span class="tag">活跃维护</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="heroicons">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Heroicons</span>
+        <span class="badge badge-count">450+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://heroicons.com" class="card-link" target="_blank">heroicons.com ↗</a>
+    </div>
+    <p class="card-desc">由 Tailwind CSS 团队精心制作，与 Tailwind 生态深度集成。提供 Outline（线条）、Solid（填充）、Mini（20px）、Micro（16px）四种变体，覆盖小尺寸到标准尺寸的所有使用场景。图标数量虽不多，但每一枚都经过仔细打磨，风格高度统一，非常适合追求精致感的产品 UI。</p>
+    <div class="card-tags">
+      <span class="tag">Tailwind CSS</span>
+      <span class="tag">4 种变体</span>
+      <span class="tag">React / Vue</span>
+      <span class="tag">精品小集</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="phosphor">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Phosphor Icons</span>
+        <span class="badge badge-count">9,000+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+        <span class="badge badge-recommend">推荐</span>
+      </div>
+      <a href="https://phosphoricons.com" class="card-link" target="_blank">phosphoricons.com ↗</a>
+    </div>
+    <p class="card-desc">在数量与质量上都极为出色的开源图标库，最大亮点是每个图标都有 Thin、Light、Regular、Bold、Fill、Duotone 六种变体风格，设计师可以在不换库的情况下随意切换视觉重量。Duotone（双色）变体尤其适合需要层次感的现代界面。支持 Web、React、Vue、Flutter、Elm 等多平台。</p>
+    <div class="card-tags">
+      <span class="tag">6 种变体</span>
+      <span class="tag">Duotone</span>
+      <span class="tag">Flutter</span>
+      <span class="tag">数量最多之一</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="tabler">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Tabler Icons</span>
+        <span class="badge badge-count">5,600+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://tabler.io/icons" class="card-link" target="_blank">tabler.io/icons ↗</a>
+    </div>
+    <p class="card-desc">来自 Tabler UI 框架团队，基于 24×24 网格绘制的像素级精准 SVG 图标集。风格简洁现代，线条粗细可调（stroke-width 参数化），是线条图标中数量最丰富的库之一。提供 SVG、Web Font、React、Vue 多种使用方式，并支持在线自定义颜色和尺寸后直接下载。</p>
+    <div class="card-tags">
+      <span class="tag">线条风格</span>
+      <span class="tag">Stroke 可调</span>
+      <span class="tag">像素级精准</span>
+      <span class="tag">React / Vue</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="feather">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Feather</span>
+        <span class="badge badge-count">286 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://feathericons.com" class="card-link" target="_blank">feathericons.com ↗</a>
+    </div>
+    <p class="card-desc">极简主义线条图标的鼻祖，奠定了现代线条风格图标的审美基准。每个图标严格遵循 24×24 网格、2px stroke、圆角线帽的统一规范，风格高度克制。虽然图标数量仅有 286 个，但覆盖了绝大多数通用 UI 场景。如今已被 Lucide 等库继承并扩展，但 Feather 本身仍是极简风格的标杆参考。</p>
+    <div class="card-tags">
+      <span class="tag">极简主义</span>
+      <span class="tag">经典标杆</span>
+      <span class="tag">轻量</span>
+      <span class="tag">SVG</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="material">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Material Symbols</span>
+        <span class="badge badge-count">3,000+ 图标</span>
+        <span class="badge badge-license">Apache 2.0</span>
+        <span class="badge badge-recommend">Android 首选</span>
+      </div>
+      <a href="https://fonts.google.com/icons" class="card-link" target="_blank">fonts.google.com/icons ↗</a>
+    </div>
+    <p class="card-desc">Google 官方 Material Design 图标库，也是 Android 开发的官方图标系统。最大特点是基于可变字体技术，支持 Fill、Weight、Grade、Optical Size 四个设计轴动态调节，一套图标可以无缝适配从细线到填充的所有风格。在 Jetpack Compose 中可通过 <code>material-icons-extended</code> 依赖直接引用，无需导入 SVG 文件。</p>
+    <div class="card-tags">
+      <span class="tag">Google 官方</span>
+      <span class="tag">可变字体</span>
+      <span class="tag">Jetpack Compose</span>
+      <span class="tag">4 轴调节</span>
+      <span class="tag">Android 推荐</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="mdi">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Material Design Icons (MDI)</span>
+        <span class="badge badge-count">7,000+ 图标</span>
+        <span class="badge badge-license">Apache 2.0</span>
+      </div>
+      <a href="https://pictogrammers.com/library/mdi/" class="card-link" target="_blank">pictogrammers.com ↗</a>
+    </div>
+    <p class="card-desc">Material Symbols 的社区扩展版，由 Pictogrammers 社区维护。图标数量远超 Google 官方版本，补充了大量垂直领域图标（智能家居、医疗、气象、游戏等）。风格与官方 Material 保持一致，可与官方库混用。适合需要非常规图标但又想保持 Material 视觉语言的项目。</p>
+    <div class="card-tags">
+      <span class="tag">社区扩展</span>
+      <span class="tag">Material 风格</span>
+      <span class="tag">垂直领域图标</span>
+      <span class="tag">7000+</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="bootstrap">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Bootstrap Icons</span>
+        <span class="badge badge-count">2,000+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://icons.getbootstrap.com" class="card-link" target="_blank">icons.getbootstrap.com ↗</a>
+    </div>
+    <p class="card-desc">Bootstrap 官方出品，但完全可以独立于 Bootstrap 框架使用。提供 SVG、SVG Sprite、Web Font 三种引入方式，支持 npm 安装。图标风格偏向传统 UI 控件，覆盖了丰富的表单、媒体、导航类图标，线条与填充两种形态并存。对于使用 Bootstrap 生态的项目而言是最自然的选择。</p>
+    <div class="card-tags">
+      <span class="tag">Bootstrap 生态</span>
+      <span class="tag">SVG Sprite</span>
+      <span class="tag">Web Font</span>
+      <span class="tag">可独立使用</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="remix">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Remix Icon</span>
+        <span class="badge badge-count">2,800+ 图标</span>
+        <span class="badge badge-license">Apache 2.0</span>
+      </div>
+      <a href="https://remixicon.com" class="card-link" target="_blank">remixicon.com ↗</a>
+    </div>
+    <p class="card-desc">定位为"中性系统符号"，强调适用于各种产品设计而不带有强烈的平台风格。每个图标同时提供线条（Line）和填充（Fill）两个版本，分类清晰涵盖媒体、商务、地图、天气等多个领域。设计风格介于 Feather 的纤细与 Material 的厚重之间，是非常平衡的通用选择，免费商用。</p>
+    <div class="card-tags">
+      <span class="tag">中性风格</span>
+      <span class="tag">Line + Fill</span>
+      <span class="tag">免费商用</span>
+      <span class="tag">分类完善</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="iconoir">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Iconoir</span>
+        <span class="badge badge-count">1,600+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://iconoir.com" class="card-link" target="_blank">iconoir.com ↗</a>
+    </div>
+    <p class="card-desc">以"真正免费"为卖点——无需注册、无付费版本、无邮件墙，所有图标直接可用。风格现代简洁，线条圆润，具有一定的个性化特征，不像部分库那样过于通用。支持 SVG、Web Font、React、React Native、Flutter、Figma、Framer 多平台。适合追求干净审美、同时希望避免 Font Awesome 过度流行感的项目。</p>
+    <div class="card-tags">
+      <span class="tag">真正免费</span>
+      <span class="tag">Flutter</span>
+      <span class="tag">React Native</span>
+      <span class="tag">无需注册</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="boxicons">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Boxicons</span>
+        <span class="badge badge-count">1,634+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://boxicons.com" class="card-link" target="_blank">boxicons.com ↗</a>
+    </div>
+    <p class="card-desc">分为 Regular（线条）、Solid（填充）、Logos（品牌）三大类别，是少数在单一库中同时包含通用 UI 图标和品牌 Logo 的开源方案。圆角设计使整体风格偏向友好、现代。提供 CSS、Web Component、React、Vue 多种集成方式，支持在线定制颜色和尺寸。</p>
+    <div class="card-tags">
+      <span class="tag">Regular + Solid + Logos</span>
+      <span class="tag">圆角风格</span>
+      <span class="tag">Web Component</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="ionicons">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Ionicons</span>
+        <span class="badge badge-count">1,300+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://ionic.io/ionicons" class="card-link" target="_blank">ionic.io/ionicons ↗</a>
+    </div>
+    <p class="card-desc">由 Ionic Framework 团队出品，专为移动端和跨平台应用设计。提供 Outline、Filled、Sharp 三种风格，其中 Outline 和 Filled 对应 iOS 视觉习惯，Sharp 版本线条更硬朗适合 Android/Material 场景。SVG 格式，支持通过 Web Component 在任何框架中使用，也可用于 Ionic / Capacitor 原生应用。</p>
+    <div class="card-tags">
+      <span class="tag">Ionic 出品</span>
+      <span class="tag">移动端优先</span>
+      <span class="tag">Outline / Filled / Sharp</span>
+      <span class="tag">跨平台</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="hugeicons">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Hugeicons</span>
+        <span class="badge badge-count">4,000+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://hugeicons.com" class="card-link" target="_blank">hugeicons.com ↗</a>
+    </div>
+    <p class="card-desc">面向现代 SaaS 和产品界面的图标库，设计精细度高，图标在大尺寸下仍有良好的视觉表现。提供 Stroke、Solid、Bulk、Duotone、Twotone 多种变体，每种变体都经过独立调整而非机械复制。有 Figma 官方插件和 React 组件包，是快速增长的新兴库之一，免费商用。</p>
+    <div class="card-tags">
+      <span class="tag">SaaS 风格</span>
+      <span class="tag">多变体</span>
+      <span class="tag">Figma 插件</span>
+      <span class="tag">高精细度</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="carbon">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Carbon Icons</span>
+        <span class="badge badge-count">2,000+ 图标</span>
+        <span class="badge badge-license">Apache 2.0</span>
+      </div>
+      <a href="https://carbondesignsystem.com/elements/icons/library/" class="card-link" target="_blank">carbondesignsystem.com ↗</a>
+    </div>
+    <p class="card-desc">IBM 企业级设计系统 Carbon Design System 的官方图标库。风格严谨、工业感强，在 16×16 和 32×32 像素网格下都有清晰的渲染表现。分类非常完整，特别在数据分析、业务流程、IT 基础设施类图标上有大量其他库欠缺的内容。适合企业级管理后台、数据仪表板等偏工具性的产品。</p>
+    <div class="card-tags">
+      <span class="tag">IBM 出品</span>
+      <span class="tag">企业级</span>
+      <span class="tag">数据分析图标丰富</span>
+      <span class="tag">工业风格</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="iconsax">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Iconsax</span>
+        <span class="badge badge-count">1,000+ 图标</span>
+        <span class="badge badge-license">CC0</span>
+      </div>
+      <a href="https://iconsax.io" class="card-link" target="_blank">iconsax.io ↗</a>
+    </div>
+    <p class="card-desc">最大特点是每个图标提供 Linear、Outline、Broken、Bold、Bulk、TwoTone 六种独立风格，设计师在保持图标语义一致的同时可以自由切换视觉层次。起源于 Figma 社区，拥有大量 UI/UX 设计师用户。对于 React 项目有对应的 NPM 包，使用体验顺畅。</p>
+    <div class="card-tags">
+      <span class="tag">6 种风格</span>
+      <span class="tag">Broken 断点风格</span>
+      <span class="tag">Figma 原生</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="streamline">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Streamline Icons</span>
+        <span class="badge badge-count">10,000+ (免费部分)</span>
+        <span class="badge badge-license">免费 / Pro</span>
+      </div>
+      <a href="https://streamlinehq.com" class="card-link" target="_blank">streamlinehq.com ↗</a>
+    </div>
+    <p class="card-desc">体量极大的图标资源平台，涵盖 UI 线条图标、插画风格图标、3D 图标等多个系列。免费部分图标数量依然可观，质量整体较高。有付费的 Pro 订阅版本提供更多高级内容，但对于大多数常规项目免费版已足够。SVG 和 PNG 格式均可下载，同时提供 Figma 和 Sketch 素材包。</p>
+    <div class="card-tags">
+      <span class="tag">体量最大之一</span>
+      <span class="tag">多系列</span>
+      <span class="tag">插画风格可选</span>
+      <span class="tag">部分付费</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="cssgg">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">css.gg</span>
+        <span class="badge badge-count">700+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://css.gg" class="card-link" target="_blank">css.gg ↗</a>
+    </div>
+    <p class="card-desc">独特之处在于图标完全由纯 CSS 实现，不依赖任何图片或 SVG 文件。这意味着极低的加载开销，且图标可以通过 CSS 变量随时更改颜色、尺寸，完全响应主题切换。也提供了 SVG 和字体版本供需要的场景使用。适合对性能极度敏感、或需要纯代码方案的特殊场景。</p>
+    <div class="card-tags">
+      <span class="tag">纯 CSS 实现</span>
+      <span class="tag">零图片依赖</span>
+      <span class="tag">极轻量</span>
+      <span class="tag">主题友好</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="majesticons">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Majesticons</span>
+        <span class="badge badge-count">760+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://majesticons.com" class="card-link" target="_blank">majesticons.com ↗</a>
+    </div>
+    <p class="card-desc">同时提供 Line（线条）和 Solid（填充）两种版本，设计精致克制，细节打磨到位。图标数量适中，但覆盖了常见 UI 场景。整体风格介于 Lucide 的纤细和 Carbon 的厚重之间，适合需要稍有分量感但又不失现代感的产品界面。免费商用，SVG 格式。</p>
+    <div class="card-tags">
+      <span class="tag">Line + Solid</span>
+      <span class="tag">精致克制</span>
+      <span class="tag">免费商用</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="circum">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Circum Icons</span>
+        <span class="badge badge-count">1,000+ 图标</span>
+        <span class="badge badge-license">MPL 2.0</span>
+      </div>
+      <a href="https://circumicons.com" class="card-link" target="_blank">circumicons.com ↗</a>
+    </div>
+    <p class="card-desc">分类清晰的开源 SVG 图标库，提供按类别浏览和搜索，免费用于个人和商业项目。风格现代简洁，线条圆润，图标尺寸统一。有 React 和 Vue 组件包，易于集成。相对年轻的库，仍在持续增长中，适合对 Lucide 风格有兴趣但希望尝试不同选择的项目。</p>
+    <div class="card-tags">
+      <span class="tag">分类完善</span>
+      <span class="tag">React / Vue</span>
+      <span class="tag">免费商用</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="octicons">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Octicons</span>
+        <span class="badge badge-count">500+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://primer.style/foundations/icons" class="card-link" target="_blank">primer.style ↗</a>
+    </div>
+    <p class="card-desc">GitHub 官方设计系统 Primer 的图标库，专为代码协作和开发工具场景设计。包含大量与 Git、仓库、PR、Issue、代码审查相关的专有图标，这在其他库中很难找到。提供 16px 和 24px 两种规格，支持 Ruby、Jekyll、React 等集成方式。非常适合构建开发工具类产品或 GitHub 风格界面。</p>
+    <div class="card-tags">
+      <span class="tag">GitHub 出品</span>
+      <span class="tag">开发工具图标</span>
+      <span class="tag">Git 专有图标</span>
+      <span class="tag">Primer 设计系统</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="fontawesome">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Font Awesome</span>
+        <span class="badge badge-count">2,000+ (免费)</span>
+        <span class="badge badge-license">免费 / Pro</span>
+      </div>
+      <a href="https://fontawesome.com" class="card-link" target="_blank">fontawesome.com ↗</a>
+    </div>
+    <p class="card-desc">Web 图标领域的老牌标准，自 2012 年发布以来已被数千万网站采用。免费版包含 Solid、Regular、Brands 三种风格共 2000+ 图标，付费 Pro 版提供更多变体和图标。由于使用极其广泛，其图标形状已成为许多用户对"图标应该长什么样"的心理预期，但也正因如此，视觉辨识度略显通用。</p>
+    <div class="card-tags">
+      <span class="tag">历史最悠久</span>
+      <span class="tag">使用最广泛</span>
+      <span class="tag">Pro 付费扩展</span>
+      <span class="tag">包含品牌图标</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="lineawesome">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Line Awesome</span>
+        <span class="badge badge-count">1,400+ 图标</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://icons8.com/line-awesome" class="card-link" target="_blank">icons8.com/line-awesome ↗</a>
+    </div>
+    <p class="card-desc">由 Icons8 打造的 Font Awesome 替代品，目标是以一行代码从 Font Awesome 无缝切换过来。提供与 Font Awesome 图标一一对应的线条版本，风格更轻盈现代。适合已有大量 Font Awesome 使用代码、希望切换到更清晰线条风格但又不想大幅重构的项目。</p>
+    <div class="card-tags">
+      <span class="tag">FA 平替</span>
+      <span class="tag">线条风格</span>
+      <span class="tag">一行代码切换</span>
+    </div>
+  </div>
+
+
+  <!-- ===== 品牌 Logo ===== -->
+  <div class="category-header" id="brand">
+    <span class="category-label">品牌 Logo 图标库</span>
+    <div class="category-line"></div>
+  </div>
+
+  <div class="section-note">使用品牌图标时需注意：大多数品牌的 Logo 受商标法保护，开源授权仅适用于文件格式本身，不代表品牌使用授权。用于开发工具导航、技术栈展示、平台标识等场景通常没问题，但不建议用于商业宣传材料中对品牌的直接指代。</div>
+
+  <div class="library-card" id="simpleicons">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Simple Icons</span>
+        <span class="badge badge-count">3,000+ 品牌</span>
+        <span class="badge badge-license">CC0</span>
+        <span class="badge badge-recommend">品牌首选</span>
+      </div>
+      <a href="https://simpleicons.org" class="card-link" target="_blank">simpleicons.org ↗</a>
+    </div>
+    <p class="card-desc">最权威的开源品牌图标库，社区活跃，更新频率极高。每个图标都经过严格审核以确保与官方品牌形象一致，并附带官方十六进制品牌色，方便直接应用品牌配色。采用 CC0 协议（接近公共领域），是授权最宽松的品牌图标来源。提供 npm 包，支持 CDN 引入，有丰富的第三方框架集成生态。</p>
+    <div class="card-tags">
+      <span class="tag">覆盖最广</span>
+      <span class="tag">含官方品牌色</span>
+      <span class="tag">CC0 协议</span>
+      <span class="tag">高频更新</span>
+      <span class="tag">npm</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="devicons">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Devicons</span>
+        <span class="badge badge-count">500+ 技术品牌</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://devicon.dev" class="card-link" target="_blank">devicon.dev ↗</a>
+    </div>
+    <p class="card-desc">专注于编程语言、开发框架、工具和平台的 Logo 图标库。涵盖从 Python、Rust、Go 等编程语言到 Docker、Kubernetes、Figma 等工具的完整图标集。每个图标通常提供 Original（官方配色）、Plain（单色）、Line（线条）等多个变体，以及 Wordmark（带文字）版本，非常适合技术栈展示页面和开发者简历。</p>
+    <div class="card-tags">
+      <span class="tag">编程语言</span>
+      <span class="tag">开发工具</span>
+      <span class="tag">多变体</span>
+      <span class="tag">含 Wordmark</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="svgporn">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">SVG Porn (svgporn)</span>
+        <span class="badge badge-count">1,000+ 品牌</span>
+        <span class="badge badge-license">CC0</span>
+      </div>
+      <a href="https://svgporn.com" class="card-link" target="_blank">svgporn.com ↗</a>
+    </div>
+    <p class="card-desc">高质量品牌 SVG 的聚合集合，注重图标的视觉精准度，力求还原品牌官方 Logo 的细节。直接提供 SVG 文件下载，无需注册，CC0 协议。相比 Simple Icons 的统一扁平化处理，SVG Porn 更倾向于保留品牌 Logo 的渐变、多色等原始视觉特征，适合需要展示"真实品牌外观"的场景。</p>
+    <div class="card-tags">
+      <span class="tag">高还原度</span>
+      <span class="tag">保留渐变色</span>
+      <span class="tag">CC0 协议</span>
+      <span class="tag">直接下载</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="svgl">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">svgl</span>
+        <span class="badge badge-count">500+ 品牌</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://svgl.app" class="card-link" target="_blank">svgl.app ↗</a>
+    </div>
+    <p class="card-desc">界面简洁、搜索迅速的品牌 SVG 查找工具，面向开发者日常快速取用场景设计。点击即可复制 SVG 代码或下载文件，效率极高。收录内容偏向科技和互联网品牌，特别是近年兴起的 SaaS 和 AI 产品。提供 API 接口，可编程化批量获取图标，也有 VS Code 插件。</p>
+    <div class="card-tags">
+      <span class="tag">快速取用</span>
+      <span class="tag">API 接口</span>
+      <span class="tag">VS Code 插件</span>
+      <span class="tag">SaaS / AI 品牌</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="supertiny">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Super Tiny Icons</span>
+        <span class="badge badge-count">475 品牌</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://github.com/edent/SuperTinySocialIcons" class="card-link" target="_blank">GitHub ↗</a>
+    </div>
+    <p class="card-desc">以"极限压缩"为核心目标的品牌图标库——每个 SVG 文件大小均被压缩到 1KB 以内，最小的仅几百字节，是同类库体积的 1/10 到 1/20。代价是图标进行了必要的简化，省略了精细细节。但在 16–32px 的常规显示尺寸下视觉识别度依然良好。特别适合邮件模板、低带宽 Web 应用、IoT 设备界面等对文件大小敏感的场景。</p>
+    <div class="card-tags">
+      <span class="tag">每个 &lt; 1KB</span>
+      <span class="tag">极限轻量</span>
+      <span class="tag">邮件模板适用</span>
+      <span class="tag">低带宽场景</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="thesvg">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">theSVG</span>
+        <span class="badge badge-count">3,000+ 品牌</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://thesvg.org" class="card-link" target="_blank">thesvg.org ↗</a>
+    </div>
+    <p class="card-desc">新兴品牌图标库，核心亮点是目前唯一大规模提供深色/浅色两套 Logo 变体的开源方案，解决了品牌 Logo 在深色背景下显示异常的长期痛点。同时提供了 MCP 服务器接口，支持 AI 工具链集成。随着深色模式成为标配，这一特性的价值正在快速上升。</p>
+    <div class="card-tags">
+      <span class="tag">深色/浅色双变体</span>
+      <span class="tag">Dark Mode 友好</span>
+      <span class="tag">MCP 接口</span>
+      <span class="tag">新兴库</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="worldvector">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">World Vector Logo</span>
+        <span class="badge badge-count">3,000+ 品牌</span>
+        <span class="badge badge-license">非商业</span>
+      </div>
+      <a href="https://worldvectorlogo.com" class="card-link" target="_blank">worldvectorlogo.com ↗</a>
+    </div>
+    <p class="card-desc">大型品牌向量 Logo 聚合站，可按品牌名搜索并下载 SVG 文件，覆盖面广，包含许多小众品牌和传统行业品牌。注意：该站点的使用条款为非商业个人使用，与 Simple Icons 的 CC0 协议有本质区别，商业项目需谨慎。更适合用作设计参考和查找不常见品牌 Logo 的来源。</p>
+    <div class="card-tags">
+      <span class="tag">覆盖面广</span>
+      <span class="tag">含小众品牌</span>
+      <span class="tag">仅限非商业</span>
+      <span class="tag">设计参考</span>
+    </div>
+  </div>
+
+
+  <!-- ===== 特殊用途 ===== -->
+  <div class="category-header" id="special">
+    <span class="category-label">特殊用途图标库</span>
+    <div class="category-line"></div>
+  </div>
+
+  <div class="library-card" id="flagpack">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Flagpack</span>
+        <span class="badge badge-count">260+ 旗帜</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://flagpack.xyz" class="card-link" target="_blank">flagpack.xyz ↗</a>
+    </div>
+    <p class="card-desc">专注于国旗图标的开源库，提供全球 260+ 国家和地区的国旗 SVG 图标。图标经过精心设计，具有一致的视觉处理（圆角、比例统一），可直接用于语言切换、地区选择器、国际化界面等场景。提供 React 和 Vue 组件，也可直接使用 SVG 文件。</p>
+    <div class="card-tags">
+      <span class="tag">国旗专用</span>
+      <span class="tag">260+ 国家</span>
+      <span class="tag">比例统一</span>
+      <span class="tag">React / Vue</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="crypto">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Cryptocurrency Icons</span>
+        <span class="badge badge-count">500+ 币种</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="http://cryptoicons.co" class="card-link" target="_blank">cryptoicons.co ↗</a>
+    </div>
+    <p class="card-desc">专注于加密货币和区块链项目 Logo 的图标库，涵盖 Bitcoin、Ethereum 等主流币种到大量长尾代币的完整图标集。提供彩色和黑白两种版本，SVG 和 PNG 格式均可下载。是构建加密钱包、DeFi 界面、交易所前端等 Web3 产品的首选图标资源。</p>
+    <div class="card-tags">
+      <span class="tag">加密货币专用</span>
+      <span class="tag">500+ 币种</span>
+      <span class="tag">彩色 + 黑白</span>
+      <span class="tag">Web3 场景</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="payment">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">SVG Credit Card / Payment Icons</span>
+        <span class="badge badge-count">50+ 支付方式</span>
+        <span class="badge badge-license">MIT</span>
+      </div>
+      <a href="https://github.com/aaronfagan/svg-credit-card-payment-icons" class="card-link" target="_blank">GitHub ↗</a>
+    </div>
+    <p class="card-desc">专门收录支付方式图标的开源库，包含 Visa、Mastercard、American Express、PayPal、Apple Pay、Google Pay、银联等主流支付品牌的标准化 SVG 图标。针对电商结账流程设计，图标尺寸和视觉处理均按支付场景规范优化，可直接用于购物车、订单确认等界面。</p>
+    <div class="card-tags">
+      <span class="tag">支付方式专用</span>
+      <span class="tag">电商场景</span>
+      <span class="tag">信用卡图标</span>
+    </div>
+  </div>
+
+  <div class="library-card" id="openmoji">
+    <div class="card-top">
+      <div class="card-name-group">
+        <span class="card-name">Openmoji</span>
+        <span class="badge badge-count">4,000+ Emoji</span>
+        <span class="badge badge-license">CC BY-SA 4.0</span>
+      </div>
+      <a href="https://openmoji.org" class="card-link" target="_blank">openmoji.org ↗</a>
+    </div>
+    <p class="card-desc">完全开源的 Emoji 图标库，由斯图加特媒体大学的设计师团队创建和维护。涵盖 Unicode 标准中所有 Emoji，同时提供了 Unicode 标准之外的扩展符号。有彩色版和黑白线稿版两种，SVG 和 PNG 格式均可获取。适合需要在产品中使用统一风格 Emoji 而不依赖操作系统字体渲染的场景，例如跨平台一致性要求高的 Web 应用。</p>
+    <div class="card-tags">
+      <span class="tag">开源 Emoji</span>
+      <span class="tag">4000+ 符号</span>
+      <span class="tag">彩色 + 线稿</span>
+      <span class="tag">跨平台一致</span>
+      <span class="tag">学术背景</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  开源图标库全览报告 · 2026 &nbsp;|&nbsp; 数据截至 2026 年 5 月 &nbsp;|&nbsp; 图标数量为近似值，以各库官网实时数据为准
+</footer>
+
+</body>
+</html>

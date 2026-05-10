@@ -34,4 +34,5 @@ include(":generator:radix")
 include(":icons-radix")
 include(":generator:cli")
 include(":scanner:ksp")
+include(":benchmark")
 // scanner:gradle-plugin is included via pluginManagement { includeBuild() }

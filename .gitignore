@@ -16,6 +16,7 @@ out/
 
 # Upstream icon sources & reference materials (multi-hundred MB)
 refer/
+refer1/
 
 # Node modules (web-preview)
 **/node_modules/
@@ -36,7 +37,10 @@ Thumbs.db
 web-preview/dist/
 
 # Generated icon .kt files (build-time via svg2compose, not stored in git)
-# Ignore style subdirectories (outline/, filled/, bold/, etc.)
+# New: entire src/generated/ directory is exclusively for generated output
+icons-*/src/generated/
+
+# Legacy: ignore style subdirectories in src/main/ (pre-migration leftovers)
 **/outline/
 **/filled/
 **/bold/
@@ -55,3 +59,6 @@ _t3_diagnostic.txt
 
 # svg2compose cache
 .svg2compose-cache.json
+
+# Downloaded upstream icon sources
+upstream/

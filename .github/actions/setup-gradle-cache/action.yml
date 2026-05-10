@@ -1,0 +1,30 @@
+name: 'Setup Gradle with Build Cache'
+description: 'Set up JDK + Gradle with remote build cache via GitHub Actions cache'
+
+inputs:
+  java-version:
+    description: 'JDK version'
+    required: false
+    default: '21'
+  java-distribution:
+    description: 'JDK distribution'
+    required: false
+    default: 'temurin'
+runs:
+  using: 'composite'
+  steps:
+    - name: Validate Gradle Wrapper
+      uses: gradle/actions/wrapper-validation@v4
+
+    - name: Set up JDK ${{ inputs.java-version }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: ${{ inputs.java-distribution }}
+
+    - name: Setup Gradle with build cache
+      uses: gradle/actions/setup-gradle@v4
+      with:
+        cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+        cache-write-only: ${{ github.ref == 'refs/heads/main' }}
+        gradle-home-cache-cleanup: true

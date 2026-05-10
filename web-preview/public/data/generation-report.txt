@@ -1,3 +1,3 @@
 === compose-icons Generation Report ===
-Source: radixicons v1.3.0
-Total: 332 | Succeeded: 332 | Failed: 0 | Warnings: 0
+Source: phosphor v2.1.0
+Total: 9072 | Succeeded: 9072 | Failed: 0 | Warnings: 0

@@ -135,9 +135,6 @@ pub fn generate_kotlin_file(
     out.push_str(&format!("        if (_{} != null) return _{}!!\n", vector_name, vector_name));
     out.push_str(&format!("        _{} = {}(\n", vector_name, entry.helper));
     out.push_str(&format!("            name = \"{}\",\n", entry.kotlin_name));
-    if should_auto_mirror(&entry.kotlin_name) {
-        out.push_str("            autoMirror = true,\n");
-    }
     out.push_str(&format!(
         "            size = IconSize(width = {}f.dp, height = {}f.dp),\n",
         width_dp, height_dp
@@ -455,9 +452,6 @@ pub fn generate_merged_kotlin_file(
         out.push_str(&format!("        _cache[\"{}\"]?.let {{ return it }}\n", entry.kotlin_name));
         out.push_str(&format!("        val icon = {}(\n", helper));
         out.push_str(&format!("            name = \"{}\",\n", entry.kotlin_name));
-        if should_auto_mirror(&entry.kotlin_name) {
-            out.push_str("            autoMirror = true,\n");
-        }
         out.push_str(&format!(
             "            size = IconSize(width = {}f.dp, height = {}f.dp),\n",
             width_dp, height_dp
@@ -481,15 +475,6 @@ pub fn generate_merged_kotlin_file(
     }
 
     out
-}
-
-fn should_auto_mirror(name: &str) -> bool {
-    let rtl_keywords = [
-        "right", "left", "arrow", "chevron", "caret", "forward", "back", 
-        "return", "undo", "redo", "reply", "next", "previous"
-    ];
-    let name_lower = name.to_lowercase();
-    rtl_keywords.iter().any(|&kw| name_lower.contains(kw))
 }
 
 fn format_float(v: f64) -> String {

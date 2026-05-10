@@ -51,6 +51,7 @@ class UsvgPipeline(
         basePackage: String,
         iconContainer: String,
         outputDir: File,
+        normalizeSize: Double? = null,
     ): Map<String, IconResult> {
         if (entries.isEmpty()) return emptyMap()
 
@@ -65,12 +66,18 @@ class UsvgPipeline(
             )
             manifestFile.writeText(jsonParser.encodeToString(manifest))
 
-            val process = ProcessBuilder(
+            val cmd = mutableListOf(
                 svg2ComposeExecutable.absolutePath,
                 "--manifest", manifestFile.absolutePath,
                 "--output-dir", outputDir.absolutePath,
                 "--result", resultFile.absolutePath,
             )
+            if (normalizeSize != null) {
+                cmd.add("--normalize-size")
+                cmd.add(normalizeSize.toString())
+            }
+
+            val process = ProcessBuilder(cmd)
                 .start()
 
             val stdout = process.inputStream.bufferedReader().use { it.readText() }

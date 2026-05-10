@@ -30,6 +30,10 @@ struct Cli {
     /// Write manifest result JSON (viewBox per icon) to this path
     #[arg(long)]
     result: Option<String>,
+
+    /// Normalize all icons to this viewBox size (e.g., 24.0)
+    #[arg(long)]
+    normalize_size: Option<f64>,
 }
 
 /// Extract <svg ... </svg> from raw text, stripping non-SVG content.
@@ -48,11 +52,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     if let Some(ref manifest_path) = cli.manifest {
         let output_dir = cli.output_dir.as_deref()
             .ok_or("--output-dir is required when --manifest is used")?;
-        manifest_process(manifest_path, output_dir, cli.result.as_deref())?;
+        manifest_process(manifest_path, output_dir, cli.result.as_deref(), cli.normalize_size)?;
     } else if let Some(ref dir) = cli.input_dir {
         let output_path = cli.output.as_deref()
             .ok_or("--output is required when --input-dir is used")?;
-        batch_process(dir, output_path)?;
+        batch_process(dir, output_path, cli.normalize_size)?;
     } else {
         let svg_text = match cli.input {
             Some(path) => std::fs::read_to_string(&path)?,
@@ -67,7 +71,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let tree = usvg::Tree::from_str(cleaned, &usvg::Options::default())
             .map_err(|e| format!("Failed to parse SVG: {}", e))?;
 
-        let doc = svg2compose::converter::convert_tree(&tree);
+        let doc = svg2compose::converter::convert_tree(&tree, cli.normalize_size);
         let json = serde_json::to_string(&doc)?;
 
         println!("{}", json);
@@ -76,7 +80,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn batch_process(input_dir: &str, output_path: &str) -> Result<(), Box<dyn std::error::Error>> {
+fn batch_process(input_dir: &str, output_path: &str, normalize_size: Option<f64>) -> Result<(), Box<dyn std::error::Error>> {
     let dir = std::path::Path::new(input_dir);
     if !dir.is_dir() {
         return Err(format!("{} is not a directory", input_dir).into());
@@ -101,7 +105,7 @@ fn batch_process(input_dir: &str, output_path: &str) -> Result<(), Box<dyn std::
             let raw = std::fs::read_to_string(path).ok()?;
             let cleaned = clean_svg(&raw);
             let tree = usvg::Tree::from_str(cleaned, &usvg::Options::default()).ok()?;
-            let doc = svg2compose::converter::convert_tree(&tree);
+            let doc = svg2compose::converter::convert_tree(&tree, normalize_size);
             Some((stem.clone(), doc))
         })
         .collect();
@@ -112,7 +116,7 @@ fn batch_process(input_dir: &str, output_path: &str) -> Result<(), Box<dyn std::
     Ok(())
 }
 
-fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&str>) -> Result<(), Box<dyn std::error::Error>> {
+fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&str>, normalize_size: Option<f64>) -> Result<(), Box<dyn std::error::Error>> {
     use svg2compose::codegen::{generate_kotlin_file, generate_shared_paths_file, generate_canonical_paths_file};
     use svg2compose::manifest::{IconResult, ManifestResult, ResultViewBox};
     use svg2compose::{canonical_hash, path_dedup};
@@ -134,7 +138,7 @@ fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&
             let raw = std::fs::read_to_string(&entry.svg).ok()?;
             let cleaned = clean_svg(&raw);
             let tree = usvg::Tree::from_str(cleaned, &usvg::Options::default()).ok()?;
-            let doc = svg2compose::converter::convert_tree(&tree);
+            let doc = svg2compose::converter::convert_tree(&tree, normalize_size);
             Some((entry, doc))
         })
         .collect();

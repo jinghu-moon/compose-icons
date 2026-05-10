@@ -125,6 +125,7 @@ class GeneratorEngine(
                     basePackage = source.basePackage,
                     iconContainer = source.iconContainerName,
                     outputDir = outputDir,
+                    normalizeSize = config.normalizeSize,
                 )
 
                 pending.forEach { pe ->

@@ -6,6 +6,7 @@ data class GeneratorConfig(
     val sourceRootDir: File,
     val outputDir: File,
     val reportDir: File,
+    val normalizeSize: Double? = 24.0,
 ) {
     companion object {
         fun create(projectRoot: File, libName: String, referPath: String): GeneratorConfig {

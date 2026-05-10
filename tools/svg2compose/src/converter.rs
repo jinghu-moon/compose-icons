@@ -2,35 +2,51 @@ use crate::compact::{compact_path, RawCommand};
 use crate::protocol::*;
 use usvg::Tree;
 
-pub fn convert_tree(tree: &Tree) -> SvgDocument {
+pub fn convert_tree(tree: &Tree, normalize_size: Option<f64>) -> SvgDocument {
     let size = tree.size();
-    let view_box = ViewBox {
+    let mut view_box = ViewBox {
         x: 0.0,
         y: 0.0,
         width: size.width() as f64,
         height: size.height() as f64,
     };
 
+    let mut global_scale = 1.0;
+    if let Some(target_size) = normalize_size {
+        let max_dim = view_box.width.max(view_box.height);
+        if (max_dim - target_size).abs() > f64::EPSILON {
+            global_scale = target_size / max_dim;
+            view_box.width *= global_scale;
+            view_box.height *= global_scale;
+        }
+    }
+
     let root = tree.root();
-    let nodes = root.children().iter().filter_map(convert_node).collect();
+    let nodes = root.children().iter().filter_map(|n| convert_node(n, global_scale)).collect();
 
     SvgDocument { view_box, nodes }
 }
 
-fn convert_node(node: &usvg::Node) -> Option<Node> {
+fn convert_node(node: &usvg::Node, scale: f64) -> Option<Node> {
     match node {
-        usvg::Node::Group(group) => convert_group(group).map(Node::Group),
-        usvg::Node::Path(path) => convert_path(path).map(Node::Path),
+        usvg::Node::Group(group) => convert_group(group, scale).map(Node::Group),
+        usvg::Node::Path(path) => convert_path(path, scale).map(Node::Path),
         _ => None,
     }
 }
 
-fn convert_path(path: &usvg::Path) -> Option<PathNode> {
+fn convert_path(path: &usvg::Path, scale: f64) -> Option<PathNode> {
     if !path.is_visible() {
         return None;
     }
 
-    let abs_transform = path.abs_transform();
+    let mut abs_transform = path.abs_transform();
+    if (scale - 1.0).abs() > f64::EPSILON {
+        abs_transform.sx *= scale as f32;
+        abs_transform.sy *= scale as f32;
+        abs_transform.tx *= scale as f32;
+        abs_transform.ty *= scale as f32;
+    }
     let d = compact_path(&path_to_commands(path.data(), abs_transform));
 
     let fill = path.fill().map(|f| FillStyle {
@@ -45,7 +61,7 @@ fn convert_path(path: &usvg::Path) -> Option<PathNode> {
     let stroke = path.stroke().map(|s| StrokeStyle {
         color: color_to_hex(s.paint()),
         opacity: s.opacity().get() as f64,
-        width: s.width().get() as f64,
+        width: s.width().get() as f64 * scale,
         linecap: match s.linecap() {
             usvg::LineCap::Butt => "butt".to_string(),
             usvg::LineCap::Round => "round".to_string(),
@@ -67,7 +83,7 @@ fn convert_path(path: &usvg::Path) -> Option<PathNode> {
     })
 }
 
-fn convert_group(group: &usvg::Group) -> Option<GroupNode> {
+fn convert_group(group: &usvg::Group, scale: f64) -> Option<GroupNode> {
     // 跳过带 mask 的 Group（描边扩展路径）
     if group.mask().is_some() {
         return None;
@@ -81,7 +97,7 @@ fn convert_group(group: &usvg::Group) -> Option<GroupNode> {
     let children: Vec<Node> = group
         .children()
         .iter()
-        .filter_map(|node| convert_node_with_opacity(node, opacity))
+        .filter_map(|node| convert_node_with_opacity(node, opacity, scale))
         .collect();
 
     // bake 后 group 自身 opacity 重置为 1.0
@@ -93,7 +109,7 @@ fn convert_group(group: &usvg::Group) -> Option<GroupNode> {
     })
 }
 
-fn convert_node_with_opacity(node: &usvg::Node, group_opacity: f64) -> Option<Node> {
+fn convert_node_with_opacity(node: &usvg::Node, group_opacity: f64, scale: f64) -> Option<Node> {
     match node {
         usvg::Node::Group(g) => {
             // 递归：嵌套 group 的 opacity 相乘
@@ -105,7 +121,7 @@ fn convert_node_with_opacity(node: &usvg::Node, group_opacity: f64) -> Option<No
             let children: Vec<Node> = g
                 .children()
                 .iter()
-                .filter_map(|n| convert_node_with_opacity(n, inner_opacity))
+                .filter_map(|n| convert_node_with_opacity(n, inner_opacity, scale))
                 .collect();
             Some(Node::Group(GroupNode {
                 opacity: 1.0,
@@ -114,17 +130,23 @@ fn convert_node_with_opacity(node: &usvg::Node, group_opacity: f64) -> Option<No
                 children,
             }))
         }
-        usvg::Node::Path(p) => convert_path_with_opacity(p, group_opacity).map(Node::Path),
+        usvg::Node::Path(p) => convert_path_with_opacity(p, group_opacity, scale).map(Node::Path),
         _ => None,
     }
 }
 
-fn convert_path_with_opacity(path: &usvg::Path, group_opacity: f64) -> Option<PathNode> {
+fn convert_path_with_opacity(path: &usvg::Path, group_opacity: f64, scale: f64) -> Option<PathNode> {
     if !path.is_visible() {
         return None;
     }
 
-    let abs_transform = path.abs_transform();
+    let mut abs_transform = path.abs_transform();
+    if (scale - 1.0).abs() > f64::EPSILON {
+        abs_transform.sx *= scale as f32;
+        abs_transform.sy *= scale as f32;
+        abs_transform.tx *= scale as f32;
+        abs_transform.ty *= scale as f32;
+    }
     let d = compact_path(&path_to_commands(path.data(), abs_transform));
 
     let fill = path.fill().map(|f| {
@@ -144,7 +166,7 @@ fn convert_path_with_opacity(path: &usvg::Path, group_opacity: f64) -> Option<Pa
         StrokeStyle {
             color: color_to_hex(s.paint()),
             opacity: base_opacity * group_opacity,
-            width: s.width().get() as f64,
+            width: s.width().get() as f64 * scale,
             linecap: match s.linecap() {
                 usvg::LineCap::Butt => "butt".to_string(),
                 usvg::LineCap::Round => "round".to_string(),
@@ -250,7 +272,7 @@ mod tests {
     fn test_single_path_converts_to_path_node() {
         let svg = load_fixture("single_path.svg");
         let tree = Tree::from_str(&svg, &usvg::Options::default()).unwrap();
-        let doc = convert_tree(&tree);
+        let doc = convert_tree(&tree, None);
 
         assert_eq!(doc.nodes.len(), 1);
         match &doc.nodes[0] {
@@ -268,7 +290,7 @@ mod tests {
     fn test_path_with_g_transform_bakes_into_coordinates() {
         let svg = load_fixture("path_with_transform.svg");
         let tree = Tree::from_str(&svg, &usvg::Options::default()).unwrap();
-        let doc = convert_tree(&tree);
+        let doc = convert_tree(&tree, None);
 
         assert_eq!(doc.nodes.len(), 1);
         match &doc.nodes[0] {
@@ -293,7 +315,7 @@ mod tests {
     fn test_group_with_clip_path_extracts_clip_data() {
         let svg = load_fixture("group_with_clip.svg");
         let tree = Tree::from_str(&svg, &usvg::Options::default()).unwrap();
-        let doc = convert_tree(&tree);
+        let doc = convert_tree(&tree, None);
 
         assert_eq!(doc.nodes.len(), 1);
         match &doc.nodes[0] {
@@ -327,7 +349,7 @@ mod tests {
             </g>
         </svg>"##;
         let tree = Tree::from_str(svg, &usvg::Options::default()).unwrap();
-        let doc = convert_tree(&tree);
+        let doc = convert_tree(&tree, None);
 
         // 两层 group 均无 clipPath，应被 codegen 扁平化（但 converter 层仍保留结构）
         assert_eq!(doc.nodes.len(), 1);
@@ -361,7 +383,7 @@ mod tests {
     fn test_mask_constrained_group_is_skipped() {
         let svg = load_fixture("mask_panel.svg");
         let tree = Tree::from_str(&svg, &usvg::Options::default()).unwrap();
-        let doc = convert_tree(&tree);
+        let doc = convert_tree(&tree, None);
 
         // 只有 1 个 Path 节点（填充层），被 mask 约束的 Group 已被跳过
         assert_eq!(doc.nodes.len(), 1);

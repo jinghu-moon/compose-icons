@@ -24,7 +24,7 @@ fn generate_and_compare(fixture_name: &str, kotlin_name: &str, snapshot_name: &s
     let svg = load_fixture(fixture_name);
     let tree = usvg::Tree::from_str(&svg, &usvg::Options::default())
         .unwrap_or_else(|e| panic!("Failed to parse SVG {}: {}", fixture_name, e));
-    let doc = convert_tree(&tree);
+    let doc = convert_tree(&tree, None);
 
     let entry = make_entry(kotlin_name);
     let actual = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
@@ -74,7 +74,7 @@ fn test_path_with_transform_snapshot() {
     // This test verifies that transform is baked into coordinates
     let svg = load_fixture("path_with_transform.svg");
     let tree = usvg::Tree::from_str(&svg, &usvg::Options::default()).unwrap();
-    let doc = convert_tree(&tree);
+    let doc = convert_tree(&tree, None);
 
     let entry = make_entry("PathWithTransform");
     let actual = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons", None);
@@ -92,7 +92,7 @@ fn test_mask_panel_snapshot() {
     // This test verifies that mask groups are skipped
     let svg = load_fixture("mask_panel.svg");
     let tree = usvg::Tree::from_str(&svg, &usvg::Options::default()).unwrap();
-    let doc = convert_tree(&tree);
+    let doc = convert_tree(&tree, None);
 
     // Only 1 node (the fill layer), mask group should be skipped
     assert_eq!(doc.nodes.len(), 1, "Mask group should be skipped");

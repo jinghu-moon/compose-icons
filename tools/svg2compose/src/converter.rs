@@ -380,6 +380,25 @@ mod tests {
     }
 
     #[test]
+    fn test_normalize_15x15_to_24x24() {
+        let svg = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15">
+            <path d="M 0 0 L 15 15 Z" fill="#000000"/>
+        </svg>"##;
+
+        let tree = Tree::from_str(svg, &usvg::Options::default()).unwrap();
+
+        // Without normalization
+        let doc_no_normalize = convert_tree(&tree, None);
+        assert_eq!(doc_no_normalize.view_box.width, 15.0);
+        assert_eq!(doc_no_normalize.view_box.height, 15.0);
+
+        // With normalization to 24.0
+        let doc_normalized = convert_tree(&tree, Some(24.0));
+        assert_eq!(doc_normalized.view_box.width, 24.0);
+        assert_eq!(doc_normalized.view_box.height, 24.0);
+    }
+
+    #[test]
     fn test_mask_constrained_group_is_skipped() {
         let svg = load_fixture("mask_panel.svg");
         let tree = Tree::from_str(&svg, &usvg::Options::default()).unwrap();

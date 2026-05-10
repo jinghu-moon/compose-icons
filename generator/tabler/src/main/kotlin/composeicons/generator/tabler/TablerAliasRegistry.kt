@@ -29,6 +29,10 @@ class TablerAliasRegistry private constructor(
         return aliasesByStyle[style.subdirectory].orEmpty()
     }
 
+    fun allAliases(): Set<String> {
+        return aliasesByStyle.values.flatMap { it.keys }.map { "$it.svg" }.toSet()
+    }
+
     companion object {
         fun load(referRoot: File): TablerAliasRegistry {
             val aliasesFile = referRoot.resolve("aliases.json")

@@ -1,7 +1,6 @@
 package composeicons.generator.remix
 
 import composeicons.generator.core.*
-import composeicons.generator.core.SvgMetadata
 import composeicons.generator.core.manifest.*
 import kotlinx.serialization.json.*
 import java.io.File
@@ -27,10 +26,9 @@ fun RemixIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
         match("Line", "-line")
     }
 
-    // Hook: �?tags.json 加载元数�?    hook { entries ->
-        val tagsFile = referRoot.resolve("tags.json")
-        if (!tagsFile.exists()) return@hook entries
-
+    // Hook: 使用内置 MetadataEnricherHook (遵循审计报告 #11)
+    val tagsFile = referRoot.resolve("tags.json")
+    if (tagsFile.exists()) {
         val json = Json.parseToJsonElement(tagsFile.readText()).jsonObject
         val metaMap = mutableMapOf<String, SvgMetadata>()
         
@@ -42,10 +40,7 @@ fun RemixIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
                 }
             }
         }
-
-        entries.map { entry ->
-            val baseName = entry.fileName.removeSuffix(".svg").removeSuffix("-fill").removeSuffix("-line")
-            entry.copy(metadata = metaMap[baseName] ?: SvgMetadata.EMPTY)
-        }
+        
+        hook(MetadataEnricherHook(metaMap))
     }
 }

@@ -73,16 +73,21 @@ class PathStyleBuilder {
     var fillRule: String? = null
     var alpha: Float = 1.0f
 
-    fun build() = PathStyle(fill, stroke, strokeWidth, strokeLineCap, strokeLineJoin, fillRule, alpha)
+    fun build(): PathStyle {
+        if (strokeWidth != null && stroke == null) {
+            System.err.println("Warning: strokeWidth ($strokeWidth) set without stroke color in DSL")
+        }
+        return PathStyle(fill, stroke, strokeWidth, strokeLineCap, strokeLineJoin, fillRule, alpha)
+    }
 }
 
 // DiscoveryStrategy 构造器辅助函数
 fun flat(subdir: String) = DiscoveryStrategy.Flat(subdir)
 fun subdirectories(subdir: String) = DiscoveryStrategy.Subdirectories(subdir)
 fun suffixBased(subdir: String, block: SuffixRulesBuilder.() -> Unit) =
-    DiscoveryStrategy.SuffixBased(subdir, SuffixRulesBuilder().apply(block).rules())
+    DiscoveryStrategy.SuffixBased(subdir, SuffixRulesBuilder().apply(block).build())
 fun treeWalk(subdir: String, block: SuffixRulesBuilder.() -> Unit) =
-    DiscoveryStrategy.TreeWalk(subdir, SuffixRulesBuilder().apply(block).rules())
+    DiscoveryStrategy.TreeWalk(subdir, SuffixRulesBuilder().apply(block).build())
 
 @IconLibraryDslMarker
 class SuffixRulesBuilder {
@@ -90,5 +95,12 @@ class SuffixRulesBuilder {
     fun match(style: String, suffix: String) { rules.add(DiscoveryStrategy.SuffixBased.Rule.Match(style, suffix)) }
     fun exclude(suffix: String) { rules.add(DiscoveryStrategy.SuffixBased.Rule.Exclude(suffix)) }
     fun default(style: String) { rules.add(DiscoveryStrategy.SuffixBased.Rule.Default(style)) }
-    internal fun rules(): List<DiscoveryStrategy.SuffixBased.Rule> = rules.toList()
+    internal fun build(): List<DiscoveryStrategy.SuffixBased.Rule> {
+        val list = rules.toList()
+        val defaultIdx = list.indexOfFirst { it is DiscoveryStrategy.SuffixBased.Rule.Default }
+        if (defaultIdx >= 0 && defaultIdx != list.lastIndex) {
+            error("Default rule must be the last rule in SuffixBased strategy, but it's at index $defaultIdx")
+        }
+        return list
+    }
 }

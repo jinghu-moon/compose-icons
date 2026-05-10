@@ -1,10 +1,9 @@
 # Generator 全面声明式重构设计（方案 C）
 
 > 日期：2026-05-10
-> 状态：**待审核**
-> 范围：`buildSrc/` + `generator/core` + `generator/*/` + `icons-*/`
-> 预估投入：4 天（3 个独立 PR 分次可验收）
-> 预估收益：存量省 ~2200 行，每新库省 ~120 行，3 年累计 ~4300 行净节省
+> 状态：**已实施 (Layer 2 & 3)** / **挂起 (Layer 1)**
+> 范围：`generator/core` + `generator/*/` + `icons-*/`
+> 收益：已通过声明式 IconSource 消除 ~400 行重复代码。Layer 1 (Gradle 插件自动注册) 由于插件版本冲突暂缓。
 
 ---
 
@@ -66,7 +65,7 @@
 |---|---|---|
 | `SvgIconEntry.fileName` 含 `.svg` 扩展名 | Radix、Remix 用 `nameWithoutExtension`，其他 8 个用 `file.name` | 统一 `file.name`（IconNameMapper 内部已处理 `.svg` 剥离） |
 | `helperFunctionName` 命名 | Radix `radixIcon`（不带 style）vs Iconoir `iconoirRegularIcon`（带 style） | 每 style 显式声明，不依赖推导规则 |
-| Tabler alias 过滤 | 默认开启（用户看不到 `2fa`） | **默认关闭**（alias 可见），有需要可开 `AliasFilter` hook |
+| Tabler alias 过滤 | 默认开启（用户看不到 `2fa`） | **保持默认开启**，作为标准 DiscoveryHook 实施 |
 | 2-arg 构造器 `(upstreamVersion, referRoot)` | Tabler/Lucide/Phosphor 有，其他没有 | 统一单参 `(referRoot)`，`upstreamVersion` 在 DSL 内声明 |
 
 ---
@@ -97,11 +96,9 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ 层 1 — Convention Plugins（build.gradle.kts 样板）           │
+│ [状态：挂起/暂缓] 由于 Gradle 插件 Classpath 冲突，任务仍手动注册  │
 │                                                             │
-│  generator/*/build.gradle.kts  ──►  compose-icons-generator │
-│  icons-*/build.gradle.kts      ──►  compose-icons-library   │
-│                                                             │
-│  272 + 690 = 962 行  ──►  80 + 40 = 120 行                   │
+│  未来计划通过 Composite Build 或独立插件库实施                │
 └──────────────────────────┬──────────────────────────────────┘
                            │
 ┌──────────────────────────┴──────────────────────────────────┐

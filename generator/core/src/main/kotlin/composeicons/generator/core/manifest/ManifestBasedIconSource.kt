@@ -17,7 +17,7 @@ class ManifestBasedIconSource(
     override fun downloadSvg(outputDir: File) {}  // no-op, Gradle handles
 
     override fun discoverIcons(svgDir: File): List<SvgIconEntry> {
-        val raw = manifest.discovery.discover(referRoot, manifest.styles)
+        val raw = manifest.discovery.discover(svgDir, manifest.styles)
         return manifest.hooks.fold(raw) { acc, hook -> hook.transform(acc) }
     }
 

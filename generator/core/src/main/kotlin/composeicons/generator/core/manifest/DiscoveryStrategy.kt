@@ -97,6 +97,6 @@ private fun classifyBySuffix(
 }
 
 // Extension to List SVG files
-private fun File.listSvgFiles(): List<File> {
+internal fun File.listSvgFiles(): List<File> {
     return listFiles { f -> f.isFile && f.extension.equals("svg", ignoreCase = true) }?.toList().orEmpty().sortedBy { it.name }
 }

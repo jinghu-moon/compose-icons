@@ -702,13 +702,12 @@ fun TablerIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
 
     discovery = subdirectories("icons")
 
-    // 破坏性改动：默认关闭 alias 过滤，让 Auth2fa 和 _2fa 两个名字都可见。
-    // 如需恢复旧行为（只暴露 canonical name），取消下面注释：
-    // hook(AliasFilterHook(TablerAliasRegistry.load(referRoot).aliases))
+    val aliasRegistry = TablerAliasRegistry.load(referRoot)
+    hook(AliasFilterHook(aliasRegistry.allAliases()))
 }
 ```
 
-Tabler: 88 → 28 行。`TablerAliasRegistry.kt` 保留，但默认不启用。
+Tabler: 88 → 28 行。`TablerAliasRegistry.kt` 保留。
 
 #### 4.3.4 Heroicons（subdirectories with deep path）
 
@@ -946,7 +945,6 @@ IconSource 层面节省 **341 行**。加上 build.gradle.kts 两层节省 **~84
 **推荐顺序**（由简到繁）：Radix → Lucide → Iconoir → Boxicons → Heroicons → Bootstrap → Ionicons → Tabler → Phosphor → Remix
 
 **附带清理**：
-- 删除 `TablerAliasRegistry.kt` 或降级为 opt-in helper（见 §6）
 - 删除 `RemixTagsLoader` 以外的 Remix 散落辅助类
 
 **验收**：
@@ -960,11 +958,8 @@ IconSource 层面节省 **341 行**。加上 build.gradle.kts 两层节省 **~84
 
 | 改动 | 面向 | 影响 | CHANGELOG 条目 |
 |---|---|---|---|
-| `TablerAliasRegistry` 默认关闭 | 消费方 | Tabler 新增 ~100 个 alias 图标（`_2fa` 等） | BREAKING: TablerIcons 暴露 alias，用户可用 `TablerIcons.Outline._2fa` 或 `Auth2fa` 任一 |
-| `SvgIconEntry.fileName` 统一带 `.svg` | 生成器内部 | Radix/Remix 的 manifest 文件名格式变化 | 内部；不影响最终生成的 Kotlin API |
-| IconSource 构造器统一单参 `(referRoot)` | 生成器内部 | Tabler/Lucide/Phosphor 从 2-arg 改为 1-arg（`upstreamVersion` 在 DSL 内声明）| 内部；不影响消费方 |
-
-只有第一条（Tabler alias）是真正的消费方面向破坏。建议 CHANGELOG 明确记录并在文档示例里展示两种引用风格。
+| `SvgIconEntry.fileName` | 图标库 Main 类 | 散落在各模块 | **统一由 generatorMain 处理** |
+| IconSource 构造器 | 变参 | **统一单参 (referRoot)** | 生成器内部 |
 
 ---
 

@@ -2,7 +2,6 @@ package composeicons.generator.remix
 
 import composeicons.generator.core.*
 import composeicons.generator.core.manifest.*
-import kotlinx.serialization.json.*
 import java.io.File
 
 fun RemixIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
@@ -26,21 +25,9 @@ fun RemixIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
         match("Line", "-line")
     }
 
-    // Hook: 使用内置 MetadataEnricherHook (遵循审计报告 #11)
+    // Hook: 使用内置 MetadataEnricherHook 与独立 Parser (遵循审计报告 #11 / C 项)
     val tagsFile = referRoot.resolve("tags.json")
     if (tagsFile.exists()) {
-        val json = Json.parseToJsonElement(tagsFile.readText()).jsonObject
-        val metaMap = mutableMapOf<String, SvgMetadata>()
-        
-        json.forEach { (category, icons) ->
-            if (icons is JsonObject) {
-                icons.forEach { (name, tagsStr) ->
-                    val tags = tagsStr.jsonPrimitive.content.split(",").map { it.trim() }.toSet()
-                    metaMap[name] = SvgMetadata(tags, category, null, null)
-                }
-            }
-        }
-        
-        hook(MetadataEnricherHook(metaMap))
+        hook(MetadataEnricherHook(RemixMetadataParser.load(tagsFile)))
     }
 }

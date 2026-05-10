@@ -2,7 +2,7 @@ import composeicons.gradle.GenerateIconsTask
 import composeicons.gradle.DownloadIconSourceTask
 
 plugins {
-    id("compose-icons-generator")
+    id("org.jetbrains.kotlin.jvm")
 }
 
 dependencies {

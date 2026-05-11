@@ -8,6 +8,7 @@ plugins {
 dependencies {
     implementation(project(":generator:core"))
     implementation(libs.kotlinx.serialization.json)
+    testImplementation(libs.kotlin.test)
 }
 
 val downloadIcons by tasks.registering(DownloadIconSourceTask::class) {

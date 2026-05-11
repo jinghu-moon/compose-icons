@@ -66,7 +66,7 @@
 | `SvgIconEntry.fileName` 含 `.svg` 扩展名 | Radix、Remix 用 `nameWithoutExtension`，其他 8 个用 `file.name` | 统一 `file.name`（IconNameMapper 内部已处理 `.svg` 剥离） |
 | `helperFunctionName` 命名 | Radix `radixIcon`（不带 style）vs Iconoir `iconoirRegularIcon`（带 style） | 每 style 显式声明，不依赖推导规则 |
 | Tabler alias 过滤 | 默认开启（用户看不到 `2fa`） | **保持默认开启**，作为标准 DiscoveryHook 实施 |
-| 2-arg 构造器 `(upstreamVersion, referRoot)` | Tabler/Lucide/Phosphor 有，其他没有 | 统一单参 `(referRoot)`，`upstreamVersion` 在 DSL 内声明 |
+| 2-arg 构造器 `(upstreamVersion, referRoot)` | ~~Tabler/Lucide/Phosphor 有~~ **已统一单参** | 统一单参 `(referRoot)`，`upstreamVersion` 在 DSL 内声明 |
 
 ---
 
@@ -581,9 +581,9 @@ class PathStyleBuilder {
 fun flat(subdir: String) = DiscoveryStrategy.Flat(subdir)
 fun subdirectories(subdir: String) = DiscoveryStrategy.Subdirectories(subdir)
 fun suffixBased(subdir: String, block: SuffixRulesBuilder.() -> Unit) =
-    DiscoveryStrategy.SuffixBased(subdir, SuffixRulesBuilder().apply(block).rules())
+    DiscoveryStrategy.SuffixBased(subdir, SuffixRulesBuilder().apply(block).build())
 fun treeWalk(subdir: String, block: SuffixRulesBuilder.() -> Unit) =
-    DiscoveryStrategy.TreeWalk(subdir, SuffixRulesBuilder().apply(block).rules())
+    DiscoveryStrategy.TreeWalk(subdir, SuffixRulesBuilder().apply(block).build())
 
 @IconLibraryDslMarker
 class SuffixRulesBuilder {
@@ -591,7 +591,14 @@ class SuffixRulesBuilder {
     fun match(style: String, suffix: String) { rules.add(DiscoveryStrategy.SuffixBased.Rule.Match(style, suffix)) }
     fun exclude(suffix: String) { rules.add(DiscoveryStrategy.SuffixBased.Rule.Exclude(suffix)) }
     fun default(style: String) { rules.add(DiscoveryStrategy.SuffixBased.Rule.Default(style)) }
-    internal fun rules(): List<DiscoveryStrategy.SuffixBased.Rule> = rules.toList()
+    internal fun build(): List<DiscoveryStrategy.SuffixBased.Rule> {
+        val list = rules.toList()
+        val defaultIdx = list.indexOfFirst { it is DiscoveryStrategy.SuffixBased.Rule.Default }
+        if (defaultIdx >= 0 && defaultIdx != list.lastIndex) {
+            error("Default rule must be the last rule in SuffixBased strategy, but it's at index $defaultIdx")
+        }
+        return list
+    }
 }
 ```
 
@@ -817,11 +824,6 @@ fun PhosphorIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
     name = "phosphor"; displayName = "PhosphorIcons"; iconContainerName = "PhosphorIcons"
     basePackage = "composeicons.phosphor"; upstreamVersion = "2.1.0"
 
-    fun stroke(width: Float) = PathStyleBuilder().apply {
-        fill = "none"; stroke = "currentColor"; strokeWidth = width
-        strokeLineCap = "round"; strokeLineJoin = "round"
-    }.build()
-
     style("Thin")    { helperFunction = "phosphorThinIcon";    defaultPathStyle { fill = "none"; stroke = "currentColor"; strokeWidth = 8f;  strokeLineCap = "round"; strokeLineJoin = "round" } }
     style("Light")   { helperFunction = "phosphorLightIcon";   defaultPathStyle { fill = "none"; stroke = "currentColor"; strokeWidth = 12f; strokeLineCap = "round"; strokeLineJoin = "round" } }
     style("Regular") { helperFunction = "phosphorRegularIcon"; defaultPathStyle { fill = "none"; stroke = "currentColor"; strokeWidth = 16f; strokeLineCap = "round"; strokeLineJoin = "round" } }
@@ -857,11 +859,14 @@ fun RemixIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
         match("Line", "-line")
     }
 
-    hook(MetadataEnricherHook(RemixTagsLoader.load(referRoot.resolve("tags.json"))))
+    val tagsFile = referRoot.resolve("tags.json")
+    if (tagsFile.exists()) {
+        hook(MetadataEnricherHook(RemixMetadataParser.load(tagsFile)))
+    }
 }
 
 // 辅助类（保留在 generator/remix 模块中）
-object RemixTagsLoader {
+object RemixMetadataParser {
     fun load(tagsFile: File): Map<String, SvgMetadata> { /* 现有 tagsMap 逻辑 */ }
 }
 ```
@@ -1054,7 +1059,6 @@ sample/build.gradle.kts                                     [+1 行]
 
 - [docs/07_new_icon_library_integration_plan.md](./07_new_icon_library_integration_plan.md) — 本方案完成后将完整改写
 - [docs/04_innovation_ksp_scanner.md](./04_innovation_ksp_scanner.md) — KSP scanner 不受此重构影响
-- [docs/05_innovation_shared_path_pool.md](./05_innovation_shared_path_pool.md) — Shared Path Pool 不受此重构影响
 - [docs/architecture.md](./architecture.md) — 架构白皮书，IconSource 契约章节保持有效
 
 ---

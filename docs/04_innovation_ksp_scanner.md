@@ -4,7 +4,7 @@
 > - `scanner/ksp/` — KSP processor，编译期扫描消费方源码
 > - `scanner/gradle-plugin/` — Gradle 插件，注册任务 + 自动注入 R8 keep 规则
 >
-> 相关：[architecture.md](./architecture.md)、[05_innovation_shared_path_pool.md](./05_innovation_shared_path_pool.md)
+> 相关：[architecture.md](./architecture.md)
 
 ---
 
@@ -161,8 +161,6 @@ Did you mean: Home / Home2 / HomeDot (Levenshtein distance 1)
 
 | 方案 | 协作点 |
 |------|--------|
-| Shared Path Pool (Layer 1) | 共享常量是 `@PublishedApi internal val`，scanner 生成的 keep 针对图标顶层 Kt 类，R8 能正确让共享常量跟随裁剪 |
-| Canonical Hash Pool (T3) | 同上。T3 常量也是 internal；若所有引用方被 scanner 标记为"未使用"且被 R8 裁掉，常量也被裁 |
 | generator-core | 无耦合。scanner 完全工作在消费方编译期，生成器侧零改动 |
 
 ---

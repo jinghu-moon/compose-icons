@@ -9,7 +9,7 @@ fun interface DiscoveryHook {
 /** 过滤 alias SVG（Tabler aliases.json 场景）。 */
 class AliasFilterHook(private val aliases: Set<String>) : DiscoveryHook {
     override fun transform(entries: List<SvgIconEntry>): List<SvgIconEntry> =
-        entries.filter { it.fileName !in aliases }
+        entries.filter { it.effectiveRawFileName !in aliases }
 }
 
 /** 用外部元数据富化每个 entry。key 为 fileName.removeSuffix(".svg")。 */

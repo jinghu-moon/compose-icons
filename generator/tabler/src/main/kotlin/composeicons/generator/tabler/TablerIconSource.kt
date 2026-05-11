@@ -4,15 +4,12 @@ import composeicons.generator.core.*
 import composeicons.generator.core.manifest.*
 import java.io.File
 
-fun TablerIconSource(
-    upstreamVersion: String = "3.41.1",
-    referRoot: File,
-): IconSource = iconLibrary(referRoot) {
+fun TablerIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
     name = "tabler"
     displayName = "TablerIcons"
     iconContainerName = "TablerIcons"
     basePackage = "composeicons.tabler"
-    this.upstreamVersion = upstreamVersion
+    upstreamVersion = "3.41.1"
 
     style("Outline") {
         subdirectory = "outline"

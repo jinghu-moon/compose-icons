@@ -27,6 +27,8 @@ data class StyleDeclaration(
     val name: String,
     /** 相对 [DiscoveryStrategy] 根目录的子路径；Flat 策略下可为 null。 */
     val subdirectory: String?,
+    /** SVG 发现路径，默认回退到 [subdirectory]。当上游目录名不是合法 Kotlin 标识符时需显式设置。 */
+    val sourcePath: String?,
     val helperFunction: String,
     val defaultPathStyle: PathStyle,
 )

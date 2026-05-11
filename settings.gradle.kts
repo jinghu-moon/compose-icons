@@ -35,7 +35,7 @@ include(":icons-radix")
 include(":generator:cli")
 include(":scanner:ksp")
 include(":benchmark")
-// scanner:gradle-plugin is included via pluginManagement { includeBuild() }
+include(":demo")
 
 // 新增图标库
 include(":generator:heroicons")

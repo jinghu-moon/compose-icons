@@ -22,7 +22,10 @@ fun IconoirIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
     style("Solid") {
         subdirectory = "solid"
         helperFunction = "iconoirSolidIcon"
-        defaultPathStyle { fill = "currentColor" }
+        defaultPathStyle {
+            fill = "currentColor"; stroke = "currentColor"; strokeWidth = 1.5f
+            strokeLineCap = "round"; strokeLineJoin = "round"
+        }
     }
 
     discovery = subdirectories("icons")

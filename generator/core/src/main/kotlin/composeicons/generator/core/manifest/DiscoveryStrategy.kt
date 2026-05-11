@@ -15,21 +15,21 @@ sealed interface DiscoveryStrategy {
                 "Flat discovery requires exactly 1 style, got ${styles.size}"
             }
             return resolvedSourceDir(referRoot).listSvgFiles().map { file ->
-                SvgIconEntry(fileName = file.name, style = styles[0].toIconStyle(), file = file)
+                SvgIconEntry(fileName = file.name, style = styles[0].toIconStyle(), file = file, rawFileName = file.name)
             }
         }
     }
 
-    /** 每 style 一个子目录。子目录名由 style.subdirectory 决定。适用：Tabler / Iconoir / Heroicons / Boxicons */
+    /** 每 style 一个子目录。子目录名由 style.sourcePath（回退 style.subdirectory）决定。适用：Tabler / Iconoir / Heroicons / Boxicons */
     data class Subdirectories(val subdir: String) : DiscoveryStrategy {
         override fun resolvedSourceDir(referRoot: File) = referRoot.resolve(subdir)
         override fun discover(referRoot: File, styles: List<StyleDeclaration>): List<SvgIconEntry> {
             val iconsDir = resolvedSourceDir(referRoot)
             return styles.flatMap { style ->
-                val styleSubdir = style.subdirectory
-                    ?: error("Subdirectories discovery requires style.subdirectory for '${style.name}'")
+                val styleSubdir = style.sourcePath ?: style.subdirectory
+                    ?: error("Subdirectories discovery requires style.subdirectory or style.sourcePath for '${style.name}'")
                 iconsDir.resolve(styleSubdir).listSvgFiles().map { file ->
-                    SvgIconEntry(fileName = file.name, style = style.toIconStyle(), file = file)
+                    SvgIconEntry(fileName = file.name, style = style.toIconStyle(), file = file, rawFileName = file.name)
                 }
             }
         }
@@ -81,7 +81,7 @@ private fun classifyBySuffix(
                 val style = styles.find { it.name == rule.style }
                     ?: error("Unknown style '${rule.style}' in discovery rule")
                 val strippedName = "${name.removeSuffix(rule.suffix)}.svg"
-                return SvgIconEntry(fileName = strippedName, style = style.toIconStyle(), file = file)
+                return SvgIconEntry(fileName = strippedName, style = style.toIconStyle(), file = file, rawFileName = file.name)
             }
             is DiscoveryStrategy.SuffixBased.Rule.Exclude -> if (name.endsWith(rule.suffix)) {
                 return null
@@ -89,7 +89,7 @@ private fun classifyBySuffix(
             is DiscoveryStrategy.SuffixBased.Rule.Default -> {
                 val style = styles.find { it.name == rule.style }
                     ?: error("Unknown style '${rule.style}' in discovery rule")
-                return SvgIconEntry(fileName = file.name, style = style.toIconStyle(), file = file)
+                return SvgIconEntry(fileName = file.name, style = style.toIconStyle(), file = file, rawFileName = file.name)
             }
         }
     }

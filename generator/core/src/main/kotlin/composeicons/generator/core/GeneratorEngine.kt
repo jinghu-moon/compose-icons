@@ -80,32 +80,6 @@ class GeneratorEngine(
             }
         }
 
-        // Phase 1.5: Shared Path Pool — expand pending to include ALL styles
-        // for any icon that has at least one changed style.
-        // This ensures svg2compose's cross-style dedup has complete data.
-        val affectedKotlinNames = pending.map { it.kotlinName }.toSet()
-        if (affectedKotlinNames.isNotEmpty()) {
-            val extraPending = mutableListOf<PendingEntry>()
-            discovered.forEach { entry ->
-                val kotlinName = IconNameMapper.toKotlinName(entry.fileName)
-                if (kotlinName in affectedKotlinNames
-                    && pending.none { it.kotlinName == kotlinName && it.entry.style.name == entry.style.name }
-                ) {
-                    val targetFile = outputDir.resolve(entry.style.subdirectory).resolve("$kotlinName.kt")
-                    val currentHash = entry.file.calculateMd5()
-                    extraPending += PendingEntry(entry, kotlinName, currentHash, targetFile)
-                    cachedFiles.remove(targetFile)
-                    succeeded.decrementAndGet()
-                }
-            }
-            // Remove stale explorer entries for re-generated icons
-            val staleNames = extraPending.map { it.kotlinName to it.entry.style.name }.toSet()
-            val keptEntries = explorerEntries.filter { (it.name to it.style) !in staleNames }
-            explorerEntries.clear()
-            explorerEntries.addAll(keptEntries)
-            pending.addAll(extraPending)
-        }
-
         // Phase 2: Build manifest and call Rust CLI (per-icon file mode)
         if (pending.isNotEmpty()) {
             val manifestEntries = pending.map { pe ->
@@ -129,7 +103,8 @@ class GeneratorEngine(
                 )
 
                 pending.forEach { pe ->
-                    val key = "${pe.entry.style.subdirectory}/${pe.kotlinName}"
+                    val key = if (pe.entry.style.subdirectory.isEmpty()) pe.kotlinName
+                        else "${pe.entry.style.subdirectory}/${pe.kotlinName}"
                     val iconResult = iconResults[key]
 
                     if (iconResult == null) {
@@ -142,7 +117,8 @@ class GeneratorEngine(
                         explorerEntries += ExplorerEntry(
                             name = pe.kotlinName,
                             style = pe.entry.style.name,
-                            kotlinPath = "${source.basePackage}.${pe.entry.style.subdirectory}.${pe.kotlinName}",
+                            kotlinPath = if (pe.entry.style.subdirectory.isEmpty()) "${source.basePackage}.${pe.kotlinName}"
+                                else "${source.basePackage}.${pe.entry.style.subdirectory}.${pe.kotlinName}",
                             viewBox = ExplorerViewBox(
                                 iconResult.viewBox.min_x.toFloat(),
                                 iconResult.viewBox.min_y.toFloat(),
@@ -201,22 +177,6 @@ class GeneratorEngine(
                     if (!generatedFiles.contains(file)) {
                         file.delete()
                     }
-                }
-            }
-        }
-
-        // Cleanup: delete shared path files for icons that no longer exist
-        val sharedDir = outputDir.resolve("shared")
-        if (sharedDir.exists()) {
-            val existingIconNames = discovered.map { IconNameMapper.toKotlinName(it.fileName) }.toSet()
-            sharedDir.listFiles()?.filter { it.extension == "kt" }?.forEach { file ->
-                // CanonicalPaths.kt is the cross-icon T3 pool (a single file per
-                // artifact, not per-icon). Preserve it regardless.
-                if (file.name == "CanonicalPaths.kt") return@forEach
-                // File name format: "{IconName}Paths.kt"
-                val iconName = file.nameWithoutExtension.removeSuffix("Paths")
-                if (iconName !in existingIconNames) {
-                    file.delete()
                 }
             }
         }

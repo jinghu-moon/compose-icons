@@ -48,6 +48,8 @@ class LibraryManifestBuilder {
 @IconLibraryDslMarker
 class StyleBuilder(private val styleName: String) {
     var subdirectory: String? = null
+    /** SVG 发现路径，默认回退到 [subdirectory]。当上游目录名含 / 等非法字符时需显式设置。 */
+    var sourcePath: String? = null
     var helperFunction: String = ""
     private var defaultPathStyle: PathStyle? = null
 
@@ -58,6 +60,7 @@ class StyleBuilder(private val styleName: String) {
     fun build() = StyleDeclaration(
         name = styleName,
         subdirectory = subdirectory,
+        sourcePath = sourcePath,
         helperFunction = helperFunction.ifBlank { error("helperFunction required for style '$styleName'") },
         defaultPathStyle = defaultPathStyle ?: error("defaultPathStyle required for style '$styleName'"),
     )

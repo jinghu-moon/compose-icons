@@ -1,0 +1,158 @@
+name: Publish to Maven Central
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+# Cancel in-flight runs for the same tag
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ── Gate: build + generate + test before publishing ──────────────────────
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Cache Rust dependencies
+      uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: tools/svg2compose
+
+    - name: Setup Gradle with build cache
+      uses: ./.github/actions/setup-gradle-cache
+
+    - name: Cache upstream SVG sources
+      uses: actions/cache@v4
+      with:
+        path: upstream
+        key: upstream-svg-v3-${{ hashFiles('generator/*/build.gradle.kts') }}
+        restore-keys: |
+          upstream-svg-v3-
+
+    - name: Build svg2compose
+      run: |
+        chmod +x gradlew
+        ./gradlew :tools:resolveSvg2Compose
+
+    - name: Generate all icon libraries
+      run: |
+        ./gradlew \
+          :generator:tabler:generateIcons \
+          :generator:lucide:generateIcons \
+          :generator:phosphor:generateIcons \
+          :generator:radix:generateIcons \
+          :generator:remix:generateIcons \
+          :generator:heroicons:generateIcons \
+          :generator:iconoir:generateIcons \
+          :generator:ionicons:generateIcons \
+          :generator:bootstrap:generateIcons \
+          :generator:boxicons:generateIcons
+
+    - name: Assemble
+      run: ./gradlew assemble
+
+    - name: Run tests
+      run: ./gradlew test -x :sample:test
+
+  # ── Publish icon libraries + BOM + scanner KSP ──────────────────────────
+  publish-icons:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Cache Rust dependencies
+      uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: tools/svg2compose
+
+    - name: Setup Gradle with build cache
+      uses: ./.github/actions/setup-gradle-cache
+
+    - name: Cache upstream SVG sources
+      uses: actions/cache@v4
+      with:
+        path: upstream
+        key: upstream-svg-v3-${{ hashFiles('generator/*/build.gradle.kts') }}
+        restore-keys: |
+          upstream-svg-v3-
+
+    - name: Build svg2compose
+      run: |
+        chmod +x gradlew
+        ./gradlew :tools:resolveSvg2Compose
+
+    - name: Generate all icon libraries
+      run: |
+        ./gradlew \
+          :generator:tabler:generateIcons \
+          :generator:lucide:generateIcons \
+          :generator:phosphor:generateIcons \
+          :generator:radix:generateIcons \
+          :generator:remix:generateIcons \
+          :generator:heroicons:generateIcons \
+          :generator:iconoir:generateIcons \
+          :generator:ionicons:generateIcons \
+          :generator:bootstrap:generateIcons \
+          :generator:boxicons:generateIcons
+
+    - name: Publish to Maven Central
+      env:
+        ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+        ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+        ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_IN_MEMORY_KEY }}
+        ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_IN_MEMORY_KEY_ID }}
+        ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_IN_MEMORY_KEY_PASSWORD }}
+      run: |
+        ./gradlew \
+          :icons-core:publishToMavenCentral \
+          :icons-tabler:publishToMavenCentral \
+          :icons-lucide:publishToMavenCentral \
+          :icons-phosphor:publishToMavenCentral \
+          :icons-radix:publishToMavenCentral \
+          :icons-remix:publishToMavenCentral \
+          :icons-heroicons:publishToMavenCentral \
+          :icons-iconoir:publishToMavenCentral \
+          :icons-ionicons:publishToMavenCentral \
+          :icons-bootstrap:publishToMavenCentral \
+          :icons-boxicons:publishToMavenCentral \
+          :compose-icons-bom:publishToMavenCentral \
+          :scanner:ksp:publishToMavenCentral
+
+  # ── Publish scanner Gradle plugin (composite build, own Gradle invocation) ─
+  publish-scanner:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Gradle with build cache
+      uses: ./.github/actions/setup-gradle-cache
+
+    - name: Publish scanner Gradle plugin
+      working-directory: scanner/gradle-plugin
+      env:
+        ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+        ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+        ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_IN_MEMORY_KEY }}
+        ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_IN_MEMORY_KEY_ID }}
+        ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_IN_MEMORY_KEY_PASSWORD }}
+      run: |
+        chmod +x gradlew
+        ./gradlew publishToMavenCentral

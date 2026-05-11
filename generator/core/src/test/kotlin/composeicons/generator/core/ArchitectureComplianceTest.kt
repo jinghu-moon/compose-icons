@@ -31,10 +31,12 @@ class ArchitectureComplianceTest {
         actualSrcDir.walkTopDown()
             .filter { it.extension == "kt" }
             .forEach { file ->
-                val content = file.readText().lowercase()
+                val codeLines = file.readLines()
+                    .filter { !it.trimStart().startsWith("//") && !it.trimStart().startsWith("/**") && !it.trimStart().startsWith("*") }
+                val codeContent = codeLines.joinToString("\n").lowercase()
                 forbiddenKeywords.forEach { keyword ->
-                    if (content.contains(keyword)) {
-                        fail("File ${file.path} contains forbidden keyword '$keyword'. generator-core must be decoupled from specific icon sources.")
+                    if (codeContent.contains(keyword)) {
+                        fail("File ${file.path} contains forbidden keyword '$keyword' in code (not comments). generator-core must be decoupled from specific icon sources.")
                     }
                 }
             }

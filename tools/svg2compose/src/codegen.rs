@@ -61,7 +61,11 @@ pub fn generate_kotlin_file(
 ) -> String {
     let mut out = String::with_capacity(2048);
 
-    let package = format!("{}.{}", base_package, entry.subdirectory);
+    let package = if entry.subdirectory.is_empty() {
+        base_package.to_string()
+    } else {
+        format!("{}.{}", base_package, entry.subdirectory)
+    };
     let style_cap = capitalize(&entry.style_name);
     let property_host = format!("{}.{}", icon_container, style_cap);
     let vector_name = lower_first(&entry.kotlin_name);
@@ -259,96 +263,6 @@ fn generate_group(
     }
 
     out.push_str(&format!("{}}}\n", pad));
-}
-
-/// Generate a merged .kt file containing multiple icons with shared imports and a HashMap cache.
-/// This reduces file count from 20K+ to ~20 files, significantly improving Kotlin compilation time.
-pub fn generate_merged_kotlin_file(
-    icons: &[(&SvgDocument, &ManifestEntry)],
-    base_package: &str,
-    icon_container: &str,
-) -> String {
-    let capacity = icons.len() * 2048;
-    let mut out = String::with_capacity(capacity);
-
-    let first = icons[0].1;
-    let package = format!("{}.{}", base_package, first.subdirectory);
-    let style_cap = capitalize(&first.style_name);
-    let property_host = format!("{}.{}", icon_container, style_cap);
-    let helper = &first.helper;
-
-    let needs_group = icons.iter().any(|(doc, _)| has_meaningful_group(&doc.nodes));
-    // Check if any icon needs parseSvgPathData (i.e., uses non-template mode)
-    let needs_parse = icons.iter().any(|(doc, _)| {
-        let mut paths = Vec::new();
-        collect_flat_paths(&doc.nodes, &mut paths);
-        !(is_flat_paths_only(&doc.nodes) && all_paths_same_style(&paths))
-    });
-
-    // package
-    out.push_str(&format!("package {}\n\n", package));
-
-    // imports (shared)
-    out.push_str("import androidx.compose.ui.graphics.*\n");
-    out.push_str("import androidx.compose.ui.graphics.vector.ImageVector\n");
-    if needs_group {
-        out.push_str("import androidx.compose.ui.graphics.vector.group\n");
-    }
-    out.push_str("import androidx.compose.ui.unit.dp\n");
-    out.push_str("import composeicons.core.IconSize\n");
-    out.push_str("import composeicons.core.ViewBox\n");
-    if needs_parse {
-        out.push_str("import composeicons.core.parseSvgPathData\n");
-    }
-    out.push_str(&format!("import {}.{}\n", base_package, icon_container));
-    out.push_str(&format!("import {}.{}\n", base_package, helper));
-    out.push_str("import java.util.HashMap\n");
-    out.push('\n');
-
-    // shared cache
-    out.push_str("private val _cache = HashMap<String, ImageVector>()\n");
-    out.push('\n');
-
-    // extension properties
-    for (doc, entry) in icons {
-        let max_dim = doc.view_box.width.max(doc.view_box.height);
-        let width_dp = format_dp(24.0 / max_dim * doc.view_box.width);
-        let height_dp = format_dp(24.0 / max_dim * doc.view_box.height);
-
-        // Per-icon template check
-        let mut paths = Vec::new();
-        collect_flat_paths(&doc.nodes, &mut paths);
-        let use_template = !paths.is_empty()
-            && is_flat_paths_only(&doc.nodes)
-            && all_paths_same_style(&paths);
-
-        out.push_str(&format!("val {}.{}: ImageVector\n", property_host, entry.kotlin_name));
-        out.push_str("    get() {\n");
-        out.push_str(&format!("        _cache[\"{}\"]?.let {{ return it }}\n", entry.kotlin_name));
-        out.push_str(&format!("        val icon = {}(\n", helper));
-        out.push_str(&format!("            name = \"{}\",\n", entry.kotlin_name));
-        out.push_str(&format!(
-            "            size = IconSize(width = {}f.dp, height = {}f.dp),\n",
-            width_dp, height_dp
-        ));
-        out.push_str(&format!(
-            "            viewBox = ViewBox(minX = 0f, minY = 0f, width = {}f, height = {}f),\n",
-            format_float(doc.view_box.width),
-            format_float(doc.view_box.height)
-        ));
-        out.push_str("        ) {\n");
-
-        for node in &doc.nodes {
-            generate_node(&mut out, node, 3, use_template);
-        }
-
-        out.push_str("        }\n");
-        out.push_str(&format!("        _cache[\"{}\"] = icon\n", entry.kotlin_name));
-        out.push_str("        return icon\n");
-        out.push_str("    }\n\n");
-    }
-
-    out
 }
 
 fn format_float(v: f64) -> String {
@@ -570,72 +484,6 @@ mod tests {
     }
 
     #[test]
-    fn test_merged_file_shares_imports_and_cache() {
-        let doc1 = SvgDocument {
-            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
-            nodes: vec![make_path("M 0 0 L 24 24 Z")],
-        };
-        let doc2 = SvgDocument {
-            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
-            nodes: vec![make_path("M 1 1 L 23 23 Z")],
-        };
-        let entry1 = ManifestEntry {
-            svg: "a.svg".to_string(),
-            kotlin_name: "IconA".to_string(),
-            style_name: "Regular".to_string(),
-            subdirectory: "regular".to_string(),
-            helper: "testIcon".to_string(),
-                md5: None,
-        };
-        let entry2 = ManifestEntry {
-            svg: "b.svg".to_string(),
-            kotlin_name: "IconB".to_string(),
-            style_name: "Regular".to_string(),
-            subdirectory: "regular".to_string(),
-            helper: "testIcon".to_string(),
-                md5: None,
-        };
-
-        let icons: Vec<(&SvgDocument, &ManifestEntry)> = vec![(&doc1, &entry1), (&doc2, &entry2)];
-        let kt = generate_merged_kotlin_file(&icons, "composeicons.test", "TestIcons");
-
-        // 共享 import（只出现一次）
-        assert_eq!(kt.matches("import composeicons.core.parseSvgPathData").count(), 1);
-        // HashMap 缓存
-        assert!(kt.contains("import java.util.HashMap"));
-        assert!(kt.contains("private val _cache = HashMap<String, ImageVector>()"));
-        // 两个 icon 的扩展属性都存在
-        assert!(kt.contains("val TestIcons.Regular.IconA: ImageVector"));
-        assert!(kt.contains("val TestIcons.Regular.IconB: ImageVector"));
-        // 使用 _cache 而非 private var
-        assert!(kt.contains("_cache[\"IconA\"]"));
-        assert!(kt.contains("_cache[\"IconB\"]"));
-        // 不应有 private var
-        assert!(!kt.contains("private var _"));
-    }
-
-    #[test]
-    fn test_merged_file_no_group_import_when_all_paths() {
-        let doc = SvgDocument {
-            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
-            nodes: vec![make_path("M 0 0 L 24 24 Z")],
-        };
-        let entry = ManifestEntry {
-            svg: "a.svg".to_string(),
-            kotlin_name: "PlainIcon".to_string(),
-            style_name: "Outline".to_string(),
-            subdirectory: "outline".to_string(),
-            helper: "lucideIcon".to_string(),
-                md5: None,
-        };
-        let icons: Vec<(&SvgDocument, &ManifestEntry)> = vec![(&doc, &entry)];
-        let kt = generate_merged_kotlin_file(&icons, "composeicons.lucide", "LucideIcons");
-
-        assert!(!kt.contains("import androidx.compose.ui.graphics.vector.group"),
-            "merged file with no groups should omit group import");
-    }
-
-    #[test]
     fn test_template_mode_when_all_paths_share_style() {
         let doc = SvgDocument {
             view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
@@ -723,42 +571,6 @@ mod tests {
 
         // Different styles: uses full addPath per path
         assert!(kt.contains("addPath("), "Different styles should use full addPath");
-    }
-
-    #[test]
-    fn test_merged_file_group_import_when_any_icon_has_clip() {
-        let doc_plain = SvgDocument {
-            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
-            nodes: vec![make_path("M 0 0 L 24 24 Z")],
-        };
-        let doc_clip = SvgDocument {
-            view_box: ViewBox { x: 0.0, y: 0.0, width: 24.0, height: 24.0 },
-            nodes: vec![Node::Group(GroupNode {
-                opacity: 1.0,
-                transform: [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],
-                clip_path: Some("M 0 0 L 24 0 Z".to_string()),
-                children: vec![make_path("M 0 0 L 24 24 Z")],
-            })],
-        };
-        let entry1 = ManifestEntry {
-            svg: "a.svg".to_string(), kotlin_name: "A".to_string(),
-            style_name: "Regular".to_string(), subdirectory: "regular".to_string(),
-            helper: "testIcon".to_string(),
-                md5: None,
-        };
-        let entry2 = ManifestEntry {
-            svg: "b.svg".to_string(), kotlin_name: "B".to_string(),
-            style_name: "Regular".to_string(), subdirectory: "regular".to_string(),
-            helper: "testIcon".to_string(),
-                md5: None,
-        };
-        let icons: Vec<(&SvgDocument, &ManifestEntry)> = vec![
-            (&doc_plain, &entry1), (&doc_clip, &entry2),
-        ];
-        let kt = generate_merged_kotlin_file(&icons, "composeicons.test", "TestIcons");
-
-        assert!(kt.contains("import androidx.compose.ui.graphics.vector.group"),
-            "merged file should include group import if any icon uses it");
     }
 
     // ============================================================

@@ -145,7 +145,11 @@ fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&
     // Phase 2: generate one .kt file per icon (per-icon mode)
     for (entry, doc) in &parsed {
         let kt = generate_kotlin_file(doc, entry, &manifest.base_package, &manifest.icon_container);
-        let file_path = out_dir.join(&entry.subdirectory).join(format!("{}.kt", entry.kotlin_name));
+        let file_path = if entry.subdirectory.is_empty() {
+            out_dir.join(format!("{}.kt", entry.kotlin_name))
+        } else {
+            out_dir.join(&entry.subdirectory).join(format!("{}.kt", entry.kotlin_name))
+        };
         if let Some(parent) = file_path.parent() {
             std::fs::create_dir_all(parent).ok();
         }
@@ -157,7 +161,11 @@ fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&
         let manifest_result: ManifestResult = parsed
             .iter()
             .map(|(entry, doc)| {
-                let key = format!("{}/{}", entry.subdirectory, entry.kotlin_name);
+                let key = if entry.subdirectory.is_empty() {
+                    entry.kotlin_name.clone()
+                } else {
+                    format!("{}/{}", entry.subdirectory, entry.kotlin_name)
+                };
                 let icon_result = IconResult {
                     view_box: ResultViewBox {
                         min_x: doc.view_box.x,

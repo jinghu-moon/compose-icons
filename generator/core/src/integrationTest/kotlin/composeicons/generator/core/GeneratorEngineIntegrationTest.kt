@@ -1,7 +1,5 @@
 package composeicons.generator.core
 
-import composeicons.generator.core.json.SvgDocument
-import kotlinx.serialization.json.Json
 import java.io.File
 import java.nio.file.Files
 import kotlin.test.Test
@@ -154,100 +152,68 @@ class GeneratorEngineIntegrationTest {
     fun testAccessibilitySvgProcessesSuccessfully() {
         val projectRoot = this.projectRoot
         val pipeline = UsvgPipeline(defaultSvg2ComposePath(projectRoot))
-        val svg = File(projectRoot, "refer/Radix-Icons-main/packages/radix-icons/icons/accessibility.svg").readText()
-        val result = pipeline.process(svg)
-        val doc = Json { ignoreUnknownKeys = true }.decodeFromString<SvgDocument>(result)
-        assertTrue(doc.nodes.isNotEmpty())
+        val svgFile = File(projectRoot, "refer/Radix-Icons-main/packages/radix-icons/icons/accessibility.svg")
+        val outputDir = Files.createTempDirectory("accessibility-test-").toFile().apply { deleteOnExit() }
+
+        val results = pipeline.generateViaManifest(
+            entries = listOf(ManifestEntry(
+                svg = svgFile.absolutePath,
+                kotlin_name = "Accessibility",
+                style_name = "Regular",
+                subdirectory = "regular",
+                helper = "radixIcon",
+            )),
+            basePackage = "composeicons.radix",
+            iconContainer = "RadixIcons",
+            outputDir = outputDir,
+        )
+
+        assertTrue(results.isNotEmpty(), "accessibility.svg should produce a result")
     }
 
     @Test
     fun testPanelLeftSvgSkipsMaskedPaths() {
         val projectRoot = this.projectRoot
         val pipeline = UsvgPipeline(defaultSvg2ComposePath(projectRoot))
-        val svg = File(projectRoot, "refer/Radix-Icons-main/packages/radix-icons/icons/panel-left.svg").readText()
-        val result = pipeline.process(svg)
-        val doc = Json { ignoreUnknownKeys = true }.decodeFromString<SvgDocument>(result)
-        assertTrue(doc.nodes.isNotEmpty())
+        val svgFile = File(projectRoot, "refer/Radix-Icons-main/packages/radix-icons/icons/panel-left.svg")
+        val outputDir = Files.createTempDirectory("panel-left-test-").toFile().apply { deleteOnExit() }
+
+        val results = pipeline.generateViaManifest(
+            entries = listOf(ManifestEntry(
+                svg = svgFile.absolutePath,
+                kotlin_name = "PanelLeft",
+                style_name = "Regular",
+                subdirectory = "regular",
+                helper = "radixIcon",
+            )),
+            basePackage = "composeicons.radix",
+            iconContainer = "RadixIcons",
+            outputDir = outputDir,
+        )
+
+        assertTrue(results.isNotEmpty(), "panel-left.svg should produce a result")
     }
 
     @Test
     fun testBorderTopSvgHandlesTransform() {
         val projectRoot = this.projectRoot
         val pipeline = UsvgPipeline(defaultSvg2ComposePath(projectRoot))
-        val svg = File(projectRoot, "refer/Radix-Icons-main/packages/radix-icons/icons/border-top.svg").readText()
-        val result = pipeline.process(svg)
-        val doc = Json { ignoreUnknownKeys = true }.decodeFromString<SvgDocument>(result)
-        assertTrue(doc.nodes.isNotEmpty())
-    }
+        val svgFile = File(projectRoot, "refer/Radix-Icons-main/packages/radix-icons/icons/border-top.svg")
+        val outputDir = Files.createTempDirectory("border-top-test-").toFile().apply { deleteOnExit() }
 
-    // --- Phase 1C Task 3.3: Shared Path Pool incremental cache ---
-    @Test
-    fun `changing one style regenerates all styles for shared path pool`() {
-        val workspace = Files.createTempDirectory("compose-icons-shared-pool-").toFile().apply {
-            deleteOnExit()
-        }
-        val sourceRoot = workspace.resolve("source")
-        val outputDir = workspace.resolve("output")
-        val reportDir = workspace.resolve("report")
-        sourceRoot.resolve("regular").mkdirs()
-        sourceRoot.resolve("bold").mkdirs()
+        val results = pipeline.generateViaManifest(
+            entries = listOf(ManifestEntry(
+                svg = svgFile.absolutePath,
+                kotlin_name = "BorderTop",
+                style_name = "Regular",
+                subdirectory = "regular",
+                helper = "radixIcon",
+            )),
+            basePackage = "composeicons.radix",
+            iconContainer = "RadixIcons",
+            outputDir = outputDir,
+        )
 
-        val svgTemplate = """
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="{path}" />
-            </svg>
-        """.trimIndent()
-
-        sourceRoot.resolve("regular/heart.svg").writeText(svgTemplate.replace("{path}", "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5"))
-        sourceRoot.resolve("bold/heart.svg").writeText(svgTemplate.replace("{path}", "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5"))
-
-        val projectRoot = this.projectRoot
-        val engine = GeneratorEngine(projectRoot)
-
-        val source = object : IconSource {
-            override val name: String = "test"
-            override val displayName: String = "TestIcons"
-            override val iconContainerName: String = "TestIcons"
-            override val upstreamVersion: String = "1.0.0"
-            override val styles: List<IconStyle> = listOf(
-                IconStyle("Regular", "regular"),
-                IconStyle("Bold", "bold"),
-            )
-            override val basePackage: String = "composeicons.test"
-            override fun downloadSvg(outputDir: File) = Unit
-            override fun discoverIcons(svgDir: File): List<SvgIconEntry> = listOf(
-                SvgIconEntry(fileName = "heart.svg", style = styles[0], file = svgDir.resolve("regular/heart.svg")),
-                SvgIconEntry(fileName = "heart.svg", style = styles[1], file = svgDir.resolve("bold/heart.svg")),
-            )
-            override fun defaultPathStyle(style: IconStyle): PathStyle = PathStyle(
-                fill = "none", stroke = "currentColor", strokeWidth = 2f,
-                strokeLineCap = "round", strokeLineJoin = "round", fillRule = null,
-            )
-            override fun helperFunctionName(style: IconStyle): String = "test${style.name}Icon"
-        }
-
-        val config = GeneratorConfig(sourceRootDir = sourceRoot, outputDir = outputDir, reportDir = reportDir)
-
-        // First run: generate both styles
-        val report1 = engine.generate(config, source)
-        assertEquals(2, report1.succeeded)
-        assertTrue(outputDir.resolve("regular/Heart.kt").isFile)
-        assertTrue(outputDir.resolve("bold/Heart.kt").isFile)
-        val regularModTime1 = outputDir.resolve("regular/Heart.kt").lastModified()
-        val boldModTime1 = outputDir.resolve("bold/Heart.kt").lastModified()
-
-        // Wait a bit to ensure file timestamps differ
-        Thread.sleep(100)
-
-        // Second run: change only Regular style SVG (different path)
-        sourceRoot.resolve("regular/heart.svg").writeText(svgTemplate.replace("{path}", "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 3 9.5"))
-        val report2 = engine.generate(config, source)
-        assertEquals(2, report2.succeeded)
-
-        // Both files should be regenerated because the icon "Heart" has a changed style
-        val regularModTime2 = outputDir.resolve("regular/Heart.kt").lastModified()
-        val boldModTime2 = outputDir.resolve("bold/Heart.kt").lastModified()
-        assertTrue(regularModTime2 > regularModTime1, "Regular should be regenerated")
-        assertTrue(boldModTime2 > boldModTime1, "Bold should be regenerated (shared path pool expansion)")
+        assertTrue(results.isNotEmpty(), "border-top.svg should produce a result")
     }
 }

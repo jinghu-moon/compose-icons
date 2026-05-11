@@ -16,8 +16,10 @@ class ManifestBasedIconSource(
 
     override fun downloadSvg(outputDir: File) {}  // no-op, Gradle handles
 
-    override fun discoverIcons(svgDir: File): List<SvgIconEntry> {
-        val raw = manifest.discovery.discover(svgDir, manifest.styles)
+    override fun discoverIcons(@Suppress("UNUSED_PARAMETER") svgDir: File): List<SvgIconEntry> {
+        // 使用 referRoot 而非 svgDir：策略内部会 resolve(subdir) 构建完整路径，
+        // svgDir 已是 svgSourceDir() 解析后的子目录，传入会导致双重嵌套。
+        val raw = manifest.discovery.discover(referRoot, manifest.styles)
         return manifest.hooks.fold(raw) { acc, hook -> hook.transform(acc) }
     }
 

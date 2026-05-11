@@ -1,6 +1,5 @@
 package composeicons.generator.core
 
-import composeicons.generator.core.json.SvgDocument
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -11,36 +10,6 @@ class UsvgPipeline(
     private val svg2ComposeExecutable: File,
 ) {
     private val jsonParser = Json { ignoreUnknownKeys = true }
-
-    /**
-     * Single SVG → JSON (legacy, kept for integration tests).
-     */
-    fun process(rawSvg: String): String {
-        val cleanedSvg = cleanSvg(rawSvg)
-        val inputFile = File.createTempFile("input-", ".svg")
-
-        try {
-            inputFile.writeText(cleanedSvg)
-
-            val process = ProcessBuilder(
-                svg2ComposeExecutable.absolutePath,
-                "--input", inputFile.absolutePath,
-            )
-                .redirectErrorStream(true)
-                .start()
-
-            val output = process.inputStream.bufferedReader().use { it.readText() }
-            val exitCode = process.waitFor()
-
-            if (exitCode != 0) {
-                throw RuntimeException("svg2compose failed with exit code $exitCode: $output")
-            }
-
-            return output
-        } finally {
-            inputFile.delete()
-        }
-    }
 
     /**
      * Manifest mode: Rust CLI generates .kt files directly.
@@ -88,8 +57,8 @@ class UsvgPipeline(
                 throw RuntimeException("svg2compose manifest failed with exit code $exitCode: $stderr\n$stdout")
             }
 
-            // Surface diagnostic stderr (e.g. T3 canonical-pool stats) so it
-            // does not get silently swallowed when the process succeeds.
+            // Surface diagnostic stderr so it does not get silently swallowed
+            // when the process succeeds.
             if (stderr.isNotBlank()) {
                 System.err.print(stderr)
             }
@@ -104,13 +73,6 @@ class UsvgPipeline(
             resultFile.delete()
         }
     }
-
-    companion object {
-        private val SVG_TAG_REGEX = Regex("<svg.*</svg>", RegexOption.DOT_MATCHES_ALL)
-    }
-
-    private fun cleanSvg(rawSvg: String): String =
-        SVG_TAG_REGEX.find(rawSvg)?.value ?: rawSvg
 }
 
 // --- Manifest data classes (serialized to JSON for Rust CLI) ---

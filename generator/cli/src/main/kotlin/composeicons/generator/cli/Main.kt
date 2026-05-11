@@ -44,9 +44,7 @@ fun main(args: Array<String>) {
     //   - upstreamSubdir — DownloadIconSourceTask 在 upstream/ 下的目标目录（与各 generator/<name>/build.gradle.kts 的 targetDir 保持一致）
     //   - factory        — 从 upstream 目录构造 IconSource 的工厂 lambda
     //
-    // 注意：这里用 lambda 而不是 `::TablerIconSource` 构造器引用，因为 Tabler/Lucide/Phosphor
-    // 的主构造器签名是 `(upstreamVersion: String = default, referRoot: File)`，带默认参数的
-    // 构造器引用无法单参数调用。统一用 lambda + 命名参数 `referRoot = it` 避开歧义。
+    // 统一用 lambda + 命名参数 `referRoot = it`，保持风格一致。
     val generators: List<GeneratorEntry> = listOf(
         GeneratorEntry("tabler",    "upstream/tabler-icons")        { TablerIconSource(referRoot = it) },
         GeneratorEntry("lucide",    "upstream/lucide")              { LucideIconSource(referRoot = it) },

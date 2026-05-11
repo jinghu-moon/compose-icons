@@ -12,10 +12,12 @@ fun RemixIconSource(referRoot: File): IconSource = iconLibrary(referRoot) {
     upstreamVersion = "4.2.0"
 
     style("Fill") {
+        subdirectory = "fill"
         helperFunction = "remixIcon"
         defaultPathStyle { fill = "currentColor"; fillRule = "nonzero" }
     }
     style("Line") {
+        subdirectory = "line"
         helperFunction = "remixIcon"
         defaultPathStyle { fill = "currentColor"; fillRule = "nonzero" }
     }

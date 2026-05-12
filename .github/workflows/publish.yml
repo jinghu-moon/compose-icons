@@ -55,10 +55,21 @@ jobs:
           :generator:iconoir:generateIcons \
           :generator:ionicons:generateIcons \
           :generator:bootstrap:generateIcons \
-          :generator:boxicons:generateIcons
+          :generator:boxicons:generateIcons \
+          :generator:simpleicons:generateIcons \
+          :generator:mdi:generateIcons \
+          :generator:carbon:generateIcons \
+          :generator:octicons:generateIcons \
+          :generator:iconsax:generateIcons \
+          :generator:circleflags:generateIcons \
+          :generator:flagicons:generateIcons \
+          :generator:countryflags:generateIcons
 
     - name: Assemble
       run: ./gradlew assemble
+
+    - name: Verify API surface
+      run: ./gradlew checkApi
 
     - name: Run tests
       run: ./gradlew test -x :sample:test
@@ -108,7 +119,15 @@ jobs:
           :generator:iconoir:generateIcons \
           :generator:ionicons:generateIcons \
           :generator:bootstrap:generateIcons \
-          :generator:boxicons:generateIcons
+          :generator:boxicons:generateIcons \
+          :generator:simpleicons:generateIcons \
+          :generator:mdi:generateIcons \
+          :generator:carbon:generateIcons \
+          :generator:octicons:generateIcons \
+          :generator:iconsax:generateIcons \
+          :generator:circleflags:generateIcons \
+          :generator:flagicons:generateIcons \
+          :generator:countryflags:generateIcons
 
     - name: Publish to Maven Central
       env:
@@ -130,6 +149,14 @@ jobs:
           :icons-ionicons:publishToMavenCentral \
           :icons-bootstrap:publishToMavenCentral \
           :icons-boxicons:publishToMavenCentral \
+          :icons-simpleicons:publishToMavenCentral \
+          :icons-mdi:publishToMavenCentral \
+          :icons-carbon:publishToMavenCentral \
+          :icons-octicons:publishToMavenCentral \
+          :icons-iconsax:publishToMavenCentral \
+          :icons-circleflags:publishToMavenCentral \
+          :icons-flagicons:publishToMavenCentral \
+          :icons-countryflags:publishToMavenCentral \
           :compose-icons-bom:publishToMavenCentral \
           :scanner:ksp:publishToMavenCentral
 

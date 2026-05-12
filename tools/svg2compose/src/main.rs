@@ -166,6 +166,7 @@ fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&
                 } else {
                     format!("{}/{}", entry.subdirectory, entry.kotlin_name)
                 };
+                let (paths, clip_path) = collect_paths(&doc.nodes);
                 let icon_result = IconResult {
                     view_box: ResultViewBox {
                         min_x: doc.view_box.x,
@@ -173,7 +174,8 @@ fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&
                         width: doc.view_box.width,
                         height: doc.view_box.height,
                     },
-                    paths: collect_paths(&doc.nodes),
+                    paths,
+                    clip_path,
                 };
                 (key, icon_result)
             })
@@ -186,17 +188,19 @@ fn manifest_process(manifest_path: &str, output_dir: &str, result_path: Option<&
 }
 
 /// Recursively collect path data from nodes for web-preview rendering.
-fn collect_paths(nodes: &[svg2compose::protocol::Node]) -> Vec<svg2compose::manifest::ResultPathNode> {
+/// Also extracts the top-level group's clip_path if present.
+fn collect_paths(nodes: &[svg2compose::protocol::Node]) -> (Vec<svg2compose::manifest::ResultPathNode>, Option<String>) {
     use svg2compose::manifest::ResultPathNode;
     use svg2compose::protocol::Node;
 
     let mut paths = Vec::new();
+    let mut clip_path: Option<String> = None;
+
     for node in nodes {
         match node {
             Node::Path(p) => {
-                let alpha = p.fill.as_ref().map(|f| f.opacity)
-                    .or_else(|| p.stroke.as_ref().map(|s| s.opacity))
-                    .unwrap_or(1.0);
+                let fill_alpha = p.fill.as_ref().map(|f| f.opacity).unwrap_or(1.0);
+                let stroke_alpha = p.stroke.as_ref().map(|s| s.opacity).unwrap_or(1.0);
                 paths.push(ResultPathNode {
                     d: p.d.clone(),
                     fill: p.fill.as_ref().map(|f| f.color.clone()),
@@ -205,13 +209,18 @@ fn collect_paths(nodes: &[svg2compose::protocol::Node]) -> Vec<svg2compose::mani
                     stroke_line_cap: p.stroke.as_ref().map(|s| s.linecap.clone()),
                     stroke_line_join: p.stroke.as_ref().map(|s| s.linejoin.clone()),
                     fill_rule: p.fill.as_ref().map(|f| f.rule.clone()),
-                    alpha,
+                    fill_alpha,
+                    stroke_alpha,
                 });
             }
             Node::Group(g) => {
-                paths.extend(collect_paths(&g.children));
+                if clip_path.is_none() {
+                    clip_path = g.clip_path.clone();
+                }
+                let (child_paths, _) = collect_paths(&g.children);
+                paths.extend(child_paths);
             }
         }
     }
-    paths
+    (paths, clip_path)
 }

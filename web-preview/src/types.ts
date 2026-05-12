@@ -12,6 +12,8 @@ export interface ExplorerPathNode {
   strokeLineCap: string | null
   strokeLineJoin: string | null
   fillRule: string | null
+  fillAlpha: number
+  strokeAlpha: number
   d: string
 }
 
@@ -23,6 +25,7 @@ export interface ExplorerEntry {
   paths: ExplorerPathNode[]
   tags: string[]
   category: string | null
+  clipPath?: string
 }
 
 export interface PreviewDataset {

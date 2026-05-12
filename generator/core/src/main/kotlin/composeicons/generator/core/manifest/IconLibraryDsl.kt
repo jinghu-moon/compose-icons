@@ -22,9 +22,13 @@ class LibraryManifestBuilder {
     var upstreamVersion: String = ""
     var basePackage: String = ""
 
-    private val styles = mutableListOf<StyleDeclaration>()
+    internal val styles = mutableListOf<StyleDeclaration>()
+    val allStyles: List<StyleDeclaration> get() = styles
     private val hooks = mutableListOf<DiscoveryHook>()
     var discovery: DiscoveryStrategy? = null
+    var normalizeSize: Double? = null
+    /** 图标名称 → 十六进制品牌色（不含 #），用于在生成前注入 SVG fill 属性。 */
+    var iconColors: Map<String, String> = emptyMap()
 
     fun style(name: String, block: StyleBuilder.() -> Unit) {
         styles.add(StyleBuilder(name).apply(block).build())
@@ -42,6 +46,8 @@ class LibraryManifestBuilder {
         styles = styles.toList(),
         discovery = discovery ?: error("discovery required"),
         hooks = hooks.toList(),
+        normalizeSize = normalizeSize,
+        iconColors = iconColors,
     )
 }
 
@@ -89,8 +95,12 @@ fun flat(subdir: String) = DiscoveryStrategy.Flat(subdir)
 fun subdirectories(subdir: String) = DiscoveryStrategy.Subdirectories(subdir)
 fun suffixBased(subdir: String, block: SuffixRulesBuilder.() -> Unit) =
     DiscoveryStrategy.SuffixBased(subdir, SuffixRulesBuilder().apply(block).build())
+fun prefixBased(subdir: String, block: SuffixRulesBuilder.() -> Unit) =
+    DiscoveryStrategy.PrefixBased(subdir, SuffixRulesBuilder().apply(block).build())
 fun treeWalk(subdir: String, block: SuffixRulesBuilder.() -> Unit) =
     DiscoveryStrategy.TreeWalk(subdir, SuffixRulesBuilder().apply(block).build())
+fun custom(subdir: String = ".", block: (File) -> List<SvgIconEntry>) =
+    DiscoveryStrategy.Custom(subdir, block)
 
 @IconLibraryDslMarker
 class SuffixRulesBuilder {

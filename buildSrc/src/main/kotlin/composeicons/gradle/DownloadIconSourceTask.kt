@@ -12,12 +12,16 @@ import javax.inject.Inject
 abstract class DownloadIconSourceTask : DefaultTask() {
     @get:Input
     abstract val repoUrl: Property<String>
-    
+
     @get:Input
     abstract val tagName: Property<String>
 
     @get:Internal
     abstract val targetDir: DirectoryProperty
+
+    /** Sparse checkout paths (relative to repo root). If empty, full clone. */
+    @get:Input
+    val sparsePaths = project.objects.listProperty(String::class.java)
 
     @get:Inject
     protected abstract val execOps: ExecOperations
@@ -30,12 +34,24 @@ abstract class DownloadIconSourceTask : DefaultTask() {
             return
         }
         dir.parentFile.mkdirs()
+
+        val sparse = sparsePaths.getOrElse(emptyList())
         val cmd = mutableListOf("git", "clone", "--depth=1")
         val tag = tagName.orNull
         if (!tag.isNullOrEmpty()) {
             cmd.addAll(listOf("--branch", tag))
         }
+        if (sparse.isNotEmpty()) {
+            cmd.addAll(listOf("--filter=blob:none", "--sparse"))
+        }
         cmd.addAll(listOf(repoUrl.get(), dir.absolutePath))
         execOps.exec { commandLine(cmd) }
+
+        if (sparse.isNotEmpty()) {
+            execOps.exec {
+                commandLine("git", "sparse-checkout", "set", *sparse.toTypedArray())
+                workingDir = dir
+            }
+        }
     }
 }

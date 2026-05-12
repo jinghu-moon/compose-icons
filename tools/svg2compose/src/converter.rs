@@ -85,13 +85,17 @@ fn convert_path(path: &usvg::Path, scale: f64) -> Option<PathNode> {
 }
 
 fn convert_group(group: &usvg::Group, scale: f64) -> Option<GroupNode> {
-    // 跳过带 mask 的 Group（描边扩展路径）
-    if group.mask().is_some() {
-        return None;
-    }
-
     let opacity = group.opacity().get() as f64;
-    let clip_path = group.clip_path().map(extract_clip_path_data);
+
+    // 优先尝试将 mask 降级为 clip_path；无法降级时跳过该 group
+    let clip_path = if let Some(mask) = group.mask() {
+        match try_extract_mask_as_clip_path(mask, scale) {
+            Some(d) => Some(d),
+            None => return None,
+        }
+    } else {
+        group.clip_path().map(|c| extract_clip_path_data(c, scale))
+    };
 
     // Compose ImageVector.Builder.group() 不支持 alpha 参数。
     // 将 group opacity bake 到子节点的 fill/stroke opacity 中。
@@ -116,10 +120,17 @@ fn convert_node_with_opacity(node: &usvg::Node, group_opacity: f64, scale: f64) 
         usvg::Node::Group(g) => {
             // 递归：嵌套 group 的 opacity 相乘
             let inner_opacity = g.opacity().get() as f64 * group_opacity;
-            let clip_path = g.clip_path().map(extract_clip_path_data);
-            if g.mask().is_some() {
-                return None;
-            }
+
+            // 优先尝试将 mask 降级为 clip_path；无法降级时跳过该 group
+            let clip_path = if let Some(mask) = g.mask() {
+                match try_extract_mask_as_clip_path(mask, scale) {
+                    Some(d) => Some(d),
+                    None => return None,
+                }
+            } else {
+                g.clip_path().map(|c| extract_clip_path_data(c, scale))
+            };
+
             let children: Vec<Node> = g
                 .children()
                 .iter()
@@ -289,11 +300,18 @@ fn color_to_hex(paint: &usvg::Paint) -> String {
     }
 }
 
-fn extract_clip_path_data(clip: &usvg::ClipPath) -> String {
+fn extract_clip_path_data(clip: &usvg::ClipPath, scale: f64) -> String {
     let mut paths = String::new();
     for node in clip.root().children() {
         if let usvg::Node::Path(path) = node {
-            let d = compact_path(&path_to_commands(path.data(), path.abs_transform()));
+            let mut t = path.abs_transform();
+            if (scale - 1.0).abs() > f64::EPSILON {
+                t.sx *= scale as f32;
+                t.sy *= scale as f32;
+                t.tx *= scale as f32;
+                t.ty *= scale as f32;
+            }
+            let d = compact_path(&path_to_commands(path.data(), t));
             if !paths.is_empty() {
                 paths.push(' ');
             }
@@ -301,6 +319,49 @@ fn extract_clip_path_data(clip: &usvg::ClipPath) -> String {
         }
     }
     paths
+}
+
+/// 尝试将 mask 降级为 clip path。
+///
+/// 当 mask 内所有子节点均为**不透明填充路径**（fill-opacity ≥ 1.0、无 stroke）时，
+/// mask 的语义等价于 clipPath —— 白色区域可见，其余裁剪。
+/// 此时可提取其 path data 作为 clip_path，避免跳过整个 group。
+///
+/// 返回 `None` 表示该 mask 无法降级（含半透明、stroke、非 Path 节点等），
+/// 调用方应维持原有跳过逻辑。
+fn try_extract_mask_as_clip_path(mask: &usvg::Mask, scale: f64) -> Option<String> {
+    let root = mask.root();
+    let mut paths = String::new();
+    for node in root.children() {
+        if let usvg::Node::Path(path) = node {
+            // 有 stroke 的 mask path 不是纯裁剪，无法降级
+            if path.stroke().is_some() {
+                return None;
+            }
+            // fill-opacity < 1.0 意味着半透明遮罩，不是纯裁剪
+            if let Some(fill) = path.fill() {
+                if fill.opacity().get() < 1.0 {
+                    return None;
+                }
+            }
+            let mut t = path.abs_transform();
+            if (scale - 1.0).abs() > f64::EPSILON {
+                t.sx *= scale as f32;
+                t.sy *= scale as f32;
+                t.tx *= scale as f32;
+                t.ty *= scale as f32;
+            }
+            let d = compact_path(&path_to_commands(path.data(), t));
+            if !paths.is_empty() {
+                paths.push(' ');
+            }
+            paths.push_str(&d);
+        } else {
+            // 非 Path 节点（如 Text、Image）无法降级
+            return None;
+        }
+    }
+    if paths.is_empty() { None } else { Some(paths) }
 }
 
 #[cfg(test)]
@@ -443,18 +504,54 @@ mod tests {
     }
 
     #[test]
-    fn test_mask_constrained_group_is_skipped() {
+    fn test_simple_mask_converts_to_clip_path() {
         let svg = load_fixture("mask_panel.svg");
         let tree = Tree::from_str(&svg, &usvg::Options::default()).unwrap();
         let doc = convert_tree(&tree, None);
 
-        // 只有 1 个 Path 节点（填充层），被 mask 约束的 Group 已被跳过
-        assert_eq!(doc.nodes.len(), 1);
+        // mask 内为纯不透明填充路径 → 降级为 clip_path，group 不再被跳过
+        assert_eq!(doc.nodes.len(), 2);
         match &doc.nodes[0] {
             Node::Path(p) => {
-                assert!(!p.d.contains("-5.000")); // 扩展路径已被过滤
+                assert!(p.fill.is_some());
             }
             _ => panic!("Expected Path node"),
+        }
+        match &doc.nodes[1] {
+            Node::Group(g) => {
+                assert!(g.clip_path.is_some());
+                assert!(g.clip_path.as_ref().unwrap().starts_with('M'));
+                assert_eq!(g.children.len(), 1);
+            }
+            _ => panic!("Expected Group node with clip_path"),
+        }
+    }
+
+    #[test]
+    fn test_circle_flag_mask_as_clip_path() {
+        let svg = load_fixture("circle_flag_mask.svg");
+        let tree = Tree::from_str(&svg, &usvg::Options::default()).unwrap();
+        let doc = convert_tree(&tree, None);
+
+        // circle-flags: mask 内为白色不透明 circle → 降级为 clip_path
+        assert_eq!(doc.nodes.len(), 1);
+        match &doc.nodes[0] {
+            Node::Group(g) => {
+                assert!(g.clip_path.is_some());
+                let clip = g.clip_path.as_ref().unwrap();
+                // circle 被 usvg 转换为 path，应包含 M 和 Z
+                assert!(clip.starts_with('M'));
+                assert!(clip.contains('Z'));
+                // 3 个国旗色块路径应被保留
+                assert_eq!(g.children.len(), 3);
+                for child in &g.children {
+                    match child {
+                        Node::Path(p) => assert!(p.fill.is_some()),
+                        _ => panic!("Expected Path child"),
+                    }
+                }
+            }
+            _ => panic!("Expected Group node with clip_path"),
         }
     }
 }

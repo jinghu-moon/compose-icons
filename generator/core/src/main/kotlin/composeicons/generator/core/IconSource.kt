@@ -9,6 +9,9 @@ interface IconSource {
     val upstreamVersion: String
     val styles: List<IconStyle>
     val basePackage: String
+    val normalizeSize: Double? get() = null
+    /** 图标名称 → 十六进制品牌色（不含 #），生成前注入 SVG fill 属性。默认空映射。 */
+    val iconColors: Map<String, String> get() = emptyMap()
 
     fun downloadSvg(outputDir: File)
 
@@ -50,13 +53,6 @@ data class SvgIconEntry(
     val effectiveRawFileName: String get() = rawFileName.ifEmpty { fileName }
 }
 
-data class ViewBox(
-    val minX: Float,
-    val minY: Float,
-    val width: Float,
-    val height: Float,
-)
-
 data class PathStyle(
     val fill: String?,
     val stroke: String?,
@@ -65,8 +61,6 @@ data class PathStyle(
     val strokeLineJoin: String?,
     val fillRule: String?,
     val alpha: Float = 1.0f,
-    val originalFill: String? = null,
-    val originalStroke: String? = null,
 )
 
 data class SvgMetadata(

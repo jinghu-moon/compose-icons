@@ -9,6 +9,12 @@ const styleFilter = ref<string>('all')
 const selectedEntry = ref<ExplorerEntry | null>(null)
 const cardSize = ref(160)
 const isReviewMode = ref(false)
+const isSidebarCollapsed = ref(false)
+
+function toggleSidebar() {
+  isSidebarCollapsed.value = !isSidebarCollapsed.value
+  setTimeout(updateGridConfig, 300) // 等待 CSS 过渡完成后重新计算网格
+}
 
 const fixedIconNames = [
   'Accessibility',
@@ -77,25 +83,28 @@ watch(datasets, () => {
 function updateGridConfig() {
   if (containerRef.value) {
     const width = containerRef.value.clientWidth
-    const padding = 64 // 左右 padding 之和
-    const gap = 24     // 左右间距
+    const padding = 80
+    const gap = 16
     
-    // 动态列数
-    itemsPerRow.value = Math.floor((width - padding) / 160) || 1
+    // 固定卡片大小为 160
+    cardSize.value = 160
     
-    // 计算格子的精确宽度
-    const availableWidth = width - padding - (itemsPerRow.value - 1) * gap
-    cardSize.value = availableWidth / itemsPerRow.value
+    // 计算当前宽度下能放多少列
+    itemsPerRow.value = Math.floor((width - padding + gap) / (cardSize.value + gap)) || 1
     
-    // 行高 = 卡片高度 + 垂直间距 (32)
-    itemHeight.value = cardSize.value + 32
+    // 行高固定
+    itemHeight.value = cardSize.value + gap
     
     viewportHeight.value = containerRef.value.clientHeight
   }
 }
 
 const sortedDatasets = computed(() => {
-  const order = ['tabler', 'lucide', 'phosphor', 'remixicons', 'radixicons', 'heroicons', 'iconoir', 'ionicons', 'bootstrap', 'boxicons']
+  const order = [
+    'tabler', 'lucide', 'phosphor', 'remixicons', 'radixicons',
+    'heroicons', 'iconoir', 'ionicons', 'bootstrap', 'boxicons',
+    'simpleicons', 'mdi', 'carbon', 'octicons', 'iconsax', 'circleflags', 'flagicons', 'countryflags'
+  ]
   return [...datasets.value].sort((a, b) => {
     const idxA = order.indexOf(a.id)
     const idxB = order.indexOf(b.id)
@@ -185,8 +194,8 @@ function getPathStyle(path: any, entry: ExplorerEntry) {
   let fill = path.fill || 'none'
   let stroke = path.stroke || 'none'
 
-  if (fill === 'currentColor') fill = 'var(--text-primary)'
-  if (stroke === 'currentColor') stroke = 'var(--text-primary)'
+  if (fill === 'currentColor') fill = 'currentColor'
+  if (stroke === 'currentColor') stroke = 'currentColor'
 
   const fillRule = path.fillRule?.toLowerCase() === 'evenodd' ? 'evenodd' : 'nonzero'
 
@@ -197,7 +206,8 @@ function getPathStyle(path: any, entry: ExplorerEntry) {
     'stroke-linecap': path.strokeLineCap,
     'stroke-linejoin': path.strokeLineJoin,
     'fill-rule': fillRule,
-    opacity: path.alpha || 1
+    'fill-opacity': path.fillAlpha ?? 1,
+    'stroke-opacity': path.strokeAlpha ?? 1
   }
 }
 
@@ -212,7 +222,8 @@ function getCommonStyle(paths: any[], entry: ExplorerEntry) {
            s['stroke-linecap'] === first['stroke-linecap'] &&
            s['stroke-linejoin'] === first['stroke-linejoin'] &&
            s['fill-rule'] === first['fill-rule'] &&
-           s.opacity === first.opacity
+           s['fill-opacity'] === first['fill-opacity'] &&
+           s['stroke-opacity'] === first['stroke-opacity']
   })
   return allSame ? first : null
 }
@@ -225,12 +236,15 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
 </script>
 
 <template>
-  <div class="app-container">
-    <!-- Sidebar -->
+  <div class="app-container" :class="{ 'sidebar-collapsed': isSidebarCollapsed }">
+    <!-- Modern Sidebar -->
     <aside class="sidebar">
       <div class="logo">
         <div class="logo-icon"></div>
-        <span>Compose Icons</span>
+        <span v-if="!isSidebarCollapsed">Compose Icons</span>
+        <button class="sidebar-toggle" @click="toggleSidebar">
+          {{ isSidebarCollapsed ? '→' : '←' }}
+        </button>
       </div>
 
       <nav class="filter-section">
@@ -241,14 +255,14 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
             :class="{ active: isReviewMode }"
             @click="isReviewMode = !isReviewMode"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Fixed Icons Review
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 12px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Review Mode
           </button>
         </div>
       </nav>
 
       <nav class="filter-section" v-show="!isReviewMode">
-        <span class="filter-label">Library</span>
+        <span class="filter-label">Icon Libraries</span>
         <div class="source-list">
           <button 
             v-for="ds in sortedDatasets" 
@@ -258,17 +272,17 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
             @click="activeSource = ds.id; styleFilter = 'all'"
           >
             {{ ds.source }}
-            <small style="margin-left: auto; opacity: 0.5">v{{ ds.upstreamVersion }}</small>
+            <small>v{{ ds.upstreamVersion }}</small>
           </button>
           
-          <div v-if="datasets.length < 10" class="source-item" style="opacity: 0.5; cursor: default">
-             Loading libraries... ({{ datasets.length }}/10)
+          <div v-if="datasets.length < 15" class="source-item" style="opacity: 0.5; cursor: default">
+             Loading... ({{ datasets.length }}/15)
           </div>
         </div>
       </nav>
 
-      <nav class="filter-section" v-if="availableStyles.length > 2">
-        <span class="filter-label">Style</span>
+      <nav class="filter-section" v-if="availableStyles.length > 2 && !isSidebarCollapsed">
+        <span class="filter-label">Styles</span>
         <div class="source-list">
           <button 
             v-for="style in availableStyles" 
@@ -282,16 +296,11 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
         </div>
       </nav>
       
-      <div style="margin-top: auto">
-        <button class="theme-toggle" @click="toggleTheme">
-          <svg v-if="isDark" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-11.314l.707.707m11.314 11.314l.707.707M12 8a4 4 0 110 8 4 4 0 010-8z"/></svg>
-          <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-          {{ isDark ? 'Light Mode' : 'Dark Mode' }}
-        </button>
-        <a href="https://github.com/jinghu-moon/compose-icons" target="_blank" class="source-item" style="margin-top: 8px">
-          GitHub Repository
-        </a>
-      </div>
+      <button class="theme-toggle" @click="toggleTheme">
+        <svg v-if="isDark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-11.314l.707.707m11.314 11.314l.707.707M12 8a4 4 0 110 8 4 4 0 010-8z"/></svg>
+        <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        {{ isDark ? 'Light' : 'Dark' }}
+      </button>
     </aside>
 
     <!-- Main Content -->
@@ -304,11 +313,11 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
           <input 
             v-model="query" 
             class="search-input" 
-            placeholder="Search icons by name, tags..." 
+            placeholder="Search icons, tags, categories..." 
           />
         </div>
         <div class="stats">
-          Showing <strong>{{ filteredEntries.length }}</strong> icons
+          <strong>{{ filteredEntries.length }}</strong> icons available
         </div>
       </header>
 
@@ -325,8 +334,8 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
               right: 0,
               height: `${cardSize}px`,
               display: 'grid',
-              gap: '24px',
-              gridTemplateColumns: `repeat(${itemsPerRow}, 1fr)`
+              gap: '16px',
+              gridTemplateColumns: `repeat(${itemsPerRow}, ${cardSize}px)`
             }"
           >
             <div 
@@ -337,14 +346,21 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
               @click="selectIcon(entry)"
             >
               <div class="icon-preview">
-                <svg :viewBox="`${entry.viewBox.minX} ${entry.viewBox.minY} ${entry.viewBox.width} ${entry.viewBox.height}`" width="32" height="32"
+                <svg :viewBox="`${entry.viewBox.minX} ${entry.viewBox.minY} ${entry.viewBox.width} ${entry.viewBox.height}`" width="48" height="48"
                   v-bind="getCommonStyle(entry.paths, entry)">
-                  <path
-                    v-for="(path, idx) in entry.paths"
-                    :key="idx"
-                    :d="path.d"
-                    v-bind="getPathDiffStyle(path, entry, getCommonStyle(entry.paths, entry))"
-                  />
+                  <defs v-if="entry.clipPath">
+                    <clipPath :id="`clip-${entry.name}`">
+                      <path :d="entry.clipPath" />
+                    </clipPath>
+                  </defs>
+                  <g :clip-path="entry.clipPath ? `url(#clip-${entry.name})` : undefined">
+                    <path
+                      v-for="(path, idx) in entry.paths"
+                      :key="idx"
+                      :d="path.d"
+                      v-bind="getPathDiffStyle(path, entry, getCommonStyle(entry.paths, entry))"
+                    />
+                  </g>
                 </svg>
               </div>
               <span class="icon-name">{{ entry.name }}</span>
@@ -354,75 +370,88 @@ function getPathDiffStyle(path: any, entry: ExplorerEntry, common: Record<string
         </div>
       </div>
 
-      <!-- Details Overlay -->
+      <!-- Contextual Side Drawer (Details) -->
       <transition>
         <div v-if="selectedEntry" class="details-overlay">
           <div class="details-header">
             <div>
-              <h2 style="font-size: 24px">{{ selectedEntry.name }}</h2>
-              <p style="color: var(--text-secondary)">{{ (selectedEntry as any).libraryId }} / {{ selectedEntry.style }}</p>
+              <p class="filter-label" style="padding: 0; margin-bottom: 4px">{{ (selectedEntry as any).libraryId }} Library</p>
+              <h2>{{ selectedEntry.name }}</h2>
             </div>
             <button class="close-btn" @click="selectedEntry = null">✕</button>
           </div>
 
           <div class="comparison-grid">
             <div class="preview-box">
-              <span class="preview-label">SVG Source</span>
+              <span class="preview-label">SVG Data</span>
               <div class="preview-canvas">
                 <svg :viewBox="`${selectedEntry.viewBox.minX} ${selectedEntry.viewBox.minY} ${selectedEntry.viewBox.width} ${selectedEntry.viewBox.height}`" width="64" height="64"
                   v-bind="getCommonStyle(selectedEntry.paths, selectedEntry)">
-                  <path
-                    v-for="(path, idx) in selectedEntry.paths"
-                    :key="idx"
-                    :d="path.d"
-                    v-bind="getPathDiffStyle(path, selectedEntry, getCommonStyle(selectedEntry.paths, selectedEntry))"
-                  />
+                  <defs v-if="selectedEntry.clipPath">
+                    <clipPath :id="`clip-detail-${selectedEntry.name}`">
+                      <path :d="selectedEntry.clipPath" />
+                    </clipPath>
+                  </defs>
+                  <g :clip-path="selectedEntry.clipPath ? `url(#clip-detail-${selectedEntry.name})` : undefined">
+                    <path
+                      v-for="(path, idx) in selectedEntry.paths"
+                      :key="idx"
+                      :d="path.d"
+                      v-bind="getPathDiffStyle(path, selectedEntry, getCommonStyle(selectedEntry.paths, selectedEntry))"
+                    />
+                  </g>
                 </svg>
               </div>
             </div>
             <div class="preview-box highlight">
-              <span class="preview-label">Compose Render (KT)</span>
+              <span class="preview-label">Compose Vector</span>
               <div class="preview-canvas">
-                <!-- 这里使用相同的数据，但模拟 Compose 的渲染逻辑（例如显式处理 fillRule 等） -->
                 <svg :viewBox="`${selectedEntry.viewBox.minX} ${selectedEntry.viewBox.minY} ${selectedEntry.viewBox.width} ${selectedEntry.viewBox.height}`" width="64" height="64"
                   v-bind="getCommonStyle(selectedEntry.paths, selectedEntry)">
-                  <path
-                    v-for="(path, idx) in selectedEntry.paths"
-                    :key="idx"
-                    :d="path.d"
-                    v-bind="getPathDiffStyle(path, selectedEntry, getCommonStyle(selectedEntry.paths, selectedEntry))"
-                  />
+                  <defs v-if="selectedEntry.clipPath">
+                    <clipPath :id="`clip-compose-${selectedEntry.name}`">
+                      <path :d="selectedEntry.clipPath" />
+                    </clipPath>
+                  </defs>
+                  <g :clip-path="selectedEntry.clipPath ? `url(#clip-compose-${selectedEntry.name})` : undefined">
+                    <path
+                      v-for="(path, idx) in selectedEntry.paths"
+                      :key="idx"
+                      :d="path.d"
+                      v-bind="getPathDiffStyle(path, selectedEntry, getCommonStyle(selectedEntry.paths, selectedEntry))"
+                    />
+                  </g>
                 </svg>
               </div>
             </div>
           </div>
 
           <div class="info-group">
-            <span class="filter-label">Usage (Jetpack Compose)</span>
-            <div class="code-block" @click="copyCode(selectedEntry)" style="position: relative">
+            <span class="filter-label">Usage in Jetpack Compose</span>
+            <div class="code-block" @click="copyCode(selectedEntry)">
               <pre><code>Icon(
-  imageVector = {{ selectedEntry.name }},
+  imageVector = {{ selectedEntry.kotlinPath }},
   contentDescription = null
 )</code></pre>
               <transition name="fade">
-                <div v-if="copiedStatus" style="position: absolute; top: 12px; right: 12px; background: var(--accent); color: var(--bg-main); padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">
-                  COPIED!
+                <div v-if="copiedStatus" style="position: absolute; inset: 0; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; border-radius: 20px; font-weight: 700; font-size: 1.2rem;">
+                  COPIED TO CLIPBOARD
                 </div>
               </transition>
             </div>
           </div>
 
           <div class="info-group">
-            <span class="filter-label">Full Path</span>
-            <div class="code-block" style="font-size: 11px">
+            <span class="filter-label">Kotlin Source Path</span>
+            <div class="code-block" style="font-size: 11px; opacity: 0.8">
               {{ selectedEntry.kotlinPath }}
             </div>
           </div>
 
           <div class="info-group" v-if="selectedEntry.tags.length">
-            <span class="filter-label">Tags</span>
+            <span class="filter-label">Semantic Tags</span>
             <div style="display: flex; gap: 8px; flex-wrap: wrap">
-              <span v-for="tag in selectedEntry.tags" :key="tag" class="icon-style-tag">
+              <span v-for="tag in selectedEntry.tags" :key="tag" class="icon-style-tag" style="background: var(--bg-glass)">
                 {{ tag }}
               </span>
             </div>

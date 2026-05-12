@@ -16,6 +16,14 @@ dependencies {
         api(project(":icons-ionicons"))
         api(project(":icons-bootstrap"))
         api(project(":icons-boxicons"))
+        api(project(":icons-simpleicons"))
+        api(project(":icons-mdi"))
+        api(project(":icons-carbon"))
+        api(project(":icons-octicons"))
+        api(project(":icons-iconsax"))
+        api(project(":icons-circleflags"))
+        api(project(":icons-flagicons"))
+        api(project(":icons-countryflags"))
     }
 }
 

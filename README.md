@@ -1,7 +1,7 @@
 # compose-icons
 
 > **A high-performance, R8-friendly icon library for Jetpack Compose on Android.**
-> Powered by [svg2compose](https://github.com/linebender/resvg/tree/main/crates/usvg) (usvg-based Rust CLI) for build-time SVG normalization. Zero runtime overhead, perfect tree-shaking. Currently shipping Tabler 3.41.1 + Lucide + Phosphor + Radix + Remix.
+> Powered by [svg2compose](https://github.com/linebender/resvg/tree/main/crates/usvg) (usvg-based Rust CLI) for build-time SVG normalization. Zero runtime overhead, perfect tree-shaking. 18 icon libraries, 45,000+ icons.
 
 ---
 
@@ -37,7 +37,7 @@ dependencies {
 }
 ```
 
-> 每个 artifact 已包含该图标源的所有 style（Tabler 含 outline + filled，Lucide 含 outline）。
+> 每个 artifact 已包含该图标源的所有 style（如 Tabler 含 outline + filled，Phosphor 含 6 种 weight，Iconsax 含 6 种风格）。
 
 ## 🚀 快速开始
 
@@ -58,6 +58,53 @@ fun MyScreen() {
 ```
 
 主题切换跟随系统/手动切换 Dark/Light，**无需任何额外配置**——`Icon` 的 `tint` 参数就是 Compose 原生的着色入口。
+
+### 其他图标库用法
+
+所有库的 API 模式一致：`容器对象.风格.图标名`。
+
+```kotlin
+// Lucide（单风格）
+import composeicons.lucide.LucideIcons
+LucideIcons.Outline.Home
+
+// Phosphor（6 种 weight）
+import composeicons.phosphor.PhosphorIcons
+PhosphorIcons.Thin.Home
+PhosphorIcons.Fill.Home
+PhosphorIcons.Duotone.Home
+
+// Remix（Line + Fill）
+import composeicons.remix.RemixIcons
+RemixIcons.Line.Home
+RemixIcons.Fill.Home
+
+// Iconsax（6 种风格）
+import composeicons.iconsax.IconsaxIcons
+IconsaxIcons.Linear.Home
+IconsaxIcons.Broken.Home
+IconsaxIcons.Bulk.Home
+
+// Ionicons（3 种风格）
+import composeicons.ionicons.IoniconsIcons
+IoniconsIcons.Filled.Home
+IoniconsIcons.Outline.Home
+IoniconsIcons.Sharp.Home
+
+// Bootstrap（Regular + Fill）
+import composeicons.bootstrap.BootstrapIcons
+BootstrapIcons.Regular.Home
+BootstrapIcons.Fill.Home
+
+// 国旗类（无风格层级，直接访问）
+import composeicons.circleflags.CircleFlags
+CircleFlags.Regular.Cn
+import composeicons.flagicons.FlagIcons
+FlagIcons.`1x1`.Cn
+FlagIcons.`4x3`.Cn
+```
+
+> **查找图标**：在 IDE 中输入 `容器对象.风格.` 后触发自动补全，即可浏览该风格下所有可用图标。也可访问 [Web Preview](./web-preview) 在线搜索。
 
 ## 📊 APK 体积模型
 
@@ -144,13 +191,26 @@ composeIconsScanner {
 
 | 图标源 | 上游版本 | Style | 图标数量 | Artifact |
 |--------|---------|-------|---------|----------|
-| [Tabler Icons](https://tabler.io/icons) | 3.41.1 | Outline / Filled | ~7145 | `icons-tabler` |
-| [Lucide Icons](https://lucide.dev/) | latest main | Outline | ~1703 | `icons-lucide` |
-| [Phosphor Icons](https://phosphoricons.com/) | latest | 6 weight | ~9000 | `icons-phosphor` |
-| [Radix Icons](https://www.radix-ui.com/icons) | latest | Outline | ~332 | `icons-radix` |
-| [Remix Icon](https://remixicon.com/) | latest | Line / Fill | ~2000+ | `icons-remix` |
+| [Tabler Icons](https://tabler.io/icons) | 3.41.1 | Outline / Filled | 6,092 | `icons-tabler` |
+| [Lucide Icons](https://lucide.dev/) | main | Outline | 1,703 | `icons-lucide` |
+| [Phosphor Icons](https://phosphoricons.com/) | 2.1.0 | Thin / Light / Regular / Bold / Fill / Duotone | 9,072 | `icons-phosphor` |
+| [Remix Icon](https://remixicon.com/) | 4.2.0 | Line / Fill | 2,710 | `icons-remix` |
+| [Heroicons](https://heroicons.com/) | 2.2.0 | Outline / Solid / Solid16 / Solid20 | 1,288 | `icons-heroicons` |
+| [Iconoir](https://iconoir.com/) | main | Regular / Solid | 1,671 | `icons-iconoir` |
+| [Ionicons](https://ionic.io/ionicons) | main | Filled / Outline / Sharp | 1,357 | `icons-ionicons` |
+| [Bootstrap Icons](https://icons.getbootstrap.com/) | 1.11.3 | Regular / Fill | 2,035 | `icons-bootstrap` |
+| [Boxicons](https://boxicons.com/) | 2.1.4 | Regular / Solid / Logos | 4,063 | `icons-boxicons` |
+| [Simple Icons](https://simpleicons.org/) | 16.x | Default | 3,432 | `icons-simpleicons` |
+| [Material Design Icons](https://pictogrammers.com/library/mdi/) | 7.x | Default / Outline | 7,447 | `icons-mdi` |
+| [Carbon Icons](https://carbondesignsystem.com/elements/icons/library/) | 11.x | Default / Filled | 2,521 | `icons-carbon` |
+| [Octicons](https://primer.style/foundations/icons) | 19.x | Default / Fill | 343 | `icons-octicons` |
+| [Iconsax](https://iconsax.io/) | 1.0 | Linear / Outline / Broken / Bold / Bulk / TwoTone | 4,497 | `icons-iconsax` |
+| [Radix Icons](https://www.radix-ui.com/icons) | 1.3.0 | Regular | 318 | `icons-radix` |
+| [Circle Flags](https://hatstack.github.io/circle-flags/) | 2.8.0 | Regular | 403 | `icons-circleflags` |
+| [Flag Icons](https://flagicons.lipis.dev/) | 7.5.0 | 1x1 / 4x3 | 542 | `icons-flagicons` |
+| [Country Flags](https://countryflagsapi.com/) | 1.2.10 | Regular | 254 | `icons-countryflags` |
 
-**v2 路线图**：[Heroicons v2](https://heroicons.com/)、多色保真（L3）、独立 catalog 包。详见 [架构白皮书 §5.2](./docs/architecture.md#52-v2-路线图按优先级排序)。
+**v2 路线图**：多色保真（L3）、独立 catalog 包。详见 [架构白皮书 §5.2](./docs/architecture.md#52-v2-路线图按优先级排序)。
 
 ## 🆚 与同类项目的差异
 
@@ -223,23 +283,35 @@ implementation("io.github.jinghu-moon.composeicons:icons-tabler-catalog:0.1.0") 
 # 自动下载 svg2compose binary（首次需要联网）
 ./gradlew :tools:resolveSvg2Compose
 
-# 生成 Tabler 全部图标
-./gradlew :generator:tabler:run
+# 生成单个图标库（以 Tabler 为例）
+./gradlew :generator:tabler:generateIcons
 
-# 生成 Lucide 全部图标
-./gradlew :generator:lucide:run
-
-# 生成 Phosphor 全部图标
-./gradlew :generator:phosphor:run
-
-# 生成 Radix 全部图标
-./gradlew :generator:radix:run
-
-# 生成 Remix 全部图标
-./gradlew :generator:remix:run
+# 生成全部 18 个图标库
+./gradlew :generator:tabler:generateIcons \
+  :generator:lucide:generateIcons \
+  :generator:phosphor:generateIcons \
+  :generator:radix:generateIcons \
+  :generator:remix:generateIcons \
+  :generator:heroicons:generateIcons \
+  :generator:iconoir:generateIcons \
+  :generator:ionicons:generateIcons \
+  :generator:bootstrap:generateIcons \
+  :generator:boxicons:generateIcons \
+  :generator:simpleicons:generateIcons \
+  :generator:mdi:generateIcons \
+  :generator:carbon:generateIcons \
+  :generator:octicons:generateIcons \
+  :generator:iconsax:generateIcons \
+  :generator:circleflags:generateIcons \
+  :generator:flagicons:generateIcons \
+  :generator:countryflags:generateIcons
 
 # 跑全量测试 + Paparazzi 截图基线验证
 ./gradlew check
+
+# 公共 API 快照验证（替代 kotlinx-binary-compatibility-validator）
+./gradlew dumpApi     # 生成 api-snapshots/<module>.txt
+./gradlew checkApi    # 校验当前 API 是否与快照一致
 ```
 
 `svg2compose` 是基于 usvg 的 Rust CLI，源码位于 `tools/svg2compose/`，编译产物 `svg2compose(.exe)` 在 `.gitignore` 中，不会进入仓库。首次构建由 Gradle 任务自动触发编译。
@@ -263,9 +335,25 @@ implementation("io.github.jinghu-moon.composeicons:icons-tabler-catalog:0.1.0") 
 |--------|-------|
 | [Tabler Icons](https://github.com/tabler/tabler-icons) | MIT |
 | [Lucide Icons](https://github.com/lucide-icons/lucide) | ISC |
+| [Phosphor Icons](https://github.com/phosphor-icons/core) | MIT |
+| [Remix Icon](https://github.com/Remix-Design/RemixIcon) | Apache 2.0 |
+| [Heroicons](https://github.com/tailwindlabs/heroicons) | MIT |
+| [Iconoir](https://github.com/iconoir-icons/iconoir) | MIT |
+| [Ionicons](https://github.com/ionic-team/ionicons) | MIT |
+| [Bootstrap Icons](https://github.com/twbs/icons) | MIT |
+| [Boxicons](https://github.com/atisawd/boxicons) | MIT |
+| [Simple Icons](https://github.com/simple-icons/simple-icons) | CC0 |
+| [Material Design Icons](https://github.com/Templarian/MaterialDesign) | Apache 2.0 |
+| [Carbon Icons](https://github.com/carbon-design-system/carbon/tree/main/packages/icons) | Apache 2.0 |
+| [Octicons](https://github.com/primer/octicons) | MIT |
+| [Iconsax](https://github.com/lusaxweb/iconsax) | CC0 |
+| [Radix Icons](https://github.com/radix-ui/icons) | MIT |
+| [Circle Flags](https://github.com/HatScripts/circle-flags) | MIT |
+| [Flag Icons](https://github.com/lipis/flag-icons) | MIT |
+| [Country Flags](https://github.com/nickvdyck/country-flags) | MIT |
 | [usvg](https://github.com/linebender/resvg)（svg2compose 内核） | Apache 2.0 / MIT |
 
-完整许可证文本见 [LICENSE-tabler](./LICENSE-tabler) / [LICENSE-lucide](./LICENSE-lucide)。
+完整许可证文本见各 `LICENSE-<source>` 文件（如 `LICENSE-tabler`、`LICENSE-lucide` 等，共 18 个）。
 
 ## 🤝 贡献
 

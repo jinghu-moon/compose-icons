@@ -16,12 +16,12 @@ struct PathStyle {
 
 fn extract_style(path: &PathNode) -> PathStyle {
     PathStyle {
-        fill_rule: path.fill.as_ref().map(|f| f.rule.clone()).unwrap_or_default(),
+        fill_rule: path.fill.as_ref().map(|f| f.rule.clone()).unwrap_or_else(|| "nonzero".to_string()),
         fill_color: path.fill.as_ref().map(|f| f.color.clone()),
         fill_opacity: path.fill.as_ref().map(|f| f.opacity).unwrap_or(1.0),
         stroke_color: path.stroke.as_ref().map(|s| s.color.clone()),
         stroke_opacity: path.stroke.as_ref().map(|s| s.opacity).unwrap_or(1.0),
-        stroke_width: path.stroke.as_ref().map(|s| s.width).unwrap_or(0.0),
+        stroke_width: path.stroke.as_ref().map(|s| s.width).unwrap_or(1.0),
         stroke_linecap: path.stroke.as_ref().map(|s| s.linecap.clone()).unwrap_or_default(),
         stroke_linejoin: path.stroke.as_ref().map(|s| s.linejoin.clone()).unwrap_or_default(),
     }
@@ -66,8 +66,9 @@ pub fn generate_kotlin_file(
     } else {
         format!("{}.{}", base_package, entry.subdirectory)
     };
+    let escaped_package = escape_package(&package);
     let style_cap = capitalize(&entry.style_name);
-    let property_host = format!("{}.{}", icon_container, style_cap);
+    let property_host = format!("{}.{}", escape_ident(icon_container), escape_ident(&style_cap));
     let vector_name = lower_first(&entry.kotlin_name);
 
     let max_dim = doc.view_box.width.max(doc.view_box.height);
@@ -82,7 +83,7 @@ pub fn generate_kotlin_file(
         && all_paths_same_style(&all_paths);
 
     // package
-    out.push_str(&format!("package {}\n\n", package));
+    out.push_str(&format!("package {}\n\n", escaped_package));
 
     // imports
     out.push_str("import androidx.compose.ui.graphics.*\n");
@@ -295,6 +296,21 @@ fn lower_first(s: &str) -> String {
         Some(c) => c.to_lowercase().to_string() + chars.as_str(),
         None => String::new(),
     }
+}
+
+/// Escape a single identifier segment with backticks if it starts with a digit.
+/// Kotlin identifiers starting with digits must be wrapped in backticks.
+fn escape_ident(seg: &str) -> String {
+    if seg.chars().next().map_or(false, |c| c.is_ascii_digit()) {
+        format!("`{}`", seg)
+    } else {
+        seg.to_string()
+    }
+}
+
+/// Join package segments, escaping any segment that starts with a digit.
+fn escape_package(pkg: &str) -> String {
+    pkg.split('.').map(escape_ident).collect::<Vec<_>>().join(".")
 }
 
 #[cfg(test)]

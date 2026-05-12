@@ -51,12 +51,13 @@ fn test_cli_transform_svg_outputs_baked_coordinates() {
 }
 
 #[test]
-fn test_cli_mask_svg_skips_masked_group() {
+fn test_cli_mask_svg_converts_simple_mask_to_clip() {
     let (exit_code, stdout) = run_cli("tests/fixtures/mask_panel.svg");
     assert_eq!(exit_code, 0);
 
     let doc: svg2compose::protocol::SvgDocument = serde_json::from_str(&stdout).unwrap();
-    assert_eq!(doc.nodes.len(), 1);
+    // Simple mask (opaque filled paths) is converted to clip_path → group preserved
+    assert_eq!(doc.nodes.len(), 2);
 }
 
 #[test]

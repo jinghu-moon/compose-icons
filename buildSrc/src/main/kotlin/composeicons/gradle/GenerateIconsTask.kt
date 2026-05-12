@@ -12,9 +12,9 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import javax.inject.Inject
 
@@ -56,16 +56,17 @@ abstract class GenerateIconsTask @Inject constructor() : DefaultTask() {
     @get:Internal
     abstract val workingDir: DirectoryProperty
 
-    /** Path to the svg2compose Rust binary — tracked via task dependency. */
-    @get:Internal
+    /** Path to the svg2compose Rust binary. Changes to the binary invalidate the cache. */
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
     abstract val svg2ComposeBinary: RegularFileProperty
 
     /** Generated Kotlin source output directory (under src/generated/kotlin/). */
     @get:OutputDirectory
     abstract val outputDir: DirectoryProperty
 
-    /** Generation report output file. */
-    @get:OutputFile
+    /** Generation report output file — written by the subprocess, not the task itself. */
+    @get:Internal
     abstract val reportFile: RegularFileProperty
 
     @get:Inject

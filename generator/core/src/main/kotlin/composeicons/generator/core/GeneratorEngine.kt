@@ -14,6 +14,21 @@ class GeneratorEngine(
     private val projectRoot: File,
     private val pipeline: UsvgPipeline = UsvgPipeline(defaultSvg2ComposePath(projectRoot)),
 ) {
+    companion object {
+        private val pathTagRegex = Regex("""<path(?=[^>]*\s*d=)""", RegexOption.IGNORE_CASE)
+
+        /**
+         * 向 SVG 的 <path> 标签注入 fill 属性，替换 currentColor 为品牌色。
+         * 仅在 <path> 尚无显式 fill 属性时注入。
+         */
+        fun injectBrandColor(svgContent: String, hexColor: String): String {
+            return pathTagRegex.replace(svgContent) { match ->
+                val tag = match.value
+                if (tag.contains("fill=", ignoreCase = true)) tag
+                else """<path fill="#$hexColor""""
+            }
+        }
+    }
     fun generate(config: GeneratorConfig, source: IconSource): GeneratorReport {
         val discovered = source.discoverIcons(config.sourceRootDir)
 
@@ -80,11 +95,40 @@ class GeneratorEngine(
             }
         }
 
+        // Phase 1.5: Detect case-insensitive collision with container name
+        // On case-insensitive file systems (Windows), SimpleIcons.kt and Simpleicons.kt
+        // produce the same class file name, causing one to overwrite the other.
+        // Rename the icon by appending "Icon" to avoid the collision.
+        val containerName = source.iconContainerName
+        pending.forEachIndexed { index, pe ->
+            if (pe.kotlinName.equals(containerName, ignoreCase = true)) {
+                val renamed = pe.kotlinName + "Icon"
+                val newTarget = outputDir.resolve(pe.entry.style.subdirectory).resolve("$renamed.kt")
+                warnings += IconWarning(
+                    fileName = pe.entry.fileName,
+                    style = pe.entry.style.name,
+                    message = "Renamed '${pe.kotlinName}' -> '$renamed' to avoid collision with container '$containerName' on case-insensitive file systems.",
+                )
+                pending[index] = pe.copy(kotlinName = renamed, targetFile = newTarget)
+            }
+        }
+
         // Phase 2: Build manifest and call Rust CLI (per-icon file mode)
         if (pending.isNotEmpty()) {
+            val tempSvgFiles = mutableListOf<File>()
             val manifestEntries = pending.map { pe ->
+                val brandColor = source.iconColors[pe.kotlinName]
+                val svgPath = if (brandColor != null) {
+                    val tmp = File.createTempFile("svg-color-", ".svg")
+                    tmp.deleteOnExit()
+                    tmp.writeText(injectBrandColor(pe.entry.file.readText(), brandColor))
+                    tempSvgFiles.add(tmp)
+                    tmp.absolutePath
+                } else {
+                    pe.entry.file.absolutePath
+                }
                 ManifestEntry(
-                    svg = pe.entry.file.absolutePath,
+                    svg = svgPath,
                     kotlin_name = pe.kotlinName,
                     style_name = pe.entry.style.name,
                     subdirectory = pe.entry.style.subdirectory,
@@ -99,7 +143,7 @@ class GeneratorEngine(
                     basePackage = source.basePackage,
                     iconContainer = source.iconContainerName,
                     outputDir = outputDir,
-                    normalizeSize = config.normalizeSize,
+                    normalizeSize = source.normalizeSize ?: config.normalizeSize,
                 )
 
                 pending.forEach { pe ->
@@ -133,11 +177,13 @@ class GeneratorEngine(
                                     strokeLineCap = p.strokeLineCap,
                                     strokeLineJoin = p.strokeLineJoin,
                                     fillRule = p.fillRule,
-                                    alpha = p.alpha.toFloat(),
+                                    fillAlpha = p.fillAlpha.toFloat(),
+                                    strokeAlpha = p.strokeAlpha.toFloat(),
                                     d = p.d,
                                 )
                             },
                             hash = pe.currentHash,
+                            clipPath = iconResult.clipPath,
                         )
                         succeeded.incrementAndGet()
                         generatedFiles.add(pe.targetFile)
@@ -151,6 +197,8 @@ class GeneratorEngine(
                         reason = "Manifest generation failed: ${error.message ?: error::class.java.simpleName}",
                     )
                 }
+            } finally {
+                tempSvgFiles.forEach { it.delete() }
             }
         }
 

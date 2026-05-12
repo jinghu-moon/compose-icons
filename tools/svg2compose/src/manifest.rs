@@ -41,7 +41,8 @@ pub struct ResultPathNode {
     pub stroke_line_cap: Option<String>,
     pub stroke_line_join: Option<String>,
     pub fill_rule: Option<String>,
-    pub alpha: f64,
+    pub fill_alpha: f64,
+    pub stroke_alpha: f64,
 }
 
 /// Complete icon result with viewBox and paths.
@@ -49,6 +50,9 @@ pub struct ResultPathNode {
 pub struct IconResult {
     pub view_box: ResultViewBox,
     pub paths: Vec<ResultPathNode>,
+    /// Top-level group clip path data (for mask→clip degradation, e.g. circle-flags).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub clip_path: Option<String>,
 }
 
 /// Key = "subdirectory/kotlinName", Value = icon result.

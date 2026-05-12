@@ -111,11 +111,13 @@ data class ResultPathNode(
     @SerialName("stroke_line_cap") val strokeLineCap: String? = null,
     @SerialName("stroke_line_join") val strokeLineJoin: String? = null,
     @SerialName("fill_rule") val fillRule: String? = null,
-    val alpha: Double = 1.0,
+    @SerialName("fill_alpha") val fillAlpha: Double = 1.0,
+    @SerialName("stroke_alpha") val strokeAlpha: Double = 1.0,
 )
 
 @Serializable
 data class IconResult(
     @SerialName("view_box") val viewBox: ResultViewBox,
     val paths: List<ResultPathNode> = emptyList(),
+    @SerialName("clip_path") val clipPath: String? = null,
 )

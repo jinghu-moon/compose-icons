@@ -38,6 +38,14 @@ dependencies {
     implementation(project(":icons-ionicons"))
     implementation(project(":icons-bootstrap"))
     implementation(project(":icons-boxicons"))
+    implementation(project(":icons-simpleicons"))
+    implementation(project(":icons-mdi"))
+    implementation(project(":icons-carbon"))
+    implementation(project(":icons-octicons"))
+    implementation(project(":icons-iconsax"))
+    implementation(project(":icons-circleflags"))
+    implementation(project(":icons-flagicons"))
+    implementation(project(":icons-countryflags"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
@@ -108,6 +116,30 @@ tasks.register("generateIconRegistry") {
                 "Regular" to ("Regular" to "basic"), "Solid" to ("Solid" to "filled"),
                 "Logos" to ("Logos" to "brands"),
             )),
+            "simpleicons" to ("SimpleIcons" to mapOf("Default" to ("Default" to null))),
+            "mdi" to ("MdiIcons" to mapOf(
+                "Default" to ("Default" to "default"), "Outline" to ("Outline" to "outline"),
+            )),
+            "carbon" to ("CarbonIcons" to mapOf(
+                "Default" to ("Default" to "default"), "Filled" to ("Filled" to "filled"),
+            )),
+            "octicons" to ("OcticonsIcons" to mapOf(
+                "Default" to ("Default" to "default"), "Fill" to ("Fill" to "fill"),
+            )),
+            "iconsax" to ("IconsaxIcons" to mapOf(
+                "Linear" to ("Linear" to "linear"), "Outline" to ("Outline" to "outline"),
+                "Broken" to ("Broken" to "broken"), "Bold" to ("Bold" to "bold"),
+                "Bulk" to ("Bulk" to "bulk"), "TwoTone" to ("TwoTone" to "twotone"),
+            )),
+            "circleflags" to ("CircleFlags" to mapOf(
+                "Regular" to ("Regular" to null),
+            )),
+            "flagicons" to ("FlagIcons" to mapOf(
+                "1x1" to ("`1x1`" to "1x1"), "4x3" to ("`4x3`" to "4x3"),
+            )),
+            "countryflags" to ("CountryFlags" to mapOf(
+                "Regular" to ("Regular" to null),
+            )),
         )
 
         val basePackages = mapOf(
@@ -116,7 +148,17 @@ tasks.register("generateIconRegistry") {
             "radixicons" to "composeicons.radix", "heroicons" to "composeicons.heroicons",
             "iconoir" to "composeicons.iconoir", "ionicons" to "composeicons.ionicons",
             "bootstrap" to "composeicons.bootstrap", "boxicons" to "composeicons.boxicons",
+            "simpleicons" to "composeicons.simpleicons", "mdi" to "composeicons.mdi",
+            "carbon" to "composeicons.carbon", "octicons" to "composeicons.octicons",
+            "iconsax" to "composeicons.iconsax",
+            "circleflags" to "composeicons.circleflags",
+            "flagicons" to "composeicons.flagicons",
+            "countryflags" to "composeicons.countryflags",
         )
+
+        // Escape package segments starting with digits with backticks (Kotlin requirement)
+        fun escapePkg(pkg: String): String =
+            pkg.split(".").joinToString(".") { if (it.first().isDigit()) "`$it`" else it }
 
         // Extract top-level JSON objects from array using brace-depth tracking
         fun parseTopLevelObjects(text: String): List<String> {
@@ -172,8 +214,8 @@ tasks.register("generateIconRegistry") {
                 val subpkg = styleCfg.second
 
                 val iconPkg = if (subpkg != null) "$basePkg.$subpkg" else basePkg
-                srcImports.add("import $iconPkg.*")
-                srcImports.add("import $basePkg.$container")
+                srcImports.add("import ${escapePkg(iconPkg)}.*")
+                srcImports.add("import ${escapePkg(basePkg)}.$container")
 
                 srcEntries.add("    put(\"$kotlinPath\", $container.$objRef.$name)")
             }

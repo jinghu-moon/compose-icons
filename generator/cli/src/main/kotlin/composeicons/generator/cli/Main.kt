@@ -2,16 +2,24 @@ package composeicons.generator.cli
 
 import composeicons.generator.bootstrap.BootstrapIconSource
 import composeicons.generator.boxicons.BoxiconsIconSource
+import composeicons.generator.carbon.CarbonSource
+import composeicons.generator.circleflags.CircleFlagsIconSource
+import composeicons.generator.countryflags.CountryFlagsIconSource
+import composeicons.generator.flagicons.FlagIconsIconSource
 import composeicons.generator.core.IconSource
 import composeicons.generator.core.printGenerationSummary
 import composeicons.generator.core.runGeneration
 import composeicons.generator.heroicons.HeroiconsIconSource
 import composeicons.generator.iconoir.IconoirIconSource
+import composeicons.generator.iconsax.IconsaxSource
 import composeicons.generator.ionicons.IoniconsIconSource
 import composeicons.generator.lucide.LucideIconSource
+import composeicons.generator.mdi.MdiIconSource
+import composeicons.generator.octicons.OcticonsSource
 import composeicons.generator.phosphor.PhosphorIconSource
 import composeicons.generator.radix.RadixIconSource
 import composeicons.generator.remix.RemixIconSource
+import composeicons.generator.simpleicons.SimpleIconsSource
 import composeicons.generator.tabler.TablerIconSource
 import java.io.File
 
@@ -20,7 +28,7 @@ import java.io.File
  *
  * 用法：
  * ```
- * ./gradlew :generator:cli:run                    # 生成全部 10 个库
+ * ./gradlew :generator:cli:run                    # 生成全部 18 个库
  * ./gradlew :generator:cli:run --args="tabler"    # 只生成 Tabler
  * ./gradlew :generator:cli:run --args=". tabler"  # 显式指定 projectRoot 为当前目录
  * ```
@@ -56,6 +64,14 @@ fun main(args: Array<String>) {
         GeneratorEntry("ionicons",  "upstream/ionicons")            { IoniconsIconSource(referRoot = it) },
         GeneratorEntry("bootstrap", "upstream/bootstrap-icons")     { BootstrapIconSource(referRoot = it) },
         GeneratorEntry("boxicons",  "upstream/boxicons")            { BoxiconsIconSource(referRoot = it) },
+        GeneratorEntry("simpleicons", "upstream/simpleicons")       { SimpleIconsSource(referRoot = it) },
+        GeneratorEntry("mdi",         "upstream/mdi")               { MdiIconSource(referRoot = it) },
+        GeneratorEntry("carbon",      "upstream/carbon")            { CarbonSource(referRoot = it) },
+        GeneratorEntry("octicons",    "upstream/octicons")          { OcticonsSource(referRoot = it) },
+        GeneratorEntry("iconsax",     "upstream/iconsax")           { IconsaxSource(referRoot = it) },
+        GeneratorEntry("circleflags", "upstream/circleflags")       { CircleFlagsIconSource(referRoot = it) },
+        GeneratorEntry("flagicons",   "upstream/flagicons")         { FlagIconsIconSource(referRoot = it) },
+        GeneratorEntry("countryflags","upstream/countryflags")      { CountryFlagsIconSource(referRoot = it) },
     )
 
     val targets = if (selected == "all") {

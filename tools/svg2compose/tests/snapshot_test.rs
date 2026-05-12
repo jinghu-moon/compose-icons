@@ -89,17 +89,17 @@ fn test_path_with_transform_snapshot() {
 
 #[test]
 fn test_mask_panel_snapshot() {
-    // This test verifies that mask groups are skipped
+    // Simple mask (opaque filled paths only) is now converted to clip_path
     let svg = load_fixture("mask_panel.svg");
     let tree = usvg::Tree::from_str(&svg, &usvg::Options::default()).unwrap();
     let doc = convert_tree(&tree, None);
 
-    // Only 1 node (the fill layer), mask group should be skipped
-    assert_eq!(doc.nodes.len(), 1, "Mask group should be skipped");
+    // 2 nodes: fill Path + Group with clip_path (mask degraded to clip)
+    assert_eq!(doc.nodes.len(), 2, "Simple mask should be converted to clip_path, not skipped");
 
     let entry = make_entry("MaskPanel");
     let actual = generate_kotlin_file(&doc, &entry, "composeicons.test", "TestIcons");
 
-    // Should not contain the expanded path coordinates
-    assert!(!actual.contains("-5.000"), "Masked expanded path should be filtered out");
+    // The generated code should contain a group with clipPath
+    assert!(actual.contains("clipPath"), "Mask-degraded group should have clipPath in generated code");
 }

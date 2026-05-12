@@ -145,11 +145,14 @@ private val LIBRARY_DISPLAY_NAMES = mapOf(
     "bootstrap" to "Bootstrap", "boxicons" to "Boxicons", "heroicons" to "Heroicons",
     "iconoir" to "Iconoir", "ionicons" to "Ionicons", "lucide" to "Lucide",
     "phosphor" to "Phosphor", "radixicons" to "Radix", "remixicons" to "Remix", "tabler" to "Tabler",
+    "simpleicons" to "Simple Icons", "mdi" to "MDI", "carbon" to "Carbon",
+    "octicons" to "Octicons", "iconsax" to "Iconsax",
 )
 
 private val LIBRARY_ORDER = listOf(
     "tabler", "lucide", "phosphor", "remixicons", "heroicons",
     "iconoir", "ionicons", "bootstrap", "boxicons", "radixicons",
+    "simpleicons", "mdi", "carbon", "octicons", "iconsax",
 )
 
 @OptIn(ExperimentalMaterial3Api::class)

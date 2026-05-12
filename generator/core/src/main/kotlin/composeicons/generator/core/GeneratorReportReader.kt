@@ -17,6 +17,7 @@ object GeneratorReportReader {
         return try {
             json.decodeFromString<GeneratorReport>(manifestFile.readText())
         } catch (e: Exception) {
+            System.err.println("Warning: Failed to parse report ${manifestFile.name}, will regenerate all icons: ${e.message}")
             null
         }
     }

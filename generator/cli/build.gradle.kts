@@ -1,4 +1,4 @@
-﻿plugins {
+plugins {
     alias(libs.plugins.kotlin.jvm)
     application
 }
@@ -11,7 +11,7 @@ application {
 
 dependencies {
     implementation(project(":generator:core"))
-    // 10 涓浘鏍囧簱鐨勭敓鎴愬櫒鍏ュ彛 鈥斺€?CLI 閫氳繃杩欎簺寮曠敤鍚勮嚜鐨?IconSource 瀹炵幇
+    // 各个图标库的生成器入口 —— CLI 通过这些引用各自的 IconSource 实现
     implementation(project(":generator:tabler"))
     implementation(project(":generator:lucide"))
     implementation(project(":generator:phosphor"))
@@ -22,4 +22,12 @@ dependencies {
     implementation(project(":generator:ionicons"))
     implementation(project(":generator:bootstrap"))
     implementation(project(":generator:boxicons"))
+    implementation(project(":generator:simpleicons"))
+    implementation(project(":generator:mdi"))
+    implementation(project(":generator:carbon"))
+    implementation(project(":generator:octicons"))
+    implementation(project(":generator:iconsax"))
+    implementation(project(":generator:circleflags"))
+    implementation(project(":generator:flagicons"))
+    implementation(project(":generator:countryflags"))
 }

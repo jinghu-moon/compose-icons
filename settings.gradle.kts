@@ -48,3 +48,23 @@ include(":generator:bootstrap")
 include(":icons-bootstrap")
 include(":generator:boxicons")
 include(":icons-boxicons")
+
+// V1.1 扩展图标库
+include(":generator:simpleicons")
+include(":icons-simpleicons")
+include(":generator:mdi")
+include(":icons-mdi")
+include(":generator:carbon")
+include(":icons-carbon")
+include(":generator:octicons")
+include(":icons-octicons")
+include(":generator:iconsax")
+include(":icons-iconsax")
+
+// V1.2 国旗图标库
+include(":generator:circleflags")
+include(":icons-circleflags")
+include(":generator:flagicons")
+include(":icons-flagicons")
+include(":generator:countryflags")
+include(":icons-countryflags")

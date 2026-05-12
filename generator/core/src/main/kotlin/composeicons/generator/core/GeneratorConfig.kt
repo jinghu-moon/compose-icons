@@ -7,14 +7,4 @@ data class GeneratorConfig(
     val outputDir: File,
     val reportDir: File,
     val normalizeSize: Double? = 24.0,
-) {
-    companion object {
-        fun create(projectRoot: File, libName: String, referPath: String): GeneratorConfig {
-            return GeneratorConfig(
-                sourceRootDir = projectRoot.resolve(referPath),
-                outputDir = projectRoot.resolve("icons-$libName/src/generated/kotlin/composeicons/$libName"),
-                reportDir = projectRoot.resolve("web-preview/public/data"),
-            )
-        }
-    }
-}
+)

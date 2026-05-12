@@ -24,6 +24,7 @@ data class ExplorerEntry(
     val tags: Set<String> = emptySet(),
     val category: String? = null,
     val hash: String? = null,
+    val clipPath: String? = null,
 )
 
 @Serializable
@@ -42,7 +43,8 @@ data class ExplorerPathNode(
     val strokeLineCap: String?,
     val strokeLineJoin: String?,
     val fillRule: String?,
-    val alpha: Float = 1.0f,
+    val fillAlpha: Float = 1.0f,
+    val strokeAlpha: Float = 1.0f,
     val d: String,
 )
 

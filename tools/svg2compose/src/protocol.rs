@@ -30,7 +30,7 @@ pub struct PathNode {
     pub transform: [f64; 6],
     pub fill: Option<FillStyle>,
     pub stroke: Option<StrokeStyle>,
-    #[serde(default)]
+    #[serde(default = "default_visibility")]
     pub visibility: String,
 }
 
@@ -89,6 +89,10 @@ fn default_linecap() -> String {
 
 fn default_linejoin() -> String {
     "miter".to_string()
+}
+
+fn default_visibility() -> String {
+    "visible".to_string()
 }
 
 #[cfg(test)]

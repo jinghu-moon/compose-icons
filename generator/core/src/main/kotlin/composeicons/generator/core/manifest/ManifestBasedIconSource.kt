@@ -13,6 +13,8 @@ class ManifestBasedIconSource(
     override val upstreamVersion: String = manifest.upstreamVersion
     override val basePackage: String = manifest.basePackage
     override val styles: List<IconStyle> = manifest.styles.map { it.toIconStyle() }
+    override val normalizeSize: Double? = manifest.normalizeSize
+    override val iconColors: Map<String, String> = manifest.iconColors
 
     override fun downloadSvg(outputDir: File) {}  // no-op, Gradle handles
 
